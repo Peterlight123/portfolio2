@@ -162,7 +162,7 @@ Would you like to donate $5, $10, or $20 today?`;
 
 • Bank: Zenith Bank
 • Account Name: Eluwade Peter Toluwanimi
-• Account Number: 2384957201
+• Account Number: 4291620354
 
 <div class="sponsor-highlight">
 Please send me a message after making your transfer so I can properly thank you!
@@ -393,7 +393,7 @@ Peter also creates music under the name "Peterphonist" and manages the PLSWorldN
                     ]
                 },
                 music: {
-                    keywords: ['music', 'song', 'artist', 'peterphonist', 'beat', 'producer', 'track', 'audio', 'sound', 'playlist'],
+                    keywords: ['music', 'song', 'artist','saxophonist','saxophone', 'peterphonist', 'beat', 'producer', 'track', 'audio', 'sound', 'playlist'],
                     responses: [
                         `🎵 About Peter's music (as Peterphonist):
 
@@ -401,7 +401,11 @@ Peter creates music under the name "Peterphonist" where he produces beats and in
 
 You can check out his music on:
 • Instagram: @peterphonist
-• YouTube: Coming soon!
+• YouTube: @peterphonist
+• Facebook: @peterphonist
+• TikTok: @peterphonist
+• Snapchat: @peterphonist
+
 
 Feel free to reach out for music collaborations or beat purchases.`
                     ]
