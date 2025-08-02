@@ -271,3 +271,77 @@ function enhanceTestimonialCarousel() {
 document.addEventListener('DOMContentLoaded', function() {
     enhanceTestimonialCarousel();
 });
+// Testimonial Form Handling
+document.addEventListener('DOMContentLoaded', function() {
+    const testimonialForm = document.getElementById('testimonialForm');
+    if (testimonialForm) {
+        testimonialForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const submitButton = testimonialForm.querySelector('button[type="submit"]');
+            const statusDiv = document.getElementById('testimonialFormStatus');
+            
+            // Show loading state
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Submitting...';
+            
+            // Handle file upload
+            const photoInput = document.getElementById('testimonialPhoto');
+            let formData = new FormData(testimonialForm);
+            
+            // Check if there's a file and it's valid
+            if (photoInput.files.length > 0) {
+                const file = photoInput.files[0];
+                // Check file size (max 2MB)
+                if (file.size > 2 * 1024 * 1024) {
+                    statusDiv.innerHTML = `
+                        <div class="alert alert-danger">
+                            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                            Photo exceeds maximum size of 2MB. Please choose a smaller file.
+                        </div>
+                    `;
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = '<i class="bi bi-send me-1"></i> Submit Testimonial';
+                    return;
+                }
+                formData.append('photo', file);
+            }
+            
+            // Submit form
+            fetch(testimonialForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    statusDiv.innerHTML = `
+                        <div class="alert alert-success">
+                            <i class="bi bi-check-circle-fill me-2"></i>
+                            Thank you for your testimonial! It will be reviewed and added to the site soon.
+                        </div>
+                    `;
+                    testimonialForm.reset();
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            })
+            .catch(error => {
+                console.error('Form submission error:', error);
+                statusDiv.innerHTML = `
+                    <div class="alert alert-danger">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                        Sorry, there was an error submitting your testimonial. Please try again or contact me directly.
+                    </div>
+                `;
+            })
+            .finally(() => {
+                // Reset button state
+                submitButton.disabled = false;
+                submitButton.innerHTML = '<i class="bi bi-send me-1"></i> Submit Testimonial';
+            });
+        });
+    }
+});
