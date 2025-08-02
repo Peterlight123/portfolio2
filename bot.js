@@ -1,309 +1,364 @@
-// bot.js - Handles the chat bot functionality.
-
-document.addEventListener('DOMContentLoaded', () => {
-    // Select DOM elements for the bot interface
-    const botContainer = document.getElementById('bot-container');
-    const botButton = document.getElementById('bot-button');
-    const chatWindow = document.getElementById('bot-chat-window');
-    const closeButton = document.getElementById('bot-close-button');
-    const messagesContainer = document.getElementById('bot-messages');
-    const inputField = document.getElementById('bot-input');
-    const sendButton = document.getElementById('bot-send-button');
-
-    let chatHistory = []; // Stores the conversation history
-
-    // Function to show a loading indicator
-    function showLoading() {
-        const loadingMessage = document.createElement('div');
-        loadingMessage.classList.add('bot-message', 'bot-message-loading');
-        loadingMessage.innerHTML = '<span>.</span><span>.</span><span>.</span>';
-        messagesContainer.appendChild(loadingMessage);
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+/**
+ * Peter Lightspeed Chatbot
+ * A simple AI assistant for the portfolio website
+ */
+class PeterChatbot {
+    constructor() {
+        this.isOpen = false;
+        this.chatHistory = [];
+        this.messageCount = 0;
+        this.conversationContext = [];
+        this.init();
     }
 
-    // Function to hide the loading indicator
-    function hideLoading() {
-        const loadingMessage = messagesContainer.querySelector('.bot-message-loading');
-        if (loadingMessage) {
-            loadingMessage.remove();
-        }
-    }
+    get knowledgeBase() {
+        return {
+            en: {
+                greetings: {
+                    keywords: ['hello', 'hi', 'hey', 'good morning', 'good afternoon', 'good evening', 'greetings'],
+                    responses: [
+                        `👋 Hello! Welcome to Peter's assistant.
+I can help with websites, designs, or business support.
+What would you like to ask?`
+                    ]
+                },
+                pricing: {
+                    keywords: ['how much', 'price', 'cost', 'rate', 'budget', 'charge', 'quote', 'payment'],
+                    responses: [
+                        `💰 Here's a quick guide:
+• Website: ₦150k – ₦500k
+• Logo/Graphics: ₦30k – ₦100k
+• VA Services: From ₦10k/week
 
-    // Function to display a message in the chat window
-    function displayMessage(text, isUser = false) {
-        const messageElement = document.createElement('div');
-        messageElement.classList.add('bot-message');
-        messageElement.classList.add(isUser ? 'bot-message-user' : 'bot-message-bot');
-        messageElement.textContent = text;
-        messagesContainer.appendChild(messageElement);
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
+Message me with your project for a custom quote.`
+                    ]
+                },
+                projects: {
+                    keywords: ['project', 'portfolio', 'example', 'work', 'show me', 'samples'],
+                    responses: [
+                        `🛠️ Here are some sample works:
+• Business websites
+• Dashboards (Excel, Sheets)
+• Logos, Flyers, Brands
 
-    // Function to handle the API call to the Gemini model
-    async function sendMessageToBot(message) {
-        showLoading(); // Show loading indicator before API call
-
-        let prompt = `You are a helpful assistant for a portfolio website. The website belongs to a full-stack developer. Your purpose is to provide information about the developer's skills, projects, and contact information, and to engage in friendly conversation.
-
-        Here is a brief summary of the developer:
-        - Name: Your Name
-        - Skills: React, Node.js, Python, Flask, MongoDB, HTML, CSS, JavaScript, Bootstrap.
-        - Projects: E-commerce Platform (Full Stack), Weather Dashboard (Frontend), RESTful API (Backend).
-        - Contact: email@example.com, +123 456 7890.
-
-        User: ${message}`;
-
-        chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-
-        try {
-            const payload = { contents: chatHistory };
-            const apiKey = "";
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-
-            // Implement exponential backoff for retries
-            const maxRetries = 5;
-            let retryCount = 0;
-            let response;
-            while (retryCount < maxRetries) {
-                try {
-                    response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (!response.ok) {
-                        if (response.status === 429) {
-                            const delay = Math.pow(2, retryCount) * 1000;
-                            await new Promise(res => setTimeout(res, delay));
-                            retryCount++;
-                            continue;
-                        } else {
-                            throw new Error(`API error: ${response.statusText}`);
-                        }
-                    }
-
-                    const result = await response.json();
-                    if (result.candidates && result.candidates.length > 0 &&
-                        result.candidates[0].content && result.candidates[0].content.parts &&
-                        result.candidates[0].content.parts.length > 0) {
-                        const botResponseText = result.candidates[0].content.parts[0].text;
-                        displayMessage(botResponseText, false);
-                        chatHistory.push({ role: "model", parts: [{ text: botResponseText }] });
-                    } else {
-                        throw new Error('Invalid API response structure');
-                    }
-                    break; // Exit the loop on success
-                } catch (error) {
-                    console.error('Fetch error:', error);
-                    if (retryCount >= maxRetries - 1) {
-                        displayMessage('Sorry, I am unable to connect right now. Please try again later.', false);
-                    }
-                    retryCount++;
+View more: https://peterlight123.github.io/portfolio/project.html`
+                    ]
+                },
+                contact: {
+                    keywords: ['contact', 'reach', 'talk to you', 'get in touch', 'email', 'whatsapp', 'phone'],
+                    responses: [
+                        `📞 Contact Peter:
+📧 Email: petereluwade55@gmail.com
+📱 IG/Twitter: @peterlightspeed
+🌐 Website: https://peterlight123.github.io/portfolio/`
+                    ]
+                },
+                turnaround: {
+                    keywords: ['how long', 'timeline', 'turnaround', 'deliver', 'delivery time'],
+                    responses: [
+                        `⏱️ Delivery time depends on the task:
+• Logo: 2–3 days
+• Website: 5–10 days
+• Graphics Pack: 2–5 days
+Let's confirm based on your specific need.`
+                    ]
+                },
+                revisions: {
+                    keywords: ['edit', 'revisions', 'change', 'update', 'correction'],
+                    responses: [
+                        `🔁 No worries! All projects include revisions:
+• 2–5 free edits (within agreed scope)
+• Quick changes handled within 24 hours
+Just let us know what needs fixing.`
+                    ]
+                },
+                urgent: {
+                    keywords: ['urgent', 'quick job', 'fast', 'asap', 'immediately', 'need now'],
+                    responses: [
+                        `⚡ Yes, I accept urgent projects depending on my schedule.
+Please send your details and timeline. Rush fees may apply.`
+                    ]
+                },
+                installment: {
+                    keywords: ['installment', 'two parts', 'split payment', 'half now', 'pay later'],
+                    responses: [
+                        `💳 Yes, payment in 2 parts is available:
+• 50% upfront to begin
+• 50% after completion
+Let's discuss the project scope!`
+                    ]
+                },
+                training: {
+                    keywords: ['train', 'teach', 'class', 'learn', 'tutorial'],
+                    responses: [
+                        `🎓 I offer training on:
+• Web development
+• Design with Canva & Photoshop
+• Digital freelancing tips
+Let me know which you're interested in!`
+                    ]
                 }
+            },
+            pidgin: {
+                greetings: {
+                    keywords: ['how far', 'wetin dey', 'you dey', 'i hail', 'hi', 'oya'],
+                    responses: [
+                        `👋 How you dey? Na Peter smart chatbot be this!
+I fit help you find info about design, coding or VA work.`
+                    ]
+                },
+                pricing: {
+                    keywords: ['how much', 'money', 'collect', 'cost', 'rate', 'budget', 'quote', 'payment'],
+                    responses: [
+                        `💰 See small estimate:
+• Website: ₦150k – ₦500k
+• Logo/Design: ₦30k – ₦100k
+• VA work: From ₦10k/week
+
+Talk your work make I run better quote.`
+                    ]
+                },
+                projects: {
+                    keywords: ['project', 'work wey you don do', 'sample', 'portfolio', 'example', 'show me'],
+                    responses: [
+                        `🛠️ Projects Peter don do:
+• Business site
+• Dashboards
+• Logos/Flyers
+
+Check am: https://peterlight123.github.io/portfolio/project.html`
+                    ]
+                },
+                contact: {
+                    keywords: ['contact', 'reach', 'yarn you', 'talk to you', 'get you', 'email', 'phone'],
+                    responses: [
+                        `📞 You fit reach Peter:
+📧 Email: petereluwade55@gmail.com
+📱 IG/Twitter: @peterlightspeed
+🌐 Website: https://peterlight123.github.io/portfolio/`
+                    ]
+                },
+                turnaround: {
+                    keywords: ['how long', 'deliver', 'fit ready', 'timeline', 'delivery time'],
+                    responses: [
+                        `⏱️ E dey depend on wetin you want:
+• Logo: 2–3 days
+• Website: 5–10 days
+• Graphics: 2–5 days
+Just talk wetin you need, make we run am.`
+                    ]
+                },
+                revisions: {
+                    keywords: ['edit', 'change am', 'correction', 'adjust', 'revise'],
+                    responses: [
+                        `🔁 No wahala, we dey allow corrections:
+• Free revisions dey
+• Small changes na quick run
+Just talk wetin you wan make we change.`
+                    ]
+                },
+                urgent: {
+                    keywords: ['urgent', 'sharp sharp', 'fast fast', 'now now', 'asap'],
+                    responses: [
+                        `⚡ If na urgent work, e possible o!
+Just drop wetin you wan make I run, but rush job dey get extra fee sha.`
+                    ]
+                },
+                installment: {
+                    keywords: ['two part', 'half pay', 'balance later', 'installment'],
+                    responses: [
+                        `💳 You fit pay am twice:
+• Half now make we start
+• Balance when we finish
+No wahala. Just talk your budget.`
+                    ]
+                },
+                training: {
+                    keywords: ['train', 'learn', 'teach', 'school me', 'tutor'],
+                    responses: [
+                        `🎓 I dey train people:
+• Website design
+• Canva or Photoshop
+• How to do online hustle
+Tell me wetin you wan learn.`
+                    ]
+                }
+            },
+            default: {
+                en: [`I'm not sure I understand. Try something like:
+• "Show me your portfolio"
+• "How much is a logo?"
+• "Contact info"`],
+                pidgin: [`I no understand wetin you talk. You fit ask:
+• "Show me your works"
+• "How much you dey collect?"
+• "Your contact"`]
             }
-        } catch (error) {
-            console.error('Unexpected error:', error);
-            displayMessage('An unexpected error occurred. Please try again.', false);
-        } finally {
-            hideLoading();
+        };
+    }
+
+    detectLanguage(msg) {
+        const pidginWords = ['how far', 'wetin', 'dey', 'collect', 'oga', 'abeg', 'yarn', 'fit'];
+        let pidginCount = 0;
+        for (let word of pidginWords) {
+            if (msg.toLowerCase().includes(word)) pidginCount++;
+        }
+        return pidginCount >= 2 ? 'pidgin' : 'en';
+    }
+
+    scrollToSection(query) {
+        const keywordMap = {
+            'testimonials': '#testimonials',
+            'services': '#services',
+            'contact': '#contact',
+            'about': '#About',
+            'projects': '#projects',
+            'highlights': '#highlights',
+            'sponsor': '#sponsor',
+            'cv': '#cv'
+        };
+        for (const keyword in keywordMap) {
+            if (query.toLowerCase().includes(keyword)) {
+                const section = document.querySelector(keywordMap[keyword]);
+                if (section) section.scrollIntoView({ behavior: 'smooth' });
+            }
         }
     }
 
-    // Handle user input
-    function handleUserInput() {
-        const userMessage = inputField.value.trim();
-        if (userMessage) {
-            displayMessage(userMessage, true);
-            sendMessageToBot(userMessage);
-            inputField.value = '';
+    init() {
+        this.bindEvents();
+        
+        // Set up chat open/close buttons
+        const openChatButton = document.getElementById('open-chat-button');
+        const closeChatButton = document.getElementById('close-chat');
+        const chatbotWidget = document.getElementById('chatbot-widget');
+        
+        if (openChatButton && chatbotWidget) {
+            openChatButton.addEventListener('click', () => {
+                chatbotWidget.style.transform = 'scale(1)';
+                openChatButton.style.transform = 'scale(0)';
+                
+                // Hide notification badge
+                const notificationBadge = document.getElementById('notification-badge');
+                if (notificationBadge) {
+                    notificationBadge.classList.add('d-none');
+                }
+                
+                // Add welcome message if chat is empty
+                const chatArea = document.getElementById('chat-area-widget');
+                if (chatArea && chatArea.children.length === 0) {
+                    this.displayMessage(`👋 Hello! I'm Peter's virtual assistant. How can I help you today?`, 'bot');
+                }
+            });
+        }
+        
+        if (closeChatButton && chatbotWidget && openChatButton) {
+            closeChatButton.addEventListener('click', () => {
+                chatbotWidget.style.transform = 'scale(0)';
+                openChatButton.style.transform = 'scale(1)';
+            });
+        }
+        
+        // Show notification after 15 seconds
+        setTimeout(() => {
+            const notificationBadge = document.getElementById('notification-badge');
+            const chatbotWidget = document.getElementById('chatbot-widget');
+            if (notificationBadge && chatbotWidget && chatbotWidget.style.transform !== 'scale(1)') {
+                notificationBadge.classList.remove('d-none');
+            }
+        }, 15000);
+    }
+
+    bindEvents() {
+        const sendBtn = document.getElementById('send-button-widget');
+        const input = document.getElementById('user-input-widget');
+        if (sendBtn) {
+            sendBtn.addEventListener('click', () => this.sendMessage());
+        }
+        if (input) {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    this.sendMessage();
+                }
+            });
         }
     }
 
-    // Event listeners
-    botButton.addEventListener('click', () => {
-        chatWindow.classList.toggle('open');
-        chatWindow.classList.toggle('closed');
-        if (chatWindow.classList.contains('open')) {
-            // Display a welcome message when the chat opens
-            if (chatHistory.length === 0) {
-                displayMessage("Hi there! I'm your friendly portfolio assistant. How can I help you today?", false);
-                chatHistory.push({ role: "model", parts: [{ text: "Hi there! I'm your friendly portfolio assistant. How can I help you today?" }] });
+    sendMessage() {
+        const input = document.getElementById('user-input-widget');
+        if (!input) return;
+        
+        const message = input.value.trim();
+        if (!message) return;
+
+        this.displayMessage(message, 'user');
+        input.value = '';
+        
+        // Show typing indicator
+        const chatArea = document.getElementById('chat-area-widget');
+        const typingIndicator = document.createElement('div');
+        typingIndicator.className = 'typing-indicator d-flex align-items-center mb-3';
+        typingIndicator.innerHTML = `
+            <div class="bg-light rounded p-3">
+                <div class="d-flex">
+                    <div class="spinner-grow spinner-grow-sm text-primary me-1" role="status"></div>
+                    <div class="spinner-grow spinner-grow-sm text-primary me-1" role="status"></div>
+                    <div class="spinner-grow spinner-grow-sm text-primary" role="status"></div>
+                </div>
+            </div>
+        `;
+        if (chatArea) {
+            chatArea.appendChild(typingIndicator);
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+        
+        // Delay response for natural feel
+        setTimeout(() => {
+            // Remove typing indicator
+            if (chatArea && typingIndicator.parentNode === chatArea) {
+                chatArea.removeChild(typingIndicator);
             }
-            inputField.focus();
-        }
-    });
+            
+            const response = this.getResponse(message);
+            this.scrollToSection(message);
+            this.displayMessage(response, 'bot');
+        }, 1000);
+    }
 
-    closeButton.addEventListener('click', (event) => {
-        event.stopPropagation(); // Prevent the main button from re-opening the chat
-        chatWindow.classList.remove('open');
-        chatWindow.classList.add('closed');
-    });
+    getResponse(message) {
+        const lang = this.detectLanguage(message);
+        const kb = this.knowledgeBase[lang];
 
-    sendButton.addEventListener('click', handleUserInput);
-
-    inputField.addEventListener('keypress', (event) => {
-        if (event.key === 'Enter') {
-            handleUserInput();
-        }
-    });
-
-    // Styles for the bot container
-    const style = document.createElement('style');
-    style.innerHTML = `
-        #bot-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-        #bot-button {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        #bot-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
-        }
-        #bot-chat-window {
-            position: absolute;
-            bottom: 80px;
-            right: 0;
-            width: 350px;
-            height: 450px;
-            background-color: white;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            transform: scale(0.8) translateY(20px);
-            opacity: 0;
-            transform-origin: bottom right;
-        }
-        #bot-chat-window.open {
-            transform: scale(1) translateY(0);
-            opacity: 1;
-        }
-        #bot-chat-window.closed {
-            display: none;
-        }
-        #bot-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 15px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        #bot-close-button {
-            cursor: pointer;
-            font-size: 1rem;
-            transition: transform 0.2s ease;
-        }
-        #bot-close-button:hover {
-            transform: scale(1.2);
-        }
-        #bot-messages {
-            flex-grow: 1;
-            padding: 20px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            background-color: #f7f7f7;
-        }
-        .bot-message {
-            max-width: 80%;
-            padding: 10px 15px;
-            border-radius: 20px;
-            line-height: 1.4;
-            font-size: 0.9rem;
-            word-wrap: break-word;
-        }
-        .bot-message-user {
-            background-color: #0d6efd;
-            color: white;
-            align-self: flex-end;
-            border-bottom-right-radius: 5px;
-        }
-        .bot-message-bot {
-            background-color: #e9ecef;
-            color: #212529;
-            align-self: flex-start;
-            border-bottom-left-radius: 5px;
-        }
-        .bot-message-loading {
-            width: 50px;
-            display: flex;
-            justify-content: space-around;
-        }
-        .bot-message-loading span {
-            animation: loading-dot-animation 1s infinite;
-            font-size: 1.5rem;
-            line-height: 0;
-            color: #6c757d;
-        }
-        .bot-message-loading span:nth-child(2) { animation-delay: 0.2s; }
-        .bot-message-loading span:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes loading-dot-animation {
-            0%, 80%, 100% { transform: scale(0); opacity: 0; }
-            40% { transform: scale(1); opacity: 1; }
-        }
-        #bot-input-area {
-            display: flex;
-            padding: 10px;
-            border-top: 1px solid #e9ecef;
-        }
-        #bot-input {
-            flex-grow: 1;
-            border: 1px solid #ced4da;
-            border-radius: 20px;
-            padding: 10px 15px;
-            font-size: 0.9rem;
-            outline: none;
-            transition: border-color 0.2s ease;
-        }
-        #bot-input:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
-        }
-        #bot-send-button {
-            border: none;
-            background: none;
-            color: #667eea;
-            font-size: 1.2rem;
-            padding: 0 10px;
-            cursor: pointer;
-            transition: color 0.2s ease;
-        }
-        #bot-send-button:hover {
-            color: #764ba2;
-        }
-        @media (max-width: 400px) {
-            #bot-chat-window {
-                width: 90vw;
-                height: 80vh;
-                max-height: 500px;
-                right: 5vw;
-                bottom: 80px;
+        for (const key in kb) {
+            const block = kb[key];
+            if (block.keywords && block.keywords.some(word => message.toLowerCase().includes(word))) {
+                return block.responses[Math.floor(Math.random() * block.responses.length)];
             }
         }
-    `;
-    document.head.appendChild(style);
+
+        return this.knowledgeBase.default[lang][0];
+    }
+
+    displayMessage(text, sender) {
+        const chatArea = document.getElementById('chat-area-widget');
+        if (!chatArea) return;
+        
+        const messageDiv = document.createElement('div');
+        messageDiv.className = sender === 'user' ? 'd-flex justify-content-end mb-3' : 'd-flex mb-3';
+        
+        const bubble = document.createElement('div');
+        bubble.className = sender === 'user' ? 'bg-primary text-white rounded p-3' : 'bg-light rounded p-3';
+        bubble.style.maxWidth = '80%';
+        bubble.innerHTML = text.replace(/\n/g, '<br>');
+        
+        messageDiv.appendChild(bubble);
+        chatArea.appendChild(messageDiv);
+        chatArea.scrollTop = chatArea.scrollHeight;
+    }
+}
+
+// Initialize the chatbot when the DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    window.PeterBot = new PeterChatbot();
 });
