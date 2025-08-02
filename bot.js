@@ -1,488 +1,497 @@
 /**
- * PeterChatbot - Advanced chatbot with admin panel integration
- * Version 2.0
+ * Fixed Chatbot for Peter's Portfolio
+ * A standalone implementation that works without dependencies
  */
-class PeterChatbot {
-  constructor() {
-    // Core properties
-    this.chatKey = 'peterbot_chat_history';
-    this.sessionKey = 'peterbot_session_id';
-    this.sessionId = this.getOrCreateSessionId();
-    this.chatHistory = this.loadChatHistory();
-    this.isTyping = false;
-    this.adminMode = window.location.pathname.includes('admin.html');
+document.addEventListener('DOMContentLoaded', function() {
+  // DOM Elements
+  const chatToggleBtn = document.getElementById('chat-toggle-btn');
+  const closeChatBtn = document.getElementById('close-chat-btn');
+  const chatWindow = document.getElementById('chat-window');
+  const chatForm = document.getElementById('chat-form');
+  const chatInput = document.getElementById('chat-input');
+  const chatMessages = document.getElementById('chat-messages');
+  
+  // Chat history
+  const chatHistoryKey = 'peter_fixed_chat_history';
+  let chatHistory = loadChatHistory();
+  
+  // Initialize
+  function init() {
+    // Toggle chat window
+    if (chatToggleBtn) {
+      chatToggleBtn.addEventListener('click', toggleChat);
+    }
     
-    // Initialize the bot
-    this.init();
-  }
-
-  // Get existing session ID or create a new one
-  getOrCreateSessionId() {
-    let sessionId = localStorage.getItem(this.sessionKey);
-    if (!sessionId) {
-      sessionId = 'chat_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
-      localStorage.setItem(this.sessionKey, sessionId);
+    if (closeChatBtn) {
+      closeChatBtn.addEventListener('click', closeChat);
     }
-    return sessionId;
-  }
-
-  // Initialize bot after DOM is ready
-  init() {
-    // Different initialization for admin page
-    if (this.adminMode) {
-      this.initAdminPanel();
-      return;
-    }
-
-    const openBtn = document.getElementById("open-chat-button");
-    const closeBtn = document.querySelector(".close-chat-button");
-    const container = document.getElementById("chat-container");
-    const form = document.getElementById("chat-form");
-    const input = document.getElementById("chat-input");
-
-    if (!openBtn || !container || !form || !input) {
-      console.error("Chatbot elements not found in the DOM");
-      return;
-    }
-
-    // Toggle chat visibility
-    openBtn.addEventListener("click", () => {
-      container.classList.remove("d-none");
-      openBtn.classList.add("d-none");
-      
-      // Show welcome message if chat is empty
-      if (this.chatHistory.length === 0) {
-        this.appendMessage("👋 Hello! I'm PeterBot. How can I help you today?", "bot");
-      }
-      
-      // Scroll to bottom
-      const chatArea = document.getElementById("chat-area-widget");
-      if (chatArea) chatArea.scrollTop = chatArea.scrollHeight;
-    });
     
-    // Close chat
-    if (closeBtn) {
-      closeBtn.addEventListener("click", () => {
-        container.classList.add("d-none");
-        openBtn.classList.remove("d-none");
+    // Handle form submission
+    if (chatForm) {
+      chatForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (chatInput && chatInput.value.trim()) {
+          handleSubmit();
+        }
       });
     }
-
-    // Submit chat
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const userInput = input.value.trim();
-      if (!userInput) return;
-
-      this.appendMessage(userInput, "user");
-      input.value = "";
-      
-      // Show typing indicator
-      this.showTypingIndicator();
-
-      // Generate response with delay for natural feel
+    
+    // Display chat history
+    displayChatHistory();
+    
+    // Show welcome message if chat is empty
+    if (chatHistory.length === 0) {
       setTimeout(() => {
-        this.hideTypingIndicator();
-        const response = this.generateResponse(userInput);
-        this.appendMessage(response, "bot");
-        this.saveChatHistory();
-        this.sendToServer();
-        
-        // Show quick replies if applicable
-        this.showQuickReplies(userInput, response);
-      }, Math.random() * 1000 + 500); // Random delay between 500-1500ms
-    });
-
-    // Load existing history
-    if (this.chatHistory.length > 0) {
-      // Only show last 10 messages to avoid clutter
-      const recentMessages = this.chatHistory.slice(-10);
-      recentMessages.forEach(msg => this.displayMessage(msg.text, msg.sender, msg.time));
-    }
-  }
-  
-  // Initialize admin panel functionality
-  initAdminPanel() {
-    console.log("Initializing admin panel for chatbot");
-    
-    // Load all chat sessions from localStorage
-    const allSessions = this.getAllChatSessions();
-    
-    // Display sessions in admin panel
-    const sessionList = document.getElementById("chat-sessions-list");
-    if (!sessionList) {
-      console.error("Chat sessions list element not found");
-      return;
+        addBotMessage("👋 Hello! I'm Peter's assistant. How can I help you today?");
+        showQuickReplies(['Services', 'Portfolio', 'Contact', 'Pricing']);
+      }, 500);
     }
     
-    // Clear existing list
-    sessionList.innerHTML = '';
-    
-    // Add each session to the list
-    if (Object.keys(allSessions).length === 0) {
-      sessionList.innerHTML = '<div class="alert alert-info">No chat sessions found</div>';
-    } else {
-      Object.keys(allSessions).forEach(sessionId => {
-        const session = allSessions[sessionId];
-        const lastMessage = session.messages[session.messages.length - 1];
-        const timestamp = new Date(lastMessage?.time || Date.now()).toLocaleString();
-        
-        const sessionItem = document.createElement('div');
-        sessionItem.className = 'list-group-item list-group-item-action';
-        sessionItem.innerHTML = `
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">Session: ${sessionId.substring(5, 13)}...</h5>
-            <small>${timestamp}</small>
-          </div>
-          <p class="mb-1">${session.messages.length} messages</p>
-          <small>Last message: ${lastMessage?.text.substring(0, 50) || 'No messages'}${lastMessage?.text.length > 50 ? '...' : ''}</small>
-          <div class="mt-2">
-            <button class="btn btn-sm btn-primary view-session" data-session="${sessionId}">View</button>
-            <button class="btn btn-sm btn-danger delete-session" data-session="${sessionId}">Delete</button>
-          </div>
-        `;
-        sessionList.appendChild(sessionItem);
-      });
-      
-      // Add event listeners to view and delete buttons
-      document.querySelectorAll('.view-session').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const sessionId = e.target.getAttribute('data-session');
-          this.viewSession(sessionId, allSessions[sessionId]);
-        });
-      });
-      
-      document.querySelectorAll('.delete-session').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const sessionId = e.target.getAttribute('data-session');
-          if (confirm('Are you sure you want to delete this chat session?')) {
-            this.deleteSession(sessionId);
-            // Refresh the admin panel
-            this.initAdminPanel();
-          }
-        });
-      });
-    }
-    
-    // Add export all button functionality
-    const exportBtn = document.getElementById('export-all-chats');
-    if (exportBtn) {
-      exportBtn.addEventListener('click', () => {
-        this.exportAllChats(allSessions);
-      });
-    }
+    // Make sure the chatbot is responsive
+    window.addEventListener('resize', adjustChatWindowPosition);
+    adjustChatWindowPosition();
   }
   
-  // View a specific chat session in the admin panel
-  viewSession(sessionId, sessionData) {
-    const chatViewer = document.getElementById('chat-viewer');
-    if (!chatViewer) return;
-    
-    // Clear existing content
-    chatViewer.innerHTML = '';
-    
-    // Create header
-    const header = document.createElement('div');
-    header.className = 'bg-light p-3 mb-3 rounded';
-    header.innerHTML = `
-      <h4>Session: ${sessionId}</h4>
-      <p>Total Messages: ${sessionData.messages.length}</p>
-      <p>First Message: ${new Date(sessionData.messages[0]?.time || Date.now()).toLocaleString()}</p>
-      <p>Last Message: ${new Date(sessionData.messages[sessionData.messages.length - 1]?.time || Date.now()).toLocaleString()}</p>
-    `;
-    chatViewer.appendChild(header);
-    
-    // Create chat container
-    const chatContainer = document.createElement('div');
-    chatContainer.className = 'chat-messages p-3 border rounded';
-    chatContainer.style.maxHeight = '500px';
-    chatContainer.style.overflowY = 'auto';
-    
-    // Add messages
-    sessionData.messages.forEach(msg => {
-      const msgDiv = document.createElement('div');
-      msgDiv.className = `chat-message ${msg.sender} mb-3`;
-      
-      const bubble = document.createElement('div');
-      bubble.className = 'bubble p-2 rounded';
-      bubble.innerHTML = msg.text.replace(/\n/g, "<br>");
-      
-      const timestamp = document.createElement('small');
-      timestamp.className = 'text-muted d-block mt-1';
-      timestamp.textContent = new Date(msg.time).toLocaleString();
-      
-      bubble.appendChild(timestamp);
-      msgDiv.appendChild(bubble);
-      chatContainer.appendChild(msgDiv);
-    });
-    
-    chatViewer.appendChild(chatContainer);
-    
-    // Add export button for this session
-    const exportBtn = document.createElement('button');
-    exportBtn.className = 'btn btn-success mt-3';
-    exportBtn.textContent = 'Export This Session';
-    exportBtn.addEventListener('click', () => {
-      this.exportChatSession(sessionId, sessionData);
-    });
-    chatViewer.appendChild(exportBtn);
-  }
-  
-  // Delete a chat session
-  deleteSession(sessionId) {
-    localStorage.removeItem(`peterbot_${sessionId}`);
-    console.log(`Deleted session: ${sessionId}`);
-  }
-  
-  // Export a single chat session as JSON
-  exportChatSession(sessionId, sessionData) {
-    const dataStr = JSON.stringify(sessionData, null, 2);
-    const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-    
-    const exportFileDefaultName = `chat_session_${sessionId.substring(5, 13)}.json`;
-    
-    const linkElement = document.createElement('a');
-    linkElement.setAttribute('href', dataUri);
-    linkElement.setAttribute('download', exportFileDefaultName);
-    linkElement.click();
-  }
-  
-  // Export all chat sessions as JSON
-  exportAllChats(allSessions) {
-    const dataStr = JSON.stringify(allSessions, null, 2);
-    const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-    
-    const exportFileDefaultName = 'all_chat_sessions.json';
-    
-    const linkElement = document.createElement('a');
-    linkElement.setAttribute('href', dataUri);
-    linkElement.setAttribute('download', exportFileDefaultName);
-    linkElement.click();
-  }
-  
-  // Get all chat sessions from localStorage
-  getAllChatSessions() {
-    const sessions = {};
-    
-    // Loop through localStorage
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      
-      // Check if it's a chat session
-      if (key.startsWith('peterbot_chat_')) {
-        try {
-          const sessionData = JSON.parse(localStorage.getItem(key));
-          const sessionId = key.replace('peterbot_', '');
-          sessions[sessionId] = {
-            messages: sessionData,
-            id: sessionId
-          };
-        } catch (e) {
-          console.error(`Error parsing session data for ${key}:`, e);
+  // Toggle chat window
+  function toggleChat() {
+    if (chatWindow) {
+      chatWindow.style.display = chatWindow.style.display === 'none' ? 'flex' : 'none';
+      if (chatWindow.style.display === 'flex' && chatInput) {
+        chatInput.focus();
+        if (chatMessages) {
+          chatMessages.scrollTop = chatMessages.scrollHeight;
         }
       }
     }
-    
-    return sessions;
   }
-
+  
+  // Close chat window
+  function closeChat() {
+    if (chatWindow) {
+      chatWindow.style.display = 'none';
+    }
+  }
+  
+  // Adjust chat window position for mobile
+  function adjustChatWindowPosition() {
+    if (chatWindow) {
+      if (window.innerWidth <= 576) {
+        chatWindow.style.width = '90vw';
+        chatWindow.style.maxWidth = '320px';
+        chatWindow.style.right = '5%';
+      } else {
+        chatWindow.style.width = '320px';
+        chatWindow.style.right = '0';
+      }
+    }
+  }
+  
+  // Handle form submission
+  function handleSubmit() {
+    const message = chatInput.value.trim();
+    
+    // Add user message
+    addUserMessage(message);
+    chatInput.value = '';
+    
+    // Remove any quick replies
+    removeQuickReplies();
+    
+    // Show typing indicator
+    showTypingIndicator();
+    
+    // Generate response with delay
+    setTimeout(() => {
+      hideTypingIndicator();
+      const response = generateResponse(message);
+      addBotMessage(response);
+      
+      // Show relevant quick replies
+      showRelevantQuickReplies(message, response);
+      
+      // Save chat history
+      saveChatHistory();
+    }, 800);
+  }
+  
+  // Add user message
+  function addUserMessage(text) {
+    const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    
+    const messageDiv = document.createElement('div');
+    messageDiv.style.marginBottom = '15px';
+    messageDiv.style.display = 'flex';
+    messageDiv.style.justifyContent = 'flex-end';
+    
+    const bubble = document.createElement('div');
+    bubble.style.backgroundColor = '#0d6efd';
+    bubble.style.color = 'white';
+    bubble.style.padding = '10px 15px';
+    bubble.style.borderRadius = '18px 18px 0 18px';
+    bubble.style.maxWidth = '80%';
+    bubble.style.position = 'relative';
+    bubble.textContent = text;
+    
+    const timeSpan = document.createElement('div');
+    timeSpan.style.fontSize = '0.7rem';
+    timeSpan.style.opacity = '0.7';
+    timeSpan.style.marginTop = '5px';
+    timeSpan.style.textAlign = 'right';
+    timeSpan.style.color = 'rgba(255, 255, 255, 0.8)';
+    timeSpan.textContent = time;
+    bubble.appendChild(timeSpan);
+    
+    messageDiv.appendChild(bubble);
+    
+    if (chatMessages) {
+      chatMessages.appendChild(messageDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    
+    // Add to history
+    chatHistory.push({
+      sender: 'user',
+      text: text,
+      time: time
+    });
+  }
+  
+  // Add bot message
+  function addBotMessage(text) {
+    const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    
+    const messageDiv = document.createElement('div');
+    messageDiv.style.marginBottom = '15px';
+    messageDiv.style.display = 'flex';
+    messageDiv.style.justifyContent = 'flex-start';
+    
+    const bubble = document.createElement('div');
+    bubble.style.backgroundColor = 'white';
+    bubble.style.color = '#212529';
+    bubble.style.padding = '10px 15px';
+    bubble.style.borderRadius = '18px 18px 18px 0';
+    bubble.style.maxWidth = '80%';
+    bubble.style.position = 'relative';
+    bubble.style.border = '1px solid #dee2e6';
+    bubble.innerHTML = formatText(text);
+    
+    const timeSpan = document.createElement('div');
+    timeSpan.style.fontSize = '0.7rem';
+    timeSpan.style.opacity = '0.7';
+    timeSpan.style.marginTop = '5px';
+    timeSpan.style.textAlign = 'right';
+    timeSpan.textContent = time;
+    bubble.appendChild(timeSpan);
+    
+    messageDiv.appendChild(bubble);
+    
+    if (chatMessages) {
+      chatMessages.appendChild(messageDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    
+    // Add to history
+    chatHistory.push({
+      sender: 'bot',
+      text: text,
+      time: time
+    });
+  }
+  
+  // Format text (convert URLs to links, etc.)
+  function formatText(text) {
+    // Convert URLs to links
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    text = text.replace(urlRegex, url => `<a href="${url}" target="_blank" style="color: #0d6efd; text-decoration: underline;">${url}</a>`);
+    
+    // Convert line breaks to <br>
+    text = text.replace(/\n/g, '<br>');
+    
+    return text;
+  }
+  
   // Show typing indicator
-  showTypingIndicator() {
-    if (this.isTyping) return;
+  function showTypingIndicator() {
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'typing-indicator';
+    typingDiv.style.marginBottom = '15px';
+    typingDiv.style.display = 'flex';
+    typingDiv.style.justifyContent = 'flex-start';
     
-    this.isTyping = true;
-    const chatArea = document.getElementById("chat-area-widget");
-    if (!chatArea) return;
+    const bubble = document.createElement('div');
+    bubble.style.backgroundColor = 'white';
+    bubble.style.padding = '10px 15px';
+    bubble.style.borderRadius = '18px 18px 18px 0';
+    bubble.style.minWidth = '50px';
+    bubble.style.border = '1px solid #dee2e6';
+    bubble.style.display = 'flex';
+    bubble.style.alignItems = 'center';
+    bubble.style.justifyContent = 'center';
     
-    const typingDiv = document.createElement("div");
-    typingDiv.className = "chat-message bot typing-indicator";
-    typingDiv.innerHTML = `
-      <div class="bubble typing">
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-      </div>
+    for (let i = 0; i < 3; i++) {
+      const dot = document.createElement('div');
+      dot.style.width = '8px';
+      dot.style.height = '8px';
+      dot.style.borderRadius = '50%';
+      dot.style.backgroundColor = '#0d6efd';
+      dot.style.margin = '0 2px';
+      dot.style.animation = `typingAnimation 1s infinite ${i * 0.2}s`;
+      bubble.appendChild(dot);
+    }
+    
+    typingDiv.appendChild(bubble);
+    
+    if (chatMessages) {
+      chatMessages.appendChild(typingDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    
+    // Add animation style
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes typingAnimation {
+        0% { opacity: 0.3; transform: translateY(0); }
+        50% { opacity: 1; transform: translateY(-3px); }
+        100% { opacity: 0.3; transform: translateY(0); }
+      }
     `;
-    
-    chatArea.appendChild(typingDiv);
-    chatArea.scrollTop = chatArea.scrollHeight;
+    document.head.appendChild(style);
   }
   
   // Hide typing indicator
-  hideTypingIndicator() {
-    this.isTyping = false;
-    const typingIndicator = document.querySelector(".typing-indicator");
+  function hideTypingIndicator() {
+    const typingIndicator = document.querySelector('.typing-indicator');
     if (typingIndicator) {
       typingIndicator.remove();
     }
   }
   
-  // Show quick replies based on conversation context
-  showQuickReplies(userInput, botResponse) {
-    const chatArea = document.getElementById("chat-area-widget");
-    if (!chatArea) return;
+  // Show quick replies
+  function showQuickReplies(replies) {
+    const container = document.createElement('div');
+    container.className = 'quick-reply-container';
+    container.style.display = 'flex';
+    container.style.flexWrap = 'wrap';
+    container.style.justifyContent = 'center';
+    container.style.gap = '8px';
+    container.style.marginTop = '10px';
+    container.style.marginBottom = '15px';
     
-    // Remove existing quick replies
-    const existingReplies = document.querySelector(".quick-replies");
-    if (existingReplies) {
-      existingReplies.remove();
-    }
-    
-    let quickReplies = [];
-    
-    // Determine which quick replies to show based on context
-    const lowerInput = userInput.toLowerCase();
-    const lowerResponse = botResponse.toLowerCase();
-    
-    if (lowerResponse.includes("hello") || lowerResponse.includes("hi there")) {
-      quickReplies = ["Services", "Portfolio", "Contact", "Pricing"];
-    } else if (lowerInput.includes("project") || lowerResponse.includes("portfolio")) {
-      quickReplies = ["Website Projects", "Design Work", "Contact Me", "Pricing"];
-    } else if (lowerInput.includes("price") || lowerResponse.includes("pricing")) {
-      quickReplies = ["Website Pricing", "Design Pricing", "Contact Me"];
-    } else if (lowerInput.includes("contact") || lowerResponse.includes("contact")) {
-      quickReplies = ["WhatsApp", "Email", "Portfolio", "Services"];
-    } else {
-      // Default quick replies
-      quickReplies = ["Services", "Portfolio", "Contact", "About Peter"];
-    }
-    
-    // Create quick replies container
-    const repliesDiv = document.createElement("div");
-    repliesDiv.className = "quick-replies d-flex flex-wrap justify-content-center mt-3";
-    
-    // Add each quick reply button
-    quickReplies.forEach(reply => {
-      const button = document.createElement("button");
-      button.className = "btn btn-sm btn-outline-primary m-1 quick-reply-btn";
+    replies.forEach(reply => {
+      const button = document.createElement('button');
+      button.style.fontSize = '0.85rem';
+      button.style.padding = '6px 12px';
+      button.style.borderRadius = '20px';
+      button.style.backgroundColor = 'white';
+      button.style.color = '#0d6efd';
+      button.style.border = '1px solid #0d6efd';
+      button.style.transition = 'all 0.2s ease';
+      button.style.whiteSpace = 'nowrap';
+      button.style.cursor = 'pointer';
       button.textContent = reply;
-      button.addEventListener("click", () => {
-        // When clicked, send as user message
-        const input = document.getElementById("chat-input");
-        if (input) {
-          input.value = reply;
-          // Trigger form submission
-          document.getElementById("chat-form").dispatchEvent(new Event("submit"));
-        }
+      
+      // Hover effect
+      button.onmouseover = function() {
+        this.style.backgroundColor = '#0d6efd';
+        this.style.color = 'white';
+        this.style.transform = 'translateY(-2px)';
+        this.style.boxShadow = '0 3px 8px rgba(13, 110, 253, 0.3)';
+      };
+      
+      button.onmouseout = function() {
+        this.style.backgroundColor = 'white';
+        this.style.color = '#0d6efd';
+        this.style.transform = 'translateY(0)';
+        this.style.boxShadow = 'none';
+      };
+      
+      button.addEventListener('click', () => {
+        // Use the quick reply as user input
+        addUserMessage(reply);
         
         // Remove quick replies
-        repliesDiv.remove();
+        removeQuickReplies();
+        
+        // Show typing indicator
+        showTypingIndicator();
+        
+        // Generate response with delay
+        setTimeout(() => {
+          hideTypingIndicator();
+          const response = generateResponse(reply);
+          addBotMessage(response);
+          
+          // Show relevant quick replies
+          showRelevantQuickReplies(reply, response);
+          
+          // Save chat history
+          saveChatHistory();
+        }, 800);
       });
       
-      repliesDiv.appendChild(button);
+      container.appendChild(button);
     });
     
-    chatArea.appendChild(repliesDiv);
-    chatArea.scrollTop = chatArea.scrollHeight;
+    if (chatMessages) {
+      chatMessages.appendChild(container);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
   }
-
-  // Append new message and store
-  appendMessage(text, sender) {
-    const time = new Date().toISOString();
-    const displayTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    const msg = { sender, text, time };
-    this.chatHistory.push(msg);
-    this.displayMessage(text, sender, displayTime);
-    this.saveChatHistory();
+  
+  // Remove quick replies
+  function removeQuickReplies() {
+    const container = document.querySelector('.quick-reply-container');
+    if (container) {
+      container.remove();
+    }
   }
-
-  // Display message in chat
-  displayMessage(text, sender, time) {
-    const chatArea = document.getElementById("chat-area-widget");
-    if (!chatArea) return;
+  
+  // Show relevant quick replies based on context
+  function showRelevantQuickReplies(userMessage, botResponse) {
+    const lowerUserMsg = userMessage.toLowerCase();
+    const lowerBotMsg = botResponse.toLowerCase();
     
-    const msgDiv = document.createElement("div");
-    msgDiv.className = `chat-message ${sender}`;
-
-    const bubble = document.createElement("div");
-    bubble.className = 'bubble';
-    bubble.innerHTML = text.replace(/\n/g, "<br>");
-
-    const stamp = document.createElement("span");
-    stamp.className = "message-timestamp";
-    stamp.textContent = time;
-
-    bubble.appendChild(stamp);
-    msgDiv.appendChild(bubble);
-    chatArea.appendChild(msgDiv);
-    chatArea.scrollTop = chatArea.scrollHeight;
+    // Default quick replies
+    let quickReplies = ['Services', 'Portfolio', 'Contact', 'Pricing'];
+    
+    // Context-specific quick replies
+    if (lowerBotMsg.includes('services') || lowerUserMsg.includes('service')) {
+      quickReplies = ['Web Development', 'Graphic Design', 'Content Creation', 'Pricing'];
+    } else if (lowerBotMsg.includes('portfolio') || lowerUserMsg.includes('portfolio')) {
+      quickReplies = ['Recent Projects', 'Contact Peter', 'Services', 'Pricing'];
+    } else if (lowerBotMsg.includes('contact') || lowerUserMsg.includes('contact')) {
+      quickReplies = ['WhatsApp', 'Email', 'Services', 'Portfolio'];
+    } else if (lowerBotMsg.includes('pricing') || lowerUserMsg.includes('price')) {
+      quickReplies = ['Web Design Pricing', 'Graphic Design Pricing', 'Contact Peter', 'Services'];
+    }
+    
+    showQuickReplies(quickReplies);
   }
-
-  // Load from localStorage
-  loadChatHistory() {
-    const key = `peterbot_chat_${this.sessionId}`;
-    const saved = localStorage.getItem(key);
-    return saved ? JSON.parse(saved) : [];
-  }
-
-  // Save to localStorage
-  saveChatHistory() {
-    const key = `peterbot_chat_${this.sessionId}`;
-    localStorage.setItem(key, JSON.stringify(this.chatHistory));
-  }
-
-  // Send full chat to server (e.g., Formspree, Firebase, etc.)
-  sendToServer() {
-    if (this.chatHistory.length < 2) return; // Don't send empty or one-line chats
-
-    const payload = {
-      sessionId: this.sessionId,
-      timestamp: new Date().toISOString(),
-      userAgent: navigator.userAgent,
-      pageUrl: location.href,
-      messages: this.chatHistory
-    };
-
-    fetch("https://formspree.io/f/xpwrbkrr", {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({ _subject: "Chatbot Log", chatData: payload })
-    }).catch(err => console.error("Chat not sent to server:", err));
-  }
-
-  // Enhanced AI response generator
-  generateResponse(msg) {
-    const lower = msg.toLowerCase();
-
+  
+  // Generate response based on user input
+  function generateResponse(message) {
+    const lowerMsg = message.toLowerCase();
+    
     // Greetings
-    if (lower.includes("hello") || lower.includes("hi") || lower.includes("hey") || lower.match(/^(yo|sup)/)) {
-      return "👋 Hi there! I'm PeterBot, Peter's virtual assistant. How can I help you today?";
+    if (/\b(hello|hi|hey|good morning|good afternoon|good evening|greetings|sup|yo)\b/i.test(lowerMsg)) {
+      return "👋 Hi there! I'm Peter's virtual assistant. How can I help you today?";
     }
-
-    // Projects and portfolio
-    if (lower.includes("project") || lower.includes("portfolio") || lower.includes("work") || lower.includes("sample")) {
-      return "📁 You can view Peter's projects in his portfolio: <a href='https://peterlight123.github.io/portfolio/project.html' target='_blank'>View Portfolio</a>. He specializes in web development, graphic design, and content creation.";
-    }
-
-    // Contact information
-    if (lower.includes("contact") || lower.includes("reach") || lower.includes("email") || lower.includes("phone") || lower.includes("whatsapp")) {
-      return "📱 You can contact Peter through:\n\n📧 Email: petereluwade55@gmail.com\n📞 Phone/WhatsApp: +234 810 882 1809\n\nOr use the contact form on the website!";
-    }
-
-    // Pricing and rates
-    if (lower.includes("price") || lower.includes("cost") || lower.includes("rate") || lower.includes("charge") || lower.includes("fee")) {
-      return "💰 Here's a quick guide to Peter's rates:\n• Website: ₦150k – ₦500k\n• Logo/Graphics: ₦30k – ₦100k\n• VA Services: From ₦10k/week\n\nFor a custom quote based on your specific requirements, please reach out directly.";
-    }
-
+    
     // Services
-    if (lower.includes("service") || lower.includes("offer") || lower.includes("provide") || lower.includes("do you")) {
+    if (/\b(service|offer|provide|do you|can you|help with|assistance|support)\b/i.test(lowerMsg)) {
       return "🛠️ Peter offers these services:\n\n• Web Development & Design\n• Graphic Design (logos, flyers, social media)\n• Content Creation & Blog Management\n• Social Media Management\n• Virtual Assistant Services\n• Data Entry & Administrative Support\n\nWhich service are you interested in?";
     }
-
-    // About Peter
-    if (lower.includes("about") || lower.includes("who") || lower.includes("background")) {
+    
+    // Portfolio
+    if (/\b(project|portfolio|work|sample|showcase|example|case study|previous work)\b/i.test(lowerMsg)) {
+      return "📁 You can view Peter's projects in his portfolio: https://peterlight123.github.io/portfolio/project.html. He specializes in web development, graphic design, and content creation.";
+    }
+    
+    // Contact
+    if (/\b(contact|reach|email|phone|whatsapp|call|message|dm|get in touch|talk to)\b/i.test(lowerMsg)) {
+      return "📱 You can contact Peter through:\n\n📧 Email: petereluwade55@gmail.com\n📞 Phone/WhatsApp: +234 810 882 1809\n\nOr use the contact form on the website!";
+    }
+    
+    // Pricing
+    if (/\b(price|cost|rate|charge|fee|pricing|package|pay|payment|quote|budget)\b/i.test(lowerMsg)) {
+      return "💰 Here's a quick guide to Peter's rates:\n• Website: ₦150k – ₦500k\n• Logo/Graphics: ₦30k – ₦100k\n• VA Services: From ₦10k/week\n\nFor a custom quote based on your specific requirements, please reach out directly.";
+    }
+    
+    // About
+    if (/\b(about|who|background|experience|skills|education|bio|history|qualification)\b/i.test(lowerMsg)) {
       return "👨‍💻 Peter Eluwade (Peter Lightspeed) is a versatile Virtual Assistant and Web Developer based in Nigeria. With certifications from FreeCodeCamp and other institutions, he specializes in web development, graphic design, content creation, and digital marketing. He also creates music under the name 'Peterphonist'!";
     }
-
-    // Fallback response
-    return "🤖 I'm still learning! If you have questions about Peter's services, projects, pricing, or how to get in touch, please let me know. You can also visit <a href='https://peterlight123.github.io/portfolio/' target='_blank'>Peter's portfolio</a> for more information.";
+    
+    // Default response
+    return "I'm here to help with information about Peter's services, projects, pricing, or how to get in touch. What would you like to know?";
   }
-}
-
-// Activate on DOM load
-document.addEventListener("DOMContentLoaded", () => {
-  window.peterBot = new PeterChatbot();
+  
+  // Load chat history from localStorage
+  function loadChatHistory() {
+    try {
+      const saved = localStorage.getItem(chatHistoryKey);
+      return saved ? JSON.parse(saved) : [];
+    } catch (error) {
+      console.error('Error loading chat history:', error);
+      return [];
+    }
+  }
+  
+  // Save chat history to localStorage
+  function saveChatHistory() {
+    try {
+      // Limit history to last 50 messages
+      const historyToSave = chatHistory.slice(-50);
+      localStorage.setItem(chatHistoryKey, JSON.stringify(historyToSave));
+    } catch (error) {
+      console.error('Error saving chat history:', error);
+    }
+  }
+  
+  // Display chat history
+  function displayChatHistory() {
+    if (!chatMessages) return;
+    
+    chatHistory.forEach(msg => {
+      if (msg.sender === 'user') {
+        const messageDiv = document.createElement('div');
+        messageDiv.style.marginBottom = '15px';
+        messageDiv.style.display = 'flex';
+        messageDiv.style.justifyContent = 'flex-end';
+        
+        const bubble = document.createElement('div');
+        bubble.style.backgroundColor = '#0d6efd';
+        bubble.style.color = 'white';
+        bubble.style.padding = '10px 15px';
+        bubble.style.borderRadius = '18px 18px 0 18px';
+        bubble.style.maxWidth = '80%';
+        bubble.style.position = 'relative';
+        bubble.textContent = msg.text;
+        
+        const timeSpan = document.createElement('div');
+        timeSpan.style.fontSize = '0.7rem';
+        timeSpan.style.opacity = '0.7';
+        timeSpan.style.marginTop = '5px';
+        timeSpan.style.textAlign = 'right';
+        timeSpan.style.color = 'rgba(255, 255, 255, 0.8)';
+        timeSpan.textContent = msg.time;
+        bubble.appendChild(timeSpan);
+        
+        messageDiv.appendChild(bubble);
+        chatMessages.appendChild(messageDiv);
+      } else {
+        const messageDiv = document.createElement('div');
+        messageDiv.style.marginBottom = '15px';
+        messageDiv.style.display = 'flex';
+        messageDiv.style.justifyContent = 'flex-start';
+        
+        const bubble = document.createElement('div');
+        bubble.style.backgroundColor = 'white';
+        bubble.style.color = '#212529';
+        bubble.style.padding = '10px 15px';
+        bubble.style.borderRadius = '18px 18px 18px 0';
+        bubble.style.maxWidth = '80%';
+        bubble.style.position = 'relative';
+        bubble.style.border = '1px solid #dee2e6';
+        bubble.innerHTML = formatText(msg.text);
+        
+        const timeSpan = document.createElement('div');
+        timeSpan.style.fontSize = '0.7rem';
+        timeSpan.style.opacity = '0.7';
+        timeSpan.style.marginTop = '5px';
+        timeSpan.style.textAlign = 'right';
+        timeSpan.textContent = msg.time;
+        bubble.appendChild(timeSpan);
+        
+        messageDiv.appendChild(bubble);
+        chatMessages.appendChild(messageDiv);
+      }
+    });
+    
+    // Scroll to bottom
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+  
+  // Initialize the chatbot
+  init();
 });
