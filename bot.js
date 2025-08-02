@@ -64,7 +64,145 @@ class PeterChatbot {
             userAgent: navigator.userAgent,
             pageUrl: window.location.href
         };
+        // Add these methods to your PeterChatbot class
+
+// Format messages with timestamps
+displayMessage(text, sender) {
+    const chatArea = document.getElementById('chat-area-widget');
+    if (!chatArea) return;
+    
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `d-flex ${sender === 'user' ? 'justify-content-end' : ''} mb-3 message-appear`;
+    
+    const bubble = document.createElement('div');
+    bubble.className = sender === 'user' ? 'bg-primary text-white rounded p-3' : 'bg-light rounded p-3';
+    bubble.style.maxWidth = '80%';
+    
+    // Format links in the text
+    const formattedText = this.formatLinks(text);
+    
+    // Check for sponsor-specific content
+    let enhancedText = formattedText;
+    if (sender === 'bot') {
+        // Add crypto address formatting
+        enhancedText = this.formatCryptoAddresses(enhancedText);
         
+        // Add donation amount buttons
+        enhancedText = this.formatDonationAmounts(enhancedText);
+    }
+    
+    bubble.innerHTML = enhancedText.replace(/\n/g, '<br>');
+    
+    // Add timestamp
+    const timestamp = document.createElement('small');
+    timestamp.className = 'message-timestamp';
+    timestamp.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    bubble.appendChild(timestamp);
+    
+    messageDiv.appendChild(bubble);
+    chatArea.appendChild(messageDiv);
+    chatArea.scrollTop = chatArea.scrollHeight;
+    
+    // Add copy functionality to crypto addresses
+    if (sender === 'bot') {
+        const copyButtons = chatArea.querySelectorAll('.copy-button');
+        copyButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const address = e.target.getAttribute('data-address');
+                navigator.clipboard.writeText(address).then(() => {
+                    e.target.textContent = 'Copied!';
+                    setTimeout(() => {
+                        e.target.textContent = 'Copy';
+                    }, 2000);
+                });
+            });
+        });
+    }
+}
+
+// Format crypto addresses with copy buttons
+formatCryptoAddresses(text) {
+    const cryptoRegex = /(bitcoin|ethereum|btc|eth|usdt|sol):\s*([a-zA-Z0-9]{30,})/gi;
+    return text.replace(cryptoRegex, (match, coin, address) => {
+        return `<div class="crypto-address">
+            ${coin.toUpperCase()}: ${address}
+            <button class="copy-button" data-address="${address}">Copy</button>
+        </div>`;
+    });
+}
+
+// Format donation amounts as clickable buttons
+formatDonationAmounts(text) {
+    const amountRegex = /\$(\d+)/g;
+    return text.replace(amountRegex, (match, amount) => {
+        return `<span class="donation-amount">$${amount}</span>`;
+    });
+}
+
+// Add sponsor-specific responses
+getResponse(message) {
+    const lang = this.detectLanguage(message);
+    const lowerMsg = message.toLowerCase();
+    
+    // Sponsor-specific responses
+    if (lowerMsg.includes('sponsor') || lowerMsg.includes('donation') || lowerMsg.includes('support')) {
+        return `💖 Thank you for your interest in supporting my work!
+
+You can sponsor my development journey through:
+
+• Bank Transfer (Zenith Bank)
+• Cryptocurrency (BTC, ETH, USDT, SOL)
+
+Your support helps me continue creating innovative digital solutions and contributing to the developer community.
+
+Would you like to donate $5, $10, or $20 today?`;
+    }
+    else if (lowerMsg.includes('bank') || lowerMsg.includes('transfer') || lowerMsg.includes('account')) {
+        return `🏦 Bank Transfer Details:
+
+• Bank: Zenith Bank
+• Account Name: Eluwade Peter Toluwanimi
+• Account Number: 2384957201
+
+<div class="sponsor-highlight">
+Please send me a message after making your transfer so I can properly thank you!
+</div>`;
+    }
+    else if (lowerMsg.includes('crypto') || lowerMsg.includes('bitcoin') || lowerMsg.includes('eth') || lowerMsg.includes('usdt')) {
+        return `💰 Cryptocurrency Donation Options:
+
+Bitcoin: bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh
+
+Ethereum: 0x71c7656ec7ab88b098defb751b7401b5f6d8976f
+
+USDT (TRC20): TKQbkAjrNRtJ2yzgGMNpfPRpYiNAYs5r9Z
+
+Solana: 8ZUkTZNVSXBJjXWVvjzLrBXbfVq5wG58yXXS6FfVCFX4
+
+<div class="thank-you-message">
+<i class="bi bi-heart-fill"></i><br>
+Thank you for your generous support!
+</div>`;
+    }
+    else if (lowerMsg.includes('thank') || lowerMsg.includes('thanks')) {
+        return `🙏 You're welcome! Thank you for considering supporting Peter's work. Your contribution makes a real difference and helps him continue creating quality digital solutions.
+
+Is there anything else you'd like to know about sponsorship options?`;
+    }
+    else if (lowerMsg.includes('$5') || lowerMsg.includes('$10') || lowerMsg.includes('$20') || lowerMsg.includes('donate')) {
+        return `Thank you for your generosity! To proceed with your donation, you can use any of these methods:
+
+1. Bank Transfer - I'll provide the account details
+2. Cryptocurrency - I'll share the wallet addresses
+3. Contact me directly for other options
+
+Which method would you prefer?`;
+    }
+    
+    // Continue with your regular responses...
+    // ...
+}
+
         // Send to server using Formspree or similar service
         fetch('https://formspree.io/f/xpwrbkrr', {
             method: 'POST',
