@@ -1,0 +1,558 @@
+/* =====================================================================
+   GLOBAL STYLES & RESETS
+   ===================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    /* Smooth scrolling behavior for anchor links */
+    scroll-behavior: smooth;
+    /* Offset for fixed navbar to prevent content from being hidden */
+    scroll-padding-top: 70px; 
+}
+
+body {
+    /* Main typography and font smoothing */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    background-color: #f8f9fa;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Main fade-in animation for the entire page */
+    opacity: 0;
+    animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+/* Base image styling for responsiveness */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Base button and header styling */
+#button {
+    text-decoration: none;
+}
+
+#high {
+    font-weight: bold;
+}
+
+.btn {
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.85rem;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+}
+
+/* Consolidated `btn-danger` styles */
+.btn-danger,
+.view-btn {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    border: none;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.btn-danger:hover,
+.view-btn:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 0 12px rgba(220, 53, 69, 0.4);
+    color: white;
+}
+
+/* =====================================================================
+   NAVBAR & HEADER
+   ===================================================================== */
+.navbar-brand img {
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand img:hover {
+    transform: scale(1.1);
+}
+
+.nav-link {
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #ffc107 !important;
+}
+
+.nav-tabs .nav-link {
+    color: #0d6efd;
+    font-weight: 600;
+    border: none;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+    border-radius: 0;
+}
+
+.nav-tabs .nav-link.active {
+    color: #0d6efd;
+    border-bottom: 3px solid #0d6efd;
+    background-color: transparent;
+}
+
+.nav-tabs .nav-link:hover:not(.active) {
+    border-bottom: 3px solid #6c757d;
+}
+
+/* =====================================================================
+   CARDS & PROJECTS
+   ===================================================================== */
+.card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    min-height: 300px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.card img {
+    height: 280px;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover img {
+    transform: scale(1.08);
+}
+
+.card-body {
+    padding: 25px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+.card-title {
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.card-description {
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.project-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 10;
+    font-size: 0.75rem;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.tech-badge {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+.project-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #e9ecef;
+}
+
+.stat-item {
+    text-align: center;
+    flex: 1;
+}
+
+.stat-number {
+    font-weight: bold;
+    color: #667eea;
+    font-size: 0.9rem;
+}
+
+.stat-label {
+    font-size: 0.7rem;
+    color: #6c757d;
+    text-transform: uppercase;
+}
+
+/* Dark theme card for consistency */
+.card.bg-dark {
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card.bg-dark:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* =====================================================================
+   HEADINGS
+   ===================================================================== */
+/* Consolidated `h2` styles */
+h2 {
+    margin-top: 60px;
+    font-weight: bold;
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 1;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 2px;
+}
+
+/* =====================================================================
+   SOCIAL MEDIA ICONS & BUTTONS
+   ===================================================================== */
+/* Base social button styling */
+.social-btn {
+    color: #fff !important;
+    font-weight: 500;
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+    font-size: 0.95rem;
+    margin: 4px;
+}
+
+/* Social button hover effects */
+.social-btn:hover {
+    transform: scale(1.05);
+    filter: brightness(1.2);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+    color: white !important;
+}
+
+/* Individual social media platform colors for buttons */
+.social-btn.twitter, .twitter { background-color: #1DA1F2; }
+.social-btn.tiktok, .tiktok { background-color: #000000; }
+.social-btn.linkedin, .linkedin { background-color: #0077b5; }
+.social-btn.instagram {
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+}
+.social-btn.email { background-color: #d44638; }
+.social-btn.whatsapp { background-color: #25D366; }
+.social-btn.facebook { background-color: #1877F2; }
+
+/* Social media icon styling (footer) */
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: white !important;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
+    margin: 0 5px 10px 5px;
+}
+
+/* Individual social media colors for icons */
+.social-icon.twitter { background-color: #1da1f2; }
+.social-icon.instagram {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+.social-icon.linkedin { background-color: #0077b5; }
+.social-icon.facebook { background-color: #1877f2; }
+.social-icon.tiktok { background-color: #000000; }
+.social-icon.youtube { background-color: #ff0000; }
+
+/* Social icon hover effects */
+.social-icon:hover {
+    transform: translateY(-3px) scale(1.1);
+    box-shadow: 0 5px 15px rgba(220, 53, 69, 0.4);
+    color: white !important;
+}
+
+/* =====================================================================
+   TESTIMONIALS & CAROUSEL
+   ===================================================================== */
+#Testimonials {
+    padding: 4rem 0;
+    padding-top: 100px;
+}
+
+#Testimonials .carousel-item {
+    padding: 2rem;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.carousel-item img {
+    border: 3px solid #0d6efd;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #0d6efd;
+    border-radius: 50%;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%;
+}
+
+.text-warning i {
+    font-size: 1.25rem;
+}
+
+.blockquote {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.carousel-item footer {
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+
+/* =====================================================================
+   FOOTER
+   ===================================================================== */
+.footer {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    border-top: 3px solid #dc3545;
+    color: #f8f9fa;
+}
+
+.footer hr {
+    opacity: 0.3;
+}
+
+.footer a {
+    color: #f8f9fa;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer a:hover {
+    color: #0d6efd;
+}
+
+/* Footer link hover effects */
+.footer-link {
+    transition: all 0.3s ease;
+    position: relative;
+    color: #f8f9fa; /* Ensure links have a color */
+    text-decoration: none;
+}
+
+.footer-link:hover {
+    color: #dc3545 !important;
+    transform: translateX(5px);
+}
+
+.footer-link:hover i {
+    color: #dc3545;
+}
+
+/* Contact info styling */
+.contact-info p {
+    font-size: 0.9rem;
+}
+
+.contact-info .footer-link:hover {
+    transform: none;
+    padding-left: 5px;
+}
+
+/* Section headers in footer */
+.footer h6.text-danger {
+    position: relative;
+    padding-bottom: 8px;
+}
+
+.footer h6.text-danger::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 30px;
+    height: 2px;
+    background-color: #dc3545;
+}
+
+/* =====================================================================
+   ANIMATIONS
+   ===================================================================== */
+/* Main page content fade-in animation */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Secondary fade-in animation for elements */
+@keyframes slideUpFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Highlights section animation */
+#highlights .col-md-4 {
+    transform: translateY(20px);
+    opacity: 0;
+    animation: slideUpFadeIn 0.6s ease-out forwards;
+}
+
+/* Staggered animation delays for highlights */
+#highlights .col-md-4:nth-child(1) { animation-delay: 0.1s; }
+#highlights .col-md-4:nth-child(2) { animation-delay: 0.2s; }
+#highlights .col-md-4:nth-child(3) { animation-delay: 0.3s; }
+#highlights .col-md-4:nth-child(4) { animation-delay: 0.4s; }
+#highlights .col-md-4:nth-child(5) { animation-delay: 0.5s; }
+#highlights .col-md-4:nth-child(6) { animation-delay: 0.6s; }
+
+/* Slide in from right animation */
+@keyframes slideInRight {
+    from {
+        transform: translateX(-300px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* =====================================================================
+   RESPONSIVE DESIGN
+   ===================================================================== */
+/* Mobile responsive adjustments for screens up to 768px wide */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2rem !important;
+        line-height: 1.2;
+    }
+
+    .hero-section p {
+        font-size: 1rem;
+    }
+
+    .btn-lg {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    .card {
+        margin-bottom: 1rem;
+    }
+
+    .social-links a {
+        margin: 0.25rem;
+    }
+    
+    .carousel-item {
+        margin: 0 1rem;
+    }
+    
+    .display-4 {
+        font-size: 2rem;
+    }
+    
+    .social-btn {
+        font-size: 0.9rem;
+        padding: 6px 12px;
+    }
+
+    #highlights .col-md-4 {
+        margin-bottom: 1rem;
+    }
+    
+    .footer .col-md-3 {
+        text-align: center !important;
+        margin-bottom: 2rem;
+    }
+
+    .footer h6.text-danger::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+/* Responsive adjustments for screens up to 576px wide */
+@media (max-width: 576px) {
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+}
+
+/* Emoji picker styling (from the bot component) */
+emoji-picker {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 0;
+    --emoji-size: 28px;
+    --border-radius: 0.75rem;
+    --num-columns: 8;
+    --outline-color: #e5e7eb;
+    --background-color: #ffffff;
+}
