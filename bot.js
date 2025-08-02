@@ -940,9 +940,7 @@ None, na hardware problem!
     }
 }
 
-// Initialize the chatbot when the DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    window.PeterBot = new PeterChatbot();
+
 });
 /**
  * Peter Lightspeed Chatbot
