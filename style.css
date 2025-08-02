@@ -882,3 +882,59 @@ h2::after {
         height: 280px !important;
     }
 }
+/* === Chatbot Specific Styles === */
+#chatbot-widget {
+    z-index: 9999;
+}
+
+#open-chat-button {
+    width: 60px;
+    height: 60px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 450px;
+    width: 320px;
+}
+
+#chat-area-widget {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.chat-message {
+    margin-bottom: 10px;
+}
+
+.chat-message .bubble {
+    max-width: 75%;
+    padding: 10px;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.chat-message.user .bubble {
+    background-color: #0d6efd;
+    color: white;
+    margin-left: auto;
+}
+
+.chat-message.bot .bubble {
+    background-color: #f1f1f1;
+    color: #333;
+    margin-right: auto;
+}
+
+.message-timestamp {
+    display: block;
+    font-size: 0.75rem;
+    color: #999;
+    margin-top: 4px;
+}
