@@ -1,7 +1,7 @@
 /**
  * Peter Lightspeed Chatbot
- * An advanced AI assistant for the portfolio website with social media integration
- * Version 2.0
+ * An advanced AI assistant for the portfolio website with chat history storage
+ * Version 2.1
  */
 class PeterChatbot {
     constructor() {
@@ -10,7 +10,82 @@ class PeterChatbot {
         this.messageCount = 0;
         this.conversationContext = [];
         this.lastLanguage = 'en'; // Track last detected language for context
+        this.sessionId = this.generateSessionId(); // Generate unique session ID
+        this.loadChatHistory(); // Load chat history from storage
         this.init();
+    }
+
+    // Generate a unique session ID
+    generateSessionId() {
+        return 'chat_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    }
+
+    // Load chat history from localStorage
+    loadChatHistory() {
+        try {
+            // Try to load previous chat history
+            const savedHistory = localStorage.getItem('peterbot_chat_history');
+            if (savedHistory) {
+                this.chatHistory = JSON.parse(savedHistory);
+                this.messageCount = this.chatHistory.length;
+            }
+        } catch (error) {
+            console.error('Error loading chat history:', error);
+            // Reset if there's an error
+            this.chatHistory = [];
+            this.messageCount = 0;
+        }
+    }
+
+    // Save chat history to localStorage
+    saveChatHistory() {
+        try {
+            // Limit history to last 50 messages to prevent storage issues
+            const historyToSave = this.chatHistory.slice(-50);
+            localStorage.setItem('peterbot_chat_history', JSON.stringify(historyToSave));
+            
+            // Also send to server if needed
+            this.sendChatToServer();
+        } catch (error) {
+            console.error('Error saving chat history:', error);
+        }
+    }
+
+    // Send chat history to server for permanent storage
+    sendChatToServer() {
+        // Only send if there are at least 2 messages (a conversation)
+        if (this.chatHistory.length < 2) return;
+        
+        // Prepare data for sending
+        const chatData = {
+            sessionId: this.sessionId,
+            timestamp: new Date().toISOString(),
+            messages: this.chatHistory,
+            userAgent: navigator.userAgent,
+            pageUrl: window.location.href
+        };
+        
+        // Send to server using Formspree or similar service
+        fetch('https://formspree.io/f/xpwrbkrr', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                _subject: `Chatbot Conversation ${this.sessionId}`,
+                chatData: chatData
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .catch(error => {
+            console.error('Error sending chat history to server:', error);
+        });
     }
 
     get knowledgeBase() {
@@ -667,20 +742,33 @@ None, na hardware problem!
                     notificationBadge.classList.add('d-none');
                 }
                 
-                // Add welcome message if chat is empty
-                const chatArea = document.getElementById('chat-area-widget');
-                if (chatArea && chatArea.children.length === 0) {
-                    this.displayMessage(`👋 Hello! I'm Peter's virtual assistant. How can I help you today?`, 'bot');
-                    
-                    // Add quick reply options
-                    setTimeout(() => {
-                        this.displayQuickReplies([
-                            'Services & Pricing',
-                            'View Portfolio',
-                            'Contact Info',
-                            'About Peter'
-                        ]);
-                    }, 500);
+                // Display previous messages if any
+                if (this.chatHistory.length > 0) {
+                    this.displayPreviousMessages();
+                } else {
+                    // Add welcome message if chat is empty
+                    const chatArea = document.getElementById('chat-area-widget');
+                    if (chatArea && chatArea.children.length === 0) {
+                        this.displayMessage(`👋 Hello! I'm Peter's virtual assistant. How can I help you today?`, 'bot');
+                        
+                        // Add to chat history
+                        this.chatHistory.push({
+                            role: 'bot',
+                            content: `👋 Hello! I'm Peter's virtual assistant. How can I help you today?`,
+                            timestamp: new Date().toISOString()
+                        });
+                        this.messageCount++;
+                        
+                        // Add quick reply options
+                        setTimeout(() => {
+                            this.displayQuickReplies([
+                                'Services & Pricing',
+                                'View Portfolio',
+                                'Contact Info',
+                                'About Peter'
+                            ]);
+                        }, 500);
+                    }
                 }
             });
         }
@@ -689,6 +777,9 @@ None, na hardware problem!
             closeChatButton.addEventListener('click', () => {
                 chatbotWidget.style.transform = 'scale(0)';
                 openChatButton.style.transform = 'scale(1)';
+                
+                // Save chat history when closing
+                this.saveChatHistory();
             });
         }
         
@@ -700,6 +791,11 @@ None, na hardware problem!
                 notificationBadge.classList.remove('d-none');
             }
         }, 15000);
+        
+        // Save chat history when user leaves the page
+        window.addEventListener('beforeunload', () => {
+            this.saveChatHistory();
+        });
     }
 
     bindEvents() {
@@ -771,6 +867,14 @@ None, na hardware problem!
             chatArea.scrollTop = chatArea.scrollHeight;
         }
         
+        // Add user message to chat history
+        this.chatHistory.push({
+            role: 'user',
+            content: message,
+            timestamp: new Date().toISOString()
+        });
+        this.messageCount++;
+        
         // Delay response for natural feel
         setTimeout(() => {
             // Remove typing indicator
@@ -782,20 +886,35 @@ None, na hardware problem!
             const didScroll = this.scrollToSection(message);
             this.displayMessage(response, 'bot');
             
-            // Show relevant quick replies based on the conversation
-            this.showRelevantQuickReplies(message, response);
-            
-            // Add to chat history
-            this.chatHistory.push({
-                role: 'user',
-                content: message
-            });
+            // Add bot response to chat history
             this.chatHistory.push({
                 role: 'bot',
-                content: response
+                content: response,
+                timestamp: new Date().toISOString()
             });
-            this.messageCount += 2;
+            this.messageCount++;
+            
+            // Save chat history after each exchange
+            this.saveChatHistory();
+            
+            // Show relevant quick replies based on the conversation
+            this.showRelevantQuickReplies(message, response);
         }, 1000);
+    }
+
+    // Display previous chat messages when opening the chat
+    displayPreviousMessages() {
+        const chatArea = document.getElementById('chat-area-widget');
+        if (!chatArea || this.chatHistory.length === 0) return;
+        
+        // Clear existing messages
+        chatArea.innerHTML = '';
+        
+        // Display last 10 messages (or fewer if history is shorter)
+        const messagesToShow = this.chatHistory.slice(-10);
+        messagesToShow.forEach(msg => {
+            this.displayMessage(msg.content, msg.role);
+        });
     }
 
     getResponse(message) {
@@ -938,264 +1057,6 @@ None, na hardware problem!
             this.displayQuickReplies(['Contact Peter', 'View portfolio', 'Services & pricing', 'Tell me a joke']);
         }
     }
-}
-
-
-});
-/**
- * Peter Lightspeed Chatbot
- * An advanced AI assistant for the portfolio website with chat history storage
- * Version 2.1
- */
-class PeterChatbot {
-    constructor() {
-        this.isOpen = false;
-        this.chatHistory = [];
-        this.messageCount = 0;
-        this.conversationContext = [];
-        this.lastLanguage = 'en'; // Track last detected language for context
-        this.sessionId = this.generateSessionId(); // Generate unique session ID
-        this.loadChatHistory(); // Load chat history from storage
-        this.init();
-    }
-
-    // Generate a unique session ID
-    generateSessionId() {
-        return 'chat_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-    }
-
-    // Load chat history from localStorage
-    loadChatHistory() {
-        try {
-            // Try to load previous chat history
-            const savedHistory = localStorage.getItem('peterbot_chat_history');
-            if (savedHistory) {
-                this.chatHistory = JSON.parse(savedHistory);
-                this.messageCount = this.chatHistory.length;
-            }
-        } catch (error) {
-            console.error('Error loading chat history:', error);
-            // Reset if there's an error
-            this.chatHistory = [];
-            this.messageCount = 0;
-        }
-    }
-
-    // Save chat history to localStorage
-    saveChatHistory() {
-        try {
-            // Limit history to last 50 messages to prevent storage issues
-            const historyToSave = this.chatHistory.slice(-50);
-            localStorage.setItem('peterbot_chat_history', JSON.stringify(historyToSave));
-            
-            // Also send to server if needed
-            this.sendChatToServer();
-        } catch (error) {
-            console.error('Error saving chat history:', error);
-        }
-    }
-
-    // Send chat history to server for permanent storage
-    sendChatToServer() {
-        // Only send if there are at least 2 messages (a conversation)
-        if (this.chatHistory.length < 2) return;
-        
-        // Prepare data for sending
-        const chatData = {
-            sessionId: this.sessionId,
-            timestamp: new Date().toISOString(),
-            messages: this.chatHistory,
-            userAgent: navigator.userAgent,
-            pageUrl: window.location.href
-        };
-        
-        // Send to server using Formspree or similar service
-        fetch('https://formspree.io/f/xpwrbkrr', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                _subject: `Chatbot Conversation ${this.sessionId}`,
-                chatData: chatData
-            })
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .catch(error => {
-            console.error('Error sending chat history to server:', error);
-        });
-    }
-
-    // Rest of your existing code...
-    // ...
-
-    sendMessage() {
-        const input = document.getElementById('user-input-widget');
-        if (!input) return;
-        
-        const message = input.value.trim();
-        if (!message) return;
-
-        this.displayMessage(message, 'user');
-        input.value = '';
-        
-        // Remove any existing quick replies
-        const quickRepliesContainer = document.getElementById('quick-replies-container');
-        if (quickRepliesContainer) {
-            quickRepliesContainer.remove();
-        }
-        
-        // Show typing indicator
-        const chatArea = document.getElementById('chat-area-widget');
-        const typingIndicator = document.createElement('div');
-        typingIndicator.className = 'typing-indicator d-flex align-items-center mb-3';
-        typingIndicator.innerHTML = `
-            <div class="bg-light rounded p-3">
-                <div class="d-flex">
-                    <div class="spinner-grow spinner-grow-sm text-primary me-1" role="status"></div>
-                    <div class="spinner-grow spinner-grow-sm text-primary me-1" role="status"></div>
-                    <div class="spinner-grow spinner-grow-sm text-primary" role="status"></div>
-                </div>
-            </div>
-        `;
-        
-        if (chatArea) {
-            chatArea.appendChild(typingIndicator);
-            chatArea.scrollTop = chatArea.scrollHeight;
-        }
-        
-        // Add user message to chat history
-        this.chatHistory.push({
-            role: 'user',
-            content: message,
-            timestamp: new Date().toISOString()
-        });
-        this.messageCount++;
-        
-        // Delay response for natural feel
-        setTimeout(() => {
-            // Remove typing indicator
-            if (chatArea && typingIndicator.parentNode === chatArea) {
-                chatArea.removeChild(typingIndicator);
-            }
-            
-            const response = this.getResponse(message);
-            const didScroll = this.scrollToSection(message);
-            this.displayMessage(response, 'bot');
-            
-            // Add bot response to chat history
-            this.chatHistory.push({
-                role: 'bot',
-                content: response,
-                timestamp: new Date().toISOString()
-            });
-            this.messageCount++;
-            
-            // Save chat history after each exchange
-            this.saveChatHistory();
-            
-            // Show relevant quick replies based on the conversation
-            this.showRelevantQuickReplies(message, response);
-        }, 1000);
-    }
-
-    // Display previous chat messages when opening the chat
-    displayPreviousMessages() {
-        const chatArea = document.getElementById('chat-area-widget');
-        if (!chatArea || this.chatHistory.length === 0) return;
-        
-        // Clear existing messages
-        chatArea.innerHTML = '';
-        
-        // Display last 10 messages (or fewer if history is shorter)
-        const messagesToShow = this.chatHistory.slice(-10);
-        messagesToShow.forEach(msg => {
-            this.displayMessage(msg.content, msg.role);
-        });
-    }
-
-    init() {
-        this.bindEvents();
-        
-        // Set up chat open/close buttons
-        const openChatButton = document.getElementById('open-chat-button');
-        const closeChatButton = document.getElementById('close-chat');
-        const chatbotWidget = document.getElementById('chatbot-widget');
-        
-        if (openChatButton && chatbotWidget) {
-            openChatButton.addEventListener('click', () => {
-                chatbotWidget.style.transform = 'scale(1)';
-                openChatButton.style.transform = 'scale(0)';
-                
-                // Hide notification badge
-                const notificationBadge = document.getElementById('notification-badge');
-                if (notificationBadge) {
-                    notificationBadge.classList.add('d-none');
-                }
-                
-                // Display previous messages if any
-                if (this.chatHistory.length > 0) {
-                    this.displayPreviousMessages();
-                } else {
-                    // Add welcome message if chat is empty
-                    const chatArea = document.getElementById('chat-area-widget');
-                    if (chatArea && chatArea.children.length === 0) {
-                        this.displayMessage(`👋 Hello! I'm Peter's virtual assistant. How can I help you today?`, 'bot');
-                        
-                        // Add to chat history
-                        this.chatHistory.push({
-                            role: 'bot',
-                            content: `👋 Hello! I'm Peter's virtual assistant. How can I help you today?`,
-                            timestamp: new Date().toISOString()
-                        });
-                        this.messageCount++;
-                        
-                        // Add quick reply options
-                        setTimeout(() => {
-                            this.displayQuickReplies([
-                                'Services & Pricing',
-                                'View Portfolio',
-                                'Contact Info',
-                                'About Peter'
-                            ]);
-                        }, 500);
-                    }
-                }
-            });
-        }
-        
-        if (closeChatButton && chatbotWidget && openChatButton) {
-            closeChatButton.addEventListener('click', () => {
-                chatbotWidget.style.transform = 'scale(0)';
-                openChatButton.style.transform = 'scale(1)';
-                
-                // Save chat history when closing
-                this.saveChatHistory();
-            });
-        }
-        
-        // Show notification after 15 seconds
-        setTimeout(() => {
-            const notificationBadge = document.getElementById('notification-badge');
-            const chatbotWidget = document.getElementById('chatbot-widget');
-            if (notificationBadge && chatbotWidget && chatbotWidget.style.transform !== 'scale(1)') {
-                notificationBadge.classList.remove('d-none');
-            }
-        }, 15000);
-        
-        // Save chat history when user leaves the page
-        window.addEventListener('beforeunload', () => {
-            this.saveChatHistory();
-        });
-    }
-
-    // Continue with the rest of your existing methods...
 }
 
 // Initialize the chatbot when the DOM is loaded
