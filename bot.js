@@ -1061,5 +1061,18 @@ None, na hardware problem!
 
 // Initialize the chatbot when the DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+    console.log("DOM fully loaded - initializing chatbot");
+    
+    // Check if elements exist
+    const chatbotWidget = document.getElementById('chatbot-widget');
+    const openChatButton = document.getElementById('open-chat-button');
+    const closeChatButton = document.getElementById('close-chat');
+    
+    console.log("Chatbot widget found:", !!chatbotWidget);
+    console.log("Open chat button found:", !!openChatButton);
+    console.log("Close chat button found:", !!closeChatButton);
+    
+    // Initialize the chatbot
     window.PeterBot = new PeterChatbot();
+    console.log("Chatbot initialized");
 });
