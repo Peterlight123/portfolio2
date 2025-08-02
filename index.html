@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peterlight Portfolio</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts for custom font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ======================= HEADER & NAVBAR ======================= -->
+    <header class="bg-white shadow-sm sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-light container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="https://placehold.co/50x50/F8F9FA/6C757D?text=Logo" alt="Logo" class="rounded-circle me-2">
+                <span class="fs-4 fw-bold">MyBrand</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#testimonials">Testimonials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="sponsor.html">Sponsor</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- ======================= HERO SECTION ======================= -->
+        <section id="home" class="hero-section py-5 bg-light text-center">
+            <div class="container">
+                <h1 class="display-4 fw-bold mb-3">Hello, I'm Your Name</h1>
+                <p class="lead mb-4">A passionate developer creating beautiful and functional web experiences.</p>
+                <a href="#projects" class="btn btn-primary btn-lg me-2">View Projects</a>
+                <a href="project.html" class="btn btn-danger btn-lg">Hire Me</a>
+            </div>
+        </section>
+
+        <!-- ======================= PROJECTS SECTION ======================= -->
+        <section id="projects" class="py-5">
+            <div class="container">
+                <h2>My Projects</h2>
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    <!-- Project Card 1 -->
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <img src="https://placehold.co/600x400/0D6EFD/FFFFFF?text=Project+1" class="card-img-top" alt="Project 1">
+                            <div class="project-badge bg-primary text-white">Full Stack</div>
+                            <div class="card-body">
+                                <h5 class="card-title">E-commerce Platform</h5>
+                                <p class="card-description">A robust e-commerce site with user authentication, a shopping cart, and a secure payment gateway.</p>
+                                <div class="tech-stack">
+                                    <span class="tech-badge">React</span>
+                                    <span class="tech-badge">Node.js</span>
+                                    <span class="tech-badge">MongoDB</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a href="#" class="btn btn-primary btn-sm">View Demo</a>
+                                    <small class="text-muted">9 mins ago</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Project Card 2 -->
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <img src="https://placehold.co/600x400/F8F9FA/212529?text=Project+2" class="card-img-top" alt="Project 2">
+                            <div class="project-badge bg-danger text-white">Frontend</div>
+                            <div class="card-body">
+                                <h5 class="card-title">Weather Dashboard</h5>
+                                <p class="card-description">A responsive weather application that fetches data from a public API and displays it beautifully.</p>
+                                <div class="tech-stack">
+                                    <span class="tech-badge">HTML</span>
+                                    <span class="tech-badge">CSS</span>
+                                    <span class="tech-badge">JavaScript</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a href="#" class="btn btn-primary btn-sm">View Demo</a>
+                                    <small class="text-muted">1 hour ago</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Project Card 3 -->
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <img src="https://placehold.co/600x400/212529/F8F9FA?text=Project+3" class="card-img-top" alt="Project 3">
+                            <div class="project-badge bg-success text-white">Backend</div>
+                            <div class="card-body">
+                                <h5 class="card-title">RESTful API</h5>
+                                <p class="card-description">A highly efficient and scalable API for managing a list of tasks with CRUD operations.</p>
+                                <div class="tech-stack">
+                                    <span class="tech-badge">Python</span>
+                                    <span class="tech-badge">Flask</span>
+                                    <span class="tech-badge">SQLAlchemy</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a href="#" class="btn btn-primary btn-sm">View Demo</a>
+                                    <small class="text-muted">2 days ago</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================= TESTIMONIALS SECTION ======================= -->
+        <section id="testimonials" class="py-5 bg-light">
+            <div class="container">
+                <h2>What People Say</h2>
+                <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <!-- Testimonial 1 -->
+                        <div class="carousel-item active">
+                            <div class="d-flex flex-column align-items-center">
+                                <img src="https://placehold.co/100x100/6C757D/FFFFFF?text=P1" class="rounded-circle mb-3" alt="Client 1">
+                                <div class="text-center">
+                                    <div class="text-warning mb-2">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <blockquote class="blockquote">
+                                        <p class="mb-0">"The work was exceptional and delivered ahead of schedule. The attention to detail was incredible."</p>
+                                    </blockquote>
+                                    <footer class="blockquote-footer mt-2">Jane Doe, <cite title="Source Title">CEO Tech Innovations</cite></footer>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Testimonial 2 -->
+                        <div class="carousel-item">
+                            <div class="d-flex flex-column align-items-center">
+                                <img src="https://placehold.co/100x100/F8F9FA/6C757D?text=P2" class="rounded-circle mb-3" alt="Client 2">
+                                <div class="text-center">
+                                    <div class="text-warning mb-2">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <blockquote class="blockquote">
+                                        <p class="mb-0">"An outstanding professional. The communication was excellent and the final product exceeded my expectations."</p>
+                                    </blockquote>
+                                    <footer class="blockquote-footer mt-2">John Smith, <cite title="Source Title">Project Manager</cite></footer>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ======================= FOOTER ======================= -->
+    <footer id="contact" class="footer py-5 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 text-center text-md-start mb-4 mb-md-0">
+                    <h6 class="text-danger">About Me</h6>
+                    <p class="mb-0">I'm a dedicated full-stack developer with a passion for creating impactful digital solutions. Let's build something great together.</p>
+                </div>
+                <div class="col-md-3 text-center text-md-start mb-4 mb-md-0">
+                    <h6 class="text-danger">Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="footer-link">Home</a></li>
+                        <li><a href="#projects" class="footer-link">Projects</a></li>
+                        <li><a href="#testimonials" class="footer-link">Testimonials</a></li>
+                        <li><a href="#contact" class="footer-link">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 text-center text-md-start mb-4 mb-md-0">
+                    <h6 class="text-danger">Contact Info</h6>
+                    <div class="contact-info">
+                        <p class="mb-1"><a href="mailto:email@example.com" class="footer-link"><i class="fas fa-envelope me-2"></i>email@example.com</a></p>
+                        <p class="mb-1"><a href="tel:+1234567890" class="footer-link"><i class="fas fa-phone me-2"></i>+123 456 7890</a></p>
+                    </div>
+                </div>
+                <div class="col-md-3 text-center text-md-start">
+                    <h6 class="text-danger">Follow Me</h6>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon twitter" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon linkedin" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon instagram" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt-4 mb-3">
+            <div class="text-center">
+                <small>&copy; 2024 MyBrand. All Rights Reserved.</small>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bot UI Container -->
+    <div id="bot-container">
+        <div id="bot-button">
+            <i class="fas fa-comments"></i>
+        </div>
+        <div id="bot-chat-window" class="closed">
+            <div id="bot-header">
+                Chat with Me
+                <i id="bot-close-button" class="fas fa-times"></i>
+            </div>
+            <div id="bot-messages"></div>
+            <div id="bot-input-area">
+                <input type="text" id="bot-input" placeholder="Type a message...">
+                <button id="bot-send-button"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom Scripts -->
+    <script src="script.js"></script>
+    <script src="bot.js"></script>
+</body>
+</html>
