@@ -689,7 +689,7 @@
     </footer>
 
     <!-- ===== CHATBOT WIDGET ===== -->
-<div id="chatbot-widget" class="position-fixed bottom-0 end-0 m-4" style="width: 320px; transform: scale(0); transition: transform 0.3s;">
+<div id="chatbot-widget" class="chatbot-fixed">
     <div class="d-flex align-items-center justify-content-between bg-primary text-white p-3 rounded-top">
         <div class="d-flex align-items-center">
             <div class="chatbot-avatar me-2">
@@ -707,17 +707,17 @@
             <i class="bi bi-x-lg"></i>
         </button>
     </div>
-    <div id="chat-area-widget" class="p-3"></div>
+    <div id="chat-area-widget" class="p-3 chatbot-messages"></div>
     <div class="d-flex align-items-center p-2 border-top">
         <input id="user-input-widget" type="text" placeholder="Type your message..." class="form-control form-control-sm me-2">
-        <button id="send-button-widget" class="btn btn-primary btn-sm">
+        <button id="send-button-widget" class="btn btn-primary btn-sm d-flex align-items-center justify-content-center">
             <i class="bi bi-send-fill"></i>
         </button>
     </div>
 </div>
 
 <!-- ===== FLOATING CHAT BUTTON ===== -->
-<button id="open-chat-button" class="position-fixed bottom-0 end-0 m-4 text-white">
+<button id="open-chat-button" class="chatbot-button-fixed">
     <i class="bi bi-chat-dots-fill fs-4"></i>
     <span id="notification-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none">1</span>
 </button>
