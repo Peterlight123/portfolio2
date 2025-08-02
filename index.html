@@ -747,6 +747,44 @@
             });
         });
     </script>
+    <script>
+    // Emergency fix for chatbot
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+            const chatbotWidget = document.getElementById('chatbot-widget');
+            const openChatButton = document.getElementById('open-chat-button');
+            const closeChatButton = document.getElementById('close-chat');
+            
+            if (chatbotWidget && openChatButton && closeChatButton) {
+                console.log("Emergency fix applied to chatbot");
+                
+                // Fix styling
+                chatbotWidget.style.position = 'fixed';
+                chatbotWidget.style.bottom = '20px';
+                chatbotWidget.style.right = '20px';
+                chatbotWidget.style.zIndex = '9999';
+                chatbotWidget.style.transform = 'scale(0)';
+                
+                openChatButton.style.position = 'fixed';
+                openChatButton.style.bottom = '20px';
+                openChatButton.style.right = '20px';
+                openChatButton.style.zIndex = '9998';
+                
+                // Fix event listeners
+                openChatButton.onclick = function() {
+                    chatbotWidget.style.transform = 'scale(1)';
+                    openChatButton.style.transform = 'scale(0)';
+                };
+                
+                closeChatButton.onclick = function() {
+                    chatbotWidget.style.transform = 'scale(0)';
+                    openChatButton.style.transform = 'scale(1)';
+                };
+            }
+        }, 1000);
+    });
+</script>
+
 </body>
 </html>
                         
