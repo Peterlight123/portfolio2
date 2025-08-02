@@ -3,26 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Details - MyBrand</title>
+    <title>Projects - Peter Lightspeed Portfolio</title>
+    
+    <!-- Meta tags for SEO -->
+    <meta name="description" content="Explore Peter Lightspeed's portfolio of web development, graphic design, and virtual assistant projects. View case studies and examples of my work.">
+    <meta name="keywords" content="portfolio, web development, graphic design, virtual assistant, projects, case studies, Peter Lightspeed">
+    <meta name="author" content="Peter Eluwade Toluwanimi">
+    <meta name="robots" content="index, follow">
+    
+    <link rel="canonical" href="https://peterlight123.github.io/portfolio/project.html">
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation Library -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
+    
     <!-- Google Fonts for custom font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://i.imgur.com/2Ocmg4m.png">
 </head>
 <body>
 
     <!-- ======================= HEADER & NAVBAR ======================= -->
-    <header class="bg-white shadow-sm sticky-top">
-        <nav class="navbar navbar-expand-lg navbar-light container">
+    <header class="bg-primary shadow-sm sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-dark container">
             <a class="navbar-brand d-flex align-items-center" href="index.html">
-                <img src="https://placehold.co/50x50/F8F9FA/6C757D?text=Logo" alt="Logo" class="rounded-circle me-2">
-                <span class="fs-4 fw-bold">MyBrand</span>
+                <img src="https://i.imgur.com/Cgy2Aeq.png" alt="Peter Logo" height="40" class="rounded-circle me-2">
+                <span class="fs-4 fw-bold">Peter Lightspeed</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -30,10 +51,13 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html#home">Home</a>
+                        <a class="nav-link" href="index.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html#projects">Projects</a>
+                        <a class="nav-link active" aria-current="page" href="project.html">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#highlights">Highlights</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="index.html#testimonials">Testimonials</a>
@@ -50,103 +74,779 @@
     </header>
 
     <main>
-        <!-- ======================= PROJECT DETAIL SECTION ======================= -->
-        <section id="project-detail" class="py-5">
+        <!-- ======================= PROJECT HEADER ======================= -->
+        <section class="py-5 bg-primary text-white text-center">
             <div class="container">
-                <a href="index.html#projects" class="btn btn-secondary mb-4"><i class="fas fa-arrow-left me-2"></i>Back to Projects</a>
-                
-                <div class="row">
-                    <div class="col-lg-8">
-                        <h2 class="text-start">E-commerce Platform</h2>
-                        <img src="https://placehold.co/1000x600/0D6EFD/FFFFFF?text=Project+Detail+Image" class="img-fluid rounded-3 mb-4 shadow-sm" alt="Project image">
-                        
-                        <p class="lead">A comprehensive e-commerce solution built from the ground up to provide a seamless shopping experience for users and powerful management tools for administrators.</p>
-                        
-                        <p>This project was developed using a modern full-stack approach. The front-end is a Single Page Application (SPA) built with React, ensuring a dynamic and responsive user interface. State management is handled efficiently with React's built-in hooks and context API. The backend is a robust RESTful API built with Node.js and Express, which handles business logic, user authentication, and data interactions. For the database, we used MongoDB, a NoSQL database, to provide flexible and scalable data storage.</p>
+                <h1 class="display-4 fw-bold mb-3">My Projects</h1>
+                <p class="lead mb-4">Explore my portfolio of web development, graphic design, and virtual assistant work</p>
+            </div>
+        </section>
 
-                        <h3>Key Features</h3>
-                        <ul class="list-group list-group-flush mb-4">
-                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>User Authentication (login, registration)</li>
-                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>Shopping Cart functionality</li>
-                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>Secure Payment Gateway integration</li>
-                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>Product Catalog and Search</li>
-                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>Order History and Tracking</li>
-                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>Admin Dashboard for product management</li>
-                        </ul>
+        <!-- ======================= PROJECT FILTER ======================= -->
+        <section class="py-4 bg-light">
+            <div class="container">
+                <ul class="nav nav-tabs justify-content-center mb-4" id="projectTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all-projects" type="button" role="tab" aria-controls="all-projects" aria-selected="true">All Projects</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="web-tab" data-bs-toggle="tab" data-bs-target="#web-projects" type="button" role="tab" aria-controls="web-projects" aria-selected="false">Web Development</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="design-tab" data-bs-toggle="tab" data-bs-target="#design-projects" type="button" role="tab" aria-controls="design-projects" aria-selected="false">Graphic Design</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="content-tab" data-bs-toggle="tab" data-bs-target="#content-projects" type="button" role="tab" aria-controls="content-projects" aria-selected="false">Content Creation</button>
+                    </li>
+                </ul>
+            </div>
+        </section>
 
-                        <h3>Technologies Used</h3>
-                        <div class="tech-stack mb-4">
-                            <span class="tech-badge">React</span>
-                            <span class="tech-badge">Node.js</span>
-                            <span class="tech-badge">Express</span>
-                            <span class="tech-badge">MongoDB</span>
-                            <span class="tech-badge">JavaScript</span>
-                            <span class="tech-badge">HTML5</span>
-                            <span class="tech-badge">CSS3</span>
+        <!-- ======================= PROJECT GALLERY ======================= -->
+        <section class="py-5">
+            <div class="container">
+                <div class="tab-content" id="projectTabContent">
+                    <!-- All Projects Tab -->
+                    <div class="tab-pane fade show active" id="all-projects" role="tabpanel" aria-labelledby="all-tab">
+                        <div class="row g-4">
+                            <!-- Project 1: PLSWorldNews Blog -->
+                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                                <div class="card shadow-sm h-100">
+                                    <img src="https://placehold.co/600x400/0D6EFD/FFFFFF?text=PLSWorldNews" class="card-img-top" alt="PLSWorldNews Blog">
+                                    <div class="project-badge bg-primary text-white">Blog</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">PLSWorldNews Blog</h5>
+                                        <p class="card-description">Entertainment and lifestyle blog with daily posts, SEO optimization, and AdSense integration.</p>
+                                        <div class="tech-stack">
+                                            <span class="tech-badge">Blogger</span>
+                                            <span class="tech-badge">SEO</span>
+                                            <span class="tech-badge">Content Writing</span>
+                                        </div>
+                                        <div class="project-stats">
+                                            <div class="stat-item">
+                                                <div class="stat-number">100+</div>
+                                                <div class="stat-label">Posts</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">Daily</div>
+                                                <div class="stat-label">Updates</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">2024</div>
+                                                <div class="stat-label">Launched</div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mt-3">
+                                            <a href="https://plsworldnews.blogspot.com" class="btn btn-primary btn-sm" target="_blank">Visit Site</a>
+                                            <a href="#" class="view-btn" data-bs-toggle="modal" data-bs-target="#projectModal1">View Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Project 2: Rizz Script Video Management -->
+                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                                <div class="card shadow-sm h-100">
+                                    <img src="https://placehold.co/600x400/F8F9FA/212529?text=Rizz+Scripts" class="card-img-top" alt="Rizz Scripts">
+                                    <div class="project-badge bg-danger text-white">Video Content</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Rizz Script Video Management</h5>
+                                        <p class="card-description">Managed engaging flirty content across platforms with script writing and cross-platform posting.</p>
+                                        <div class="tech-stack">
+                                            <span class="tech-badge">YouTube</span>
+                                            <span class="tech-badge">TikTok</span>
+                                            <span class="tech-badge">Content Creation</span>
+                                        </div>
+                                        <div class="project-stats">
+                                            <div class="stat-item">
+                                                <div class="stat-number">50+</div>
+                                                <div class="stat-label">Videos</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">3</div>
+                                                <div class="stat-label">Platforms</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">10K+</div>
+                                                <div class="stat-label">Views</div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mt-3">
+                                            <a href="https://www.youtube.com/@peterlightspeedvibes" class="btn btn-primary btn-sm" target="_blank">View Channel</a>
+                                            <a href="#" class="view-btn" data-bs-toggle="modal" data-bs-target="#projectModal2">View Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Project 3: Portfolio Website -->
+                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                                <div class="card shadow-sm h-100">
+                                    <img src="https://placehold.co/600x400/212529/F8F9FA?text=Portfolio" class="card-img-top" alt="Portfolio Website">
+                                    <div class="project-badge bg-success text-white">Web Development</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Personal Portfolio Website</h5>
+                                        <p class="card-description">A responsive portfolio website showcasing my skills, projects, and services as a virtual assistant.</p>
+                                        <div class="tech-stack">
+                                            <span class="tech-badge">HTML</span>
+                                            <span class="tech-badge">CSS</span>
+                                            <span class="tech-badge">Bootstrap</span>
+                                            <span class="tech-badge">JavaScript</span>
+                                        </div>
+                                        <div class="project-stats">
+                                            <div class="stat-item">
+                                                <div class="stat-number">5+</div>
+                                                <div class="stat-label">Pages</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">100%</div>
+                                                <div class="stat-label">Responsive</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">2025</div>
+                                                <div class="stat-label">Launched</div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mt-3">
+                                            <a href="https://peterlight123.github.io/portfolio/" class="btn btn-primary btn-sm" target="_blank">Visit Site</a>
+                                            <a href="#" class="view-btn" data-bs-toggle="modal" data-bs-target="#projectModal3">View Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Project 4: Forex Flyer Design -->
+                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="400">
+                                <div class="card shadow-sm h-100">
+                                    <img src="https://placehold.co/600x400/6C757D/FFFFFF?text=Forex+Flyer" class="card-img-top" alt="Forex Flyer Design">
+                                    <div class="project-badge bg-info text-white">Graphic Design</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Forex Trading Flyer</h5>
+                                        <p class="card-description">Professional flyer design for Andrew's forex trading business with sleek layout and balanced colors.</p>
+                                        <div class="tech-stack">
+                                            <span class="tech-badge">Canva</span>
+                                            <span class="tech-badge">Graphic Design</span>
+                                            <span class="tech-badge">Branding</span>
+                                        </div>
+                                        <div class="project-stats">
+                                            <div class="stat-item">
+                                                <div class="stat-number">1</div>
+                                                <div class="stat-label">Client</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">3</div>
+                                                <div class="stat-label">Revisions</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">100%</div>
+                                                <div class="stat-label">Satisfaction</div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mt-3">
+                                            <a href="#" class="btn btn-primary btn-sm disabled">Client Project</a>
+                                            <a href="#" class="view-btn" data-bs-toggle="modal" data-bs-target="#projectModal4">View Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Project 5: Beat Blast Flier -->
+                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="500">
+                                <div class="card shadow-sm h-100">
+                                    <img src="https://placehold.co/600x400/DC3545/FFFFFF?text=Beat+Blast" class="card-img-top" alt="Beat Blast Flier">
+                                    <div class="project-badge bg-info text-white">Graphic Design</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Beat Blast Event Flyer</h5>
+                                        <p class="card-description">Energetic and bold flyer design for Gidi Beat Blast music event that captures the rhythm and energy.</p>
+                                        <div class="tech-stack">
+                                            <span class="tech-badge">Photoshop</span>
+                                            <span class="tech-badge">Event Design</span>
+                                            <span class="tech-badge">Branding</span>
+                                        </div>
+                                        <div class="project-stats">
+                                            <div class="stat-item">
+                                                <div class="stat-number">1</div>
+                                                <div class="stat-label">Client</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">2</div>
+                                                <div class="stat-label">Revisions</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">100%</div>
+                                                <div class="stat-label">Satisfaction</div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mt-3">
+                                            <a href="#" class="btn btn-primary btn-sm disabled">Client Project</a>
+                                            <a href="#" class="view-btn" data-bs-toggle="modal" data-bs-target="#projectModal5">View Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Project 6: Basketball Academy Flyer -->
+                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="600">
+                                <div class="card shadow-sm h-100">
+                                    <img src="https://placehold.co/600x400/FFC107/212529?text=Basketball" class="card-img-top" alt="Basketball Academy Flyer">
+                                    <div class="project-badge bg-info text-white">Graphic Design</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Basketball Academy Flyer</h5>
+                                        <p class="card-description">Eye-catching and energetic flyer design for Tochukwu's basketball academy that captures the sport's dynamic spirit.</p>
+                                        <div class="tech-stack">
+                                            <span class="tech-badge">Canva</span>
+                                            <span class="tech-badge">Sports Design</span>
+                                            <span class="tech-badge">Branding</span>
+                                        </div>
+                                        <div class="project-stats">
+                                            <div class="stat-item">
+                                                <div class="stat-number">1</div>
+                                                <div class="stat-label">Client</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">1</div>
+                                                <div class="stat-label">Revision</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">100%</div>
+                                                <div class="stat-label">Satisfaction</div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mt-3">
+                                            <a href="#" class="btn btn-primary btn-sm disabled">Client Project</a>
+                                            <a href="#" class="view-btn" data-bs-toggle="modal" data-bs-target="#projectModal6">View Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="card shadow-sm p-4 sticky-top" style="top: 80px;">
-                            <h5 class="card-title mb-3">Project Details</h5>
-                            <ul class="list-unstyled mb-4">
-                                <li class="mb-2"><i class="fas fa-calendar-alt text-primary me-2"></i><strong>Date:</strong> May 2024</li>
-                                <li class="mb-2"><i class="fas fa-layer-group text-primary me-2"></i><strong>Type:</strong> Full-Stack Development</li>
-                                <li class="mb-2"><i class="fas fa-link text-primary me-2"></i><strong>Live Demo:</strong> <a href="#" class="text-primary">View Project</a></li>
-                                <li class="mb-2"><i class="fab fa-github text-primary me-2"></i><strong>Source Code:</strong> <a href="#" class="text-primary">GitHub Repository</a></li>
-                            </ul>
-                            <p class="mb-3">This project demonstrates a strong understanding of modern web development principles and best practices, from front-end design to back-end architecture and database management.</p>
-                            <a href="#" class="btn btn-primary">Download Project Report</a>
+                    
+                    <!-- Web Development Projects Tab -->
+                    <div class="tab-pane fade" id="web-projects" role="tabpanel" aria-labelledby="web-tab">
+                        <div class="row g-4">
+                            <!-- PLSWorldNews Blog -->
+                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                                <div class="card shadow-sm h-100">
+                                    <img src="https://placehold.co/600x400/0D6EFD/FFFFFF?text=PLSWorldNews" class="card-img-top" alt="PLSWorldNews Blog">
+                                    <div class="project-badge bg-primary text-white">Blog</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">PLSWorldNews Blog</h5>
+                                        <p class="card-description">Entertainment and lifestyle blog with daily posts, SEO optimization, and AdSense integration.</p>
+                                        <div class="tech-stack">
+                                            <span class="tech-badge">Blogger</span>
+                                            <span class="tech-badge">SEO</span>
+                                            <span class="tech-badge">Content Writing</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mt-3">
+                                            <a href="https://plsworldnews.blogspot.com" class="btn btn-primary btn-sm" target="_blank">Visit Site</a>
+                                            <a href="#" class="view-btn" data-bs-toggle="modal" data-bs-target="#projectModal1">View Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Portfolio Website -->
+                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                                <div class="card shadow-sm h-100">
+                                    <img src="https://placehold.co/600x400/212529/F8F9FA?text=Portfolio" class="card-img-top" alt="Portfolio Website">
+                                    <div class="project-badge bg-success text-white">Web Development</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Personal Portfolio Website</h5>
+                                        <p class="card-description">A responsive portfolio website showcasing my skills, projects, and services as a virtual assistant.</p>
+                                        <div class="tech-stack">
+                                            <span class="tech-badge">HTML</span>
+                                            <span class="tech-badge">CSS</span>
+                                            <span class="tech-badge">Bootstrap</span>
+                                            <span class="tech-badge">JavaScript</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mt-3">
+                                            <a href="https://peterlight123.github.io/portfolio/" class="btn btn-primary btn-sm" target="_blank">Visit Site</a>
+                                            <a href="#" class="view-btn" data-bs-toggle="modal" data-bs-target="#projectModal3">View Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Graphic Design Projects Tab -->
+                    <div class="tab-pane fade" id="design-projects" role="tabpanel" aria-labelledby="design-tab">
+                        <div class="row g-4">
+                            <!-- Forex Flyer Design -->
+                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                                <div class="card shadow-sm h-100">
+                                    <img src="https://placehold.co/600x400/6C757D/FFFFFF?text=Forex+Flyer" class="card-img-top" alt="Forex Flyer Design">
+                                    <div class="project-badge bg-info text-white">Graphic Design</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Forex Trading Flyer</h5>
+                                        <p class="card-description">Professional flyer design for Andrew's forex trading business with sleek layout and balanced colors.</p>
+                                        <div class="tech-stack">
+                                            <span class="tech-badge">Canva</span>
+                                            <span class="tech-badge">Graphic Design</span>
+                                            <span class="tech-badge">Branding</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mt-3">
+                                            <a href="#" class="btn btn-primary btn-sm disabled">Client Project</a>
+                                            <a href="#" class="view-btn" data-bs-toggle="modal" data-bs-target="#projectModal4">View Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Beat Blast Flier -->
+                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                                <div class="card shadow-sm h-100">
+                                    <img src="https://placehold.co/600x400/DC3545/FFFFFF?text=Beat+Blast" class="card-img-top" alt="Beat Blast Flier">
+                                    <div class="project-badge bg-info text-white">Graphic Design</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Beat Blast Event Flyer</h5>
+                                        <p class="card-description">Energetic and bold flyer design for Gidi Beat Blast music event that captures the rhythm and energy.</p>
+                                        <div class="tech-stack">
+                                            <span class="tech-badge">Photoshop</span>
+                                            <span class="tech-badge">Event Design</span>
+                                            <span class="tech-badge">Branding</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mt-3">
+                                            <a href="#" class="btn btn-primary btn-sm disabled">Client Project</a>
+                                            <a href="#" class="view-btn" data-bs-toggle="modal" data-bs-target="#projectModal5">View Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Basketball Academy Flyer -->
+                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                                <div class="card shadow-sm h-100">
+                                    <img src="https://placehold.co/600x400/FFC107/212529?text=Basketball" class="card-img-top" alt="Basketball Academy Flyer">
+                                    <div class="project-badge bg-info text-white">Graphic Design</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Basketball Academy Flyer</h5>
+                                        <p class="card-description">Eye-catching and energetic flyer design for Tochukwu's basketball academy that captures the sport's dynamic spirit.</p>
+                                        <div class="tech-stack">
+                                            <span class="tech-badge">Canva</span>
+                                            <span class="tech-badge">Sports Design</span>
+                                            <span class="tech-badge">Branding</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mt-3">
+                                            <a href="#" class="btn btn-primary btn-sm disabled">Client Project</a>
+                                            <a href="#" class="view-btn" data-bs-toggle="modal" data-bs-target="#projectModal6">View Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Content Creation Projects Tab -->
+                    <div class="tab-pane fade" id="content-projects" role="tabpanel" aria-labelledby="content-tab">
+                        <div class="row g-4">
+                            <!-- Rizz Script Video Management -->
+                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                                <div class="card shadow-sm h-100">
+                                    <img src="https://placehold.co/600x400/F8F9FA/212529?text=Rizz+Scripts" class="card-img-top" alt="Rizz Scripts">
+                                    <div class="project-badge bg-danger text-white">Video Content</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Rizz Script Video Management</h5>
+                                        <p class="card-description">Managed engaging flirty content across platforms with script writing and cross-platform posting.</p>
+                                        <div class="tech-stack">
+                                            <span class="tech-badge">YouTube</span>
+                                            <span class="tech-badge">TikTok</span>
+                                            <span class="tech-badge">Content Creation</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mt-3">
+                                            <a href="https://www.youtube.com/@peterlightspeedvibes" class="btn btn-primary btn-sm" target="_blank">View Channel</a>
+                                            <a href="#" class="view-btn" data-bs-toggle="modal" data-bs-target="#projectModal2">View Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- PLSWorldNews Blog (Content Writing) -->
+                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                                <div class="card shadow-sm h-100">
+                                    <img src="https://placehold.co/600x400/0D6EFD/FFFFFF?text=PLSWorldNews" class="card-img-top" alt="PLSWorldNews Blog">
+                                    <div class="project-badge bg-primary text-white">Blog</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">PLSWorldNews Blog Content</h5>
+                                        <p class="card-description">Daily content writing for entertainment and lifestyle blog with SEO optimization.</p>
+                                        <div class="tech-stack">
+                                            <span class="tech-badge">Content Writing</span>
+                                            <span class="tech-badge">SEO</span>
+                                            <span class="tech-badge">Blogging</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mt-3">
+                                            <a href="https://plsworldnews.blogspot.com" class="btn btn-primary btn-sm" target="_blank">Visit Site</a>
+                                            <a href="#" class="view-btn" data-bs-toggle="modal" data-bs-target="#projectModal1">View Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- ======================= CTA SECTION ======================= -->
+        <section class="py-5 bg-primary text-white text-center">
+            <div class="container">
+                <h2 class="mb-4">Ready to Start Your Project?</h2>
+                <p class="lead mb-4">Let's collaborate to bring your vision to life with professional design and development.</p>
+                <a href="index.html#contact" class="btn btn-danger btn-lg">Contact Me</a>
+            </div>
+        </section>
     </main>
+
+    <!-- ======================= PROJECT MODALS ======================= -->
+    <!-- Project Modal 1: PLSWorldNews Blog -->
+    <div class="modal fade" id="projectModal1" tabindex="-1" aria-labelledby="projectModal1Label" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="projectModal1Label">PLSWorldNews Blog</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <img src="https://placehold.co/600x400/0D6EFD/FFFFFF?text=PLSWorldNews" class="img-fluid rounded" alt="PLSWorldNews Blog">
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="fw-bold">Project Overview</h5>
+                            <p>PLSWorldNews is an entertainment and lifestyle blog that I created and maintain. The blog features daily posts on trending topics, celebrity news, and lifestyle content.</p>
+                            
+                            <h5 class="fw-bold mt-3">My Role</h5>
+                            <ul>
+                                <li>Blog setup and configuration</li>
+                                <li>Custom template design and implementation</li>
+                                <li>Content creation and publishing</li>
+                                <li>SEO optimization</li>
+                                <li>Google AdSense integration</li>
+                            </ul>
+                            
+                            <h5 class="fw-bold mt-3">Technologies Used</h5>
+                            <div class="tech-stack">
+                                <span class="tech-badge">Blogger</span>
+                                <span class="tech-badge">HTML/CSS</span>
+                                <span class="tech-badge">SEO</span>
+                                <span class="tech-badge">Content Writing</span>
+                                <span class="tech-badge">Google AdSense</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <h5 class="fw-bold">Project Details</h5>
+                        <p>PLSWorldNews was created to provide daily entertainment and lifestyle content to readers. I handle all aspects of the blog, from content creation to technical maintenance.</p>
+                        
+                        <h6 class="fw-bold mt-3">Key Features:</h6>
+                        <ul>
+                            <li>Mobile-responsive design</li>
+                            <li>SEO-optimized content</li>
+                            <li>Social media integration</li>
+                            <li>Monetization through Google AdSense</li>
+                            <li>Daily content updates</li>
+                        </ul>
+                        
+                        <h6 class="fw-bold mt-3">Challenges & Solutions:</h6>
+                        <p>One of the main challenges was creating a consistent posting schedule while maintaining content quality. I implemented a content calendar and topic research system to ensure regular, high-quality posts.</p>
+                        
+                        <h6 class="fw-bold mt-3">Results:</h6>
+                        <p>The blog has grown steadily since launch, with increasing daily visitors and ad revenue. It serves as a demonstration of my content creation, SEO, and blog management skills.</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a href="https://plsworldnews.blogspot.com" class="btn btn-primary" target="_blank">Visit Site</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Modal 2: Rizz Script Video Management -->
+    <div class="modal fade" id="projectModal2" tabindex="-1" aria-labelledby="projectModal2Label" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="projectModal2Label">Rizz Script Video Management</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <img src="https://placehold.co/600x400/F8F9FA/212529?text=Rizz+Scripts" class="img-fluid rounded" alt="Rizz Scripts">
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="fw-bold">Project Overview</h5>
+                            <p>This project involved creating, managing, and distributing engaging flirty content across multiple social media platforms, primarily focusing on YouTube, TikTok, and Facebook.</p>
+                            
+                            <h5 class="fw-bold mt-3">My Role</h5>
+                            <ul>
+                                <li>Content ideation and script writing</li>
+                                <li>Video editing using Canva and CapCut</li>
+                                <li>Cross-platform posting strategy</li>
+                                <li>Engagement monitoring and analytics</li>
+                                <li>Trend research and implementation</li>
+                            </ul>
+                            
+                            <h5 class="fw-bold mt-3">Technologies Used</h5>
+                            <div class="tech-stack">
+                                <span class="tech-badge">YouTube</span>
+                                <span class="tech-badge">TikTok</span>
+                                <span class="tech-badge">Facebook</span>
+                                <span class="tech-badge">Canva</span>
+                                <span class="tech-badge">CapCut</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <h5 class="fw-bold">Project Details</h5>
+                        <p>The Rizz Script Video Management project was focused on creating engaging content that resonates with young audiences across multiple social media platforms. I handled everything from concept to publication.</p>
+                        
+                        <h6 class="fw-bold mt-3">Key Features:</h6>
+                        <ul>
+                            <li>Engaging script writing tailored for different platforms</li>
+                            <li>Professional video editing with transitions and effects</li>
+                            <li>Platform-specific optimization for maximum reach</li>
+                            <li>Consistent posting schedule</li>
+                            <li>Trend incorporation for increased visibility</li>
+                        </ul>
+                        
+                        <h6 class="fw-bold mt-3">Challenges & Solutions:</h6>
+                        <p>The main challenge was creating content that would perform well across different platforms with varying audience preferences. I solved this by developing platform-specific variations of each content piece while maintaining the core message.</p>
+                        
+                        <h6 class="fw-bold mt-3">Results:</h6>
+                        <p>The content has garnered over 10,000 views across platforms, with strong engagement metrics including comments, shares, and saves. The project demonstrates my ability to create engaging content that resonates with target audiences.</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a href="https://www.youtube.com/@peterlightspeedvibes" class="btn btn-danger" target="_blank">View Channel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Modal 3: Portfolio Website -->
+    <div class="modal fade" id="projectModal3" tabindex="-1" aria-labelledby="projectModal3Label" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="projectModal3Label">Personal Portfolio Website</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <img src="https://placehold.co/600x400/212529/F8F9FA?text=Portfolio" class="img-fluid rounded" alt="Portfolio Website">
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="fw-bold">Project Overview</h5>
+                            <p>My personal portfolio website showcases my skills, projects, and services as a virtual assistant and web developer. It serves as a professional online presence for potential clients.</p>
+                            
+                            <h5 class="fw-bold mt-3">My Role</h5>
+                            <ul>
+                                <li>Website design and development</li>
+                                <li>Responsive layout implementation</li>
+                                <li>Content creation and organization</li>
+                                <li>SEO optimization</li>
+                                <li>Performance optimization</li>
+                            </ul>
+                            
+                            <h5 class="fw-bold mt-3">Technologies Used</h5>
+                            <div class="tech-stack">
+                                <span class="tech-badge">HTML5</span>
+                                <span class="tech-badge">CSS3</span>
+                                <span class="tech-badge">JavaScript</span>
+                                <span class="tech-badge">Bootstrap 5</span>
+                                <span class="tech-badge">GitHub Pages</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <h5 class="fw-bold">Project Details</h5>
+                        <p>This portfolio website was designed to showcase my professional skills and projects in a clean, modern, and user-friendly interface. The site is fully responsive and optimized for all devices.</p>
+                        
+                        <h6 class="fw-bold mt-3">Key Features:</h6>
+                        <ul>
+                            <li>Fully responsive design for all screen sizes</li>
+                            <li>Interactive project showcase with filtering</li>
+                            <li>Integrated contact form</li>
+                            <li>Testimonials carousel</li>
+                            <li>AI-powered chatbot assistant</li>
+                            <li>Optimized for performance and SEO</li>
+                        </ul>
+                        
+                        <h6 class="fw-bold mt-3">Challenges & Solutions:</h6>
+                        <p>Creating a site that effectively showcases multiple service offerings while maintaining a clean design was challenging. I solved this by implementing a tabbed interface and clear categorization of projects and services.</p>
+                        
+                        <h6 class="fw-bold mt-3">Results:</h6>
+                        <p>The portfolio site effectively presents my professional skills and has helped attract client inquiries. It demonstrates my web development abilities and serves as a central hub for my online presence.</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a href="https://peterlight123.github.io/portfolio/" class="btn btn-success" target="_blank">Visit Site</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional Project Modals (4-6) would follow the same pattern -->
 
     <!-- ======================= FOOTER ======================= -->
     <footer class="footer py-5 mt-5">
         <div class="container">
             <div class="row">
-                <div class="col-md-3 text-center text-md-start mb-4 mb-md-0">
-                    <h6 class="text-danger">About Me</h6>
-                    <p class="mb-0">I'm a dedicated full-stack developer with a passion for creating impactful digital solutions. Let's build something great together.</p>
+                <div class="col-md-3 mb-4" data-aos="fade-up">
+                    <h5 class="fw-bold mb-3">
+                        <i class="bi bi-lightning-charge me-2"></i>Peter Lightspeed
+                    </h5>
+                    <p class="mb-3">Your Reliable Virtual Assistant for Digital Services</p>
+                    <small class="text-muted">© 2025 Eluwade Peter Toluwanimi. All rights reserved.</small>
                 </div>
-                <div class="col-md-3 text-center text-md-start mb-4 mb-md-0">
-                    <h6 class="text-danger">Quick Links</h6>
+                <div class="col-md-3 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <h6 class="text-uppercase fw-bold mb-3 text-danger">Quick Links</h6>
                     <ul class="list-unstyled">
-                        <li><a href="index.html#home" class="footer-link">Home</a></li>
-                        <li><a href="index.html#projects" class="footer-link">Projects</a></li>
-                        <li><a href="index.html#testimonials" class="footer-link">Testimonials</a></li>
-                        <li><a href="index.html#contact" class="footer-link">Contact</a></li>
+                        <li class="mb-2">
+                            <a class="text-light text-decoration-none footer-link" href="index.html">
+                                <i class="bi bi-house me-2"></i>Home
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a class="text-light text-decoration-none footer-link" href="project.html">
+                                <i class="bi bi-folder me-2"></i>Projects
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a class="text-light text-decoration-none footer-link" href="index.html#services">
+                                <i class="bi bi-gear me-2"></i>Services
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a class="text-light text-decoration-none footer-link" href="index.html#contact">
+                                <i class="bi bi-envelope me-2"></i>Contact
+                            </a>
+                        </li>
                     </ul>
                 </div>
-                <div class="col-md-3 text-center text-md-start mb-4 mb-md-0">
-                    <h6 class="text-danger">Contact Info</h6>
-                    <div class="contact-info">
-                        <p class="mb-1"><a href="mailto:email@example.com" class="footer-link"><i class="fas fa-envelope me-2"></i>email@example.com</a></p>
-                        <p class="mb-1"><a href="tel:+1234567890" class="footer-link"><i class="fas fa-phone me-2"></i>+123 456 7890</a></p>
-                    </div>
+                <div class="col-md-3 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <h6 class="text-uppercase fw-bold mb-3 text-danger">My Services</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a class="text-light text-decoration-none footer-link" href="index.html#services">
+                                <i class="bi bi-laptop me-2"></i>Web Design
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a class="text-light text-decoration-none footer-link" href="index.html#services">
+                                <i class="bi bi-palette me-2"></i>Graphics Design
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a class="text-light text-decoration-none footer-link" href="index.html#services">
+                                <i class="bi bi-keyboard me-2"></i>Typing & Data Entry
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a class="text-light text-decoration-none footer-link" href="index.html#services">
+                                <i class="bi bi-globe me-2"></i>Blogger Setup
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="col-md-3 text-center text-md-start">
-                    <h6 class="text-danger">Follow Me</h6>
-                    <div class="social-icons">
-                        <a href="#" class="social-icon twitter" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon linkedin" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="social-icon instagram" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <div class="col-md-3 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <h6 class="text-uppercase fw-bold mb-3 text-danger">Connect With Me</h6>
+                    <!-- Social Media Links -->
+                    <div class="social-links mb-3">
+                        <a class="social-icon twitter me-2 mb-2 d-inline-block" href="https://x.com/peter8118533304" rel="noopener noreferrer" target="_blank" title="@peter8118533304">
+                            <i class="bi bi-twitter-x"></i>
+                        </a>
+                        <a class="social-icon instagram me-2 mb-2 d-inline-block" href="https://www.instagram.com/eluwadepeter" rel="noopener noreferrer" target="_blank" title="@eluwadepeter">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a class="social-icon linkedin me-2 mb-2 d-inline-block" href="https://www.linkedin.com/in/peter-eluwade-5b8a73363/" rel="noopener noreferrer" target="_blank" title="Peter Eluwade">
+                            <i class="bi bi-linkedin"></i>
+                        </a>
+                        <a class="social-icon tiktok me-2 mb-2 d-inline-block" href="https://www.tiktok.com/@eluwadepeter" rel="noopener noreferrer" target="_blank" title="@eluwadepeter">
+                            <i class="bi bi-tiktok"></i>
+                        </a>
+                        <a class="social-icon youtube me-2 mb-2 d-inline-block" href="https://www.youtube.com/@peterlightspeedvibes" rel="noopener noreferrer" target="_blank" title="@peterlightspeedvibes">
+                            <i class="bi bi-youtube"></i>
+                        </a>
+                    </div>
+                    <!-- Contact Information -->
+                    <div class="contact-info">
+                        <p class="mb-2">
+                            <a class="text-light text-decoration-none footer-link" href="mailto:petereluwade55@gmail.com">
+                                <i class="bi bi-envelope me-2"></i>petereluwade55@gmail.com
+                            </a>
+                        </p>
+                        <p class="mb-2">
+                            <a class="text-light text-decoration-none footer-link" href="https://wa.me/2348108821809" rel="noopener noreferrer" target="_blank">
+                                <i class="bi bi-whatsapp me-2"></i>+234 810 882 1809
+                            </a>
+                        </p>
                     </div>
                 </div>
             </div>
-            <hr class="mt-4 mb-3">
+            <hr class="my-4 border-secondary">
             <div class="text-center">
-                <small>&copy; 2024 MyBrand. All Rights Reserved.</small>
+                <small class="text-muted">Built with the speed of light by Peter Lightspeed | Virtual Assistant & Web Developer</small>
             </div>
         </div>
     </footer>
 
+    <!-- ===== CHATBOT WIDGET ===== -->
+    <div id="chatbot-widget" class="position-fixed bottom-0 end-0 m-4 bg-white border rounded-lg shadow-lg" style="width: 320px; transform: scale(0); transition: transform 0.3s; z-index: 1050;">
+        <div class="d-flex align-items-center justify-content-between bg-primary text-white p-3 rounded-top">
+            <span class="fw-semibold">Peter Assistant</span>
+            <button id="close-chat" class="btn btn-sm text-white">✖</button>
+        </div>
+        <div id="chat-area-widget" class="p-3" style="height: 300px; overflow-y: auto;"></div>
+        <div class="d-flex align-items-center p-2 border-top">
+            <input id="user-input-widget" type="text" placeholder="Type something..." class="form-control form-control-sm me-2">
+            <button id="send-button-widget" class="btn btn-primary btn-sm">Send</button>
+        </div>
+    </div>
+
+    <!-- ===== FLOATING CHAT BUTTON ===== -->
+    <button id="open-chat-button" class="position-fixed bottom-0 end-0 m-4 bg-primary text-white rounded-circle shadow-lg border-0" style="width: 56px; height: 56px; z-index: 1040;">
+        💬
+        <span id="notification-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none">1</span>
+    </button>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
     <!-- Custom Scripts -->
     <script src="script.js"></script>
     <script src="bot.js"></script>
+    
+    <script>
+        // Initialize AOS
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true,
+                offset: 100
+            });
+            
+            // Show notification on chat button after delay
+            setTimeout(function() {
+                const notificationBadge = document.getElementById('notification-badge');
+                if (notificationBadge) {
+                    notificationBadge.classList.remove('d-none');
+                }
+            }, 15000);
+        });
+    </script>
 </body>
 </html>
