@@ -1,206 +1,653 @@
-<!-- admin.html - Password protect this page! -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbot Admin Panel</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <style>
-        .chat-session {
-            border: 1px solid #dee2e6;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            overflow: hidden;
-        }
-        
-        .chat-header {
-            background-color: #f8f9fa;
-            padding: 10px 15px;
-            border-bottom: 1px solid #dee2e6;
-        }
-        
-        .chat-messages {
-            padding: 15px;
-        }
-        
-        .message {
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 10px;
-        }
-        
-        .user-message {
-            background-color: #e9ecef;
-            margin-left: 20%;
-            text-align: right;
-        }
-        
-        .bot-message {
-            background-color: #f8f9fa;
-            margin-right: 20%;
-        }
-        
-        .timestamp {
-            font-size: 0.75rem;
-            color: #6c757d;
-            margin-top: 5px;
-        }
-        
-        .login-container {
-            max-width: 400px;
-            margin: 100px auto;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PeterBot Admin Panel</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="chatbot.css">
+  <style>
+    .sidebar {
+      height: 100vh;
+      background-color: #212529;
+      color: white;
+      position: sticky;
+      top: 0;
+    }
+    
+    .sidebar .nav-link {
+      color: rgba(255, 255, 255, 0.75);
+      border-radius: 0;
+      padding: 0.75rem 1rem;
+    }
+    
+    .sidebar .nav-link:hover {
+      color: white;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .sidebar .nav-link.active {
+      color: white;
+      background-color: #0d6efd;
+    }
+    
+    .chat-session-item {
+      transition: all 0.2s ease;
+    }
+    
+    .chat-session-item:hover {
+      background-color: rgba(13, 110, 253, 0.1);
+    }
+    
+    .chat-viewer {
+      height: calc(100vh - 200px);
+      overflow-y: auto;
+    }
+    
+    .analytics-card {
+      transition: all 0.3s ease;
+    }
+    
+    .analytics-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+  </style>
 </head>
 <body>
-    <div class="container mt-5" id="login-section">
-        <div class="login-container">
-            <h2 class="text-center mb-4">Admin Login</h2>
-            <form id="login-form">
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" required>
-                </div>
-                <button type="submit" class="btn btn-primary w-100">Login</button>
-            </form>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+        <div class="position-sticky pt-3">
+          <div class="px-3 py-4 d-flex align-items-center">
+            <img src="https://i.imgur.com/Cgy2Aeq.png" alt="Peter Logo" class="rounded-circle me-2" width="40" height="40">
+            <h5 class="m-0">PeterBot Admin</h5>
+          </div>
+          <hr class="bg-light">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" href="#dashboard" data-bs-toggle="tab">
+                <i class="bi bi-speedometer2 me-2"></i> Dashboard
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#chat-sessions" data-bs-toggle="tab">
+                <i class="bi bi-chat-dots me-2"></i> Chat Sessions
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#analytics" data-bs-toggle="tab">
+                <i class="bi bi-graph-up me-2"></i> Analytics
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#settings" data-bs-toggle="tab">
+                <i class="bi bi-gear me-2"></i> Settings
+              </a>
+            </li>
+          </ul>
+          <hr class="bg-light">
+          <div class="px-3">
+            <a href="index.html" class="btn btn-outline-light btn-sm w-100">
+              <i class="bi bi-arrow-left me-2"></i> Back to Website
+            </a>
+          </div>
         </div>
+      </div>
+      
+      <!-- Main content -->
+      <div class="col-md-9 col-lg-10 ms-sm-auto px-md-4 py-4">
+        <div class="tab-content">
+          <!-- Dashboard Tab -->
+          <div class="tab-pane fade show active" id="dashboard">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+              <h1 class="h2">Dashboard</h1>
+              <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="btn-group me-2">
+                  <button type="button" class="btn btn-sm btn-outline-secondary" id="refresh-dashboard">
+                    <i class="bi bi-arrow-clockwise me-1"></i> Refresh
+                  </button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary" id="export-all-data">
+                    <i class="bi bi-download me-1"></i> Export All Data
+                  </button>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-primary" id="clear-all-data">
+                  <i class="bi bi-trash me-1"></i> Clear All Data
+                </button>
+              </div>
+            </div>
+            
+            <!-- Dashboard Stats -->
+            <div class="row g-4 mb-4">
+              <div class="col-md-3">
+                <div class="card text-white bg-primary">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                        <h6 class="card-title">Total Sessions</h6>
+                        <h2 class="mb-0" id="total-sessions">0</h2>
+                      </div>
+                      <i class="bi bi-chat-square-text fs-1 opacity-50"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card text-white bg-success">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                        <h6 class="card-title">Total Messages</h6>
+                        <h2 class="mb-0" id="total-messages">0</h2>
+                      </div>
+                      <i class="bi bi-chat-dots fs-1 opacity-50"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card text-white bg-warning">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                        <h6 class="card-title">Avg. Messages/Session</h6>
+                        <h2 class="mb-0" id="avg-messages">0</h2>
+                      </div>
+                      <i class="bi bi-calculator fs-1 opacity-50"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card text-white bg-info">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                        <h6 class="card-title">Active Today</h6>
+                        <h2 class="mb-0" id="active-today">0</h2>
+                      </div>
+                      <i class="bi bi-calendar-check fs-1 opacity-50"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Recent Sessions -->
+            <div class="card mb-4">
+              <div class="card-header bg-light">
+                <h5 class="mb-0">Recent Chat Sessions</h5>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Session ID</th>
+                        <th>Date</th>
+                        <th>Messages</th>
+                        <th>Last Message</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="recent-sessions-table">
+                      <tr>
+                        <td colspan="5" class="text-center">Loading sessions...</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Common Questions -->
+            <div class="card">
+              <div class="card-header bg-light">
+                <h5 class="mb-0">Common Questions</h5>
+              </div>
+              <div class="card-body">
+                <div id="common-questions">Loading common questions...</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Chat Sessions Tab -->
+          <div class="tab-pane fade" id="chat-sessions">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+              <h1 class="h2">Chat Sessions</h1>
+              <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="input-group me-2">
+                  <input type="text" class="form-control form-control-sm" id="session-search" placeholder="Search sessions...">
+                  <button class="btn btn-outline-secondary btn-sm" type="button">
+                    <i class="bi bi-search"></i>
+                  </button>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-secondary" id="export-all-chats">
+                  <i class="bi bi-download me-1"></i> Export All
+                </button>
+              </div>
+            </div>
+            
+            <div class="row">
+              <!-- Sessions List -->
+              <div class="col-md-4">
+                <div class="card">
+                  <div class="card-header bg-light">
+                    <h6 class="mb-0">All Sessions</h6>
+                  </div>
+                  <div class="list-group list-group-flush" id="chat-sessions-list" style="max-height: 600px; overflow-y: auto;">
+                    <div class="list-group-item text-center">
+                      <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+                      <span class="ms-2">Loading sessions...</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Chat Viewer -->
+              <div class="col-md-8">
+                <div class="card">
+                  <div class="card-header bg-light">
+                    <h6 class="mb-0">Chat Conversation</h6>
+                  </div>
+                  <div class="card-body chat-viewer" id="chat-viewer">
+                    <div class="text-center text-muted py-5">
+                      <i class="bi bi-chat-square-text fs-1"></i>
+                      <p class="mt-3">Select a chat session to view the conversation</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Analytics Tab -->
+          <div class="tab-pane fade" id="analytics">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+              <h1 class="h2">Analytics</h1>
+              <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="btn-group me-2">
+                  <button type="button" class="btn btn-sm btn-outline-secondary" id="refresh-analytics">
+                    <i class="bi bi-arrow-clockwise me-1"></i> Refresh
+                  </button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary" id="export-analytics">
+                    <i class="bi bi-download me-1"></i> Export
+                  </button>
+                </div>
+                <div class="dropdown">
+                  <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="timeRangeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    Last 30 Days
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="timeRangeDropdown">
+                    <li><a class="dropdown-item" href="#">Today</a></li>
+                    <li><a class="dropdown-item" href="#">Last 7 Days</a></li>
+                    <li><a class="dropdown-item" href="#">Last 30 Days</a></li>
+                    <li><a class="dropdown-item" href="#">All Time</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Analytics Cards -->
+            <div class="row g-4 mb-4">
+              <div class="col-md-4">
+                <div class="card analytics-card">
+                  <div class="card-body">
+                    <h5 class="card-title">Message Distribution</h5>
+                    <div class="text-center py-4">
+                      <canvas id="message-distribution-chart" height="200"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card analytics-card">
+                  <div class="card-body">
+                    <h5 class="card-title">Sessions Over Time</h5>
+                    <div class="text-center py-4">
+                      <canvas id="sessions-time-chart" height="200"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card analytics-card">
+                  <div class="card-body">
+                    <h5 class="card-title">Top Questions</h5>
+                    <div class="text-center py-4">
+                      <canvas id="top-questions-chart" height="200"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Detailed Analytics -->
+            <div class="card">
+              <div class="card-header bg-light">
+                <h5 class="mb-0">Detailed Analytics</h5>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Category</th>
+                        <th>Count</th>
+                        <th>Percentage</th>
+                        <th>Trend</th>
+                      </tr>
+                    </thead>
+                    <tbody id="analytics-table">
+                      <tr>
+                        <td>Services Inquiries</td>
+                        <td>0</td>
+                        <td>0%</td>
+                        <td><span class="text-success"><i class="bi bi-arrow-up"></i> 0%</span></td>
+                      </tr>
+                      <tr>
+                        <td>Pricing Questions</td>
+                        <td>0</td>
+                        <td>0%</td>
+                        <td><span class="text-danger"><i class="bi bi-arrow-down"></i> 0%</span></td>
+                      </tr>
+                      <tr>
+                        <td>Portfolio Requests</td>
+                        <td>0</td>
+                        <td>0%</td>
+                        <td><span class="text-success"><i class="bi bi-arrow-up"></i> 0%</span></td>
+                      </tr>
+                      <tr>
+                        <td>Contact Information</td>
+                        <td>0</td>
+                        <td>0%</td>
+                        <td><span class="text-warning"><i class="bi bi-dash"></i> 0%</span></td>
+                      </tr>
+                      <tr>
+                        <td>Other Questions</td>
+                        <td>0</td>
+                        <td>0%</td>
+                        <td><span class="text-danger"><i class="bi bi-arrow-down"></i> 0%</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Settings Tab -->
+          <div class="tab-pane fade" id="settings">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+              <h1 class="h2">Settings</h1>
+              <button type="button" class="btn btn-primary" id="save-settings">
+                <i class="bi bi-save me-1"></i> Save Changes
+              </button>
+            </div>
+            
+            <!-- General Settings -->
+            <div class="card mb-4">
+              <div class="card-header bg-light">
+                <h5 class="mb-0">General Settings</h5>
+              </div>
+              <div class="card-body">
+                <form id="general-settings-form">
+                  <div class="mb-3">
+                    <label for="bot-name" class="form-label">Bot Name</label>
+                    <input type="text" class="form-control" id="bot-name" value="PeterBot">
+                  </div>
+                  <div class="mb-3">
+                    <label for="welcome-message" class="form-label">Welcome Message</label>
+                    <textarea class="form-control" id="welcome-message" rows="3">👋 Hello! I'm PeterBot. How can I help you today?</textarea>
+                  </div>
+                  <div class="mb-3">
+                    <label for="bot-avatar" class="form-label">Bot Avatar URL</label>
+                    <input type="text" class="form-control" id="bot-avatar" value="https://i.imgur.com/Cgy2Aeq.png">
+                    <div class="form-text">Enter the URL of the image you want to use as the bot's avatar.</div>
+                  </div>
+                  <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="show-typing-indicator" checked>
+                    <label class="form-check-label" for="show-typing-indicator">Show typing indicator</label>
+                  </div>
+                  <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="show-quick-replies" checked>
+                    <label class="form-check-label" for="show-quick-replies">Show quick reply suggestions</label>
+                  </div>
+                </form>
+              </div>
+            </div>
+            
+            <!-- Advanced Settings -->
+            <div class="card mb-4">
+              <div class="card-header bg-light">
+                <h5 class="mb-0">Advanced Settings</h5>
+              </div>
+              <div class="card-body">
+                <form id="advanced-settings-form">
+                  <div class="mb-3">
+                    <label for="response-delay" class="form-label">Response Delay (ms)</label>
+                    <input type="number" class="form-control" id="response-delay" value="800" min="0" max="3000">
+                    <div class="form-text">Set the delay before the bot responds to make conversations feel more natural.</div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="max-history" class="form-label">Maximum Chat History</label>
+                    <input type="number" class="form-control" id="max-history" value="50" min="10" max="200">
+                    <div class="form-text">Maximum number of messages to store in history per session.</div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="formspree-endpoint" class="form-label">Formspree Endpoint</label>
+                    <input type="text" class="form-control" id="formspree-endpoint" value="https://formspree.io/f/xpwrbkrr">
+                    <div class="form-text">Enter your Formspree endpoint for storing chat data.</div>
+                  </div>
+                  <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="save-to-server" checked>
+                    <label class="form-check-label" for="save-to-server">Save chat history to server</label>
+                  </div>
+                </form>
+              </div>
+            </div>
+            
+            <!-- Data Management -->
+            <div class="card">
+              <div class="card-header bg-light">
+                <h5 class="mb-0">Data Management</h5>
+              </div>
+              <div class="card-body">
+                <div class="mb-4">
+                  <h6>Export Data</h6>
+                  <p>Download all chat data as a JSON file for backup or analysis.</p>
+                  <button class="btn btn-outline-primary" id="export-all-settings">
+                    <i class="bi bi-download me-1"></i> Export All Data
+                  </button>
+                </div>
+                <div class="mb-4">
+                  <h6>Import Data</h6>
+                  <p>Import chat data from a previously exported JSON file.</p>
+                  <div class="input-group">
+                    <input type="file" class="form-control" id="import-file" accept=".json">
+                    <button class="btn btn-outline-secondary" type="button" id="import-data-btn">Import</button>
+                  </div>
+                </div>
+                <div>
+                  <h6 class="text-danger">Danger Zone</h6>
+                  <p>These actions cannot be undone. Please be certain.</p>
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-outline-danger" id="clear-all-chats">
+                      <i class="bi bi-trash me-1"></i> Clear All Chat History
+                    </button>
+                    <button class="btn btn-danger" id="reset-all-settings">
+                      <i class="bi bi-exclamation-triangle me-1"></i> Reset All Settings
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <div class="container mt-5 d-none" id="admin-panel">
-        <h1 class="mb-4">Chatbot Conversations</h1>
-        <div class="row mb-4">
-            <div class="col">
-                <div class="input-group">
-                    <input type="text" class="form-control" id="search-input" placeholder="Search conversations...">
-                    <button class="btn btn-outline-secondary" type="button" id="search-button">Search</button>
-                </div>
-            </div>
-            <div class="col-auto">
-                <button class="btn btn-danger" id="clear-data">Clear All Data</button>
-            </div>
-        </div>
+  </div>
+  
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Custom Scripts -->
+  <script src="bot.js"></script>
+  <script>
+    // Admin panel specific functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize charts if they exist
+      if (typeof Chart !== 'undefined') {
+        // Message distribution chart
+        const messageCtx = document.getElementById('message-distribution-chart');
+        if (messageCtx) {
+          new Chart(messageCtx, {
+            type: 'doughnut',
+            data: {
+              labels: ['User Messages', 'Bot Responses'],
+              datasets: [{
+                data: [0, 0],
+                backgroundColor: ['#0d6efd', '#20c997'],
+                hoverOffset: 4
+              }]
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                legend: {
+                  position: 'bottom',
+                }
+              }
+            }
+          });
+        }
         
-        <div id="chat-sessions-container">
-            <!-- Chat sessions will be loaded here -->
-            <div class="text-center py-5">
-                <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
-                <p class="mt-3">Loading chat sessions...</p>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const ADMIN_PASSWORD = 'Peterrules2025';
-            
-            const loginForm = document.getElementById('login-form');
-            const loginSection = document.getElementById('login-section');
-            const adminPanel = document.getElementById('admin-panel');
-            const chatSessionsContainer = document.getElementById('chat-sessions-container');
-            const searchInput = document.getElementById('search-input');
-            const searchButton = document.getElementById('search-button');
-            const clearDataButton = document.getElementById('clear-data');
-            
-            // Handle login
-            loginForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const password = document.getElementById('password').value;
-                
-                if (password === ADMIN_PASSWORD) {
-                    loginSection.classList.add('d-none');
-                    adminPanel.classList.remove('d-none');
-                    loadChatSessions();
-                } else {
-                    alert('Incorrect password');
+        // Sessions over time chart
+        const sessionsCtx = document.getElementById('sessions-time-chart');
+        if (sessionsCtx) {
+          new Chart(sessionsCtx, {
+            type: 'line',
+            data: {
+              labels: ['', '', '', '', '', '', ''],
+              datasets: [{
+                label: 'Chat Sessions',
+                data: [0, 0, 0, 0, 0, 0, 0],
+                borderColor: '#0d6efd',
+                tension: 0.1,
+                fill: false
+              }]
+            },
+            options: {
+              responsive: true,
+              scales: {
+                y: {
+                  beginAtZero: true
                 }
-            });
-            
-            // Load chat sessions from Formspree or localStorage
-            function loadChatSessions() {
-                // For this example, we'll just load from localStorage
-                // In a real implementation, you'd fetch from your server/Formspree
-                
-                try {
-                    const savedHistory = localStorage.getItem('peterbot_chat_history');
-                    if (savedHistory) {
-                        const chatHistory = JSON.parse(savedHistory);
-                        displayChatSession('Local Session', new Date().toISOString(), chatHistory);
-                    } else {
-                        chatSessionsContainer.innerHTML = '<div class="alert alert-info">No chat sessions found.</div>';
-                    }
-                } catch (error) {
-                    console.error('Error loading chat history:', error);
-                    chatSessionsContainer.innerHTML = '<div class="alert alert-danger">Error loading chat sessions.</div>';
-                }
+              }
             }
-            
-            // Display a chat session
-            function displayChatSession(sessionId, timestamp, messages) {
-                const sessionDate = new Date(timestamp).toLocaleString();
-                
-                const sessionElement = document.createElement('div');
-                sessionElement.className = 'chat-session';
-                sessionElement.innerHTML = `
-                    <div class="chat-header">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h5 class="mb-0">Session: ${sessionId}</h5>
-                            <span class="text-muted">${sessionDate}</span>
-                        </div>
-                    </div>
-                    <div class="chat-messages">
-                        ${messages.map(msg => `
-                            <div class="message ${msg.role === 'user' ? 'user-message' : 'bot-message'}">
-                                <div class="message-content">${msg.content}</div>
-                                <div class="timestamp">${new Date(msg.timestamp).toLocaleString()}</div>
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
-                
-                chatSessionsContainer.innerHTML = '';
-                chatSessionsContainer.appendChild(sessionElement);
+          });
+        }
+        
+        // Top questions chart
+        const questionsCtx = document.getElementById('top-questions-chart');
+        if (questionsCtx) {
+          new Chart(questionsCtx, {
+            type: 'bar',
+            data: {
+              labels: ['Services', 'Pricing', 'Portfolio', 'Contact', 'Other'],
+              datasets: [{
+                label: 'Frequency',
+                data: [0, 0, 0, 0, 0],
+                backgroundColor: [
+                  '#0d6efd',
+                  '#20c997',
+                  '#fd7e14',
+                  '#dc3545',
+                  '#6c757d'
+                ]
+              }]
+            },
+            options: {
+              responsive: true,
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
             }
-            
-            // Search functionality
-            searchButton.addEventListener('click', function() {
-                const searchTerm = searchInput.value.toLowerCase();
-                
-                try {
-                    const savedHistory = localStorage.getItem('peterbot_chat_history');
-                    if (savedHistory) {
-                        const chatHistory = JSON.parse(savedHistory);
-                        
-                        // Filter messages containing the search term
-                        const filteredMessages = chatHistory.filter(msg => 
-                            msg.content.toLowerCase().includes(searchTerm)
-                        );
-                        
-                        if (filteredMessages.length > 0) {
-                            displayChatSession('Search Results', new Date().toISOString(), filteredMessages);
-                        } else {
-                            chatSessionsContainer.innerHTML = '<div class="alert alert-info">No messages found matching your search.</div>';
-                        }
-                    }
-                } catch (error) {
-                    console.error('Error searching chat history:', error);
-                }
-            });
-            
-            // Clear all data
-            clearDataButton.addEventListener('click', function() {
-                if (confirm('Are you sure you want to clear all chat history data? This cannot be undone.')) {
-                    localStorage.removeItem('peterbot_chat_history');
-                    chatSessionsContainer.innerHTML = '<div class="alert alert-success">All chat history has been cleared.</div>';
-                }
-            });
+          });
+        }
+      }
+      
+      // Handle settings form submission
+      const saveSettingsBtn = document.getElementById('save-settings');
+      if (saveSettingsBtn) {
+        saveSettingsBtn.addEventListener('click', function() {
+          // Save general settings
+          const botName = document.getElementById('bot-name').value;
+          const welcomeMessage = document.getElementById('welcome-message').value;
+          const botAvatar = document.getElementById('bot-avatar').value;
+          const showTypingIndicator = document.getElementById('show-typing-indicator').checked;
+          const showQuickReplies = document.getElementById('show-quick-replies').checked;
+          
+          // Save advanced settings
+          const responseDelay = document.getElementById('response-delay').value;
+          const maxHistory = document.getElementById('max-history').value;
+          const formspreeEndpoint = document.getElementById('formspree-endpoint').value;
+          const saveToServer = document.getElementById('save-to-server').checked;
+          
+          // Save to localStorage
+          const settings = {
+            botName,
+            welcomeMessage,
+            botAvatar,
+            showTypingIndicator,
+            showQuickReplies,
+            responseDelay,
+            maxHistory,
+            formspreeEndpoint,
+            saveToServer,
+            lastUpdated: new Date().toISOString()
+          };
+          
+          localStorage.setItem('peterbot_settings', JSON.stringify(settings));
+          
+          // Show success message
+          alert('Settings saved successfully!');
         });
-    </script>
+      }
+      
+      // Handle data management buttons
+      const clearAllChatsBtn = document.getElementById('clear-all-chats');
+      if (clearAllChatsBtn) {
+        clearAllChatsBtn.addEventListener('click', function() {
+          if (confirm('Are you sure you want to clear all chat history? This action cannot be undone.')) {
+            // Clear all chat history from localStorage
+            for (let i = 0; i < localStorage.length; i++) {
+              const key = localStorage.key(i);
+              if (key.startsWith('peterbot_chat_')) {
+                localStorage.removeItem(key);
+              }
+            }
+            alert('All chat history has been cleared.');
+          }
+        });
+      }
+      
+      const resetAllSettingsBtn = document.getElementById('reset-all-settings');
+      if (resetAllSettingsBtn) {
+        resetAllSettingsBtn.addEventListener('click', function() {
+          if (confirm('Are you sure you want to reset all settings to default? This action cannot be undone.')) {
+            localStorage.removeItem('peterbot_settings');
+            alert('All settings have been reset to default. Please refresh the page.');
+            location.reload();
+          }
+        });
+      }
+    });
+  </script>
 </body>
 </html>
