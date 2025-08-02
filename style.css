@@ -16,7 +16,7 @@ html {
 
 body {
     /* Main typography and font smoothing */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     background-color: #f8f9fa;
     -webkit-font-smoothing: antialiased;
@@ -323,12 +323,11 @@ h2::after {
 /* =====================================================================
    TESTIMONIALS & CAROUSEL
    ===================================================================== */
-#Testimonials {
+#testimonials {
     padding: 4rem 0;
-    padding-top: 100px;
 }
 
-#Testimonials .carousel-item {
+#testimonials .carousel-item {
     padding: 2rem;
     background: #fff;
     border-radius: 15px;
@@ -479,6 +478,126 @@ h2::after {
 }
 
 /* =====================================================================
+   CHATBOT STYLES
+   ===================================================================== */
+#chatbot-widget {
+    transition: transform 0.3s ease;
+    z-index: 1050;
+}
+
+#chat-area-widget {
+    height: 300px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+#open-chat-button {
+    transition: transform 0.3s ease;
+    z-index: 1040;
+}
+
+.typing-indicator {
+    display: flex;
+    align-items: center;
+}
+
+.spinner-grow {
+    width: 0.5rem;
+    height: 0.5rem;
+}
+
+/* =====================================================================
+   SPONSOR PAGE STYLES
+   ===================================================================== */
+.crypto-address-info {
+    background-color: #f8f9fa;
+    border-radius: 0.375rem;
+    padding: 1rem;
+    margin-top: 1rem;
+    font-family: monospace;
+    word-break: break-all;
+    color: #495057;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.crypto-address-info:hover {
+    background-color: #e9ecef;
+}
+
+.crypto-address-info small {
+    font-size: 0.8em;
+    color: #6c757d;
+}
+
+.crypto-qr-image {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    margin: 1rem auto;
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    padding: 5px;
+}
+
+.copy-feedback {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background-color: #28a745;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 0.7em;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.copy-feedback.show {
+    opacity: 1;
+}
+
+.sponsor-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 5rem 0;
+    color: white;
+}
+
+.sponsor-card {
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sponsor-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.sponsor-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: #764ba2;
+}
+
+/* =====================================================================
+   PROJECT PAGE STYLES
+   ===================================================================== */
+.view-btn {
+    color: white;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* =====================================================================
    RESPONSIVE DESIGN
    ===================================================================== */
 /* Mobile responsive adjustments for screens up to 768px wide */
@@ -545,14 +664,24 @@ h2::after {
     }
 }
 
-/* Emoji picker styling (from the bot component) */
-emoji-picker {
-    position: absolute;
-    bottom: calc(100% + 10px);
-    left: 0;
-    --emoji-size: 28px;
-    --border-radius: 0.75rem;
-    --num-columns: 8;
-    --outline-color: #e5e7eb;
-    --background-color: #ffffff;
+/* Fix navbar on mobile */
+@media (max-width: 991px) {
+    .navbar-collapse {
+        background-color: rgba(13, 110, 253, 0.95);
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-top: 0.5rem;
+    }
+    
+    .dropdown-menu {
+        background-color: rgba(13, 110, 253, 0.95) !important;
+    }
+    
+    .dropdown-item {
+        color: white !important;
+    }
+    
+    .dropdown-item:hover {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+    }
 }
