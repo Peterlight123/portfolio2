@@ -688,36 +688,47 @@
         </div>
     </footer>
 
-    <!-- === Chatbot Widget Start === -->
-<div id="chatbot-widget" class="position-fixed bottom-0 end-0 p-3">
-  <button id="open-chat-button" class="btn btn-danger rounded-circle shadow-lg">
-    <img src="https://i.imgur.com/Cgy2Aeq.png" alt="Bot Icon" class="img-fluid rounded-circle" style="width: 32px; height: 32px;">
+    <!-- Simple Chatbot Widget -->
+<div id="simple-chatbot" class="position-fixed bottom-0 end-0 m-3">
+  <!-- Chat Button -->
+  <button id="chat-toggle-btn" class="btn btn-primary rounded-circle shadow-lg p-3">
+    <i class="bi bi-chat-dots-fill"></i>
   </button>
-
-  <div id="chat-container" class="bg-white border rounded shadow d-none">
-    <div class="d-flex align-items-center justify-content-between p-2 border-bottom bg-light">
+  
+  <!-- Chat Window -->
+  <div id="chat-window" class="bg-white rounded shadow-lg d-none">
+    <!-- Chat Header -->
+    <div class="bg-primary text-white p-3 d-flex justify-content-between align-items-center rounded-top">
       <div class="d-flex align-items-center">
-        <img src="https://i.imgur.com/Cgy2Aeq.png" alt="Bot Avatar" class="rounded-circle me-2" style="width: 40px; height: 40px;">
+        <img src="https://i.imgur.com/Cgy2Aeq.png" alt="Peter" class="rounded-circle me-2" width="40" height="40">
         <div>
-          <strong>PLS Bot</strong>
-          <div class="d-flex align-items-center">
-            <span class="status-dot me-1"></span>
-            <small class="text-success">Online</small>
+          <strong>Peter Assistant</strong>
+          <div class="small">
+            <span class="bg-success rounded-circle d-inline-block me-1" style="width: 8px; height: 8px;"></span>
+            Online
           </div>
         </div>
       </div>
-      <button class="btn btn-sm text-secondary close-chat-button">
+      <button id="close-chat-btn" class="btn btn-sm text-white">
         <i class="bi bi-x-lg"></i>
       </button>
     </div>
-    <div id="chat-area-widget"></div>
-    <form id="chat-form" class="d-flex border-top p-2">
-      <input type="text" id="chat-input" class="form-control me-2" placeholder="Type your message..." autocomplete="off" required>
-      <button type="submit" class="btn btn-primary"><i class="bi bi-send-fill"></i></button>
-    </form>
+    
+    <!-- Chat Messages -->
+    <div id="chat-messages" class="p-3" style="height: 300px; overflow-y: auto;"></div>
+    
+    <!-- Chat Input -->
+    <div class="border-top p-3">
+      <form id="chat-form" class="d-flex">
+        <input type="text" id="chat-input" class="form-control me-2" placeholder="Type your message..." autocomplete="off">
+        <button type="submit" class="btn btn-primary">
+          <i class="bi bi-send-fill"></i>
+        </button>
+      </form>
+    </div>
   </div>
 </div>
-<!-- === Chatbot Widget End === -->
+
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -730,6 +741,7 @@
     <script src="bot.js"></script>
     
 <script src="chatbot-fix.js"></script>
+    <script src="simple-chatbot.js"></script>
 
 
 </body>
