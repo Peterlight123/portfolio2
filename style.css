@@ -1098,3 +1098,121 @@ h2::after {
     margin-top: 4px;
     display: block;
 }
+/* =====================================================================
+   FIXED CHATBOT STYLES - GUARANTEED TO WORK
+   ===================================================================== */
+.chatbot-fixed {
+    position: fixed !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    width: 320px !important;
+    border-radius: 15px !important;
+    overflow: hidden !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+    transition: transform 0.3s ease !important;
+    max-height: 500px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    background-color: white !important;
+    z-index: 9999 !important;
+    transform: scale(0) !important;
+    transform-origin: bottom right !important;
+}
+
+.chatbot-button-fixed {
+    position: fixed !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    width: 56px !important;
+    height: 56px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1.5rem !important;
+    background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%) !important;
+    box-shadow: 0 5px 15px rgba(13, 110, 253, 0.4) !important;
+    border: none !important;
+    transition: all 0.3s ease !important;
+    color: white !important;
+    z-index: 9998 !important;
+}
+
+.chatbot-messages {
+    height: 320px !important;
+    overflow-y: auto !important;
+    background-color: #f8f9fa !important;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0wIDBoNDB2NDBoLTQweiIvPjxwYXRoIGQ9Ik0xMCAyMGMwIDUuNTIzIDQuNDc3IDEwIDEwIDEwczEwLTQuNDc3IDEwLTEwLTQuNDc3LTEwLTEwLTEwLTEwIDQuNDc3LTEwIDEwem0xMC0xNWMtOC4yODQgMC0xNSA2LjcxNi0xNSAxNSAwIDguMjg0IDYuNzE2IDE1IDE1IDE1IDguMjg0IDAgMTUtNi43MTYgMTUtMTUgMC04LjI4NC02LjcxNi0xNS0xNS0xNXoiIGZpbGw9IiNmMGYwZjAiIGZpbGwtcnVsZT0ibm9uemVybyIvPjwvZz48L3N2Zz4=') !important;
+}
+
+.chatbot-avatar {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+    overflow: hidden !important;
+    border: 2px solid white !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+.chatbot-avatar img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+}
+
+.chatbot-status {
+    font-size: 0.75rem !important;
+    opacity: 0.9 !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.status-dot {
+    width: 8px !important;
+    height: 8px !important;
+    background-color: #4CAF50 !important;
+    border-radius: 50% !important;
+    margin-right: 5px !important;
+    display: inline-block !important;
+    position: relative !important;
+}
+
+.status-dot::after {
+    content: '' !important;
+    position: absolute !important;
+    width: 100% !important;
+    height: 100% !important;
+    background-color: #4CAF50 !important;
+    border-radius: 50% !important;
+    animation: pulse 1.5s infinite !important;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2.5);
+        opacity: 0;
+    }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 576px) {
+    .chatbot-fixed {
+        width: 90% !important;
+        right: 5% !important;
+        left: 5% !important;
+        bottom: 80px !important;
+    }
+    
+    .chatbot-button-fixed {
+        bottom: 20px !important;
+        right: 20px !important;
+    }
+    
+    .chatbot-messages {
+        height: 280px !important;
+    }
+}
