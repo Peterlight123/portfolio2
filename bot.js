@@ -138,6 +138,48 @@ formatDonationAmounts(text) {
         return `<span class="donation-amount">$${amount}</span>`;
     });
 }
+        // Ensure the chatbot is properly initialized
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("DOM fully loaded - initializing chatbot");
+    
+    // Force proper styling
+    const chatbotWidget = document.getElementById('chatbot-widget');
+    const openChatButton = document.getElementById('open-chat-button');
+    
+    if (chatbotWidget) {
+        chatbotWidget.style.position = 'fixed';
+        chatbotWidget.style.bottom = '20px';
+        chatbotWidget.style.right = '20px';
+        chatbotWidget.style.zIndex = '9999';
+        chatbotWidget.style.transform = 'scale(0)';
+    }
+    
+    if (openChatButton) {
+        openChatButton.style.position = 'fixed';
+        openChatButton.style.bottom = '20px';
+        openChatButton.style.right = '20px';
+        openChatButton.style.zIndex = '9998';
+    }
+    
+    // Fix event listeners
+    if (openChatButton && chatbotWidget) {
+        openChatButton.addEventListener('click', function() {
+            console.log("Open button clicked");
+            chatbotWidget.style.transform = 'scale(1)';
+            openChatButton.style.transform = 'scale(0)';
+        });
+    }
+    
+    const closeChatButton = document.getElementById('close-chat');
+    if (closeChatButton && chatbotWidget && openChatButton) {
+        closeChatButton.addEventListener('click', function() {
+            console.log("Close button clicked");
+            chatbotWidget.style.transform = 'scale(0)';
+            openChatButton.style.transform = 'scale(1)';
+        });
+    }
+});
+
 
 // Add sponsor-specific responses
 getResponse(message) {
