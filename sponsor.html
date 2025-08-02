@@ -1,28 +1,144 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sponsor - MyBrand</title>
+    <title>Sponsor Peter Lightspeed - Support My Development Journey</title>
+    
+    <!-- Meta tags for SEO -->
+    <meta name="description" content="Support Peter Lightspeed's development journey. Your sponsorship helps me continue creating innovative digital solutions and contributing to the developer community.">
+    <meta name="keywords" content="sponsor, donation, support, web developer, virtual assistant, Peter Lightspeed, freelancer, Nigeria">
+    <meta name="author" content="Peter Eluwade Toluwanimi">
+    <meta name="robots" content="index, follow">
+    
+    <link rel="canonical" href="https://peterlight123.github.io/portfolio/sponsor.html">
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation Library -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
+    
     <!-- Google Fonts for custom font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://i.imgur.com/2Ocmg4m.png">
+    
+    <!-- Open Graph for social media -->
+    <meta property="og:title" content="Sponsor Peter Lightspeed - Support My Development Journey">
+    <meta property="og:description" content="Your sponsorship helps me continue creating innovative digital solutions and contributing to the developer community.">
+    <meta property="og:image" content="https://peterlight123.github.io/portfolio/images/og-image.jpg">
+    <meta property="og:url" content="https://peterlight123.github.io/portfolio/sponsor.html">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Sponsor Peter Lightspeed">
+    <meta name="twitter:description" content="Support my development journey">
+    <meta name="twitter:image" content="https://peterlight123.github.io/portfolio/images/twitter-image.jpg">
+    
+    <style>
+        /* Additional styles specific to sponsor page */
+        .crypto-address-info {
+            background-color: #f8f9fa;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            margin-top: 1rem;
+            font-family: monospace;
+            word-break: break-all;
+            color: #495057;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .crypto-address-info:hover {
+            background-color: #e9ecef;
+        }
+        
+        .crypto-address-info small {
+            font-size: 0.8em;
+            color: #6c757d;
+        }
+        
+        /* Style for QR Code Images */
+        .crypto-qr-image {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            margin: 1rem auto;
+            border: 1px solid #dee2e6;
+            border-radius: 0.375rem;
+            padding: 5px;
+        }
+        
+        .copy-feedback {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background-color: #28a745;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 0.7em;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        
+        .copy-feedback.show {
+            opacity: 1;
+        }
+        
+        .sponsor-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 5rem 0;
+            color: white;
+        }
+        
+        .sponsor-card {
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .sponsor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .sponsor-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #764ba2;
+        }
+    </style>
 </head>
 <body>
 
     <!-- ======================= HEADER & NAVBAR ======================= -->
-    <header class="bg-white shadow-sm sticky-top">
-        <nav class="navbar navbar-expand-lg navbar-light container">
+    <header class="bg-primary shadow-sm sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-dark container">
             <a class="navbar-brand d-flex align-items-center" href="index.html">
-                <img src="https://placehold.co/50x50/F8F9FA/6C757D?text=Logo" alt="Logo" class="rounded-circle me-2">
-                <span class="fs-4 fw-bold">MyBrand</span>
+                <img src="https://i.imgur.com/Cgy2Aeq.png" alt="Peter Logo" height="40" class="rounded-circle me-2">
+                <span class="fs-4 fw-bold">Peter Lightspeed</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -30,10 +146,13 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html#home">Home</a>
+                        <a class="nav-link" href="index.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html#projects">Projects</a>
+                        <a class="nav-link" href="project.html">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#highlights">Highlights</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="index.html#testimonials">Testimonials</a>
@@ -42,7 +161,7 @@
                         <a class="nav-link" href="index.html#contact">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="sponsor.html">Sponsor</a>
+                        <a class="nav-link active" aria-current="page" href="sponsor.html">Sponsor</a>
                     </li>
                 </ul>
             </div>
@@ -50,101 +169,627 @@
     </header>
 
     <main>
-        <!-- ======================= SPONSOR SECTION ======================= -->
-        <section id="sponsor-section" class="py-5">
+        <!-- ======================= SPONSOR HEADER ======================= -->
+        <section class="sponsor-header">
+            <div class="container text-center">
+                <h1 class="display-4 fw-bold mb-3">Support My Development Journey</h1>
+                <p class="lead mb-4">Your sponsorship helps me continue creating innovative digital solutions and contributing to the developer community.</p>
+                <button type="button" class="btn btn-light btn-lg" data-bs-toggle="modal" data-bs-target="#paymentModal">
+                    <i class="bi bi-heart-fill text-danger me-2"></i>Become a Sponsor
+                </button>
+            </div>
+        </section>
+
+        <!-- ======================= WHY SPONSOR SECTION ======================= -->
+        <section class="py-5">
             <div class="container">
-                <h2>Our Sponsors</h2>
-                <p class="text-center lead mb-5">Thank you to our generous sponsors who support our work and make these projects possible.</p>
-                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-                    <!-- Sponsor Card 1 -->
-                    <div class="col">
-                        <div class="card h-100 text-center shadow-sm p-4">
-                            <img src="https://placehold.co/200x100/F8F9FA/6C757D?text=Sponsor+A" class="card-img-top mx-auto mb-3" alt="Sponsor A Logo">
+                <h2 class="text-center mb-5">Why Sponsor Me?</h2>
+                <div class="row g-4">
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card h-100 sponsor-card text-center p-4">
                             <div class="card-body">
-                                <h5 class="card-title">Innovate Solutions</h5>
-                                <p class="card-text text-muted">Leading the way in software development and tech innovation.</p>
+                                <i class="bi bi-code-slash sponsor-icon"></i>
+                                <h3 class="h4 mb-3">Open Source Contribution</h3>
+                                <p class="card-text">I actively contribute to open-source projects and create resources that help other developers learn and grow.</p>
                             </div>
                         </div>
                     </div>
-                    <!-- Sponsor Card 2 -->
-                    <div class="col">
-                        <div class="card h-100 text-center shadow-sm p-4">
-                            <img src="https://placehold.co/200x100/212529/F8F9FA?text=Sponsor+B" class="card-img-top mx-auto mb-3" alt="Sponsor B Logo">
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                        <div class="card h-100 sponsor-card text-center p-4">
                             <div class="card-body">
-                                <h5 class="card-title">Global Tech Corp</h5>
-                                <p class="card-text text-muted">A global leader in providing technology solutions for businesses.</p>
+                                <i class="bi bi-mortarboard sponsor-icon"></i>
+                                <h3 class="h4 mb-3">Continuous Learning</h3>
+                                <p class="card-text">Your support helps me invest in courses, tools, and resources to expand my skills and create better solutions.</p>
                             </div>
                         </div>
                     </div>
-                    <!-- Sponsor Card 3 -->
-                    <div class="col">
-                        <div class="card h-100 text-center shadow-sm p-4">
-                            <img src="https://placehold.co/200x100/0D6EFD/FFFFFF?text=Sponsor+C" class="card-img-top mx-auto mb-3" alt="Sponsor C Logo">
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                        <div class="card h-100 sponsor-card text-center p-4">
                             <div class="card-body">
-                                <h5 class="card-title">Future Forward Labs</h5>
-                                <p class="card-text text-muted">Pioneering research and development for the future of technology.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Sponsor Card 4 -->
-                    <div class="col">
-                        <div class="card h-100 text-center shadow-sm p-4">
-                            <img src="https://placehold.co/200x100/667eea/FFFFFF?text=Sponsor+D" class="card-img-top mx-auto mb-3" alt="Sponsor D Logo">
-                            <div class="card-body">
-                                <h5 class="card-title">Creative Minds Agency</h5>
-                                <p class="card-text text-muted">Experts in digital marketing and creative brand strategies.</p>
+                                <i class="bi bi-people sponsor-icon"></i>
+                                <h3 class="h4 mb-3">Community Support</h3>
+                                <p class="card-text">I mentor aspiring developers and create educational content to help others start their tech journey.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- ======================= SPONSOR TIERS SECTION ======================= -->
+        <section class="py-5 bg-light">
+            <div class="container">
+                <h2 class="text-center mb-5">Sponsorship Tiers</h2>
+                <div class="row g-4 justify-content-center">
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card h-100 sponsor-card">
+                            <div class="card-header bg-primary text-white text-center py-3">
+                                <h3 class="h4 mb-0">Basic Supporter</h3>
+                            </div>
+                            <div class="card-body text-center">
+                                <h4 class="card-title pricing-card-title">₦5,000<small class="text-muted fw-light">/one-time</small></h4>
+                                <ul class="list-unstyled mt-3 mb-4">
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Name in supporters list</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Access to sponsor-only updates</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>My eternal gratitude</li>
+                                </ul>
+                                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#paymentModal" data-amount="5000">Select</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                        <div class="card h-100 sponsor-card border-primary">
+                            <div class="card-header bg-primary text-white text-center py-3">
+                                <h3 class="h4 mb-0">Premium Supporter</h3>
+                                <span class="badge bg-warning text-dark mt-2">Popular</span>
+                            </div>
+                            <div class="card-body text-center">
+                                <h4 class="card-title pricing-card-title">₦15,000<small class="text-muted fw-light">/one-time</small></h4>
+                                <ul class="list-unstyled mt-3 mb-4">
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>All Basic Supporter benefits</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>30-minute consultation call</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Featured on my website</li>
+                                </ul>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#paymentModal" data-amount="15000">Select</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                        <div class="card h-100 sponsor-card">
+                            <div class="card-header bg-primary text-white text-center py-3">
+                                <h3 class="h4 mb-0">Gold Supporter</h3>
+                            </div>
+                            <div class="card-body text-center">
+                                <h4 class="card-title pricing-card-title">₦50,000<small class="text-muted fw-light">/one-time</small></h4>
+                                <ul class="list-unstyled mt-3 mb-4">
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>All Premium Supporter benefits</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Custom project collaboration</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Priority support for 3 months</li>
+                                </ul>
+                                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#paymentModal" data-amount="50000">Select</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-5">
+                    <p class="lead">Want to sponsor a custom amount?</p>
+                    <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal" data-bs-target="#paymentModal">
+                        Custom Sponsorship
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================= SPONSORS SECTION ======================= -->
+        <section class="py-5">
+            <div class="container text-center">
+                <h2 class="mb-5">Current Sponsors</h2>
+                <p class="lead mb-5">Be the first to sponsor my work and have your name featured here!</p>
+                <a href="#" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#paymentModal">
+                    Become a Sponsor Today
+                </a>
+            </div>
+        </section>
     </main>
+
+    <!-- ======================= PAYMENT MODAL ======================= -->
+    <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="paymentModalLabel">Choose Your Payment Method</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="paymentForm" action="https://formspree.io/f/xvgrkldk" method="POST">
+                        <div class="mb-3">
+                            <label for="fullName" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="fullName" name="fullName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="emailAddress" class="form-label">Your Email Address</label>
+                            <input type="email" class="form-control" id="emailAddress" name="emailAddress" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="amount" class="form-label">Amount (NGN)</label>
+                            <input type="number" class="form-control" id="amount" name="amount" step="0.01" min="0.01" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="orderNotes" class="form-label">Order Notes (Optional)</label>
+                            <textarea class="form-control" id="orderNotes" name="orderNotes" rows="3"></textarea>
+                        </div>
+
+                        <h4 class="mb-3">Select Payment Option</h4>
+                        <ul class="nav nav-tabs mb-3" id="paymentTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="transfer-tab" data-bs-toggle="tab" data-bs-target="#transfer-section" type="button" role="tab" aria-controls="transfer-section" aria-selected="true">Bank Transfer</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="crypto-tab" data-bs-toggle="tab" data-bs-target="#crypto-section" type="button" role="tab" aria-controls="crypto-section" aria-selected="false">Cryptocurrencies</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="paymentTabContent">
+                            <div class="tab-pane fade show active" id="transfer-section" role="tabpanel" aria-labelledby="transfer-tab">
+                                <p class="alert alert-info">
+                                    Please make a transfer to the account details below. Your sponsorship will be processed upon confirmation of payment.
+                                </p>
+                                <div class="card bg-light mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Bank Account Details</h5>
+                                        <p class="card-text mb-1"><strong>Bank Name:</strong> Zenith Bank</p>
+                                        <p class="card-text mb-1"><strong>Account Name:</strong> Eluwade Peter Toluwanimi</p>
+                                        <p class="card-text mb-0"><strong>Account Number:</strong> 4291620354</p>
+                                        <small class="text-muted">Kindly include your full name in the transfer description.</small>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="transferRef" class="form-label">Transfer Reference (Optional)</label>
+                                    <input type="text" class="form-control" id="transferRef" name="transferRef" placeholder="e.g., your bank transaction ID">
+                                </div>
+                                <input type="hidden" name="_paymentMethod" value="Bank Transfer">
+                            </div>
+
+                            <div class="tab-pane fade" id="crypto-section" role="tabpanel" aria-labelledby="crypto-tab">
+                                <p class="alert alert-warning">
+                                    <strong>Important:</strong> Only send the exact cryptocurrency to the specified address on the correct network. Sending unsupported crypto or using the wrong network may result in loss of funds.
+                                </p>
+
+                                <div class="accordion" id="cryptoOptionsAccordion">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingBTC">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBTC" aria-expanded="false" aria-controls="collapseBTC">
+                                                Bitcoin (BTC)
+                                            </button>
+                                        </h2>
+                                        <div id="collapseBTC" class="accordion-collapse collapse" aria-labelledby="headingBTC" data-bs-parent="#cryptoOptionsAccordion">
+                                            <div class="accordion-body">
+                                                <p>Send <strong>Bitcoin (BTC)</strong> to the address below:</p>
+                                                <img src="images/btc.png" alt="Bitcoin QR Code" class="crypto-qr-image">
+                                                <div class="crypto-address-info text-center" data-address="19Vgx1nv32Ra2gH69Mndged2ZGEpY6J189">
+                                                    19Vgx1nv32Ra2gH69Mndged2ZGEpY6J189 <span class="copy-feedback"></span>
+                                                    <small class="d-block">(Tap to copy)</small>
+                                                </div>
+                                                <small class="text-muted">Network: Bitcoin (BTC)</small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingETH">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseETH" aria-expanded="false" aria-controls="collapseETH">
+                                                Ethereum (ETH)
+                                            </button>
+                                        </h2>
+                                        <div id="collapseETH" class="accordion-collapse collapse" aria-labelledby="headingETH" data-bs-parent="#cryptoOptionsAccordion">
+                                            <div class="accordion-body">
+                                                <p>Send <strong>Ethereum (ETH)</strong> to the address below:</p>
+                                                <img src="images/eth.png" alt="Ethereum QR Code" class="crypto-qr-image">
+                                                <div class="crypto-address-info text-center" data-address="0x09e30b2c2ac6cd875121b9b088ba57a1da1d7ed2">
+                                                    0x09e30b2c2ac6cd875121b9b088ba57a1da1d7ed2 <span class="copy-feedback"></span>
+                                                    <small class="d-block">(Tap to copy)</small>
+                                                </div>
+                                                <small class="text-muted">Network: Ethereum (ERC-20)</small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingUSDT">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUSDT" aria-expanded="false" aria-controls="collapseUSDT">
+                                                USDT (Tether)
+                                            </button>
+                                        </h2>
+                                        <div id="collapseUSDT" class="accordion-collapse collapse" aria-labelledby="headingUSDT" data-bs-parent="#cryptoOptionsAccordion">
+                                            <div class="accordion-body">
+                                                <p class="mb-2">Select USDT Network:</p>
+                                                <select class="form-select mb-3" id="usdtNetwork">
+                                                    <option selected disabled value="">Choose network...</option>
+                                                    <option value="ERC-20">Ethereum (ERC-20)</option>
+                                                    <option value="TRC-20">Tron (TRC-20)</option>
+                                                    <option value="BEP-20">Binance Smart Chain (BEP-20)</option>
+                                                    <option value="SPL">Solana (SPL)</option>
+                                                </select>
+
+                                                <div id="usdtAddressDisplay" class="d-none">
+                                                    <p>Send <strong>USDT</strong> to this address on the selected network:</p>
+                                                    <img id="usdtQrCode" src="" alt="USDT QR Code" class="crypto-qr-image">
+                                                    <div class="crypto-address-info text-center" id="selectedUsdtAddress" data-address="">
+                                                        <span class="copy-feedback"></span>
+                                                        <small class="d-block">(Tap to copy)</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingSOL">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSOL" aria-expanded="false" aria-controls="collapseSOL">
+                                                Solana (SOL)
+                                            </button>
+                                        </h2>
+                                        <div id="collapseSOL" class="accordion-collapse collapse" aria-labelledby="headingSOL" data-bs-parent="#cryptoOptionsAccordion">
+                                            <div class="accordion-body">
+                                                <p>Send <strong>Solana (SOL)</strong> to the address below:</p>
+                                                <img src="images/sol.png" alt="Solana QR Code" class="crypto-qr-image">
+                                                <div class="crypto-address-info text-center" data-address="47jBLNm9AKF5a9d6j8bqYe7NTJNVbbS9TkQsj2FSeBkd">
+                                                    47jBLNm9AKF5a9d6j8bqYe7NTJNVbbS9TkQsj2FSeBkd <span class="copy-feedback"></span>
+                                                    <small class="d-block">(Tap to copy)</small>
+                                                </div>
+                                                <small class="text-muted">Network: Solana</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <small class="text-muted mt-3 d-block">Remember to only send from your own wallet. Exchange deposits may require extra steps.</small>
+                                <input type="hidden" id="submittedCryptoType" name="cryptoType">
+                                <input type="hidden" id="submittedCryptoAddress" name="cryptoAddress">
+                                <input type="hidden" id="submittedUsdtNetwork" name="usdtNetwork">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="confirmPaymentBtn">Confirm Payment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== CHATBOT WIDGET ===== -->
+    <div id="chatbot-widget" class="position-fixed bottom-0 end-0 m-4 bg-white border rounded-lg shadow-lg" style="width: 320px; transform: scale(0); transition: transform 0.3s; z-index: 1050;">
+        <div class="d-flex align-items-center justify-content-between bg-primary text-white p-3 rounded-top">
+            <span class="fw-semibold">Peter Assistant</span>
+            <button id="close-chat" class="btn btn-sm text-white">✖</button>
+        </div>
+        <div id="chat-area-widget" class="p-3" style="height: 300px; overflow-y: auto;"></div>
+        <div class="d-flex align-items-center p-2 border-top">
+            <input id="user-input-widget" type="text" placeholder="Type something..." class="form-control form-control-sm me-2">
+            <button id="send-button-widget" class="btn btn-primary btn-sm">Send</button>
+        </div>
+    </div>
+
+    <!-- ===== FLOATING CHAT BUTTON ===== -->
+    <button id="open-chat-button" class="position-fixed bottom-0 end-0 m-4 bg-primary text-white rounded-circle shadow-lg border-0" style="width: 56px; height: 56px; z-index: 1040;">
+        💬
+        <span id="notification-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none">1</span>
+    </button>
 
     <!-- ======================= FOOTER ======================= -->
     <footer class="footer py-5 mt-5">
         <div class="container">
             <div class="row">
-                <div class="col-md-3 text-center text-md-start mb-4 mb-md-0">
-                    <h6 class="text-danger">About Me</h6>
-                    <p class="mb-0">I'm a dedicated full-stack developer with a passion for creating impactful digital solutions. Let's build something great together.</p>
+                <div class="col-md-3 mb-4" data-aos="fade-up">
+                    <h5 class="fw-bold mb-3">
+                        <i class="bi bi-lightning-charge me-2"></i>Peter Lightspeed
+                    </h5>
+                    <p class="mb-3">Your Reliable Virtual Assistant for Digital Services</p>
+                    <small class="text-muted">© 2025 Eluwade Peter Toluwanimi. All rights reserved.</small>
                 </div>
-                <div class="col-md-3 text-center text-md-start mb-4 mb-md-0">
-                    <h6 class="text-danger">Quick Links</h6>
+                <div class="col-md-3 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <h6 class="text-uppercase fw-bold mb-3 text-danger">Quick Links</h6>
                     <ul class="list-unstyled">
-                        <li><a href="index.html#home" class="footer-link">Home</a></li>
-                        <li><a href="index.html#projects" class="footer-link">Projects</a></li>
-                        <li><a href="index.html#testimonials" class="footer-link">Testimonials</a></li>
-                        <li><a href="index.html#contact" class="footer-link">Contact</a></li>
+                        <li class="mb-2">
+                            <a class="text-light text-decoration-none footer-link" href="index.html">
+                                <i class="bi bi-house me-2"></i>Home
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a class="text-light text-decoration-none footer-link" href="project.html">
+                                <i class="bi bi-folder me-2"></i>Projects
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a class="text-light text-decoration-none footer-link" href="index.html#services">
+                                <i class="bi bi-gear me-2"></i>Services
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a class="text-light text-decoration-none footer-link" href="index.html#contact">
+                                <i class="bi bi-envelope me-2"></i>Contact
+                            </a>
+                        </li>
                     </ul>
                 </div>
-                <div class="col-md-3 text-center text-md-start mb-4 mb-md-0">
-                    <h6 class="text-danger">Contact Info</h6>
-                    <div class="contact-info">
-                        <p class="mb-1"><a href="mailto:email@example.com" class="footer-link"><i class="fas fa-envelope me-2"></i>email@example.com</a></p>
-                        <p class="mb-1"><a href="tel:+1234567890" class="footer-link"><i class="fas fa-phone me-2"></i>+123 456 7890</a></p>
-                    </div>
+                <div class="col-md-3 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <h6 class="text-uppercase fw-bold mb-3 text-danger">My Services</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a class="text-light text-decoration-none footer-link" href="index.html#services">
+                                <i class="bi bi-laptop me-2"></i>Web Design
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a class="text-light text-decoration-none footer-link" href="index.html#services">
+                                <i class="bi bi-palette me-2"></i>Graphics Design
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a class="text-light text-decoration-none footer-link" href="index.html#services">
+                                <i class="bi bi-keyboard me-2"></i>Typing & Data Entry
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a class="text-light text-decoration-none footer-link" href="index.html#services">
+                                <i class="bi bi-globe me-2"></i>Blogger Setup
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="col-md-3 text-center text-md-start">
-                    <h6 class="text-danger">Follow Me</h6>
-                    <div class="social-icons">
-                        <a href="#" class="social-icon twitter" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon linkedin" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="social-icon instagram" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <div class="col-md-3 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <h6 class="text-uppercase fw-bold mb-3 text-danger">Connect With Me</h6>
+                    <!-- Social Media Links -->
+                    <div class="social-links mb-3">
+                        <a class="social-icon twitter me-2 mb-2 d-inline-block" href="https://x.com/peter8118533304" rel="noopener noreferrer" target="_blank" title="@peter8118533304">
+                            <i class="bi bi-twitter-x"></i>
+                        </a>
+                        <a class="social-icon instagram me-2 mb-2 d-inline-block" href="https://www.instagram.com/eluwadepeter" rel="noopener noreferrer" target="_blank" title="@eluwadepeter">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a class="social-icon linkedin me-2 mb-2 d-inline-block" href="https://www.linkedin.com/in/peter-eluwade-5b8a73363/" rel="noopener noreferrer" target="_blank" title="Peter Eluwade">
+                            <i class="bi bi-linkedin"></i>
+                        </a>
+                        <a class="social-icon tiktok me-2 mb-2 d-inline-block" href="https://www.tiktok.com/@eluwadepeter" rel="noopener noreferrer" target="_blank" title="@eluwadepeter">
+                            <i class="bi bi-tiktok"></i>
+                        </a>
+                        <a class="social-icon youtube me-2 mb-2 d-inline-block" href="https://www.youtube.com/@peterlightspeedvibes" rel="noopener noreferrer" target="_blank" title="@peterlightspeedvibes">
+                            <i class="bi bi-youtube"></i>
+                        </a>
+                    </div>
+                    <!-- Contact Information -->
+                    <div class="contact-info">
+                        <p class="mb-2">
+                            <a class="text-light text-decoration-none footer-link" href="mailto:petereluwade55@gmail.com">
+                                <i class="bi bi-envelope me-2"></i>petereluwade55@gmail.com
+                            </a>
+                        </p>
+                        <p class="mb-2">
+                            <a class="text-light text-decoration-none footer-link" href="https://wa.me/2348108821809" rel="noopener noreferrer" target="_blank">
+                                <i class="bi bi-whatsapp me-2"></i>+234 810 882 1809
+                            </a>
+                        </p>
                     </div>
                 </div>
             </div>
-            <hr class="mt-4 mb-3">
+            <hr class="my-4 border-secondary">
             <div class="text-center">
-                <small>&copy; 2024 MyBrand. All Rights Reserved.</small>
+                <small class="text-muted">Built with the speed of light by Peter Lightspeed | Virtual Assistant & Web Developer</small>
             </div>
         </div>
     </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
     <!-- Custom Scripts -->
     <script src="script.js"></script>
     <script src="bot.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true,
+                offset: 100
+            });
+            
+            const paymentForm = document.getElementById('paymentForm');
+            const confirmPaymentBtn = document.getElementById('confirmPaymentBtn');
+            const usdtNetworkSelect = document.getElementById('usdtNetwork');
+            const usdtAddressDisplay = document.getElementById('usdtAddressDisplay');
+            const selectedUsdtAddressDiv = document.getElementById('selectedUsdtAddress');
+            const usdtQrCodeImage = document.getElementById('usdtQrCode');
+            const cryptoAccordion = document.getElementById('cryptoOptionsAccordion');
+            const amountInput = document.getElementById('amount');
+
+            // Set amount from tier buttons
+            document.querySelectorAll('[data-amount]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const amount = this.getAttribute('data-amount');
+                    if (amountInput) {
+                        amountInput.value = amount;
+                    }
+                });
+            });
+
+            // Hidden inputs for dynamic form submission
+            const submittedCryptoTypeInput = document.getElementById('submittedCryptoType');
+            const submittedCryptoAddressInput = document.getElementById('submittedCryptoAddress');
+            const submittedUsdtNetworkInput = document.getElementById('submittedUsdtNetwork');
+            const transferRefInput = document.getElementById('transferRef');
+            const paymentMethodInput = paymentForm.querySelector('input[name="_paymentMethod"]');
+
+            // Consolidated wallet addresses and QR code paths
+            const usdtAddresses = {
+                'ERC-20': {
+                    display: '0x09e30b2c2ac6cd875121b9b088ba57a1da1d7ed2 (ERC-20)',
+                    address: '0x09e30b2c2ac6cd875121b9b088ba57a1da1d7ed2',
+                    qr: 'images/usdt_erc.png'
+                },
+                'TRC-20': {
+                    display: 'TGXpu2E7AU4tncJ8baRRzCpcEq4GfMfcKC (TRC-20)',
+                    address: 'TGXpu2E7AU4tncJ8baRRzCpcEq4GfMfcKC',
+                    qr: 'images/usdt_trc.png'
+                },
+                'BEP-20': {
+                    display: '0x09e30b2c2ac6cd875121b9b088ba57a1da1d7ed2 (BEP-20)',
+                    address: '0x09e30b2c2ac6cd875121b9b088ba57a1da1d7ed2',
+                    qr: 'images/usdt_bnb.png'
+                },
+                'SPL': {
+                    display: '47jBLNm9AKF5a9d6j8bqYe7NTJNVbbS9TkQsj2FSeBkd (SPL - Solana)',
+                    address: '47jBLNm9AKF5a9d6j8bqYe7NTJNVbbS9TkQsj2FSeBkd',
+                    qr: 'images/usdt_sol.png'
+                }
+            };
+
+            if (usdtNetworkSelect) {
+                usdtNetworkSelect.addEventListener('change', function() {
+                    const selectedValue = this.value;
+                    if (selectedValue && usdtAddresses[selectedValue]) {
+                        const cryptoInfo = usdtAddresses[selectedValue];
+                        selectedUsdtAddressDiv.innerHTML = `${cryptoInfo.display} <span class="copy-feedback"></span><small class="d-block">(Tap to copy)</small>`;
+                        selectedUsdtAddressDiv.dataset.address = cryptoInfo.address;
+
+                        // Set QR code source and show it
+                        usdtQrCodeImage.src = cryptoInfo.qr;
+                        usdtQrCodeImage.classList.remove('d-none'); // Show the image
+                        usdtAddressDisplay.classList.remove('d-none'); // Show the whole display block
+                    } else {
+                        usdtAddressDisplay.classList.add('d-none');
+                        selectedUsdtAddressDiv.innerHTML = `<span class="copy-feedback"></span><small class="d-block">(Tap to copy)</small>`;
+                        selectedUsdtAddressDiv.dataset.address = '';
+                        usdtQrCodeImage.src = ''; // Clear QR code source
+                        usdtQrCodeImage.classList.add('d-none'); // Hide the image
+                    }
+                });
+            }
+
+            // Handle accordion collapses to reset USDT selection
+            if (cryptoAccordion) {
+                cryptoAccordion.addEventListener('hide.bs.collapse', function (event) {
+                    // If the collapsing item is USDT or if USDT was previously open and another item is opening/closing
+                    if (event.target.id === 'collapseUSDT' || (event.target.id !== 'collapseUSDT' && document.getElementById('collapseUSDT').classList.contains('show'))) {
+                        usdtNetworkSelect.value = '';
+                        usdtAddressDisplay.classList.add('d-none');
+                        selectedUsdtAddressDiv.innerHTML = `<span class="copy-feedback"></span><small class="d-block">(Tap to copy)</small>`;
+                        selectedUsdtAddressDiv.dataset.address = '';
+                        usdtQrCodeImage.src = ''; // Clear QR code source on collapse
+                        usdtQrCodeImage.classList.add('d-none'); // Hide the image
+                    }
+                });
+            }
+
+            // Copy to Clipboard Functionality
+            function copyToClipboard(text, feedbackElement) {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(text)
+                        .then(() => {
+                            if (feedbackElement) {
+                                feedbackElement.textContent = 'Copied!';
+                                feedbackElement.classList.add('show');
+                                setTimeout(() => {
+                                    feedbackElement.classList.remove('show');
+                                    feedbackElement.textContent = '';
+                                }, 2000);
+                            }
+                        })
+                        .catch(err => {
+                            console.error('Failed to copy text: ', err);
+                            alert('Failed to copy address. Please copy it manually: ' + text);
+                        });
+                } else {
+                    // Fallback for browsers that don't support navigator.clipboard
+                    const tempInput = document.createElement('textarea');
+                    tempInput.value = text;
+                    document.body.appendChild(tempInput);
+                    tempInput.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(tempInput);
+                    alert('Address copied to clipboard (manual copy fallback).');
+                    if (feedbackElement) {
+                        feedbackElement.textContent = 'Copied!';
+                        feedbackElement.classList.add('show');
+                        setTimeout(() => {
+                            feedbackElement.classList.remove('show');
+                            feedbackElement.textContent = '';
+                        }, 2000);
+                    }
+                }
+            }
+
+            document.querySelectorAll('.crypto-address-info').forEach(infoDiv => {
+                infoDiv.addEventListener('click', function() {
+                    const addressToCopy = this.dataset.address;
+                    const feedbackSpan = this.querySelector('.copy-feedback');
+                    if (addressToCopy) {
+                        copyToClipboard(addressToCopy, feedbackSpan);
+                    }
+                });
+            });
+
+            // Form submission handling
+            if (paymentForm && confirmPaymentBtn) {
+                confirmPaymentBtn.addEventListener('click', function() {
+                    // Submit the form
+                    paymentForm.submit();
+                });
+                
+                paymentForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    
+                    // Validate form
+                    if (!paymentForm.checkValidity()) {
+                        event.stopPropagation();
+                        paymentForm.classList.add('was-validated');
+                        return;
+                    }
+                    
+                    const formData = new FormData(paymentForm);
+                    
+                    // Show loading state on button
+                    confirmPaymentBtn.disabled = true;
+                    confirmPaymentBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...';
+                    
+                    fetch(paymentForm.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            // Success message
+                            alert("Thank you for your sponsorship! Your payment details have been submitted.");
+                            paymentForm.reset();
+                            
+                            // Close modal
+                            const modal = bootstrap.Modal.getInstance(document.getElementById('paymentModal'));
+                            if (modal) modal.hide();
+                        } else {
+                            // Error message
+                            alert("There was an issue submitting your payment details. Please try again.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert("An error occurred. Please try again later.");
+                    })
+                    .finally(() => {
+                        // Reset button state
+                        confirmPaymentBtn.disabled = false;
+                        confirmPaymentBtn.innerHTML = 'Confirm Payment';
+                    });
+                });
+            }
+        });
+    </script>
 </body>
 </html>
