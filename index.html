@@ -689,11 +689,11 @@
     </footer>
 
     <!-- ===== CHATBOT WIDGET ===== -->
-<div id="chatbot-widget" class="position-fixed bottom-0 end-0 m-4 bg-white border rounded-lg shadow-lg" style="width: 320px; transform: scale(0); transition: transform 0.3s; z-index: 1050;">
+<div id="chatbot-widget" class="position-fixed bottom-0 end-0 m-4" style="width: 320px; transform: scale(0); transition: transform 0.3s;">
     <div class="d-flex align-items-center justify-content-between bg-primary text-white p-3 rounded-top">
         <div class="d-flex align-items-center">
             <div class="chatbot-avatar me-2">
-                <img src="https://i.imgur.com/Cgy2Aeq.png" alt="Peter Assistant" class="rounded-circle" width="40" height="40">
+                <img src="https://i.imgur.com/Cgy2Aeq.png" alt="Peter Assistant" class="rounded-circle">
             </div>
             <div>
                 <span class="fw-semibold d-block">Peter Assistant</span>
@@ -707,33 +707,17 @@
             <i class="bi bi-x-lg"></i>
         </button>
     </div>
-    <div id="chat-area-widget" class="p-3" style="height: 300px; overflow-y: auto;"></div>
+    <div id="chat-area-widget" class="p-3"></div>
     <div class="d-flex align-items-center p-2 border-top">
         <input id="user-input-widget" type="text" placeholder="Type your message..." class="form-control form-control-sm me-2">
-        <button id="send-button-widget" class="btn btn-primary btn-sm d-flex align-items-center justify-content-center">
+        <button id="send-button-widget" class="btn btn-primary btn-sm">
             <i class="bi bi-send-fill"></i>
         </button>
     </div>
-    <!-- Add this right before the closing </div> of the chatbot input area -->
-<div class="attachment-options d-none">
-    <button class="attachment-option" data-type="image">
-        <i class="bi bi-image"></i>
-    </button>
-    <button class="attachment-option" data-type="file">
-        <i class="bi bi-file-earmark"></i>
-    </button>
-    <button class="attachment-option" data-type="location">
-        <i class="bi bi-geo-alt"></i>
-    </button>
-</div>
-
-<!-- Add this hidden file input -->
-<input type="file" id="file-upload" class="d-none" accept="image/*,.pdf,.doc,.docx">
-
 </div>
 
 <!-- ===== FLOATING CHAT BUTTON ===== -->
-<button id="open-chat-button" class="position-fixed bottom-0 end-0 m-4 bg-primary text-white rounded-circle shadow-lg border-0" style="width: 56px; height: 56px; z-index: 1040; display: flex; align-items: center; justify-content: center;">
+<button id="open-chat-button" class="position-fixed bottom-0 end-0 m-4 text-white">
     <i class="bi bi-chat-dots-fill fs-4"></i>
     <span id="notification-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none">1</span>
 </button>
