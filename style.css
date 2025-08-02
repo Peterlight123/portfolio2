@@ -1041,3 +1041,75 @@ h2::after {
     color: white !important;
     z-index: 1040 !important;
 }
+/* =====================================================================
+   FIXED CHATBOT STYLES - OVERRIDE ALL OTHERS
+   ===================================================================== */
+.chatbot-fixed {
+    position: fixed !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    width: 320px !important;
+    border-radius: 15px !important;
+    overflow: hidden !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+    transition: transform 0.3s ease !important;
+    max-height: 500px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    background-color: white !important;
+    z-index: 9999 !important; /* Higher z-index to ensure it's on top */
+    transform: scale(0) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.chatbot-button-fixed {
+    position: fixed !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    width: 56px !important;
+    height: 56px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1.5rem !important;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4) !important;
+    border: none !important;
+    transition: all 0.3s ease !important;
+    color: white !important;
+    z-index: 9998 !important; /* Lower than chatbot but higher than other elements */
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Ensure the chatbot messages area has proper height */
+#chat-area-widget {
+    height: 320px !important;
+    overflow-y: auto !important;
+    background-color: #f8f9fa !important;
+    padding: 15px !important;
+}
+
+/* Ensure the chatbot input area is properly styled */
+.chatbot-input-area {
+    background-color: #fff !important;
+    border-top: 1px solid #e9ecef !important;
+    padding: 10px 15px !important;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 576px) {
+    .chatbot-fixed {
+        width: 90% !important;
+        right: 5% !important;
+        left: 5% !important;
+        bottom: 80px !important;
+    }
+    
+    .chatbot-button-fixed {
+        bottom: 20px !important;
+        right: 20px !important;
+    }
+}
