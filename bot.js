@@ -225,6 +225,33 @@ Which method would you prefer?`;
             console.error('Error sending chat history to server:', error);
         });
     }
+// Add this to your showRelevantQuickReplies method
+showRelevantQuickReplies(userMessage, botResponse) {
+    const lowerMsg = userMessage.toLowerCase();
+    
+    // Sponsor-specific quick replies
+    if (lowerMsg.includes('sponsor') || lowerMsg.includes('donation') || lowerMsg.includes('support')) {
+        this.displayQuickReplies(['Bank Transfer Details', 'Cryptocurrency Options', 'Donate $10', 'Why Sponsor?']);
+    }
+    else if (lowerMsg.includes('bank') || lowerMsg.includes('transfer')) {
+        this.displayQuickReplies(['I Made a Transfer', 'Cryptocurrency Options', 'Contact Peter']);
+    }
+    else if (lowerMsg.includes('crypto') || lowerMsg.includes('bitcoin')) {
+        this.displayQuickReplies(['Bank Transfer Details', 'Thank You', 'Contact Peter']);
+    }
+    else if (lowerMsg.includes('thank') || lowerMsg.includes('thanks')) {
+        this.displayQuickReplies(['Other Ways to Help', 'View Projects', 'Contact Peter']);
+    }
+    else if (lowerMsg.includes('donate') || lowerMsg.includes('$')) {
+        this.displayQuickReplies(['Bank Transfer', 'Cryptocurrency', 'Other Amount', 'Contact Peter']);
+    }
+    else if (botResponse.includes('Thank you for your generosity')) {
+        this.displayQuickReplies(['Bank Transfer', 'Cryptocurrency', 'Contact Peter']);
+    }
+    
+    // Continue with your regular quick replies...
+    // ...
+}
 
     get knowledgeBase() {
         return {
