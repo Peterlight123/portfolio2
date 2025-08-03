@@ -688,41 +688,44 @@
         </div>
     </footer>
 
-    <!-- ===== CHATBOT WIDGET ===== -->
-<div id="chatbot-widget" class="position-fixed bottom-0 end-0 m-4">
-    <div class="d-flex align-items-center justify-content-between bg-primary text-white p-3 rounded-top">
-        <div class="d-flex align-items-center">
-            <div class="chatbot-avatar me-2">
-                <img src="https://i.imgur.com/Cgy2Aeq.png" alt="Peter Assistant" class="rounded-circle">
-            </div>
-            <div>
-                <span class="fw-semibold d-block">Peter Assistant</span>
-                <small class="chatbot-status">
-                    <span class="status-dot"></span>
-                    Online
-                </small>
-            </div>
-        </div>
-        <button id="close-chat" class="btn btn-sm text-white">
-            <i class="bi bi-x-lg"></i>
+   <!-- === Chatbot Widget Start === -->
+<div id="chatbot-widget">
+  <div class="chatbot-header">
+    <div class="d-flex align-items-center">
+      <div class="chatbot-avatar me-2">
+        <img src="https://i.imgur.com/Cgy2Aeq.png" alt="Peter Assistant">
+      </div>
+      <div>
+        <span class="fw-semibold d-block">Peter Assistant</span>
+        <small class="chatbot-status">
+          <span class="status-dot"></span>
+          Online
+        </small>
+      </div>
+    </div>
+    <button id="close-chat" class="btn btn-sm text-white">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+  <div id="chat-area-widget"></div>
+  <div class="chat-form-container">
+    <form id="chat-form">
+      <div class="d-flex">
+        <input id="user-input-widget" type="text" placeholder="Type your message..." class="form-control">
+        <button id="send-button-widget" type="submit" class="btn btn-primary">
+          <i class="bi bi-send-fill"></i>
         </button>
-    </div>
-    <div id="chat-area-widget" class="p-3"></div>
-    <div class="d-flex align-items-center p-2 border-top">
-        <form id="chat-form" class="d-flex w-100">
-            <input id="user-input-widget" type="text" placeholder="Type your message..." class="form-control form-control-sm me-2">
-            <button id="send-button-widget" type="submit" class="btn btn-primary btn-sm">
-                <i class="bi bi-send-fill"></i>
-            </button>
-        </form>
-    </div>
+      </div>
+    </form>
+  </div>
 </div>
 
-<!-- ===== FLOATING CHAT BUTTON ===== -->
-<button id="open-chat-button" class="position-fixed bottom-0 end-0 m-4 text-white">
-    <i class="bi bi-chat-dots-fill fs-4"></i>
-    <span id="notification-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none">1</span>
+<!-- === Floating Chat Button === -->
+<button id="open-chat-button">
+  <i class="bi bi-chat-dots-fill"></i>
+  <span id="notification-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none">1</span>
 </button>
+<!-- === Chatbot Widget End === -->
 
 
     <!-- Bootstrap JS -->
