@@ -53,6 +53,31 @@
       transform: translateY(-5px);
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     }
+    
+    .user-message .chat-bubble {
+      background-color: #0d6efd;
+      color: white;
+      border-radius: 18px 18px 0 18px;
+      padding: 10px 15px;
+      max-width: 80%;
+      margin-left: auto;
+    }
+    
+    .bot-message .chat-bubble {
+      background-color: #f1f1f1;
+      color: #212529;
+      border-radius: 18px 18px 18px 0;
+      padding: 10px 15px;
+      max-width: 80%;
+      margin-right: auto;
+    }
+    
+    .message-time {
+      font-size: 0.7rem;
+      opacity: 0.7;
+      margin-top: 5px;
+      text-align: right;
+    }
   </style>
 </head>
 <body>
@@ -90,9 +115,12 @@
           </ul>
           <hr class="bg-light">
           <div class="px-3">
-            <a href="index.html" class="btn btn-outline-light btn-sm w-100">
+            <a href="index.html" class="btn btn-outline-light btn-sm w-100 mb-2">
               <i class="bi bi-arrow-left me-2"></i> Back to Website
             </a>
+            <button id="logout-btn" class="btn btn-danger btn-sm w-100">
+              <i class="bi bi-box-arrow-right me-2"></i> Logout
+            </button>
           </div>
         </div>
       </div>
@@ -220,7 +248,7 @@
               <div class="btn-toolbar mb-2 mb-md-0">
                 <div class="input-group me-2">
                   <input type="text" class="form-control form-control-sm" id="session-search" placeholder="Search sessions...">
-                  <button class="btn btn-outline-secondary btn-sm" type="button">
+                  <button class="btn btn-outline-secondary btn-sm" type="button" id="search-btn">
                     <i class="bi bi-search"></i>
                   </button>
                 </div>
@@ -495,159 +523,6 @@
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <!-- Custom Scripts -->
-  <script src="bot.js"></script>
-  <script>
-    // Admin panel specific functionality
-    document.addEventListener('DOMContentLoaded', function() {
-      // Initialize charts if they exist
-      if (typeof Chart !== 'undefined') {
-        // Message distribution chart
-        const messageCtx = document.getElementById('message-distribution-chart');
-        if (messageCtx) {
-          new Chart(messageCtx, {
-            type: 'doughnut',
-            data: {
-              labels: ['User Messages', 'Bot Responses'],
-              datasets: [{
-                data: [0, 0],
-                backgroundColor: ['#0d6efd', '#20c997'],
-                hoverOffset: 4
-              }]
-            },
-            options: {
-              responsive: true,
-              plugins: {
-                legend: {
-                  position: 'bottom',
-                }
-              }
-            }
-          });
-        }
-        
-        // Sessions over time chart
-        const sessionsCtx = document.getElementById('sessions-time-chart');
-        if (sessionsCtx) {
-          new Chart(sessionsCtx, {
-            type: 'line',
-            data: {
-              labels: ['', '', '', '', '', '', ''],
-              datasets: [{
-                label: 'Chat Sessions',
-                data: [0, 0, 0, 0, 0, 0, 0],
-                borderColor: '#0d6efd',
-                tension: 0.1,
-                fill: false
-              }]
-            },
-            options: {
-              responsive: true,
-              scales: {
-                y: {
-                  beginAtZero: true
-                }
-              }
-            }
-          });
-        }
-        
-        // Top questions chart
-        const questionsCtx = document.getElementById('top-questions-chart');
-        if (questionsCtx) {
-          new Chart(questionsCtx, {
-            type: 'bar',
-            data: {
-              labels: ['Services', 'Pricing', 'Portfolio', 'Contact', 'Other'],
-              datasets: [{
-                label: 'Frequency',
-                data: [0, 0, 0, 0, 0],
-                backgroundColor: [
-                  '#0d6efd',
-                  '#20c997',
-                  '#fd7e14',
-                  '#dc3545',
-                  '#6c757d'
-                ]
-              }]
-            },
-            options: {
-              responsive: true,
-              scales: {
-                y: {
-                  beginAtZero: true
-                }
-              }
-            }
-          });
-        }
-      }
-      
-      // Handle settings form submission
-      const saveSettingsBtn = document.getElementById('save-settings');
-      if (saveSettingsBtn) {
-        saveSettingsBtn.addEventListener('click', function() {
-          // Save general settings
-          const botName = document.getElementById('bot-name').value;
-          const welcomeMessage = document.getElementById('welcome-message').value;
-          const botAvatar = document.getElementById('bot-avatar').value;
-          const showTypingIndicator = document.getElementById('show-typing-indicator').checked;
-          const showQuickReplies = document.getElementById('show-quick-replies').checked;
-          
-          // Save advanced settings
-          const responseDelay = document.getElementById('response-delay').value;
-          const maxHistory = document.getElementById('max-history').value;
-          const formspreeEndpoint = document.getElementById('formspree-endpoint').value;
-          const saveToServer = document.getElementById('save-to-server').checked;
-          
-          // Save to localStorage
-          const settings = {
-            botName,
-            welcomeMessage,
-            botAvatar,
-            showTypingIndicator,
-            showQuickReplies,
-            responseDelay,
-            maxHistory,
-            formspreeEndpoint,
-            saveToServer,
-            lastUpdated: new Date().toISOString()
-          };
-          
-          localStorage.setItem('peterbot_settings', JSON.stringify(settings));
-          
-          // Show success message
-          alert('Settings saved successfully!');
-        });
-      }
-      
-      // Handle data management buttons
-      const clearAllChatsBtn = document.getElementById('clear-all-chats');
-      if (clearAllChatsBtn) {
-        clearAllChatsBtn.addEventListener('click', function() {
-          if (confirm('Are you sure you want to clear all chat history? This action cannot be undone.')) {
-            // Clear all chat history from localStorage
-            for (let i = 0; i < localStorage.length; i++) {
-              const key = localStorage.key(i);
-              if (key.startsWith('peterbot_chat_')) {
-                localStorage.removeItem(key);
-              }
-            }
-            alert('All chat history has been cleared.');
-          }
-        });
-      }
-      
-      const resetAllSettingsBtn = document.getElementById('reset-all-settings');
-      if (resetAllSettingsBtn) {
-        resetAllSettingsBtn.addEventListener('click', function() {
-          if (confirm('Are you sure you want to reset all settings to default? This action cannot be undone.')) {
-            localStorage.removeItem('peterbot_settings');
-            alert('All settings have been reset to default. Please refresh the page.');
-            location.reload();
-          }
-        });
-      }
-    });
-  </script>
+  <script src="admin.js"></script>
 </body>
 </html>
