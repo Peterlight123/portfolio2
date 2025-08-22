@@ -366,12 +366,20 @@ function updateCommonQuestions(sessions) {
   commonQuestionsDiv.innerHTML = html;
 }
 
-// Load chat sessions
+/// Load chat sessions
 function loadChatSessions() {
-  const sessions = getAllChatSessions();
+  let sessions = getAllChatSessions();
+  
+  // Normalize session data to ensure compatibility
+  sessions = normalizeSessionData(sessions);
+  
   const sessionsList = document.getElementById('chat-sessions-list');
   
   if (!sessionsList) return;
+  
+ 
+}
+
   
   // Clear existing list
   sessionsList.innerHTML = '';
@@ -1384,5 +1392,36 @@ function getAllChatSessions() {
   }
   
   return sessions;
+}
+// Ensure compatibility between different chat history formats
+function normalizeSessionData(sessions) {
+  const normalizedSessions = {};
+  
+  Object.entries(sessions).forEach(([sessionId, sessionData]) => {
+    // Check if the session data is already in the expected format
+    if (sessionData.messages && Array.isArray(sessionData.messages)) {
+      normalizedSessions[sessionId] = sessionData;
+    } 
+    // Check if the session data is an array of messages (direct format)
+    else if (Array.isArray(sessionData)) {
+      normalizedSessions[sessionId] = {
+        messages: sessionData
+      };
+    }
+    // Unknown format, try to convert
+    else {
+      console.warn(`Unknown session data format for ${sessionId}:`, sessionData);
+      try {
+        // Attempt to convert to expected format
+        normalizedSessions[sessionId] = {
+          messages: Array.isArray(sessionData) ? sessionData : []
+        };
+      } catch (e) {
+        console.error(`Failed to normalize session data for ${sessionId}:`, e);
+      }
+    }
+  });
+  
+  return normalizedSessions;
 }
 
