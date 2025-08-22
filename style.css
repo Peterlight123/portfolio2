@@ -1006,3 +1006,119 @@ h2::after {
     }
 }
 
+/* Services Section Styling */
+#services h2 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+#services h2::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 3px;
+    background-color: #0d6efd;
+    margin: 15px auto 0;
+}
+
+.service-card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2) !important;
+}
+
+.service-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(13, 110, 253, 0.1);
+    border-radius: 50%;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.service-icon i {
+    font-size: 2.5rem;
+    color: #0d6efd;
+    transition: all 0.3s ease;
+}
+
+.service-card:hover .service-icon {
+    background-color: #0d6efd;
+    transform: rotateY(180deg);
+}
+
+.service-card:hover .service-icon i {
+    color: white;
+    transform: rotateY(180deg);
+}
+
+.service-card .card-title {
+    font-weight: 600;
+    margin-bottom: 15px;
+    font-size: 1.25rem;
+}
+
+.service-card .card-text {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.service-features {
+    min-height: 60px;
+}
+
+.service-features .badge {
+    font-weight: 500;
+    padding: 6px 12px;
+    font-size: 0.75rem;
+}
+
+.service-card .btn {
+    border-width: 2px;
+    font-weight: 500;
+    padding: 8px 20px;
+    transition: all 0.3s ease;
+}
+
+.service-card .btn:hover {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    transform: translateY(-3px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 991.98px) {
+    #services h2 {
+        font-size: 2rem;
+    }
+    
+    .service-icon {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .service-icon i {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .service-card {
+        margin-bottom: 20px;
+    }
+    
+    .service-features {
+        min-height: auto;
+    }
+}
