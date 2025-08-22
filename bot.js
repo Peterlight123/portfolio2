@@ -471,16 +471,26 @@ class PeterAssistant {
   }
   
   // Save chat history to localStorage for admin access
-  saveChatHistory() {
-    try {
-      // Use the session ID as the key
-      localStorage.setItem(`peterbot_chat_${this.sessionId}`, JSON.stringify(this.chatHistory));
-      console.log('Chat history saved:', this.sessionId);
-    } catch (error) {
-      console.error('Error saving chat history:', error);
+saveChatHistory() {
+  try {
+    // Store the entire chat history under the session ID key
+    localStorage.setItem(`peterbot_chat_${this.sessionId}`, JSON.stringify(this.chatHistory));
+    
+    // Also update the sessions index for easier retrieval in admin panel
+    let sessionsIndex = JSON.parse(localStorage.getItem('peterbot_sessions_index') || '[]');
+    
+    // Check if this session is already in the index
+    if (!sessionsIndex.includes(this.sessionId)) {
+      sessionsIndex.push(this.sessionId);
+      localStorage.setItem('peterbot_sessions_index', JSON.stringify(sessionsIndex));
     }
+    
+    console.log('Chat history saved:', this.sessionId);
+  } catch (error) {
+    console.error('Error saving chat history:', error);
   }
 }
+
 
 // Initialize chatbot when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
