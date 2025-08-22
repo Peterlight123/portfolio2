@@ -1,0 +1,17 @@
+# Hide admin files from search engines and direct access
+<Files "dashboard-x7k9m.html">
+    Order Allow,Deny
+    Allow from all
+    Header always set X-Robots-Tag "noindex, nofollow"
+</Files>
+
+<Files "auth-x7k9m.html">
+    Order Allow,Deny
+    Allow from all
+    Header always set X-Robots-Tag "noindex, nofollow"
+</Files>
+
+# Block common admin paths
+RedirectMatch 403 ^/admin
+RedirectMatch 403 ^/administrator
+RedirectMatch 403 ^/wp-admin
