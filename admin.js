@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (logoutBtn) {
         logoutBtn.addEventListener('click', function() {
             localStorage.removeItem('peterbot_admin_auth');
-            window.location.href = 'admin-login.html';
+            window.location.href = 'auth-x7k9m.html';
         });
     }
     
