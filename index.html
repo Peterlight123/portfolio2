@@ -1185,6 +1185,22 @@
 <!-- === Chatbot Widget End === -->
 
 
+<script>
+  // Ensure scripts load in the correct order
+  function loadScript(src, callback) {
+    const script = document.createElement('script');
+    script.src = src;
+    script.onload = callback;
+    document.body.appendChild(script);
+  }
+  
+  // Load bot.js after page is fully loaded
+  window.addEventListener('load', function() {
+    loadScript('bot.js', function() {
+      console.log('Chatbot script loaded successfully');
+    });
+  });
+</script>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
