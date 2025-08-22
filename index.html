@@ -1132,65 +1132,497 @@
 </section>
     
         <!-- ======================= CONTACT SECTION ======================= -->
-        <section id="contact" class="py-5">
-            <div class="container">
-                <h2 class="text-center mb-5">Contact Me</h2>
-                <div class="row justify-content-center">
-                    <div class="col-lg-8">
-                        <form action="https://formspree.io/f/xpwrbkrr" class="bg-white p-4 shadow-lg rounded-3" id="contact-form" method="POST" novalidate>
-                            <div class="mb-3">
-                                <label class="form-label fw-semibold" for="contact-name">Your Name *</label>
-                                <input class="form-control" id="contact-name" name="name" required type="text">
-                                <div class="invalid-feedback">Please provide your name.</div>
+<section id="Contact" class="py-5 bg-light">
+    <div class="container">
+        <!-- Section Header -->
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold text-primary mb-3">Get In Touch</h2>
+            <p class="lead text-muted">Ready to start your project? Let's discuss how I can help you achieve your goals.</p>
+        </div>
+
+        <div class="row">
+            <!-- Contact Information -->
+            <div class="col-lg-4 mb-5">
+                <div class="contact-info h-100">
+                    <h3 class="h4 fw-bold mb-4 text-dark">Contact Information</h3>
+                    
+                    <!-- Contact Items -->
+                    <div class="contact-item mb-4">
+                        <div class="d-flex align-items-center">
+                            <div class="contact-icon me-3">
+                                <i class="bi bi-envelope-fill text-primary"></i>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label fw-semibold" for="contact-email">Your Email *</label>
-                                <input class="form-control" id="contact-email" name="email" required type="email">
-                                <div class="invalid-feedback">Please provide a valid email address.</div>
+                            <div>
+                                <h5 class="mb-1 fw-semibold">Email</h5>
+                                <a href="mailto:petereluwade55@gmail.com" class="text-muted text-decoration-none">
+                                    petereluwade55@gmail.com
+                                </a>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label fw-semibold" for="contact-message">Your Message *</label>
-                                <textarea class="form-control" id="contact-message" name="message" required rows="5"></textarea>
-                                <div class="invalid-feedback">Please provide your message.</div>
+                        </div>
+                    </div>
+
+                    <div class="contact-item mb-4">
+                        <div class="d-flex align-items-center">
+                            <div class="contact-icon me-3">
+                                <i class="bi bi-whatsapp text-success"></i>
                             </div>
-                            <div class="text-center">
-                                <button class="btn btn-danger px-4" type="submit">
-                                    <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-                                    Send Message
-                                </button>
+                            <div>
+                                <h5 class="mb-1 fw-semibold">WhatsApp</h5>
+                                <a href="https://wa.me/2348108821809" class="text-muted text-decoration-none" target="_blank">
+                                    +234 810 882 1809
+                                </a>
                             </div>
-                            <div class="mt-3 text-center" id="form-status" role="alert"></div>
-                        </form>
+                        </div>
+                    </div>
+
+                    <div class="contact-item mb-4">
+                        <div class="d-flex align-items-center">
+                            <div class="contact-icon me-3">
+                                <i class="bi bi-clock-fill text-warning"></i>
+                            </div>
+                            <div>
+                                <h5 class="mb-1 fw-semibold">Response Time</h5>
+                                <p class="text-muted mb-0">Within 24 hours</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-item mb-4">
+                        <div class="d-flex align-items-center">
+                            <div class="contact-icon me-3">
+                                <i class="bi bi-geo-alt-fill text-danger"></i>
+                            </div>
+                            <div>
+                                <h5 class="mb-1 fw-semibold">Location</h5>
+                                <p class="text-muted mb-0">Nigeria (Remote Services)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Stats -->
+                    <div class="quick-stats mt-4 p-3 bg-white rounded shadow-sm">
+                        <h5 class="fw-semibold mb-3">Why Choose Me?</h5>
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <div class="stat-mini">
+                                    <h6 class="fw-bold text-primary mb-1">24/7</h6>
+                                    <small class="text-muted">Available</small>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-mini">
+                                    <h6 class="fw-bold text-success mb-1">100%</h6>
+                                    <small class="text-muted">Quality</small>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-mini">
+                                    <h6 class="fw-bold text-warning mb-1">Fast</h6>
+                                    <small class="text-muted">Delivery</small>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                
-                <!-- Social Media Links -->
-                <div class="text-center bg-dark py-4 rounded mt-5">
-                    <p class="text-white fw-bold mb-3">Connect with me:</p>
-                    <div class="d-flex flex-wrap justify-content-center gap-2">
-                        <a class="btn social-btn twitter" href="https://x.com/peter8118533304" rel="noopener noreferrer" target="_blank">
-                            <i class="bi bi-twitter me-1"></i> Twitter
+            </div>
+
+            <!-- Contact Form -->
+            <div class="col-lg-8">
+                <div class="contact-form-wrapper">
+                    <form action="https://formspree.io/f/xpwrbkrr" 
+                          class="bg-white p-4 p-md-5 shadow-lg rounded-3 border" 
+                          id="contact-form" 
+                          method="POST" 
+                          novalidate>
+                        
+                        <h3 class="h4 fw-bold mb-4 text-center">Send Me a Message</h3>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold" for="contact-name">
+                                    <i class="bi bi-person me-1"></i>Full Name *
+                                </label>
+                                <input class="form-control form-control-lg" 
+                                       id="contact-name" 
+                                       name="name" 
+                                       placeholder="Enter your full name"
+                                       required 
+                                       type="text">
+                                <div class="invalid-feedback">Please provide your name.</div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold" for="contact-email">
+                                    <i class="bi bi-envelope me-1"></i>Email Address *
+                                </label>
+                                <input class="form-control form-control-lg" 
+                                       id="contact-email" 
+                                       name="email" 
+                                       placeholder="your.email@example.com"
+                                       required 
+                                       type="email">
+                                <div class="invalid-feedback">Please provide a valid email address.</div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold" for="contact-phone">
+                                    <i class="bi bi-telephone me-1"></i>Phone Number
+                                </label>
+                                <input class="form-control form-control-lg" 
+                                       id="contact-phone" 
+                                       name="phone" 
+                                       placeholder="+234 xxx xxx xxxx"
+                                       type="tel">
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold" for="contact-service">
+                                    <i class="bi bi-briefcase me-1"></i>Service Needed
+                                </label>
+                                <select class="form-select form-select-lg" id="contact-service" name="service">
+                                    <option value="">Select a service</option>
+                                    <option value="Social Media Management">Social Media Management</option>
+                                    <option value="Content Creation">Content Creation</option>
+                                    <option value="Graphic Design">Graphic Design</option>
+                                    <option value="Web Development">Web Development</option>
+                                    <option value="Data Entry">Data Entry & Typing</option>
+                                    <option value="Digital Marketing">Digital Marketing</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold" for="contact-budget">
+                                <i class="bi bi-currency-dollar me-1"></i>Project Budget
+                            </label>
+                            <select class="form-select form-select-lg" id="contact-budget" name="budget">
+                                <option value="">Select budget range</option>
+                                <option value="Under $100">Under $100</option>
+                                <option value="$100 - $500">$100 - $500</option>
+                                <option value="$500 - $1000">$500 - $1000</option>
+                                <option value="$1000 - $5000">$1000 - $5000</option>
+                                <option value="Above $5000">Above $5000</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold" for="contact-message">
+                                <i class="bi bi-chat-dots me-1"></i>Project Details *
+                            </label>
+                            <textarea class="form-control form-control-lg" 
+                                      id="contact-message" 
+                                      name="message" 
+                                      placeholder="Tell me about your project, timeline, and specific requirements..."
+                                      required 
+                                      rows="5"></textarea>
+                            <div class="invalid-feedback">Please provide your message.</div>
+                            <div class="form-text">Minimum 10 characters required</div>
+                        </div>
+
+                        <div class="text-center">
+                            <button class="btn btn-danger btn-lg px-5 py-3" type="submit" id="submit-btn">
+                                <span class="spinner-border spinner-border-sm d-none me-2" role="status" aria-hidden="true"></span>
+                                <i class="bi bi-send me-2"></i>
+                                <span class="btn-text">Send Message</span>
+                            </button>
+                        </div>
+                        
+                        <div class="mt-3 text-center" id="form-status" role="alert"></div>
+                        
+                        <div class="text-center mt-3">
+                            <small class="text-muted">
+                                <i class="bi bi-shield-check me-1"></i>
+                                Your information is secure and will never be shared.
+                            </small>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social Media Section -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="social-section bg-gradient text-white p-4 p-md-5 rounded-3 text-center">
+                    <h3 class="h4 fw-bold mb-3">Let's Connect on Social Media</h3>
+                    <p class="mb-4">Follow me for updates, tips, and behind-the-scenes content</p>
+                    
+                    <div class="social-links d-flex flex-wrap justify-content-center gap-3">
+                        <a class="btn social-btn twitter" 
+                           href="https://x.com/peter8118533304" 
+                           rel="noopener noreferrer" 
+                           target="_blank"
+                           data-bs-toggle="tooltip" 
+                           title="Follow me on Twitter">
+                            <i class="bi bi-twitter"></i>
+                            <span class="d-none d-sm-inline ms-2">Twitter</span>
                         </a>
-                        <a class="btn social-btn tiktok" href="https://www.tiktok.com/@eluwadepeter" rel="noopener noreferrer" target="_blank">
-                            <i class="bi bi-tiktok me-1"></i> TikTok
+                        
+                        <a class="btn social-btn tiktok" 
+                           href="https://www.tiktok.com/@eluwadepeter" 
+                           rel="noopener noreferrer" 
+                           target="_blank"
+                           data-bs-toggle="tooltip" 
+                           title="Watch my TikTok videos">
+                            <i class="bi bi-tiktok"></i>
+                            <span class="d-none d-sm-inline ms-2">TikTok</span>
                         </a>
-                        <a class="btn social-btn linkedin" href="https://www.linkedin.com/in/peter-eluwade-5b8a73363/" rel="noopener noreferrer" target="_blank">
-                            <i class="bi bi-linkedin me-1"></i> LinkedIn
+                        
+                        <a class="btn social-btn linkedin" 
+                           href="https://www.linkedin.com/in/peter-eluwade-5b8a73363/" 
+                           rel="noopener noreferrer" 
+                           target="_blank"
+                           data-bs-toggle="tooltip" 
+                           title="Connect on LinkedIn">
+                            <i class="bi bi-linkedin"></i>
+                            <span class="d-none d-sm-inline ms-2">LinkedIn</span>
                         </a>
-                        <a class="btn social-btn instagram" href="https://www.instagram.com/eluwadepeter" rel="noopener noreferrer" target="_blank">
-                            <i class="bi bi-instagram me-1"></i> Instagram
+                        
+                        <a class="btn social-btn instagram" 
+                           href="https://www.instagram.com/eluwadepeter" 
+                           rel="noopener noreferrer" 
+                           target="_blank"
+                           data-bs-toggle="tooltip" 
+                           title="Follow on Instagram">
+                            <i class="bi bi-instagram"></i>
+                            <span class="d-none d-sm-inline ms-2">Instagram</span>
                         </a>
-                        <a class="btn social-btn email" href="mailto:petereluwade55@gmail.com">
-                            <i class="bi bi-envelope me-1"></i> Email
+                        
+                        <a class="btn social-btn whatsapp" 
+                           href="https://wa.me/2348108821809" 
+                           rel="noopener noreferrer" 
+                           target="_blank"
+                           data-bs-toggle="tooltip" 
+                           title="Chat on WhatsApp">
+                            <i class="bi bi-whatsapp"></i>
+                            <span class="d-none d-sm-inline ms-2">WhatsApp</span>
                         </a>
-                        <a class="btn social-btn whatsapp" href="https://wa.me/2348108821809" rel="noopener noreferrer" target="_blank">
-                            <i class="bi bi-whatsapp me-1"></i> WhatsApp
+                        
+                        <a class="btn social-btn email" 
+                           href="mailto:petereluwade55@gmail.com"
+                           data-bs-toggle="tooltip" 
+                           title="Send me an email">
+                            <i class="bi bi-envelope"></i>
+                            <span class="d-none d-sm-inline ms-2">Email</span>
                         </a>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </div>
+</section>
+
+<!-- Enhanced CSS -->
+<style>
+/* Contact Section Styles */
+.contact-info {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.contact-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(13, 110, 253, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.contact-item {
+    padding: 1rem;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+    background: rgba(13, 110, 253, 0.05);
+    transform: translateX(5px);
+}
+
+.quick-stats .stat-mini {
+    padding: 0.5rem;
+}
+
+.contact-form-wrapper {
+    position: relative;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+.social-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.social-links .social-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    backdrop-filter: blur(10px);
+}
+
+.social-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.social-btn.twitter:hover { background: #1da1f2; border-color: #1da1f2; }
+.social-btn.tiktok:hover { background: #000; border-color: #000; }
+.social-btn.linkedin:hover { background: #0077b5; border-color: #0077b5; }
+.social-btn.instagram:hover { background: #e4405f; border-color: #e4405f; }
+.social-btn.whatsapp:hover { background: #25d366; border-color: #25d366; }
+.social-btn.email:hover { background: #ea4335; border-color: #ea4335; }
+
+/* Form Animation */
+.form-control,
+.form-select {
+    transition: all 0.3s ease;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(220, 53, 69, 0.4);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .contact-info {
+        margin-bottom: 2rem;
+    }
+    
+    .social-links .social-btn {
+        padding: 0.5rem 1rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .social-btn span {
+        display: none !important;
+    }
+}
+
+/* Form Status Messages */
+.alert-success {
+    background-color: #d1edff;
+    border-color: #bee5eb;
+    color: #0c5460;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+</style>
+
+<!-- Enhanced JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('contact-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const formStatus = document.getElementById('form-status');
+    const spinner = submitBtn.querySelector('.spinner-border');
+    const btnText = submitBtn.querySelector('.btn-text');
+
+    // Initialize tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+
+    // Form validation and submission
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Validate form
+        if (!form.checkValidity()) {
+            e.stopPropagation();
+            form.classList.add('was-validated');
+            return;
+        }
+
+        // Show loading state
+        submitBtn.disabled = true;
+        spinner.classList.remove('d-none');
+        btnText.textContent = 'Sending...';
+        formStatus.innerHTML = '';
+
+        try {
+            const formData = new FormData(form);
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                formStatus.innerHTML = `
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <i class="bi bi-check-circle me-2"></i>
+                        <strong>Success!</strong> Your message has been sent successfully. I'll get back to you within 24 hours.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                `;
+                form.reset();
+                form.classList.remove('was-validated');
+            } else {
+                throw new Error('Network response was not ok');
+            }
+        } catch (error) {
+            formStatus.innerHTML = `
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+                    <strong>Error!</strong> There was a problem sending your message. Please try again or contact me directly.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            `;
+        } finally {
+            // Reset button state
+            submitBtn.disabled = false;
+            spinner.classList.add('d-none');
+            btnText.textContent = 'Send Message';
+        }
+    });
+
+    // Real-time validation feedback
+    const inputs = form.querySelectorAll('input, textarea, select');
+    inputs.forEach(input => {
+        input.addEventListener('blur', function() {
+            if (this.checkValidity()) {
+                this.classList.remove('is-invalid');
+                this.classList.add('is-valid');
+            } else {
+                this.classList.remove('is-valid');
+                this.classList.add('is-invalid');
+            }
+        });
+    });
+});
+</script>
 
     <!-- ======================= FOOTER ======================= -->
     <footer class="footer py-5 mt-5">
