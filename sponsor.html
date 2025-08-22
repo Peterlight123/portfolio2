@@ -134,40 +134,80 @@
 <body>
 
     <!-- ======================= HEADER & NAVBAR ======================= -->
-    <header class="bg-primary shadow-sm sticky-top">
-        <nav class="navbar navbar-expand-lg navbar-dark container">
+    <header class="sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm py-3">
+        <div class="container">
+            <!-- Logo and Brand -->
             <a class="navbar-brand d-flex align-items-center" href="index.html">
-                <img src="https://i.imgur.com/Cgy2Aeq.png" alt="Peter Logo" height="40" class="rounded-circle me-2">
-                <span class="fs-4 fw-bold">Peter Lightspeed</span>
+                <div class="brand-logo me-3">
+                    <img src="https://i.imgur.com/Cgy2Aeq.png" alt="Peter Logo" class="rounded-circle" width="45" height="45">
+                </div>
+                <div class="brand-text">
+                    <span class="fs-4 fw-bold d-none d-sm-inline">Peter Lightspeed</span>
+                    <span class="fs-4 fw-bold d-inline d-sm-none">Peter</span>
+                </div>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            
+            <!-- Mobile Toggle Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav">
+            
+            <!-- Navigation Links -->
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
+                        <a class="nav-link px-3" href="#home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="project.html">Projects</a>
+                        <a class="nav-link px-3" href="#projects">Projects</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html#highlights">Highlights</a>
+                        <a class="nav-link px-3" href="#services">Services</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html#testimonials">Testimonials</a>
+                        <a class="nav-link px-3" href="#About">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html#contact">Contact</a>
+                        <a class="nav-link px-3" href="#contact">Contact</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="sponsor.html">Sponsor</a>
+                    
+                    <!-- Dropdown Menu -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle px-3" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            More
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#highlights">
+                                <i class="bi bi-star-fill me-2 text-primary"></i>Highlights
+                            </a></li>
+                            <li><a class="dropdown-item" href="#testimonials">
+                                <i class="bi bi-chat-quote-fill me-2 text-primary"></i>Testimonials
+                            </a></li>
+                            <li><a class="dropdown-item" href="#licenses">
+                                <i class="bi bi-award-fill me-2 text-primary"></i>Certifications
+                            </a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="sponsor.html">
+                                <i class="bi bi-heart-fill me-2 text-danger"></i>Sponsor Me
+                            </a></li>
+                            <li><a class="dropdown-item" href="#cv">
+                                <i class="bi bi-file-earmark-pdf-fill me-2 text-danger"></i>Download CV
+                            </a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Contact Button (visible on larger screens) -->
+                    <li class="nav-item d-none d-lg-block ms-2">
+                        <a href="#contact" class="btn btn-light btn-sm rounded-pill px-3 fw-bold text-primary">
+                            <i class="bi bi-envelope-fill me-1"></i> Hire Me
+                        </a>
                     </li>
                 </ul>
             </div>
-        </nav>
-    </header>
-
+        </div>
+    </nav>
+</header>
     <main>
         <!-- ======================= SPONSOR HEADER ======================= -->
         <section class="sponsor-header">
@@ -496,107 +536,250 @@
     <!-- === Chatbot Widget End === -->
 
     <!-- ======================= FOOTER ======================= -->
-    <footer class="footer py-5 mt-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 mb-4" data-aos="fade-up">
-                    <h5 class="fw-bold mb-3">
-                        <i class="bi bi-lightning-charge me-2"></i>Peter Lightspeed
-                    </h5>
-                    <p class="mb-3">Your Reliable Virtual Assistant for Digital Services</p>
-                    <small class="text-muted">© 2025 Eluwade Peter Toluwanimi. All rights reserved.</small>
+<footer class="footer bg-dark text-light py-5 mt-5">
+    <div class="container">
+        <div class="row">
+            <!-- Brand Section -->
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
+                <div class="footer-brand">
+                    <h4 class="fw-bold mb-3 text-white">
+                        <i class="bi bi-lightning-charge text-warning me-2"></i>
+                        Peter Lightspeed
+                    </h4>
+                    <p class="mb-3 text-light-emphasis">
+                        Your trusted partner for professional virtual assistant services. 
+                        Delivering quality digital solutions with lightning speed and precision.
+                    </p>
+                    
+                    <!-- Quick Stats -->
+                    <div class="footer-stats mb-3">
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <h6 class="fw-bold text-warning mb-0">50+</h6>
+                                    <small class="text-muted text-light">Projects</small>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <h6 class="fw-bold text-success mb-0">100%</h6>
+                                    <small class="text-muted text-light">Satisfied</small>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <h6 class="fw-bold text-info mb-0">24/7</h6>
+                                    <small class="text-muted text-light">Support</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Newsletter Signup -->
+                    <div class="newsletter-signup">
+                        <h6 class="fw-semibold mb-2 text-white">Stay Updated</h6>
+                        <div class="input-group input-group-sm">
+                            <input type="email" class="form-control" placeholder="Your email" id="newsletter-email">
+                            <button class="btn btn-warning" type="button" id="newsletter-btn">
+                                <i class="bi bi-send"></i>
+                            </button>
+                        </div>
+                        <small class="text-muted d-block mt-1 text-light">Get tips and updates delivered to your inbox</small>
+                    </div>
                 </div>
-                <div class="col-md-3 mb-4" data-aos="fade-up" data-aos-delay="100">
-                    <h6 class="text-uppercase fw-bold mb-3 text-danger">Quick Links</h6>
-                    <ul class="list-unstyled">
-                        <li class="mb-2">
-                            <a class="text-light text-decoration-none footer-link" href="index.html">
-                                <i class="bi bi-house me-2"></i>Home
-                            </a>
-                        </li>
-                        <li class="mb-2">
-                            <a class="text-light text-decoration-none footer-link" href="project.html">
-                                <i class="bi bi-folder me-2"></i>Projects
-                            </a>
-                        </li>
-                        <li class="mb-2">
-                            <a class="text-light text-decoration-none footer-link" href="index.html#services">
-                                <i class="bi bi-gear me-2"></i>Services
-                            </a>
-                        </li>
-                        <li class="mb-2">
-                            <a class="text-light text-decoration-none footer-link" href="index.html#contact">
-                                <i class="bi bi-envelope me-2"></i>Contact
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-3 mb-4" data-aos="fade-up" data-aos-delay="200">
-                    <h6 class="text-uppercase fw-bold mb-3 text-danger">My Services</h6>
-                    <ul class="list-unstyled">
-                        <li class="mb-2">
-                            <a class="text-light text-decoration-none footer-link" href="index.html#services">
-                                <i class="bi bi-laptop me-2"></i>Web Design
-                            </a>
-                        </li>
-                        <li class="mb-2">
-                            <a class="text-light text-decoration-none footer-link" href="index.html#services">
-                                <i class="bi bi-palette me-2"></i>Graphics Design
-                            </a>
-                        </li>
-                        <li class="mb-2">
-                            <a class="text-light text-decoration-none footer-link" href="index.html#services">
-                                <i class="bi bi-keyboard me-2"></i>Typing & Data Entry
-                            </a>
-                        </li>
-                        <li class="mb-2">
-                            <a class="text-light text-decoration-none footer-link" href="index.html#services">
-                                <i class="bi bi-globe me-2"></i>Blogger Setup
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-3 mb-4" data-aos="fade-up" data-aos-delay="300">
-                    <h6 class="text-uppercase fw-bold mb-3 text-danger">Connect With Me</h6>
-                    <!-- Social Media Links -->
-                    <div class="social-links mb-3">
-                        <a class="social-icon twitter me-2 mb-2 d-inline-block" href="https://x.com/peter8118533304" rel="noopener noreferrer" target="_blank" title="@peter8118533304">
-                            <i class="bi bi-twitter-x"></i>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-lg-2 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                <h6 class="text-uppercase fw-bold mb-3 text-warning">Quick Links</h6>
+                <ul class="list-unstyled footer-links">
+                    <li class="mb-2">
+                        <a class="footer-link" href="#home">
+                            <i class="bi bi-house me-2"></i>Home
                         </a>
-                        <a class="social-icon instagram me-2 mb-2 d-inline-block" href="https://www.instagram.com/eluwadepeter" rel="noopener noreferrer" target="_blank" title="@eluwadepeter">
+                    </li>
+                    <li class="mb-2">
+                        <a class="footer-link" href="#About">
+                            <i class="bi bi-person me-2"></i>About Me
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a class="footer-link" href="#services">
+                            <i class="bi bi-gear me-2"></i>Services
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a class="footer-link" href="#portfolio">
+                            <i class="bi bi-folder me-2"></i>Portfolio
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a class="footer-link" href="#Contact">
+                            <i class="bi bi-envelope me-2"></i>Contact
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Services -->
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                <h6 class="text-uppercase fw-bold mb-3 text-warning">My Services</h6>
+                <ul class="list-unstyled footer-links">
+                    <li class="mb-2">
+                        <a class="footer-link" href="#services">
+                            <i class="bi bi-laptop me-2"></i>Web Development
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a class="footer-link" href="#services">
+                            <i class="bi bi-palette me-2"></i>Graphic Design
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a class="footer-link" href="#services">
+                            <i class="bi bi-share me-2"></i>Social Media Management
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a class="footer-link" href="#services">
+                            <i class="bi bi-keyboard me-2"></i>Data Entry & Typing
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a class="footer-link" href="#services">
+                            <i class="bi bi-pencil-square me-2"></i>Content Creation
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a class="footer-link" href="#services">
+                            <i class="bi bi-megaphone me-2"></i>Digital Marketing
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Contact & Social -->
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                <h6 class="text-uppercase fw-bold mb-3 text-warning">Get In Touch</h6>
+                
+                <!-- Contact Information -->
+                <div class="contact-info mb-4">
+                    <div class="contact-item mb-2">
+                        <a class="footer-link" href="mailto:petereluwade55@gmail.com">
+                            <i class="bi bi-envelope me-2"></i>
+                            petereluwade55@gmail.com
+                        </a>
+                    </div>
+                    <div class="contact-item mb-2">
+                        <a class="footer-link" href="https://wa.me/2348108821809" target="_blank">
+                            <i class="bi bi-whatsapp me-2"></i>
+                            +234 810 882 1809
+                        </a>
+                    </div>
+                    <div class="contact-item mb-2">
+                        <span class="footer-link">
+                            <i class="bi bi-geo-alt me-2"></i>
+                            Nigeria (Remote Services)
+                        </span>
+                    </div>
+                    <div class="contact-item mb-3">
+                        <span class="footer-link">
+                            <i class="bi bi-clock me-2"></i>
+                            Available 24/7
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Social Media Links -->
+                <div class="social-section bg-dark">
+                    <h6 class="fw-semibold mb-3 text-white">Follow Me</h6>
+                    <div class="social-links">
+                        <a class="social-icon twitter" 
+                           href="https://x.com/peter8118533304" 
+                           target="_blank" 
+                           title="Follow me on Twitter"
+                           data-bs-toggle="tooltip">
+                            <i class="bi bi-twitter"></i>
+                        </a>
+                        <a class="social-icon instagram" 
+                           href="https://www.instagram.com/eluwadepeter" 
+                           target="_blank" 
+                           title="Follow me on Instagram"
+                           data-bs-toggle="tooltip">
                             <i class="bi bi-instagram"></i>
                         </a>
-                        <a class="social-icon linkedin me-2 mb-2 d-inline-block" href="https://www.linkedin.com/in/peter-eluwade-5b8a73363/" rel="noopener noreferrer" target="_blank" title="Peter Eluwade">
+                        <a class="social-icon linkedin" 
+                           href="https://www.linkedin.com/in/peter-eluwade-5b8a73363/" 
+                           target="_blank" 
+                           title="Connect on LinkedIn"
+                           data-bs-toggle="tooltip">
                             <i class="bi bi-linkedin"></i>
                         </a>
-                        <a class="social-icon tiktok me-2 mb-2 d-inline-block" href="https://www.tiktok.com/@eluwadepeter" rel="noopener noreferrer" target="_blank" title="@eluwadepeter">
+                        <a class="social-icon tiktok" 
+                           href="https://www.tiktok.com/@eluwadepeter" 
+                           target="_blank" 
+                           title="Watch my TikTok videos"
+                           data-bs-toggle="tooltip">
                             <i class="bi bi-tiktok"></i>
                         </a>
-                        <a class="social-icon youtube me-2 mb-2 d-inline-block" href="https://www.youtube.com/@peterlightspeedvibes" rel="noopener noreferrer" target="_blank" title="@peterlightspeedvibes">
+                        <a class="social-icon youtube" 
+                           href="https://www.youtube.com/@peterlightspeedvibes" 
+                           target="_blank" 
+                           title="Subscribe to my YouTube"
+                           data-bs-toggle="tooltip">
                             <i class="bi bi-youtube"></i>
                         </a>
-                    </div>
-                    <!-- Contact Information -->
-                    <div class="contact-info">
-                        <p class="mb-2">
-                            <a class="text-light text-decoration-none footer-link" href="mailto:petereluwade55@gmail.com">
-                                <i class="bi bi-envelope me-2"></i>petereluwade55@gmail.com
-                            </a>
-                        </p>
-                        <p class="mb-2">
-                            <a class="text-light text-decoration-none footer-link" href="https://wa.me/2348108821809" rel="noopener noreferrer" target="_blank">
-                                <i class="bi bi-whatsapp me-2"></i>+234 810 882 1809
-                            </a>
-                        </p>
+                        <a class="social-icon whatsapp" 
+                           href="https://wa.me/2348108821809" 
+                           target="_blank" 
+                           title="Chat on WhatsApp"
+                           data-bs-toggle="tooltip">
+                            <i class="bi bi-whatsapp"></i>
+                        </a>
                     </div>
                 </div>
             </div>
-            <hr class="my-4 border-secondary">
-            <div class="text-center">
-                <small class="text-muted">Built with the speed of light by Peter Lightspeed | Virtual Assistant & Web Developer</small>
+        </div>
+
+        <!-- Footer Bottom -->
+        <hr class="my-4 border-secondary opacity-25">
+        <div class="row align-items-center">
+            <div class="col-md-6 text-center text-md-start">
+                <p class="mb-0 text-muted text-light">
+                    <small>
+                        © 2025 <strong class="text-white">Eluwade Peter Toluwanimi</strong>. All rights reserved.
+                    </small>
+                </p>
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+                <div class="footer-bottom-links">
+                    <a href="#" class="footer-link me-3" data-bs-toggle="modal" data-bs-target="#privacyModal">
+                        <small>Privacy Policy</small>
+                    </a>
+                    <a href="#" class="footer-link me-3" data-bs-toggle="modal" data-bs-target="#termsModal">
+                        <small>Terms of Service</small>
+                    </a>
+                    <a href="#Home" class="footer-link">
+                        <small>Back to Top <i class="bi bi-arrow-up"></i></small>
+                    </a>
+                </div>
             </div>
         </div>
-    </footer>
+
+        <!-- Built with love -->
+        <div class="text-center mt-3">
+            <small class="text-muted">
+                Built with <i class="bi bi-heart-fill text-danger"></i> and ⚡ by Peter Lightspeed | 
+                Professional Virtual Assistant & Web Developer
+            </small>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" title="Back to Top">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+</footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
