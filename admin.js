@@ -1336,3 +1336,53 @@ function getAllChatSessions() {
   
   return sessions;
 }
+// Get all chat sessions from localStorage
+function getAllChatSessions() {
+  const sessions = {};
+  
+  try {
+    // First check if we have a sessions index
+    const sessionsIndex = JSON.parse(localStorage.getItem('peterbot_sessions_index') || '[]');
+    
+    if (sessionsIndex.length > 0) {
+      // Use the index to retrieve sessions
+      sessionsIndex.forEach(sessionId => {
+        const chatData = localStorage.getItem(`peterbot_chat_${sessionId}`);
+        if (chatData) {
+          try {
+            const messages = JSON.parse(chatData);
+            sessions[sessionId] = {
+              messages: messages || []
+            };
+          } catch (e) {
+            console.error(`Error parsing session data for ${sessionId}:`, e);
+          }
+        }
+      });
+    } else {
+      // Fallback: Scan all localStorage keys (less efficient)
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        
+        // Check if it's a chat session
+        if (key && key.startsWith('peterbot_chat_')) {
+          try {
+            const sessionId = key.replace('peterbot_chat_', '');
+            const messages = JSON.parse(localStorage.getItem(key));
+            
+            sessions[sessionId] = {
+              messages: messages || []
+            };
+          } catch (error) {
+            console.error(`Error parsing session data for ${key}:`, error);
+          }
+        }
+      }
+    }
+  } catch (error) {
+    console.error('Error retrieving chat sessions:', error);
+  }
+  
+  return sessions;
+}
+
