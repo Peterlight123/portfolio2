@@ -1,340 +1,497 @@
 /**
- * Peter Lightspeed Portfolio - Testimonials Section JavaScript
- * Handles testimonial carousel and form submission
+ * Peter Lightspeed Assistant - Simple Website-Based Chatbot
+ * Answers questions based on website content and saves chat history for admin
  */
 
-// Wait for DOM to be fully loaded
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize all functionality
-    initTestimonialCarousel();
-    initTestimonialForm();
-    initFormValidation();
-});
-
-/**
- * Testimonial Carousel Enhancement
- * Adds keyboard navigation, touch swipe support, and auto-pause on hover
- */
-function initTestimonialCarousel() {
-    const carousel = document.getElementById('testimonialCarousel');
-    if (!carousel || typeof bootstrap === 'undefined') return;
+class PeterAssistant {
+  constructor() {
+    // Core properties
+    this.sessionId = this.generateSessionId();
+    this.chatHistory = [];
+    this.isTyping = false;
+    this.websiteData = {};
     
-    const carouselInstance = bootstrap.Carousel.getOrCreateInstance(carousel, {
-        interval: 6000,
-        keyboard: true,
-        pause: 'hover',
-        wrap: true
-    });
+    // DOM elements
+    this.chatWidget = document.getElementById('chatbot-widget');
+    this.openChatBtn = document.getElementById('open-chat-button');
+    this.closeChatBtn = document.getElementById('close-chat');
+    this.chatForm = document.getElementById('chat-form');
+    this.userInput = document.getElementById('user-input-widget');
+    this.chatArea = document.getElementById('chat-area-widget');
+    this.sendButton = document.getElementById('send-button-widget');
+    this.notificationBadge = document.getElementById('notification-badge');
     
-    // Add keyboard navigation
-    document.addEventListener('keydown', function(e) {
-        // Only respond to arrow keys if carousel is in viewport
-        if (!isElementInViewport(carousel)) return;
-        
-        if (e.key === 'ArrowLeft') {
-            carouselInstance.prev();
-        } else if (e.key === 'ArrowRight') {
-            carouselInstance.next();
-        }
-    });
-    
-    // Add swipe support for mobile with improved detection
-    let touchStartX = 0;
-    let touchEndX = 0;
-    let touchStartY = 0;
-    let touchEndY = 0;
-    const swipeThreshold = 50; // Minimum distance for a swipe
-    
-    carousel.addEventListener('touchstart', function(e) {
-        touchStartX = e.changedTouches[0].screenX;
-        touchStartY = e.changedTouches[0].screenY;
-    }, { passive: true });
-    
-    carousel.addEventListener('touchend', function(e) {
-        touchEndX = e.changedTouches[0].screenX;
-        touchEndY = e.changedTouches[0].screenY;
-        handleSwipe();
-    }, { passive: true });
-    
-    function handleSwipe() {
-        const horizontalDiff = touchEndX - touchStartX;
-        const verticalDiff = touchEndY - touchStartY;
-        
-        // Only register as horizontal swipe if horizontal movement is greater than vertical
-        // and exceeds the threshold
-        if (Math.abs(horizontalDiff) > Math.abs(verticalDiff) && Math.abs(horizontalDiff) > swipeThreshold) {
-            if (horizontalDiff < 0) {
-                carouselInstance.next();
-            } else {
-                carouselInstance.prev();
-            }
-        }
+    // Initialize
+    this.init();
+  }
+  
+  // Initialize the chatbot
+  async init() {
+    // Check if DOM elements exist
+    if (!this.chatWidget || !this.openChatBtn || !this.chatForm) {
+      console.error('Required chatbot elements not found');
+      return;
     }
     
-    // Add animation effects when slides change
-    carousel.addEventListener('slide.bs.carousel', function(e) {
-        const currentSlide = e.relatedTarget;
-        
-        // Add fade-in effect to the new slide
-        setTimeout(() => {
-            currentSlide.querySelectorAll('.testimonial-img-wrapper, .testimonial-content')
-                .forEach(el => el.classList.add('animate__animated', 'animate__fadeIn'));
-        }, 50);
-    });
+    // Load website data
+    await this.loadWebsiteData();
     
-    // Update progress indicator
-    let carouselItems = carousel.querySelectorAll('.carousel-item');
-    let currentIndex = 0;
+    // Bind events
+    this.bindEvents();
     
-    carousel.addEventListener('slid.bs.carousel', function(e) {
-        currentIndex = [...carouselItems].indexOf(e.relatedTarget);
-        updateProgressIndicator(currentIndex, carouselItems.length);
-    });
-    
-    // Initialize progress indicator
-    if (document.querySelector('.carousel-progress-bar')) {
-        updateProgressIndicator(0, carouselItems.length);
-    }
-    
-    // Add accessibility enhancements
-    carousel.querySelectorAll('.carousel-item').forEach(item => {
-        item.setAttribute('role', 'tabpanel');
-        item.setAttribute('aria-roledescription', 'slide');
-    });
-}
-
-/**
- * Updates the visual progress indicator for the carousel
- */
-function updateProgressIndicator(currentIndex, totalItems) {
-    const progressBar = document.querySelector('.carousel-progress-bar');
-    if (!progressBar) return;
-    
-    const progressPercentage = ((currentIndex + 1) / totalItems) * 100;
-    progressBar.style.width = `${progressPercentage}%`;
-    progressBar.setAttribute('aria-valuenow', progressPercentage);
-    progressBar.setAttribute('aria-valuetext', `Slide ${currentIndex + 1} of ${totalItems}`);
-}
-
-/**
- * Testimonial Form Initialization
- * Handles form submission with validation and feedback
- */
-function initTestimonialForm() {
-    const testimonialForm = document.getElementById('testimonialForm');
-    if (!testimonialForm) return;
-    
-    testimonialForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-        
-        // Don't proceed if form is invalid
-        if (!testimonialForm.checkValidity()) {
-            testimonialForm.classList.add('was-validated');
-            return;
-        }
-        
-        const submitButton = testimonialForm.querySelector('button[type="submit"]');
-        const statusDiv = document.getElementById('testimonialFormStatus') || 
-                         createStatusDiv(testimonialForm);
-        
-        // Show loading state
-        setButtonLoading(submitButton, true);
-        
-        // Process form data
-        const formData = new FormData(testimonialForm);
-        
-        // Handle file upload
-        const photoInput = document.getElementById('testimonialPhoto');
-        if (photoInput && photoInput.files.length > 0) {
-            const file = photoInput.files[0];
-            
-            // Validate file size (max 2MB)
-            if (file.size > 2 * 1024 * 1024) {
-                showFormMessage(statusDiv, 'error', 
-                    'Photo exceeds maximum size of 2MB. Please choose a smaller file.');
-                setButtonLoading(submitButton, false);
-                return;
-            }
-            
-            // Validate file type
-            const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-            if (!validTypes.includes(file.type)) {
-                showFormMessage(statusDiv, 'error', 
-                    'Please upload a valid image file (JPEG, PNG, GIF, or WebP).');
-                setButtonLoading(submitButton, false);
-                return;
-            }
-            
-            formData.append('photo', file);
-        }
-        
-        // Submit form
-        fetch(testimonialForm.action, {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Accept': 'application/json'
-            }
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Success message
-            showFormMessage(statusDiv, 'success', 
-                'Thank you for your testimonial! It will be reviewed and added to the site soon.');
-            testimonialForm.reset();
-            testimonialForm.classList.remove('was-validated');
-            
-            // Scroll to status message
-            statusDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        })
-        .catch(error => {
-            console.error('Form submission error:', error);
-            showFormMessage(statusDiv, 'error', 
-                'Sorry, there was an error submitting your testimonial. Please try again or contact me directly.');
-        })
-        .finally(() => {
-            // Reset button state
-            setButtonLoading(submitButton, false);
-        });
-    });
-    
-    // Add real-time character counter for testimonial message
-    const messageField = document.getElementById('testimonialMessage');
-    if (messageField) {
-        const counterContainer = document.createElement('div');
-        counterContainer.className = 'form-text text-end';
-        counterContainer.id = 'charCounter';
-        messageField.parentNode.appendChild(counterContainer);
-        
-        messageField.addEventListener('input', function() {
-            const maxLength = 500; // Set your desired max length
-            const currentLength = messageField.value.length;
-            const remainingChars = maxLength - currentLength;
-            
-            counterContainer.textContent = `${currentLength}/${maxLength} characters`;
-            
-            if (remainingChars < 50) {
-                counterContainer.classList.add('text-warning');
-            } else {
-                counterContainer.classList.remove('text-warning');
-            }
-            
-            if (remainingChars < 0) {
-                counterContainer.classList.add('text-danger');
-                messageField.value = messageField.value.substring(0, maxLength);
-                counterContainer.textContent = `${maxLength}/${maxLength} characters (maximum reached)`;
-            } else {
-                counterContainer.classList.remove('text-danger');
-            }
-        });
-    }
-}
-
-/**
- * Form Validation Initialization
- * Sets up client-side validation for all forms
- */
-function initFormValidation() {
-    // Add validation styles to all forms with needs-validation class
-    const forms = document.querySelectorAll('.needs-validation');
-    
-    Array.from(forms).forEach(form => {
-        // Add validation check on input change
-        form.querySelectorAll('input, textarea, select').forEach(input => {
-            input.addEventListener('blur', function() {
-                checkInputValidity(input);
-            });
-            
-            input.addEventListener('input', function() {
-                if (input.classList.contains('is-invalid')) {
-                    checkInputValidity(input);
-                }
-            });
-        });
-    });
-}
-
-/**
- * Check validity of a single input field
- */
-function checkInputValidity(input) {
-    if (input.checkValidity()) {
-        input.classList.remove('is-invalid');
-        input.classList.add('is-valid');
-    } else {
-        input.classList.remove('is-valid');
-        input.classList.add('is-invalid');
-    }
-}
-
-/**
- * Set button loading state
- */
-function setButtonLoading(button, isLoading) {
-    if (!button) return;
-    
-    if (isLoading) {
-        button.disabled = true;
-        button.dataset.originalText = button.innerHTML;
-        button.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Submitting...';
-    } else {
-        button.disabled = false;
-        button.innerHTML = button.dataset.originalText || '<i class="bi bi-send me-1"></i> Submit Testimonial';
-    }
-}
-
-/**
- * Show form message (success or error)
- */
-function showFormMessage(container, type, message) {
-    if (!container) return;
-    
-    const alertClass = type === 'success' ? 'alert-success' : 'alert-danger';
-    const icon = type === 'success' ? 'bi-check-circle-fill' : 'bi-exclamation-triangle-fill';
-    
-    container.innerHTML = `
-        <div class="alert ${alertClass} alert-dismissible fade show" role="alert">
-            <i class="bi ${icon} me-2"></i>
-            ${message}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    `;
-    
-    // Auto-hide message after 8 seconds
+    // Show welcome message after a short delay
     setTimeout(() => {
-        const alert = container.querySelector('.alert');
-        if (alert) {
-            const bsAlert = new bootstrap.Alert(alert);
-            bsAlert.close();
+      this.showWelcomeMessage();
+    }, 1000);
+  }
+  
+  // Generate a unique session ID
+  generateSessionId() {
+    return 'chat_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
+  }
+  
+  // Load website data for answering questions
+  async loadWebsiteData() {
+    try {
+      // This data is based on your website content at peterlight123.github.io/portfolio
+      this.websiteData = {
+        about: {
+          name: "Eluwade Peter Toluwanimi",
+          nickname: "Peter Lightspeed",
+          role: "Web Developer & Content Specialist",
+          description: "I build modern websites for businesses, vendors, and stores that want to grow online. I also handle content management and creative services.",
+          contact: {
+            email: "petereluwade55@gmail.com",
+            phone: "+234 810 882 1809",
+            whatsapp: "+234 810 882 1809"
+          }
+        },
+        services: [
+          {
+            title: "Typing & Data Entry",
+            description: "Fast and accurate typing, file conversion, document formatting, and data management services."
+          },
+          {
+            title: "Graphics Design",
+            description: "Eye-catching designs for social media, logos, flyers, and ads using Canva and Photoshop."
+          },
+          {
+            title: "Blogger Setup & Content",
+            description: "Professional Blogger blog creation, layout design, SEO optimization, and AdSense integration."
+          },
+          {
+            title: "Website Design",
+            description: "Responsive websites that work perfectly on both mobile and desktop screens with swift loading speeds."
+          },
+          {
+            title: "SEO & Meta Setup",
+            description: "Boost your blog or website visibility with proper keyword research, SEO optimization, and meta setup."
+          },
+          {
+            title: "Social Media Management",
+            description: "Manage and grow social platforms (YouTube, TikTok, Facebook) with posting schedules, branding & analytics."
+          }
+        ],
+        certifications: [
+          {
+            title: "Google Digital Marketing Certificate",
+            issuer: "Google",
+            link: "https://skillshop.credential.net/2656d9be-a41b-477e-a518-17d364c69a32"
+          },
+          {
+            title: "Responsive Web Design",
+            issuer: "freeCodeCamp",
+            link: "https://www.freecodecamp.org/certification/Peterlightspeed/responsive-web-design"
+          },
+          {
+            title: "Trade Test I & II",
+            issuer: "Federal Ministry of Labour",
+            link: "https://acrobat.adobe.com/id/urn:aaid:sc:EU:31d8cdb2-3afd-4e28-893a-8445cac9a2a9"
+          },
+          {
+            title: "Digital Services Certificate",
+            issuer: "Camex Global Concept",
+            link: "https://imgur.com/3MUPR3u"
+          },
+          {
+            title: "Soft Skills Certificate",
+            issuer: "WAVE",
+            link: "https://acrobat.adobe.com/id/urn:aaid:sc:EU:fe4db523-f86e-4486-964a-17c73cbbf9e3"
+          }
+        ],
+        projects: [
+          {
+            title: "Beat Blast Flier",
+            client: "Gideon Oluwapelumi",
+            type: "Graphic Design"
+          },
+          {
+            title: "Forex Flyer",
+            client: "Andrew Stephen",
+            type: "Graphic Design"
+          },
+          {
+            title: "Basketball Flyer",
+            client: "Tochukwu",
+            type: "Graphic Design"
+          }
+        ],
+        social: {
+          youtube: "@peterphonist",
+          instagram: "@peterphonist",
+          tiktok: "@peterphonist",
+          facebook: "@peterphonist"
+        },
+        music: {
+          name: "Peterphonist",
+          description: "I create music under the name 'Peterphonist', blending afrobeats with contemporary sounds."
+        },
+        links: {
+          home: "#home",
+          about: "#about",
+          services: "#services",
+          projects: "#projects",
+          highlights: "#highlights",
+          testimonials: "#testimonials",
+          contact: "#contact",
+          cv: "#cv"
         }
-    }, 8000);
+      };
+      
+      console.log('Website data loaded successfully');
+    } catch (error) {
+      console.error('Error loading website data:', error);
+    }
+  }
+  
+  // Bind event listeners
+  bindEvents() {
+    // Open chat button
+    this.openChatBtn.addEventListener('click', () => this.openChat());
+    
+    // Close chat button
+    this.closeChatBtn.addEventListener('click', () => this.closeChat());
+    
+    // Form submission
+    this.chatForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      this.handleUserMessage();
+    });
+    
+    // Send button click
+    this.sendButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      this.handleUserMessage();
+    });
+    
+    // Input keypress (Enter key)
+    this.userInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        this.handleUserMessage();
+      }
+    });
+  }
+  
+  // Show welcome message
+  showWelcomeMessage() {
+    const welcomeMessage = "👋 Hi there! I'm Peter's virtual assistant. How can I help you today?";
+    this.addMessage(welcomeMessage, 'bot');
+    
+    // Show quick reply suggestions
+    setTimeout(() => {
+      this.showQuickReplies([
+        'Services', 
+        'Portfolio', 
+        'Contact', 
+        'About Peter'
+      ]);
+    }, 500);
+  }
+  
+  // Handle user message
+  handleUserMessage() {
+    const message = this.userInput.value.trim();
+    if (!message) return;
+    
+    // Add user message to chat
+    this.addMessage(message, 'user');
+    
+    // Clear input
+    this.userInput.value = '';
+    
+    // Remove any quick replies
+    this.removeQuickReplies();
+    
+    // Show typing indicator
+    this.showTypingIndicator();
+    
+    // Generate response with delay
+    setTimeout(() => {
+      // Hide typing indicator
+      this.hideTypingIndicator();
+      
+      // Generate and display response
+      const response = this.generateResponse(message);
+      this.addMessage(response.text, 'bot');
+      
+      // Show quick replies if available
+      if (response.quickReplies && response.quickReplies.length > 0) {
+        setTimeout(() => {
+          this.showQuickReplies(response.quickReplies);
+        }, 500);
+      }
+      
+      // Save chat history
+      this.saveChatHistory();
+    }, 1000);
+  }
+  
+  // Generate response based on user input
+  generateResponse(message) {
+    const lowerMsg = message.toLowerCase();
+    let response = {
+      text: '',
+      quickReplies: []
+    };
+    
+    // Check for greetings
+    if (this.containsAny(lowerMsg, ['hello', 'hi', 'hey', 'good morning', 'good afternoon', 'good evening'])) {
+      response.text = `👋 Hello! I'm Peter's virtual assistant. How can I help you today?`;
+      response.quickReplies = ['Services', 'Portfolio', 'Contact', 'About Peter'];
+      return response;
+    }
+    
+    // Check for services related questions
+    if (this.containsAny(lowerMsg, ['service', 'offer', 'provide', 'do you', 'can you', 'help with'])) {
+      let servicesList = this.websiteData.services.map(s => `• ${s.title}: ${s.description}`).join('\n\n');
+      response.text = `🛠️ Here are the services Peter offers:\n\n${servicesList}\n\nWhich service are you interested in?`;
+      response.quickReplies = ['Website Design', 'Graphics Design', 'Content Creation', 'Contact Peter'];
+      return response;
+    }
+    
+    // Check for specific services
+    if (this.containsAny(lowerMsg, ['web', 'website', 'development', 'design'])) {
+      const service = this.websiteData.services.find(s => s.title === "Website Design");
+      response.text = `💻 ${service.description} Peter creates responsive websites that look great on all devices and load quickly. Would you like to see some examples or discuss your website needs?`;
+      response.quickReplies = ['See Portfolio', 'Contact About Website', 'Other Services'];
+      return response;
+    }
+    
+    if (this.containsAny(lowerMsg, ['graphic', 'design', 'logo', 'flyer', 'poster'])) {
+      const service = this.websiteData.services.find(s => s.title === "Graphics Design");
+      response.text = `🎨 ${service.description} Peter can create logos, social media graphics, flyers, and more. Would you like to see some examples of his design work?`;
+      response.quickReplies = ['See Design Examples', 'Contact About Design', 'Other Services'];
+      return response;
+    }
+    
+    if (this.containsAny(lowerMsg, ['blog', 'blogger', 'content', 'writing', 'seo'])) {
+      const service = this.websiteData.services.find(s => s.title === "Blogger Setup & Content");
+      response.text = `✍️ ${service.description} Peter can help set up your blog, create content, and optimize it for search engines. Would you like more information about this service?`;
+      response.quickReplies = ['Blog Examples', 'Contact About Blogging', 'Other Services'];
+      return response;
+    }
+    
+    // Check for portfolio/projects
+    if (this.containsAny(lowerMsg, ['portfolio', 'project', 'work', 'example', 'showcase'])) {
+      const projectsList = this.websiteData.projects.map(p => `• ${p.title} (${p.type}) for ${p.client}`).join('\n');
+      response.text = `📁 Here are some of Peter's recent projects:\n\n${projectsList}\n\nYou can view his full portfolio at: https://peterlight123.github.io/portfolio/project.html`;
+      response.quickReplies = ['Services', 'Contact Peter', 'About Peter'];
+      return response;
+    }
+    
+    // Check for contact information
+    if (this.containsAny(lowerMsg, ['contact', 'reach', 'email', 'phone', 'whatsapp', 'call', 'message'])) {
+      response.text = `📱 You can contact Peter through:\n\n📧 Email: ${this.websiteData.about.contact.email}\n📞 Phone/WhatsApp: ${this.websiteData.about.contact.phone}\n\nOr use the contact form on the website: https://peterlight123.github.io/portfolio/#contact`;
+      response.quickReplies = ['Services', 'Portfolio', 'About Peter'];
+      return response;
+    }
+    
+    // Check for about/bio information
+    if (this.containsAny(lowerMsg, ['about', 'who', 'bio', 'background', 'peter'])) {
+      response.text = `👨‍💻 ${this.websiteData.about.name} (${this.websiteData.about.nickname}) is a ${this.websiteData.about.role} based in Nigeria. ${this.websiteData.about.description} He also creates music under the name 'Peterphonist'!`;
+      response.quickReplies = ['Services', 'Portfolio', 'Contact', 'Music'];
+      return response;
+    }
+    
+    // Check for music/Peterphonist
+    if (this.containsAny(lowerMsg, ['music', 'song', 'peterphonist', 'artist'])) {
+      response.text = `🎵 ${this.websiteData.music.description} You can find his music on:\n\n• YouTube: ${this.websiteData.social.youtube}\n• Instagram: ${this.websiteData.social.instagram}\n• TikTok: ${this.websiteData.social.tiktok}\n• Facebook: ${this.websiteData.social.facebook}`;
+      response.quickReplies = ['Services', 'Contact Peter', 'About Peter'];
+      return response;
+    }
+    
+    // Check for certifications
+    if (this.containsAny(lowerMsg, ['certification', 'certificate', 'qualification', 'education', 'skill'])) {
+      const certList = this.websiteData.certifications.map(cert => `• ${cert.title} (${cert.issuer})`).join('\n');
+      response.text = `🎓 Peter has the following certifications:\n\n${certList}\n\nYou can view his certificates at: https://peterlight123.github.io/portfolio/#licenses`;
+      response.quickReplies = ['Services', 'Portfolio', 'Contact Peter'];
+      return response;
+    }
+    
+    // Default response if no match
+    response.text = "I'm here to help with information about Peter's services, projects, or how to get in touch. What would you like to know?";
+    response.quickReplies = ['Services', 'Portfolio', 'Contact', 'About Peter'];
+    return response;
+  }
+  
+  // Helper function to check if message contains any of the keywords
+  containsAny(text, keywords) {
+    return keywords.some(keyword => text.includes(keyword));
+  }
+  
+  // Add message to chat
+  addMessage(text, sender) {
+    // Create message element
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `chat-message ${sender}`;
+    
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
+    
+    // Format links in text
+    const formattedText = this.formatLinks(text);
+    bubble.innerHTML = formattedText.replace(/\n/g, '<br>');
+    
+    // Add timestamp
+    const timestamp = document.createElement('span');
+    timestamp.className = 'message-timestamp';
+    timestamp.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    bubble.appendChild(timestamp);
+    
+    messageDiv.appendChild(bubble);
+    this.chatArea.appendChild(messageDiv);
+    
+    // Scroll to bottom
+    this.chatArea.scrollTop = this.chatArea.scrollHeight;
+    
+    // Add to chat history
+    this.chatHistory.push({
+      text,
+      sender,
+      time: new Date().toISOString()
+    });
+  }
+  
+  // Format links in text
+  formatLinks(text) {
+    // Convert URLs to clickable links
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    return text.replace(urlRegex, url => `<a href="${url}" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">${url}</a>`);
+  }
+  
+  // Show typing indicator
+  showTypingIndicator() {
+    this.isTyping = true;
+    
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'chat-message bot typing-indicator';
+    
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble typing';
+    
+    for (let i = 0; i < 3; i++) {
+      const dot = document.createElement('span');
+      dot.className = 'dot';
+      bubble.appendChild(dot);
+    }
+    
+    typingDiv.appendChild(bubble);
+    this.chatArea.appendChild(typingDiv);
+    
+    // Scroll to bottom
+    this.chatArea.scrollTop = this.chatArea.scrollHeight;
+  }
+  
+  // Hide typing indicator
+  hideTypingIndicator() {
+    this.isTyping = false;
+    
+    const typingIndicator = this.chatArea.querySelector('.typing-indicator');
+    if (typingIndicator) {
+      typingIndicator.remove();
+    }
+  }
+  
+  // Show quick replies
+  showQuickReplies(replies) {
+    const repliesDiv = document.createElement('div');
+    repliesDiv.className = 'quick-replies';
+    
+    replies.forEach(reply => {
+      const button = document.createElement('button');
+      button.className = 'quick-reply-btn';
+      button.textContent = reply;
+      
+      button.addEventListener('click', () => {
+        // Use the quick reply as user input
+        this.userInput.value = reply;
+        this.handleUserMessage();
+      });
+      
+      repliesDiv.appendChild(button);
+    });
+    
+    this.chatArea.appendChild(repliesDiv);
+    
+    // Scroll to bottom
+    this.chatArea.scrollTop = this.chatArea.scrollHeight;
+  }
+  
+    // Remove quick replies
+  removeQuickReplies() {
+    const quickReplies = this.chatArea.querySelector('.quick-replies');
+    if (quickReplies) {
+      quickReplies.remove();
+    }
+  }
+  
+  // Open chat
+  openChat() {
+    this.chatWidget.classList.remove('chatbot-hidden');
+    this.chatWidget.classList.add('chatbot-visible');
+    this.openChatBtn.classList.add('button-hidden');
+    
+    // Focus on input
+    setTimeout(() => {
+      this.userInput.focus();
+    }, 300);
+    
+    // Hide notification badge
+    if (this.notificationBadge) {
+      this.notificationBadge.classList.add('d-none');
+    }
+  }
+  
+  // Close chat
+  closeChat() {
+    this.chatWidget.classList.remove('chatbot-visible');
+    this.chatWidget.classList.add('chatbot-hidden');
+    this.openChatBtn.classList.remove('button-hidden');
+  }
+  
+  // Save chat history to localStorage for admin access
+  saveChatHistory() {
+    try {
+      // Use the session ID as the key
+      localStorage.setItem(`peterbot_chat_${this.sessionId}`, JSON.stringify(this.chatHistory));
+      console.log('Chat history saved:', this.sessionId);
+    } catch (error) {
+      console.error('Error saving chat history:', error);
+    }
+  }
 }
 
-/**
- * Create status div if it doesn't exist
- */
-function createStatusDiv(form) {
-    const statusDiv = document.createElement('div');
-    statusDiv.id = 'testimonialFormStatus';
-    statusDiv.className = 'mt-3';
-    form.appendChild(statusDiv);
-    return statusDiv;
-}
-
-/**
- * Check if element is in viewport
- */
-function isElementInViewport(el) {
-    const rect = el.getBoundingClientRect();
-    return (
-        rect.top >= 0 &&
-        rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
-}
+// Initialize chatbot when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  // Add CSS link if not already in the document
+  if (!document.querySelector('link[href*="chatbot.css"]')) {
+    const cssLink = document.createElement('link');
+    cssLink.rel = 'stylesheet';
+    cssLink.href = 'chatbot.css';
+    document.head.appendChild(cssLink);
+  }
+  
+  // Initialize the chatbot
+  window.peterAssistant = new PeterAssistant();
+});
