@@ -816,3 +816,51 @@ h2::after {
     left: auto !important;
   }
 }
+/* Highlights Section Styling */
+.highlight-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    overflow: hidden;
+}
+
+.highlight-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
+}
+
+.highlight-card .card-body {
+    z-index: 1;
+}
+
+.highlight-card .bi {
+    transition: transform 0.3s ease;
+}
+
+.highlight-card:hover .bi {
+    transform: scale(1.2);
+}
+
+.highlight-card .btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    transition: all 0.3s ease;
+}
+
+.highlight-card .btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(220, 53, 69, 0.4);
+}
+
+/* Improve text visibility */
+.text-light-emphasis {
+    color: rgba(255, 255, 255, 0.75) !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+    .highlight-card {
+        margin-bottom: 20px;
+    }
+}
