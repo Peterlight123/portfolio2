@@ -78,44 +78,77 @@ img {
     color: white;
 }
 
-/* =====================================================================
-   NAVBAR & HEADER
-   ===================================================================== */
-/* .navbar-brand img {
-    transition: transform 0.3s ease;
+/* Navbar Styling */
+.navbar {
+    transition: all 0.3s ease;
 }
 
-.navbar-brand img:hover {
+/* Brand logo styling */
+.brand-logo {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.brand-logo img {
+    transition: transform 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.navbar-brand:hover .brand-logo img {
     transform: scale(1.1);
 }
 
-.nav-link {
-    transition: color 0.3s ease;
-}
-
-.nav-link:hover {
-    color: #ffc107 !important;
-}
-
-.nav-tabs .nav-link {
-    color: #0d6efd;
-    font-weight: 600;
-    border: none;
-    border-bottom: 3px solid transparent;
+/* Navigation links styling */
+.navbar-nav .nav-link {
+    position: relative;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
     transition: all 0.3s ease;
-    border-radius: 0;
 }
 
-.nav-tabs .nav-link.active {
-    color: #0d6efd;
-    border-bottom: 3px solid #0d6efd;
-    background-color: transparent;
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: #ffffff;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+    opacity: 0;
 }
 
-.nav-tabs .nav-link:hover:not(.active) {
-    border-bottom: 3px solid #6c757d;
-} */
+.navbar-nav .nav-link:hover::after,
+.navbar-nav .nav-link.active::after {
+    width: 70%;
+    opacity: 1;
+}
 
+/* Dropdown styling */
+.dropdown-menu {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    animation: fadeInDown 0.3s ease;
+}
+
+.dropdown-item {
+    padding: 0.7rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+    transform: translateX(5px);
+}
+
+.dropdown-divider {
+    margin: 0.5rem 0;
+}
 /* =====================================================================
    CARDS & PROJECTS
    ===================================================================== */
