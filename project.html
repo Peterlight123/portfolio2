@@ -937,30 +937,24 @@
                     </div>
                     
                     <!-- Newsletter Signup -->
-<!--                     <div class="newsletter-signup">
-                        <h6 class="fw-semibold mb-2 text-white">Stay Updated</h6>
-                        <div class="input-group input-group-sm">
-                            <input type="email" class="form-control" placeholder="Your email" id="newsletter-email">
-                            <button class="btn btn-warning" type="button" id="newsletter-btn">
-                                <i class="bi bi-send"></i>
-                            </button>
-                        </div>
-                        <small class="text-muted d-block mt-1 text-light">Get tips and updates delivered to your inbox</small>
-                    </div>
-                </div>
-            </div> -->
-            <form id="newsletterForm" data-netlify="true" name="newsletter">
-    <input type="hidden" name="form-name" value="newsletter">
-    <div class="input-group">
-        <input type="email" name="email" class="form-control" id="newsletterEmail" 
-               placeholder="Enter your email" required>
-        <button class="btn btn-primary" type="submit">
-            <i class="bi bi-envelope"></i> Subscribe
-        </button>
-        <small class="text-muted d-block mt-1 text-light">Get tips and updates delivered to your inbox</small>
+<div class="col-md-4">
+    <h5>Stay Updated</h5>
+    <p class="mb-3">Subscribe to get notified about new projects and updates.</p>
+    <form id="newsletterForm" action="https://formspree.io/f/meoljzde" method="POST">
+        <div class="input-group mb-3">
+            <input type="email" name="email" class="form-control" id="newsletterEmail" 
+                   placeholder="Enter your email" required>
+            <button class="btn btn-primary" type="submit" id="newsletterBtn">
+                <i class="bi bi-envelope"></i> Subscribe
+            </button>
+        </div>
+        <!-- Hidden field to identify the source -->
+        <input type="hidden" name="_subject" value="New Portfolio Newsletter Subscription">
+        <input type="hidden" name="source" value="Portfolio Website">
+    </form>
+    <div id="newsletterMessage" class="mt-2" style="display: none;"></div>
+</div>
 
-    </div>
-</form>
 
 
             <!-- Quick Links -->
