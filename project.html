@@ -937,7 +937,7 @@
                     </div>
                     
                     <!-- Newsletter Signup -->
-                    <div class="newsletter-signup">
+<!--                     <div class="newsletter-signup">
                         <h6 class="fw-semibold mb-2 text-white">Stay Updated</h6>
                         <div class="input-group input-group-sm">
                             <input type="email" class="form-control" placeholder="Your email" id="newsletter-email">
@@ -948,7 +948,20 @@
                         <small class="text-muted d-block mt-1 text-light">Get tips and updates delivered to your inbox</small>
                     </div>
                 </div>
-            </div>
+            </div> -->
+            <form id="newsletterForm" data-netlify="true" name="newsletter">
+    <input type="hidden" name="form-name" value="newsletter">
+    <div class="input-group">
+        <input type="email" name="email" class="form-control" id="newsletterEmail" 
+               placeholder="Enter your email" required>
+        <button class="btn btn-primary" type="submit">
+            <i class="bi bi-envelope"></i> Subscribe
+        </button>
+        <small class="text-muted d-block mt-1 text-light">Get tips and updates delivered to your inbox</small>
+
+    </div>
+</form>
+
 
             <!-- Quick Links -->
             <div class="col-lg-2 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
