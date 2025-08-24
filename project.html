@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects - Peter Lightspeed Portfolio</title>
+    <title>Lightspeed Projects - Peter Eluwade Portfolio</title>
     
     <!-- Meta tags for SEO -->
     <meta name="description" content="Explore Peter Lightspeed's portfolio of web development, graphic design, and virtual assistant projects. View case studies and examples of my work.">
@@ -11,122 +11,120 @@
     <meta name="author" content="Peter Eluwade Toluwanimi">
     <meta name="robots" content="index, follow">
     
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="https://i.imgur.com/2Ocmg4m.png">
     <link rel="canonical" href="https://peterlight123.github.io/portfolio/project.html">
-
-    <!-- Bootstrap CSS -->
+    
+    <!-- CSS Libraries -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- AOS Animation Library -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css">
-    
-    <!-- Google Fonts for custom font -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="https://i.imgur.com/2Ocmg4m.png">
+    <!-- Custom CSS -->
+    <link href="style.css" rel="stylesheet">
 </head>
 <body>
 
     <!-- ======================= HEADER & NAVBAR ======================= -->
     <header class="sticky-top">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm py-3">
-        <div class="container">
-            <!-- Logo and Brand -->
-            <a class="navbar-brand d-flex align-items-center" href="index.html">
-                <div class="brand-logo me-3">
-                    <img src="https://i.imgur.com/Cgy2Aeq.png" alt="Peter Logo" class="rounded-circle" width="45" height="45">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm py-3">
+            <div class="container">
+                <!-- Logo and Brand -->
+                <a class="navbar-brand d-flex align-items-center" href="index.html">
+                    <div class="brand-logo me-3">
+                        <img src="https://i.imgur.com/Cgy2Aeq.png" alt="Peter Logo" class="rounded-circle" width="45" height="45">
+                    </div>
+                    <div class="brand-text">
+                        <span class="fs-4 fw-bold d-none d-sm-inline">Peter Lightspeed</span>
+                        <span class="fs-4 fw-bold d-inline d-sm-none">Peter</span>
+                    </div>
+                </a>
+                
+                <!-- Mobile Toggle Button -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <!-- Navigation Links -->
+                <div class="collapse navbar-collapse" id="navbarMain">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link px-3" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link px-3 active" aria-current="page" href="project.html">Projects</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link px-3" href="https://peterlight123.github.io/portfolio/index.html#Services">Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link px-3" href="https://peterlight123.github.io/portfolio/index.html#About">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link px-3" href="https://peterlight123.github.io/portfolio/index.html#Contact">Contact</a>
+                        </li>
+                        
+                        <!-- Dropdown Menu -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle px-3" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                More
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end shadow bg-primary" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item text-light" href="https://peterlight123.github.io/portfolio/index.html#highlights">
+                                    <i class="bi bi-star-fill me-2"></i>My Highlights
+                                </a></li>
+                                <li><a class="dropdown-item text-light" href="https://peterlight123.github.io/portfolio/index.html#Testimonials">
+                                    <i class="bi bi-chat-quote-fill me-2"></i>Testimonials
+                                </a></li>
+                                <li><a class="dropdown-item text-light" href="https://peterlight123.github.io/portfolio/index.html#licenses">
+                                    <i class="bi bi-award-fill me-2"></i>Licenses & Certifications
+                                </a></li>
+                                <li><hr class="dropdown-divider border-light"></li>
+                                <li><a class="dropdown-item text-light" href="sponsor.html">
+                                    <i class="bi bi-heart-fill me-2 text-danger"></i>Sponsor Me
+                                </a></li>
+                                <li><a class="dropdown-item text-light" href="https://peterlight123.github.io/portfolio/index.html#cv">
+                                    <i class="bi bi-file-earmark-pdf-fill me-2"></i>Download My CV
+                                </a></li>
+                            </ul>
+                        </li>
+                        
+                        <!-- Contact Button (visible on larger screens) -->
+                        <li class="nav-item d-none d-lg-block ms-2">
+                            <a href="https://peterlight123.github.io/portfolio/index.html#Contact" class="btn btn-light btn-sm rounded-pill px-3 fw-bold text-primary">
+                                <i class="bi bi-envelope-fill me-1"></i> Hire Me
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="brand-text">
-                    <span class="fs-4 fw-bold d-none d-sm-inline">Peter Lightspeed</span>
-                    <span class="fs-4 fw-bold d-inline d-sm-none">Peter</span>
-                </div>
-            </a>
-            
-            <!-- Mobile Toggle Button -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            
-            <!-- Navigation Links -->
-            <div class="collapse navbar-collapse" id="navbarMain">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link px-3" href="index.html/">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link px-3" href="index.html/#projects">Projects</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link px-3" href="index.html/#services">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link px-3" href="index.html/#About">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link px-3" href="index.html/#contact">Contact</a>
-                    </li>
-                    
-                    <!-- Dropdown Menu -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle px-3" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            More
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="index.html/#highlights">
-                                <i class="bi bi-star-fill me-2 text-primary"></i>Highlights
-                            </a></li>
-                            <li><a class="dropdown-item" href="index.html/#testimonials">
-                                <i class="bi bi-chat-quote-fill me-2 text-primary"></i>Testimonials
-                            </a></li>
-                            <li><a class="dropdown-item" href="index.html/#licenses">
-                                <i class="bi bi-award-fill me-2 text-primary"></i>Certifications
-                            </a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="sponsor.html">
-                                <i class="bi bi-heart-fill me-2 text-danger"></i>Sponsor Me
-                            </a></li>
-                            <li><a class="dropdown-item" href="index.html/#cv">
-                                <i class="bi bi-file-earmark-pdf-fill me-2 text-danger"></i>Download CV
-                            </a></li>
-                        </ul>
-                    </li>
-                    
-                    <!-- Contact Button (visible on larger screens) -->
-                    <li class="nav-item d-none d-lg-block ms-2">
-                        <a href="#contact" class="btn btn-light btn-sm rounded-pill px-3 fw-bold text-primary">
-                            <i class="bi bi-envelope-fill me-1"></i> Hire Me
-                        </a>
-                    </li>
-                </ul>
             </div>
-        </div>
-    </nav>
-</header>
+        </nav>
+    </header>
 
     <main>
         <!-- ======================= PROJECT HEADER ======================= -->
         <section class="py-5 bg-primary text-white text-center">
             <div class="container">
-                <h1 class="display-4 fw-bold mb-3">My Projects</h1>
-                <p class="lead mb-4">Explore my portfolio of web development, graphic design, and virtual assistant work</p>
+                <h1 class="display-4 fw-bold mb-3" data-aos="fade-down">My Professional Projects</h1>
+                <p class="lead mb-4" data-aos="fade-up" data-aos-delay="100">Explore my portfolio of web development, graphic design, and virtual assistant work</p>
             </div>
         </section>
 
         <!-- ======================= PROJECT FILTER ======================= -->
         <section class="py-4 bg-light">
             <div class="container">
-                <ul class="nav nav-tabs justify-content-center mb-4" id="projectTabs" role="tablist">
+                <ul class="nav nav-tabs justify-content-center mb-4" id="projectTabs" role="tablist" data-aos="fade-up">
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all-projects" type="button" role="tab" aria-controls="all-projects" aria-selected="true">All Projects</button>
                     </li>
@@ -147,21 +145,59 @@
         <section class="py-5">
             <div class="container">
                 <div class="tab-content" id="projectTabContent">
+                    
                     <!-- All Projects Tab -->
                     <div class="tab-pane fade show active" id="all-projects" role="tabpanel" aria-labelledby="all-tab">
-                        <div class="row g-4">
-                            <!-- Project 1: PLSWorldNews Blog -->
-                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                                <div class="card shadow-sm h-100">
-                                    <img src="https://placehold.co/600x400/0D6EFD/FFFFFF?text=PLSWorldNews" class="card-img-top" alt="PLSWorldNews Blog">
-                                    <div class="project-badge bg-primary text-white">Blog</div>
+                        <div class="row g-4 justify-content-center">
+
+                            <!-- Personal Portfolio Website -->
+                            <div class="col-sm-6 col-md-4 col-lg-3" data-aos="zoom-in" data-aos-delay="100">
+                                <div class="card shadow-lg h-100">
+                                    <span class="project-badge bg-primary text-white">Featured</span>
+                                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop&crop=center" class="card-img-top" alt="Personal Portfolio Website">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Personal Portfolio Website</h5>
+                                        <p class="card-description">Modern, responsive portfolio showcasing my full-stack development skills with interactive UI and optimized performance.</p>
+                                        <div class="tech-stack">
+                                            <span class="tech-badge">HTML5</span>
+                                            <span class="tech-badge">CSS3</span>
+                                            <span class="tech-badge">JavaScript</span>
+                                            <span class="tech-badge">Bootstrap</span>
+                                        </div>
+                                        <div class="project-stats">
+                                            <div class="stat-item">
+                                                <div class="stat-number">100%</div>
+                                                <div class="stat-label">Responsive</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">A+</div>
+                                                <div class="stat-label">Performance</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">SEO</div>
+                                                <div class="stat-label">Optimized</div>
+                                            </div>
+                                        </div>
+                                        <a href="https://peterlight123.github.io/portfolio" target="_blank" class="btn btn-primary w-100 mt-3">
+                                            <i class="bi bi-eye me-2"></i>View Live Site
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- PLSWorldNews Blog -->
+                            <div class="col-sm-6 col-md-4 col-lg-3" data-aos="zoom-in" data-aos-delay="150">
+                                <div class="card shadow-lg h-100">
+                                    <span class="project-badge bg-info text-white">Blog</span>
+                                    <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=500&h=300&fit=crop&crop=center" class="card-img-top" alt="PLSWorldNews Blog">
                                     <div class="card-body">
                                         <h5 class="card-title">PLSWorldNews Blog</h5>
-                                        <p class="card-description">Entertainment and lifestyle blog with daily posts, SEO optimization, and AdSense integration.</p>
+                                        <p class="card-description">Entertainment and lifestyle blog with daily posts, SEO optimization, and AdSense integration for monetization.</p>
                                         <div class="tech-stack">
                                             <span class="tech-badge">Blogger</span>
                                             <span class="tech-badge">SEO</span>
                                             <span class="tech-badge">Content Writing</span>
+                                            <span class="tech-badge">AdSense</span>
                                         </div>
                                         <div class="project-stats">
                                             <div class="stat-item">
@@ -177,26 +213,234 @@
                                                 <div class="stat-label">Launched</div>
                                             </div>
                                         </div>
-                                        <div class="d-flex justify-content-between align-items-center mt-3">
-                                            <a href="https://plsworldnews.blogspot.com" class="btn btn-primary btn-sm" target="_blank">Visit Site</a>
-                                            <a href="#" class="view-btn" data-bs-toggle="modal" data-bs-target="#projectModal1">View Details</a>
-                                        </div>
+                                        <a href="https://plsworldnews.blogspot.com" target="_blank" class="btn btn-primary w-100 mt-3">
+                                            <i class="bi bi-globe me-2"></i>Visit Blog
+                                        </a>
                                     </div>
                                 </div>
                             </div>
-                            
-                            <!-- Project 2: Rizz Script Video Management -->
-                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                                <div class="card shadow-sm h-100">
-                                    <img src="https://placehold.co/600x400/F8F9FA/212529?text=Rizz+Scripts" class="card-img-top" alt="Rizz Scripts">
-                                    <div class="project-badge bg-danger text-white">Video Content</div>
+
+                            <!-- Freedom Reign Basketball Academy -->
+                            <div class="col-sm-6 col-md-4 col-lg-3" data-aos="zoom-in" data-aos-delay="200">
+                                <div class="card shadow-lg h-100">
+                                    <span class="project-badge bg-success text-white">Sports</span>
+                                    <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?w=500&h=300&fit=crop&crop=center" class="card-img-top" alt="Freedom Reign Basketball Academy">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Freedom Reign Basketball Academy</h5>
+                                        <p class="card-description">Professional sports academy website with registration system, coach profiles, and training schedules for young athletes.</p>
+                                        <div class="tech-stack">
+                                            <span class="tech-badge">HTML5</span>
+                                            <span class="tech-badge">CSS3</span>
+                                            <span class="tech-badge">JavaScript</span>
+                                            <span class="tech-badge">Bootstrap</span>
+                                        </div>
+                                        <div class="project-stats">
+                                            <div class="stat-item">
+                                                <div class="stat-number">100+</div>
+                                                <div class="stat-label">Students</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">15</div>
+                                                <div class="stat-label">Programs</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">24/7</div>
+                                                <div class="stat-label">Support</div>
+                                            </div>
+                                        </div>
+                                        <a href="https://peterlight123.github.io/freedomreign/" target="_blank" class="btn btn-primary w-100 mt-3">
+                                            <i class="bi bi-globe me-2"></i>Visit Website
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Gidi Beat Blast Concert -->
+                            <div class="col-sm-6 col-md-4 col-lg-3" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="card shadow-lg h-100">
+                                    <span class="project-badge bg-warning text-dark">Music</span>
+                                    <img src="https://i.imgur.com/IAko0ri.png" class="card-img-top" alt="Gidi Beat Blast Concert">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Gidi Beat Blast Concert</h5>
+                                        <p class="card-description">Dynamic visual branding for electrifying drum concert event with vibrant designs capturing the energy of live performances.</p>
+                                        <div class="tech-stack">
+                                            <span class="tech-badge">Photoshop</span>
+                                            <span class="tech-badge">Canva</span>
+                                            <span class="tech-badge">Print Design</span>
+                                            <span class="tech-badge">Branding</span>
+                                        </div>
+                                        <div class="project-stats">
+                                            <div class="stat-item">
+                                                <div class="stat-number">100+</div>
+                                                <div class="stat-label">Attendees</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">5</div>
+                                                <div class="stat-label">Designs</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">HD</div>
+                                                <div class="stat-label">Quality</div>
+                                            </div>
+                                        </div>
+                                        <a href="https://i.imgur.com/IAko0ri.png" target="_blank" class="btn btn-danger w-100 mt-3">
+                                            <i class="bi bi-image me-2"></i>View Design
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Forex Trading Flyer -->
+                            <div class="col-sm-6 col-md-4 col-lg-3" data-aos="zoom-in" data-aos-delay="400">
+                                <div class="card shadow-lg h-100">
+                                    <span class="project-badge bg-info text-white">Finance</span>
+                                    <img src="https://i.imgur.com/t0xSPd5.png" class="card-img-top" alt="Forex Trading Flyer">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Forex Trading Flyer</h5>
+                                        <p class="card-description">Professional financial flyer design combining credibility with modern aesthetics to attract potential investors effectively.</p>
+                                        <div class="tech-stack">
+                                            <span class="tech-badge">Photoshop</span>
+                                            <span class="tech-badge">Print Ready</span>
+                                            <span class="tech-badge">Canva</span>
+                                        </div>
+                                        <div class="project-stats">
+                                            <div class="stat-item">
+                                                <div class="stat-number">85%</div>
+                                                <div class="stat-label">Conversion</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">A4</div>
+                                                <div class="stat-label">Format</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">300</div>
+                                                <div class="stat-label">DPI</div>
+                                            </div>
+                                        </div>
+                                        <a href="https://i.imgur.com/t0xSPd5.png" target="_blank" class="btn btn-danger w-100 mt-3">
+                                            <i class="bi bi-file-earmark-image me-2"></i>View Flyer
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Isaac's Portfolio Website -->
+                            <div class="col-sm-6 col-md-4 col-lg-3" data-aos="zoom-in" data-aos-delay="500">
+                                <div class="card shadow-lg h-100">
+                                    <span class="project-badge bg-secondary text-white">Client</span>
+                                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500&h=300&fit=crop&crop=center" class="card-img-top" alt="Isaac's Portfolio Website">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Isaac's Portfolio Website</h5>
+                                        <p class="card-description">Custom portfolio website for client Isaac showcasing his professional work with clean design and smooth user experience.</p>
+                                        <div class="tech-stack">
+                                            <span class="tech-badge">HTML5</span>
+                                            <span class="tech-badge">CSS3</span>
+                                            <span class="tech-badge">JavaScript</span>
+                                            <span class="tech-badge">Responsive</span>
+                                        </div>
+                                        <div class="project-stats">
+                                            <div class="stat-item">
+                                                <div class="stat-number">100%</div>
+                                                <div class="stat-label">Satisfied</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">Fast</div>
+                                                <div class="stat-label">Loading</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">Mobile</div>
+                                                <div class="stat-label">Ready</div>
+                                            </div>
+                                        </div>
+                                        <a href="https://peterlight123.github.io/isaac/" target="_blank" class="btn btn-primary w-100 mt-3">
+                                            <i class="bi bi-person-workspace me-2"></i>View Portfolio
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Peter Light Logo -->
+                            <div class="col-sm-6 col-md-4 col-lg-3" data-aos="zoom-in" data-aos-delay="600">
+                                <div class="card shadow-lg h-100">
+                                    <span class="project-badge bg-dark text-white">Branding</span>
+                                    <img src="https://i.imgur.com/vOOTG9M.png" class="card-img-top" alt="Peter Light Logo">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Peter Light Logo Design</h5>
+                                        <p class="card-description">Personal brand logo design representing professionalism and creativity in web development and digital services.</p>
+                                        <div class="tech-stack">
+                                            <span class="tech-badge">Canva</span>
+                                            <span class="tech-badge">Branding</span>
+                                            <span class="tech-badge">Logo Design</span>
+                                        </div>
+                                        <div class="project-stats">
+                                            <div class="stat-item">
+                                                <div class="stat-number">PNG</div>
+                                                <div class="stat-label">Format</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">Vector</div>
+                                                <div class="stat-label">Quality</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">Pro</div>
+                                                <div class="stat-label">Design</div>
+                                            </div>
+                                        </div>
+                                        <a href="https://i.imgur.com/vOOTG9M.png" target="_blank" class="btn btn-danger w-100 mt-3">
+                                            <i class="bi bi-badge-tm me-2"></i>View Logo
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Basketball Flyer -->
+                            <div class="col-sm-6 col-md-4 col-lg-3" data-aos="zoom-in" data-aos-delay="700">
+                                <div class="card shadow-lg h-100">
+                                    <span class="project-badge bg-warning text-dark">Sports</span>
+                                    <img src="https://i.imgur.com/Smwo35d.png" class="card-img-top" alt="Basketball Flyer">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Basketball Academy Flyer</h5>
+                                        <p class="card-description">Eye-catching promotional flyer for basketball academy featuring dynamic sports imagery and compelling call-to-action.</p>
+                                        <div class="tech-stack">
+                                            <span class="tech-badge">Photoshop</span>
+                                            <span class="tech-badge">Sports Design</span>
+                                            <span class="tech-badge">Canva</span>
+                                            <span class="tech-badge">Marketing</span>
+                                        </div>
+                                        <div class="project-stats">
+                                            <div class="stat-item">
+                                                <div class="stat-number">100+</div>
+                                                <div class="stat-label">Sign-ups</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">A4</div>
+                                                <div class="stat-label">Size</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">HD</div>
+                                                <div class="stat-label">Print</div>
+                                            </div>
+                                        </div>
+                                        <a href="https://i.imgur.com/Smwo35d.png" target="_blank" class="btn btn-danger w-100 mt-3">
+                                            <i class="bi bi-file-earmark-image me-2"></i>View Flyer
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Rizz Script Video Management -->
+                            <div class="col-sm-6 col-md-4 col-lg-3" data-aos="zoom-in" data-aos-delay="800">
+                                <div class="card shadow-lg h-100">
+                                    <span class="project-badge bg-danger text-white">Video Content</span>
+                                    <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=500&h=300&fit=crop&crop=center" class="card-img-top" alt="Rizz Scripts">
                                     <div class="card-body">
                                         <h5 class="card-title">Rizz Script Video Management</h5>
-                                        <p class="card-description">Managed engaging flirty content across platforms with script writing and cross-platform posting.</p>
+                                        <p class="card-description">Managed engaging flirty content across platforms with script writing and cross-platform posting for maximum reach.</p>
                                         <div class="tech-stack">
                                             <span class="tech-badge">YouTube</span>
                                             <span class="tech-badge">TikTok</span>
                                             <span class="tech-badge">Content Creation</span>
+                                            <span class="tech-badge">Script Writing</span>
                                         </div>
                                         <div class="project-stats">
                                             <div class="stat-item">
@@ -212,1131 +456,979 @@
                                                 <div class="stat-label">Views</div>
                                             </div>
                                         </div>
-                                        <div class="d-flex justify-content-between align-items-center mt-3">
-                                            <a href="https://www.youtube.com/@peterlightspeedvibes" class="btn btn-primary btn-sm" target="_blank">View Channel</a>
-                                            <a href="#" class="view-btn" data-bs-toggle="modal" data-bs-target="#projectModal2">View Details</a>
-                                        </div>
+                                        <a href="https://www.youtube.com/@peterlightspeedvibes" target="_blank" class="btn btn-primary w-100 mt-3">
+                                            <i class="bi bi-play-circle me-2"></i>View Channel
+                                        </a>
                                     </div>
                                 </div>
                             </div>
-                            
-                            <!-- Project 3: Portfolio Website -->
-                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
-                                <div class="card shadow-sm h-100">
-                                    <img src="https://placehold.co/600x400/212529/F8F9FA?text=Portfolio" class="card-img-top" alt="Portfolio Website">
-                                    <div class="project-badge bg-success text-white">Web Development</div>
+
+                            <!-- Website Hero Page -->
+                            <div class="col-sm-6 col-md-4 col-lg-3" data-aos="zoom-in" data-aos-delay="900">
+                                <div class="card shadow-lg h-100">
+                                    <span class="project-badge bg-primary text-white">Web App</span>
+                                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=500&h=300&fit=crop&crop=center" class="card-img-top" alt="Website Hero Page">
                                     <div class="card-body">
-                                        <h5 class="card-title">Personal Portfolio Website</h5>
-                                        <p class="card-description">A responsive portfolio website showcasing my skills, projects, and services as a virtual assistant.</p>
+                                        <h5 class="card-title">Website Hero Page</h5>
+                                        <p class="card-description">A very attractive home page website template with modern design elements and smooth animations for any business.</p>
                                         <div class="tech-stack">
-                                            <span class="tech-badge">HTML</span>
+                                            <span class="tech-badge">JavaScript</span>
+                                            <span class="tech-badge">HTML5</span>
                                             <span class="tech-badge">CSS</span>
                                             <span class="tech-badge">Bootstrap</span>
-                                            <span class="tech-badge">JavaScript</span>
                                         </div>
                                         <div class="project-stats">
-                                            <div class="stat-item">
-                                                <div class="stat-number">5+</div>
-                                                <div class="stat-label">Pages</div>
-                                            </div>
                                             <div class="stat-item">
                                                 <div class="stat-number">100%</div>
                                                 <div class="stat-label">Responsive</div>
                                             </div>
                                             <div class="stat-item">
-                                                <div class="stat-number">2025</div>
-                                                <div class="stat-label">Launched</div>
+                                                <div class="stat-number">Fast</div>
+                                                <div class="stat-label">Loading</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">Modern</div>
+                                                <div class="stat-label">Design</div>
                                             </div>
                                         </div>
-                                        <div class="d-flex justify-content-between align-items-center mt-3">
-                                            <a href="https://peterlight123.github.io/portfolio/" class="btn btn-primary btn-sm" target="_blank">Visit Site</a>
-                                            <a href="#" class="view-btn" data-bs-toggle="modal" data-bs-target="#projectModal3">View Details</a>
-                                        </div>
+                                        <a href="https://peterlight123.github.io/website3/" target="_blank" class="btn btn-primary w-100 mt-3">
+                                            <i class="bi bi-globe2 me-2"></i>View Website
+                                        </a>
                                     </div>
                                 </div>
                             </div>
-                            
-                            <!-- Project 4: Forex Flyer Design -->
-                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="400">
-                                <div class="card shadow-sm h-100">
-                                    <img src="https://placehold.co/600x400/6C757D/FFFFFF?text=Forex+Flyer" class="card-img-top" alt="Forex Flyer Design">
-                                    <div class="project-badge bg-info text-white">Graphic Design</div>
-                                    <div class="card-body">
-                                        <h5 class="card-title">Forex Trading Flyer</h5>
-                                        <p class="card-description">Professional flyer design for Andrew's forex trading business with sleek layout and balanced colors.</p>
-                                        <div class="tech-stack">
-                                            <span class="tech-badge">Canva</span>
-                                            <span class="tech-badge">Graphic Design</span>
-                                            <span class="tech-badge">Branding</span>
-                                        </div>
-                                        <div class="project-stats">
-                                            <div class="stat-item">
-                                                <div class="stat-number">1</div>
-                                                <div class="stat-label">Client</div>
-                                            </div>
-                                            <div class="stat-item">
-                                                <div class="stat-number">3</div>
-                                                <div class="stat-label">Revisions</div>
-                                            </div>
-                                            <div class="stat-item">
-                                                <div class="stat-number">100%</div>
-                                                <div class="stat-label">Satisfaction</div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex justify-content-between align-items-center mt-3">
-                                            <a href="#" class="btn btn-primary btn-sm disabled">Client Project</a>
-                                            <a href="#" class="view-btn" data-bs-toggle="modal" data-bs-target="#projectModal4">View Details</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Project 5: Beat Blast Flier -->
-                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="500">
-                                <div class="card shadow-sm h-100">
-                                    <img src="https://placehold.co/600x400/DC3545/FFFFFF?text=Beat+Blast" class="card-img-top" alt="Beat Blast Flier">
-                                    <div class="project-badge bg-info text-white">Graphic Design</div>
-                                    <div class="card-body">
-                                        <h5 class="card-title">Beat Blast Event Flyer</h5>
-                                        <p class="card-description">Energetic and bold flyer design for Gidi Beat Blast music event that captures the rhythm and energy.</p>
-                                        <div class="tech-stack">
-                                            <span class="tech-badge">Photoshop</span>
-                                            <span class="tech-badge">Event Design</span>
-                                            <span class="tech-badge">Branding</span>
-                                        </div>
-                                        <div class="project-stats">
-                                            <div class="stat-item">
-                                                <div class="stat-number">1</div>
-                                                <div class="stat-label">Client</div>
-                                            </div>
-                                            <div class="stat-item">
-                                                <div class="stat-number">2</div>
-                                                <div class="stat-label">Revisions</div>
-                                            </div>
-                                            <div class="stat-item">
-                                                <div class="stat-number">100%</div>
-                                                <div class="stat-label">Satisfaction</div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex justify-content-between align-items-center mt-3">
-                                            <a href="#" class="btn btn-primary btn-sm disabled">Client Project</a>
-                                            <a href="#" class="view-btn" data-bs-toggle="modal" data-bs-target="#projectModal5">View Details</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Project 6: Basketball Academy Flyer -->
-                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="600">
-                                <div class="card shadow-sm h-100">
-                                    <img src="https://placehold.co/600x400/FFC107/212529?text=Basketball" class="card-img-top" alt="Basketball Academy Flyer">
-                                    <div class="project-badge bg-info text-white">Graphic Design</div>
-                                    <div class="card-body">
-                                        <h5 class="card-title">Basketball Academy Flyer</h5>
-                                        <p class="card-description">Eye-catching and energetic flyer design for Tochukwu's basketball academy that captures the sport's dynamic spirit.</p>
-                                        <div class="tech-stack">
-                                            <span class="tech-badge">Canva</span>
-                                            <span class="tech-badge">Sports Design</span>
-                                            <span class="tech-badge">Branding</span>
-                                        </div>
-                                        <div class="project-stats">
-                                            <div class="stat-item">
-                                                <div class="stat-number">1</div>
-                                                <div class="stat-label">Client</div>
-                                            </div>
-                                            <div class="stat-item">
-                                                <div class="stat-number">1</div>
-                                                <div class="stat-label">Revision</div>
-                                            </div>
-                                            <div class="stat-item">
-                                                <div class="stat-number">100%</div>
-                                                <div class="stat-label">Satisfaction</div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex justify-content-between align-items-center mt-3">
-                                            <a href="#" class="btn btn-primary btn-sm disabled">Client Project</a>
-                                            <a href="#" class="view-btn" data-bs-toggle="modal" data-bs-target="#projectModal6">View Details</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
-                    
-                    <!-- Web Development Projects Tab -->
+
+                    <!-- Web Development Tab -->
                     <div class="tab-pane fade" id="web-projects" role="tabpanel" aria-labelledby="web-tab">
-                        <div class="row g-4">
+                        <div class="row g-4 justify-content-center">
+
+                            <!-- Personal Portfolio Website -->
+                            <div class="col-sm-6 col-md-4 col-lg-3" data-aos="zoom-in" data-aos-delay="100">
+                                <div class="card shadow-lg h-100">
+                                    <span class="project-badge bg-primary text-white">Featured</span>
+                                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop&crop=center" class="card-img-top" alt="Personal Portfolio Website">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Personal Portfolio Website</h5>
+                                        <p class="card-description">Modern, responsive portfolio showcasing my full-stack development skills with interactive UI and optimized performance.</p>
+                                        <div class="tech-stack">
+                                            <span class="tech-badge">HTML5</span>
+                                            <span class="tech-badge">CSS3</span>
+                                            <span class="tech-badge">JavaScript</span>
+                                            <span class="tech-badge">Bootstrap</span>
+                                        </div>
+                                        <div class="project-stats">
+                                            <div class="stat-item">
+                                                <div class="stat-number">100%</div>
+                                                <div class="stat-label">Responsive</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">A+</div>
+                                                <div class="stat-label">Performance</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">SEO</div>
+                                                <div class="stat-label">Optimized</div>
+                                            </div>
+                                        </div>
+                                        <a href="https://peterlight123.github.io/portfolio" target="_blank" class="btn btn-primary w-100 mt-3">
+                                            <i class="bi bi-eye me-2"></i>View Live Site
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Freedom Reign Basketball Academy -->
+                            <div class="col-sm-6 col-md-4 col-lg-3" data-aos="zoom-in" data-aos-delay="200">
+                                <div class="card shadow-lg h-100">
+                                    <span class="project-badge bg-success text-white">Sports</span>
+                                    <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?w=500&h=300&fit=crop&crop=center" class="card-img-top" alt="Freedom Reign Basketball Academy">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Freedom Reign Basketball Academy</h5>
+                                        <p class="card-description">Professional sports academy website with registration system, coach profiles, and training schedules for young athletes.</p>
+                                        <div class="tech-stack">
+                                            <span class="tech-badge">HTML5</span>
+                                            <span class="tech-badge">CSS3</span>
+                                            <span class="tech-badge">JavaScript</span>
+                                            <span class="tech-badge">Bootstrap</span>
+                                        </div>
+                                        <div class="project-stats">
+                                            <div class="stat-item">
+                                                <div class="stat-number">100+</div>
+                                                <div class="stat-label">Students</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">15</div>
+                                                <div class="stat-label">Programs</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">24/7</div>
+                                                <div class="stat-label">Support</div>
+                                            </div>
+                                        </div>
+                                        <a href="https://peterlight123.github.io/freedomreign/" target="_blank" class="btn btn-primary w-100 mt-3">
+                                            <i class="bi bi-globe me-2"></i>Visit Website
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Isaac's Portfolio Website -->
+                            <div class="col-sm-6 col-md-4 col-lg-3" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="card shadow-lg h-100">
+                                    <span class="project-badge bg-secondary text-white">Client</span>
+                                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500&h=300&fit=crop&crop=center" class="card-img-top" alt="Isaac's Portfolio Website">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Isaac's Portfolio Website</h5>
+                                        <p class="card-description">Custom portfolio website for client Isaac showcasing his professional work with clean design and smooth user experience.</p>
+                                        <div class="tech-stack">
+                                            <span class="tech-badge">HTML5</span>
+                                            <span class="tech-badge">CSS3</span>
+                                            <span class="tech-badge">JavaScript</span>
+                                            <span class="tech-badge">Responsive</span>
+                                        </div>
+                                        <div class="project-stats">
+                                            <div class="stat-item">
+                                                <div class="stat-number">100%</div>
+                                                <div class="stat-label">Satisfied</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">Fast</div>
+                                                <div class="stat-label">Loading</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">Mobile</div>
+                                                <div class="stat-label">Ready</div>
+                                            </div>
+                                        </div>
+                                        <a href="https://peterlight123.github.io/isaac/" target="_blank" class="btn btn-primary w-100 mt-3">
+                                            <i class="bi bi-person-workspace me-2"></i>View Portfolio
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Website Hero Page -->
+                            <div class="col-sm-6 col-md-4 col-lg-3" data-aos="zoom-in" data-aos-delay="400">
+                                <div class="card shadow-lg h-100">
+                                    <span class="project-badge bg-primary text-white">Web App</span>
+                                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=500&h=300&fit=crop&crop=center" class="card-img-top" alt="Website Hero Page">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Website Hero Page</h5>
+                                        <p class="card-description">A very attractive home page website template with modern design elements and smooth animations for any business.</p>
+                                        <div class="tech-stack">
+                                            <span class="tech-badge">JavaScript</span>
+                                            <span class="tech-badge">HTML5</span>
+                                            <span class="tech-badge">CSS</span>
+                                            <span class="tech-badge">Bootstrap</span>
+                                        </div>
+                                        <div class="project-stats">
+                                            <div class="stat-item">
+                                                <div class="stat-number">100%</div>
+                                                <div class="stat-label">Responsive</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">Fast</div>
+                                                <div class="stat-label">Loading</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">Modern</div>
+                                                <div class="stat-label">Design</div>
+                                            </div>
+                                        </div>
+                                        <a href="https://peterlight123.github.io/website3/" target="_blank" class="btn btn-primary w-100 mt-3">
+                                            <i class="bi bi-globe2 me-2"></i>View Website
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Graphic Design Tab -->
+                    <div class="tab-pane fade" id="design-projects" role="tabpanel" aria-labelledby="design-tab">
+                        <div class="row g-4 justify-content-center">
+
+                            <!-- Gidi Beat Blast Concert -->
+                            <div class="col-sm-6 col-md-4 col-lg-3" data-aos="zoom-in" data-aos-delay="100">
+                                <div class="card shadow-lg h-100">
+                                    <span class="project-badge bg-warning text-dark">Music</span>
+                                    <img src="https://i.imgur.com/IAko0ri.png" class="card-img-top" alt="Gidi Beat Blast Concert">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Gidi Beat Blast Concert</h5>
+                                        <p class="card-description">Dynamic visual branding for electrifying drum concert event with vibrant designs capturing the energy of live performances.</p>
+                                        <div class="tech-stack">
+                                            <span class="tech-badge">Photoshop</span>
+                                            <span class="tech-badge">Canva</span>
+                                            <span class="tech-badge">Print Design</span>
+                                            <span class="tech-badge">Branding</span>
+                                        </div>
+                                        <div class="project-stats">
+                                            <div class="stat-item">
+                                                <div class="stat-number">100+</div>
+                                                <div class="stat-label">Attendees</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">5</div>
+                                                <div class="stat-label">Designs</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">HD</div>
+                                                <div class="stat-label">Quality</div>
+                                            </div>
+                                        </div>
+                                        <a href="https://i.imgur.com/IAko0ri.png" target="_blank" class="btn btn-danger w-100 mt-3">
+                                            <i class="bi bi-image me-2"></i>View Design
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Forex Trading Flyer -->
+                            <div class="col-sm-6 col-md-4 col-lg-3" data-aos="zoom-in" data-aos-delay="200">
+                                <div class="card shadow-lg h-100">
+                                    <span class="project-badge bg-info text-white">Finance</span>
+                                    <img src="https://i.imgur.com/t0xSPd5.png" class="card-img-top" alt="Forex Trading Flyer">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Forex Trading Flyer</h5>
+                                        <p class="card-description">Professional financial flyer design combining credibility with modern aesthetics to attract potential investors effectively.</p>
+                                        <div class="tech-stack">
+                                            <span class="tech-badge">Photoshop</span>
+                                            <span class="tech-badge">Print Ready</span>
+                                            <span class="tech-badge">Canva</span>
+                                        </div>
+                                        <div class="project-stats">
+                                            <div class="stat-item">
+                                                <div class="stat-number">85%</div>
+                                                <div class="stat-label">Conversion</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">A4</div>
+                                                <div class="stat-label">Format</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">300</div>
+                                                <div class="stat-label">DPI</div>
+                                            </div>
+                                        </div>
+                                        <a href="https://i.imgur.com/t0xSPd5.png" target="_blank" class="btn btn-danger w-100 mt-3">
+                                            <i class="bi bi-file-earmark-image me-2"></i>View Flyer
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Peter Light Logo -->
+                            <div class="col-sm-6 col-md-4 col-lg-3" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="card shadow-lg h-100">
+                                    <span class="project-badge bg-dark text-white">Branding</span>
+                                    <img src="https://i.imgur.com/vOOTG9M.png" class="card-img-top" alt="Peter Light Logo">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Peter Light Logo Design</h5>
+                                        <p class="card-description">Personal brand logo design representing professionalism and creativity in web development and digital services.</p>
+                                        <div class="tech-stack">
+                                            <span class="tech-badge">Canva</span>
+                                            <span class="tech-badge">Branding</span>
+                                            <span class="tech-badge">Logo Design</span>
+                                        </div>
+                                        <div class="project-stats">
+                                            <div class="stat-item">
+                                                <div class="stat-number">PNG</div>
+                                                <div class="stat-label">Format</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">Vector</div>
+                                                <div class="stat-label">Quality</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">Pro</div>
+                                                <div class="stat-label">Design</div>
+                                            </div>
+                                        </div>
+                                        <a href="https://i.imgur.com/vOOTG9M.png" target="_blank" class="btn btn-danger w-100 mt-3">
+                                            <i class="bi bi-badge-tm me-2"></i>View Logo
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Basketball Flyer -->
+                            <div class="col-sm-6 col-md-4 col-lg-3" data-aos="zoom-in" data-aos-delay="400">
+                                <div class="card shadow-lg h-100">
+                                    <span class="project-badge bg-warning text-dark">Sports</span>
+                                    <img src="https://i.imgur.com/Smwo35d.png" class="card-img-top" alt="Basketball Flyer">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Basketball Academy Flyer</h5>
+                                        <p class="card-description">Eye-catching promotional flyer for basketball academy featuring dynamic sports imagery and compelling call-to-action.</p>
+                                        <div class="tech-stack">
+                                            <span class="tech-badge">Photoshop</span>
+                                            <span class="tech-badge">Sports Design</span>
+                                            <span class="tech-badge">Canva</span>
+                                            <span class="tech-badge">Marketing</span>
+                                        </div>
+                                        <div class="project-stats">
+                                            <div class="stat-item">
+                                                <div class="stat-number">100+</div>
+                                                <div class="stat-label">Sign-ups</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">A4</div>
+                                                <div class="stat-label">Size</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">HD</div>
+                                                <div class="stat-label">Print</div>
+                                            </div>
+                                        </div>
+                                        <a href="https://i.imgur.com/Smwo35d.png" target="_blank" class="btn btn-danger w-100 mt-3">
+                                            <i class="bi bi-file-earmark-image me-2"></i>View Flyer
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Content Creation Tab -->
+                    <div class="tab-pane fade" id="content-projects" role="tabpanel" aria-labelledby="content-tab">
+                        <div class="row g-4 justify-content-center">
+
                             <!-- PLSWorldNews Blog -->
-                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                                <div class="card shadow-sm h-100">
-                                    <img src="https://placehold.co/600x400/0D6EFD/FFFFFF?text=PLSWorldNews" class="card-img-top" alt="PLSWorldNews Blog">
-                                    <div class="project-badge bg-primary text-white">Blog</div>
+                            <div class="col-sm-6 col-md-4 col-lg-3" data-aos="zoom-in" data-aos-delay="100">
+                                <div class="card shadow-lg h-100">
+                                    <span class="project-badge bg-info text-white">Blog</span>
+                                    <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=500&h=300&fit=crop&crop=center" class="card-img-top" alt="PLSWorldNews Blog">
                                     <div class="card-body">
                                         <h5 class="card-title">PLSWorldNews Blog</h5>
-                                        <p class="card-description">Entertainment and lifestyle blog with daily posts, SEO optimization, and AdSense integration.</p>
+                                        <p class="card-description">Entertainment and lifestyle blog with daily posts, SEO optimization, and AdSense integration for monetization.</p>
                                         <div class="tech-stack">
                                             <span class="tech-badge">Blogger</span>
                                             <span class="tech-badge">SEO</span>
                                             <span class="tech-badge">Content Writing</span>
+                                            <span class="tech-badge">AdSense</span>
                                         </div>
-                                        <div class="d-flex justify-content-between align-items-center mt-3">
-                                            <a href="https://plsworldnews.blogspot.com" class="btn btn-primary btn-sm" target="_blank">Visit Site</a>
-                                            <a href="#" class="view-btn" data-bs-toggle="modal" data-bs-target="#projectModal1">View Details</a>
+                                        <div class="project-stats">
+                                            <div class="stat-item">
+                                                <div class="stat-number">100+</div>
+                                                <div class="stat-label">Posts</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">Daily</div>
+                                                <div class="stat-label">Updates</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">2024</div>
+                                                <div class="stat-label">Launched</div>
+                                            </div>
                                         </div>
+                                        <a href="https://plsworldnews.blogspot.com" target="_blank" class="btn btn-primary w-100 mt-3">
+                                            <i class="bi bi-globe me-2"></i>Visit Blog
+                                        </a>
                                     </div>
                                 </div>
                             </div>
-                            
-                            <!-- Portfolio Website -->
-                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                                <div class="card shadow-sm h-100">
-                                    <img src="https://placehold.co/600x400/212529/F8F9FA?text=Portfolio" class="card-img-top" alt="Portfolio Website">
-                                    <div class="project-badge bg-success text-white">Web Development</div>
-                                    <div class="card-body">
-                                        <h5 class="card-title">Personal Portfolio Website</h5>
-                                        <p class="card-description">A responsive portfolio website showcasing my skills, projects, and services as a virtual assistant.</p>
-                                        <div class="tech-stack">
-                                            <span class="tech-badge">HTML</span>
-                                            <span class="tech-badge">CSS</span>
-                                            <span class="tech-badge">Bootstrap</span>
-                                            <span class="tech-badge">JavaScript</span>
-                                        </div>
-                                        <div class="d-flex justify-content-between align-items-center mt-3">
-                                            <a href="https://peterlight123.github.io/portfolio/" class="btn btn-primary btn-sm" target="_blank">Visit Site</a>
-                                            <a href="#" class="view-btn" data-bs-toggle="modal" data-bs-target="#projectModal3">View Details</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Graphic Design Projects Tab -->
-                    <div class="tab-pane fade" id="design-projects" role="tabpanel" aria-labelledby="design-tab">
-                        <div class="row g-4">
-                            <!-- Forex Flyer Design -->
-                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                                <div class="card shadow-sm h-100">
-                                    <img src="https://placehold.co/600x400/6C757D/FFFFFF?text=Forex+Flyer" class="card-img-top" alt="Forex Flyer Design">
-                                    <div class="project-badge bg-info text-white">Graphic Design</div>
-                                    <div class="card-body">
-                                        <h5 class="card-title">Forex Trading Flyer</h5>
-                                        <p class="card-description">Professional flyer design for Andrew's forex trading business with sleek layout and balanced colors.</p>
-                                        <div class="tech-stack">
-                                            <span class="tech-badge">Canva</span>
-                                            <span class="tech-badge">Graphic Design</span>
-                                            <span class="tech-badge">Branding</span>
-                                        </div>
-                                        <div class="d-flex justify-content-between align-items-center mt-3">
-                                            <a href="#" class="btn btn-primary btn-sm disabled">Client Project</a>
-                                            <a href="#" class="view-btn" data-bs-toggle="modal" data-bs-target="#projectModal4">View Details</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Beat Blast Flier -->
-                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                                <div class="card shadow-sm h-100">
-                                    <img src="https://placehold.co/600x400/DC3545/FFFFFF?text=Beat+Blast" class="card-img-top" alt="Beat Blast Flier">
-                                    <div class="project-badge bg-info text-white">Graphic Design</div>
-                                    <div class="card-body">
-                                        <h5 class="card-title">Beat Blast Event Flyer</h5>
-                                        <p class="card-description">Energetic and bold flyer design for Gidi Beat Blast music event that captures the rhythm and energy.</p>
-                                        <div class="tech-stack">
-                                            <span class="tech-badge">Photoshop</span>
-                                            <span class="tech-badge">Event Design</span>
-                                            <span class="tech-badge">Branding</span>
-                                        </div>
-                                        <div class="d-flex justify-content-between align-items-center mt-3">
-                                            <a href="#" class="btn btn-primary btn-sm disabled">Client Project</a>
-                                            <a href="#" class="view-btn" data-bs-toggle="modal" data-bs-target="#projectModal5">View Details</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Basketball Academy Flyer -->
-                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
-                                <div class="card shadow-sm h-100">
-                                    <img src="https://placehold.co/600x400/FFC107/212529?text=Basketball" class="card-img-top" alt="Basketball Academy Flyer">
-                                    <div class="project-badge bg-info text-white">Graphic Design</div>
-                                    <div class="card-body">
-                                        <h5 class="card-title">Basketball Academy Flyer</h5>
-                                        <p class="card-description">Eye-catching and energetic flyer design for Tochukwu's basketball academy that captures the sport's dynamic spirit.</p>
-                                        <div class="tech-stack">
-                                            <span class="tech-badge">Canva</span>
-                                            <span class="tech-badge">Sports Design</span>
-                                            <span class="tech-badge">Branding</span>
-                                        </div>
-                                        <div class="d-flex justify-content-between align-items-center mt-3">
-                                            <a href="#" class="btn btn-primary btn-sm disabled">Client Project</a>
-                                            <a href="#" class="view-btn" data-bs-toggle="modal" data-bs-target="#projectModal6">View Details</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Content Creation Projects Tab -->
-                    <div class="tab-pane fade" id="content-projects" role="tabpanel" aria-labelledby="content-tab">
-                        <div class="row g-4">
+
                             <!-- Rizz Script Video Management -->
-                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                                <div class="card shadow-sm h-100">
-                                    <img src="https://placehold.co/600x400/F8F9FA/212529?text=Rizz+Scripts" class="card-img-top" alt="Rizz Scripts">
-                                    <div class="project-badge bg-danger text-white">Video Content</div>
+                            <div class="col-sm-6 col-md-4 col-lg-3" data-aos="zoom-in" data-aos-delay="200">
+                                <div class="card shadow-lg h-100">
+                                    <span class="project-badge bg-danger text-white">Video Content</span>
+                                    <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=500&h=300&fit=crop&crop=center" class="card-img-top" alt="Rizz Scripts">
                                     <div class="card-body">
                                         <h5 class="card-title">Rizz Script Video Management</h5>
-                                        <p class="card-description">Managed engaging flirty content across platforms with script writing and cross-platform posting.</p>
+                                        <p class="card-description">Managed engaging flirty content across platforms with script writing and cross-platform posting for maximum reach.</p>
                                         <div class="tech-stack">
                                             <span class="tech-badge">YouTube</span>
                                             <span class="tech-badge">TikTok</span>
                                             <span class="tech-badge">Content Creation</span>
+                                            <span class="tech-badge">Script Writing</span>
                                         </div>
-                                        <div class="d-flex justify-content-between align-items-center mt-3">
-                                            <a href="https://www.youtube.com/@peterlightspeedvibes" class="btn btn-primary btn-sm" target="_blank">View Channel</a>
-                                            <a href="#" class="view-btn" data-bs-toggle="modal" data-bs-target="#projectModal2">View Details</a>
+                                        <div class="project-stats">
+                                            <div class="stat-item">
+                                                <div class="stat-number">50+</div>
+                                                <div class="stat-label">Videos</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">3</div>
+                                                <div class="stat-label">Platforms</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">10K+</div>
+                                                <div class="stat-label">Views</div>
+                                            </div>
                                         </div>
+                                        <a href="https://www.youtube.com/@peterlightspeedvibes" target="_blank" class="btn btn-primary w-100 mt-3">
+                                            <i class="bi bi-play-circle me-2"></i>View Channel
+                                        </a>
                                     </div>
                                 </div>
                             </div>
-                            
-                            <!-- PLSWorldNews Blog (Content Writing) -->
-                            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                                <div class="card shadow-sm h-100">
-                                    <img src="https://placehold.co/600x400/0D6EFD/FFFFFF?text=PLSWorldNews" class="card-img-top" alt="PLSWorldNews Blog">
-                                    <div class="project-badge bg-primary text-white">Blog</div>
-                                    <div class="card-body">
-                                        <h5 class="card-title">PLSWorldNews Blog Content</h5>
-                                        <p class="card-description">Daily content writing for entertainment and lifestyle blog with SEO optimization.</p>
-                                        <div class="tech-stack">
-                                            <span class="tech-badge">Content Writing</span>
-                                            <span class="tech-badge">SEO</span>
-                                            <span class="tech-badge">Blogging</span>
-                                        </div>
-                                        <div class="d-flex justify-content-between align-items-center mt-3">
-                                            <a href="https://plsworldnews.blogspot.com" class="btn btn-primary btn-sm" target="_blank">Visit Site</a>
-                                            <a href="#" class="view-btn" data-bs-toggle="modal" data-bs-target="#projectModal1">View Details</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
 
-        <!-- ======================= CTA SECTION ======================= -->
+        <!-- ======================= CALL TO ACTION ======================= -->
         <section class="py-5 bg-primary text-white text-center">
             <div class="container">
-                <h2 class="mb-4">Ready to Start Your Project?</h2>
-                <p class="lead mb-4">Let's collaborate to bring your vision to life with professional design and development.</p>
-                <a href="index.html#contact" class="btn btn-danger btn-lg">Contact Me</a>
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <h2 class="display-5 fw-bold mb-4" data-aos="fade-up">Ready to Start Your Project?</h2>
+                        <p class="lead mb-4" data-aos="fade-up" data-aos-delay="100">Let's collaborate and bring your vision to life with professional web development, stunning graphic design, or comprehensive virtual assistant services.</p>
+                        <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center" data-aos="fade-up" data-aos-delay="200">
+                            <a href="https://peterlight123.github.io/portfolio/index.html#Contact" class="btn btn-light btn-lg px-4 py-3 fw-bold text-primary">
+                                <i class="bi bi-envelope-fill me-2"></i>Get In Touch
+                            </a>
+                            <a href="https://peterlight123.github.io/portfolio/index.html#Services" class="btn btn-outline-light btn-lg px-4 py-3 fw-bold">
+                                <i class="bi bi-grid-3x3-gap-fill me-2"></i>View Services
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
+
     </main>
 
-    <!-- ======================= PROJECT MODALS ======================= -->
-    <!-- Project Modal 1: PLSWorldNews Blog -->
-    <div class="modal fade" id="projectModal1" tabindex="-1" aria-labelledby="projectModal1Label" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title" id="projectModal1Label">PLSWorldNews Blog</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6 mb-3 mb-md-0">
-                            <img src="https://placehold.co/600x400/0D6EFD/FFFFFF?text=PLSWorldNews" class="img-fluid rounded" alt="PLSWorldNews Blog">
-                        </div>
-                        <div class="col-md-6">
-                            <h5 class="fw-bold">Project Overview</h5>
-                            <p>PLSWorldNews is an entertainment and lifestyle blog that I created and maintain. The blog features daily posts on trending topics, celebrity news, and lifestyle content.</p>
-                            
-                            <h5 class="fw-bold mt-3">My Role</h5>
-                            <ul>
-                                <li>Blog setup and configuration</li>
-                                <li>Custom template design and implementation</li>
-                                <li>Content creation and publishing</li>
-                                <li>SEO optimization</li>
-                                <li>Google AdSense integration</li>
-                            </ul>
-                            
-                            <h5 class="fw-bold mt-3">Technologies Used</h5>
-                            <div class="tech-stack">
-                                <span class="tech-badge">Blogger</span>
-                                <span class="tech-badge">HTML/CSS</span>
-                                <span class="tech-badge">SEO</span>
-                                <span class="tech-badge">Content Writing</span>
-                                <span class="tech-badge">Google AdSense</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-4">
-                        <h5 class="fw-bold">Project Details</h5>
-                        <p>PLSWorldNews was created to provide daily entertainment and lifestyle content to readers. I handle all aspects of the blog, from content creation to technical maintenance.</p>
-                        
-                        <h6 class="fw-bold mt-3">Key Features:</h6>
-                        <ul>
-                            <li>Mobile-responsive design</li>
-                            <li>SEO-optimized content</li>
-                            <li>Social media integration</li>
-                            <li>Monetization through Google AdSense</li>
-                            <li>Daily content updates</li>
-                        </ul>
-                        
-                        <h6 class="fw-bold mt-3">Challenges & Solutions:</h6>
-                        <p>One of the main challenges was creating a consistent posting schedule while maintaining content quality. I implemented a content calendar and topic research system to ensure regular, high-quality posts.</p>
-                        
-                        <h6 class="fw-bold mt-3">Results:</h6>
-                        <p>The blog has grown steadily since launch, with increasing daily visitors and ad revenue. It serves as a demonstration of my content creation, SEO, and blog management skills.</p>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <a href="https://plsworldnews.blogspot.com" class="btn btn-primary" target="_blank">Visit Site</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Project Modal 2: Rizz Script Video Management -->
-    <div class="modal fade" id="projectModal2" tabindex="-1" aria-labelledby="projectModal2Label" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header bg-danger text-white">
-                    <h5 class="modal-title" id="projectModal2Label">Rizz Script Video Management</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6 mb-3 mb-md-0">
-                            <img src="https://placehold.co/600x400/F8F9FA/212529?text=Rizz+Scripts" class="img-fluid rounded" alt="Rizz Scripts">
-                        </div>
-                        <div class="col-md-6">
-                            <h5 class="fw-bold">Project Overview</h5>
-                            <p>This project involved creating, managing, and distributing engaging flirty content across multiple social media platforms, primarily focusing on YouTube, TikTok, and Facebook.</p>
-                            
-                            <h5 class="fw-bold mt-3">My Role</h5>
-                            <ul>
-                                <li>Content ideation and script writing</li>
-                                <li>Video editing using Canva and CapCut</li>
-                                <li>Cross-platform posting strategy</li>
-                                <li>Engagement monitoring and analytics</li>
-                                <li>Trend research and implementation</li>
-                            </ul>
-                            
-                            <h5 class="fw-bold mt-3">Technologies Used</h5>
-                            <div class="tech-stack">
-                                <span class="tech-badge">YouTube</span>
-                                <span class="tech-badge">TikTok</span>
-                                <span class="tech-badge">Facebook</span>
-                                <span class="tech-badge">Canva</span>
-                                <span class="tech-badge">CapCut</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-4">
-                        <h5 class="fw-bold">Project Details</h5>
-                        <p>The Rizz Script Video Management project was focused on creating engaging content that resonates with young audiences across multiple social media platforms. I handled everything from concept to publication.</p>
-                        
-                        <h6 class="fw-bold mt-3">Key Features:</h6>
-                        <ul>
-                            <li>Engaging script writing tailored for different platforms</li>
-                            <li>Professional video editing with transitions and effects</li>
-                            <li>Platform-specific optimization for maximum reach</li>
-                            <li>Consistent posting schedule</li>
-                            <li>Trend incorporation for increased visibility</li>
-                        </ul>
-                        
-                        <h6 class="fw-bold mt-3">Challenges & Solutions:</h6>
-                        <p>The main challenge was creating content that would perform well across different platforms with varying audience preferences. I solved this by developing platform-specific variations of each content piece while maintaining the core message.</p>
-                        
-                        <h6 class="fw-bold mt-3">Results:</h6>
-                        <p>The content has garnered over 10,000 views across platforms, with strong engagement metrics including comments, shares, and saves. The project demonstrates my ability to create engaging content that resonates with target audiences.</p>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <a href="https://www.youtube.com/@peterlightspeedvibes" class="btn btn-danger" target="_blank">View Channel</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Project Modal 3: Portfolio Website -->
-    <div class="modal fade" id="projectModal3" tabindex="-1" aria-labelledby="projectModal3Label" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header bg-success text-white">
-                    <h5 class="modal-title" id="projectModal3Label">Personal Portfolio Website</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6 mb-3 mb-md-0">
-                            <img src="https://placehold.co/600x400/212529/F8F9FA?text=Portfolio" class="img-fluid rounded" alt="Portfolio Website">
-                        </div>
-                        <div class="col-md-6">
-                            <h5 class="fw-bold">Project Overview</h5>
-                            <p>My personal portfolio website showcases my skills, projects, and services as a virtual assistant and web developer. It serves as a professional online presence for potential clients.</p>
-                            
-                            <h5 class="fw-bold mt-3">My Role</h5>
-                            <ul>
-                                <li>Website design and development</li>
-                                <li>Responsive layout implementation</li>
-                                <li>Content creation and organization</li>
-                                <li>SEO optimization</li>
-                                <li>Performance optimization</li>
-                            </ul>
-                            
-                            <h5 class="fw-bold mt-3">Technologies Used</h5>
-                            <div class="tech-stack">
-                                <span class="tech-badge">HTML5</span>
-                                <span class="tech-badge">CSS3</span>
-                                <span class="tech-badge">JavaScript</span>
-                                <span class="tech-badge">Bootstrap 5</span>
-                                <span class="tech-badge">GitHub Pages</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-4">
-                        <h5 class="fw-bold">Project Details</h5>
-                        <p>This portfolio website was designed to showcase my professional skills and projects in a clean, modern, and user-friendly interface. The site is fully responsive and optimized for all devices.</p>
-                        
-                        <h6 class="fw-bold mt-3">Key Features:</h6>
-                        <ul>
-                            <li>Fully responsive design for all screen sizes</li>
-                            <li>Interactive project showcase with filtering</li>
-                            <li>Integrated contact form</li>
-                            <li>Testimonials carousel</li>
-                            <li>AI-powered chatbot assistant</li>
-                            <li>Optimized for performance and SEO</li>
-                        </ul>
-                        
-                        <h6 class="fw-bold mt-3">Challenges & Solutions:</h6>
-                        <p>Creating a site that effectively showcases multiple service offerings while maintaining a clean design was challenging. I solved this by implementing a tabbed interface and clear categorization of projects and services.</p>
-                        
-                        <h6 class="fw-bold mt-3">Results:</h6>
-                        <p>The portfolio site effectively presents my professional skills and has helped attract client inquiries. It demonstrates my web development abilities and serves as a central hub for my online presence.</p>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <a href="https://peterlight123.github.io/portfolio/" class="btn btn-success" target="_blank">Visit Site</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Additional Project Modals (4-6) would follow the same pattern -->
     <!-- ======================= FOOTER ======================= -->
-<footer class="footer bg-dark text-light py-5 mt-5">
-    <div class="container">
-        <div class="row">
-            <!-- Brand Section -->
-            <div class="col-lg-4 col-md-6 mb-4 aos-init aos-animate" data-aos="fade-up">
-                <div class="footer-brand">
-                    <h4 class="fw-bold mb-3 text-white">
-                        <i class="bi bi-lightning-charge text-warning me-2"></i>
-                        Peter Lightspeed
-                    </h4>
-                    <p class="mb-3 text-light-emphasis">
-                        Your trusted partner for professional virtual assistant services. 
-                        Delivering quality digital solutions with lightning speed and precision.
-                    </p>
-                    
-                    <!-- Quick Stats -->
-                    <div class="footer-stats mb-3">
-                        <div class="row text-center">
-                            <div class="col-4">
-                                <div class="stat-item">
-                                    <h6 class="fw-bold text-warning mb-0">50+</h6>
-                                    <small class="text-muted">Projects</small>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="stat-item">
-                                    <h6 class="fw-bold text-success mb-0">100%</h6>
-                                    <small class="text-muted">Satisfied</small>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="stat-item">
-                                    <h6 class="fw-bold text-info mb-0">24/7</h6>
-                                    <small class="text-muted">Support</small>
-                                </div>
-                            </div>
-                        </div>
+    <footer class="bg-dark text-light py-5">
+        <div class="container">
+            <div class="row g-4">
+                <!-- Brand Section -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="https://i.imgur.com/Cgy2Aeq.png" alt="Peter Logo" class="rounded-circle me-3" width="50" height="50">
+                        <h5 class="mb-0 fw-bold">Peter Lightspeed</h5>
                     </div>
-                    
-                    <!-- Newsletter Signup -->
-                    <div class="newsletter-signup">
-                        <h6 class="fw-semibold mb-2 text-white">Stay Updated</h6>
-                        <div class="input-group input-group-sm">
-                            <input type="email" class="form-control" placeholder="Your email" id="newsletter-email">
-                            <button class="btn btn-warning" type="button" id="newsletter-btn">
-                                <i class="bi bi-send"></i>
-                            </button>
-                        </div>
-                        <small class="text-muted d-block mt-1">Get tips and updates delivered to your inbox</small>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Quick Links -->
-            <div class="col-lg-2 col-md-6 mb-4 aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
-                <h6 class="text-uppercase fw-bold mb-3 text-warning">Quick Links</h6>
-                <ul class="list-unstyled footer-links">
-                    <li class="mb-2">
-                        <a class="footer-link" href="#Home">
-                            <i class="bi bi-house me-2"></i>Home
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a class="footer-link" href="#About">
-                            <i class="bi bi-person me-2"></i>About Me
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a class="footer-link" href="#Services">
-                            <i class="bi bi-gear me-2"></i>Services
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a class="footer-link" href="#Portfolio">
-                            <i class="bi bi-folder me-2"></i>Portfolio
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a class="footer-link" href="#Contact">
-                            <i class="bi bi-envelope me-2"></i>Contact
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Services -->
-            <div class="col-lg-3 col-md-6 mb-4 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
-                <h6 class="text-uppercase fw-bold mb-3 text-warning">My Services</h6>
-                <ul class="list-unstyled footer-links">
-                    <li class="mb-2">
-                        <a class="footer-link" href="#Services">
-                            <i class="bi bi-laptop me-2"></i>Web Development
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a class="footer-link" href="#Services">
-                            <i class="bi bi-palette me-2"></i>Graphic Design
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a class="footer-link" href="#Services">
-                            <i class="bi bi-share me-2"></i>Social Media Management
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a class="footer-link" href="#Services">
-                            <i class="bi bi-keyboard me-2"></i>Data Entry &amp; Typing
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a class="footer-link" href="#Services">
-                            <i class="bi bi-pencil-square me-2"></i>Content Creation
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a class="footer-link" href="#Services">
-                            <i class="bi bi-megaphone me-2"></i>Digital Marketing
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Contact & Social -->
-            <div class="col-lg-3 col-md-6 mb-4 aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
-                <h6 class="text-uppercase fw-bold mb-3 text-warning">Get In Touch</h6>
-                
-                <!-- Contact Information -->
-                <div class="contact-info mb-4">
-                    <div class="contact-item mb-2">
-                        <a class="footer-link" href="mailto:petereluwade55@gmail.com">
-                            <i class="bi bi-envelope me-2"></i>
-                            petereluwade55@gmail.com
-                        </a>
-                    </div>
-                    <div class="contact-item mb-2">
-                        <a class="footer-link" href="https://wa.me/2348108821809" target="_blank">
-                            <i class="bi bi-whatsapp me-2"></i>
-                            +234 810 882 1809
-                        </a>
-                    </div>
-                    <div class="contact-item mb-2">
-                        <span class="footer-link">
-                            <i class="bi bi-geo-alt me-2"></i>
-                            Nigeria (Remote Services)
-                        </span>
-                    </div>
-                    <div class="contact-item mb-3">
-                        <span class="footer-link">
-                            <i class="bi bi-clock me-2"></i>
-                            Available 24/7
-                        </span>
-                    </div>
-                </div>
-
-                <!-- Social Media Links -->
-                <div class="social-section">
-                    <h6 class="fw-semibold mb-3 text-white">Follow Me</h6>
+                    <p class="text-muted mb-3">Professional web developer, graphic designer, and virtual assistant delivering quality digital solutions for businesses worldwide.</p>
                     <div class="social-links">
-                        <a class="social-icon twitter" href="https://x.com/peter8118533304" target="_blank" data-bs-toggle="tooltip" aria-label="Follow me on Twitter" data-bs-original-title="Follow me on Twitter">
-                            <i class="bi bi-twitter"></i>
+                        <a href="https://github.com/peterlight123" target="_blank" class="text-light me-3 fs-5">
+                            <i class="bi bi-github"></i>
                         </a>
-                        <a class="social-icon instagram" href="https://www.instagram.com/eluwadepeter" target="_blank" data-bs-toggle="tooltip" aria-label="Follow me on Instagram" data-bs-original-title="Follow me on Instagram">
-                            <i class="bi bi-instagram"></i>
-                        </a>
-                        <a class="social-icon linkedin" href="https://www.linkedin.com/in/peter-eluwade-5b8a73363/" target="_blank" data-bs-toggle="tooltip" aria-label="Connect on LinkedIn" data-bs-original-title="Connect on LinkedIn">
+                        <a href="https://www.linkedin.com/in/peter-eluwade-toluwanimi-b9b5a9295/" target="_blank" class="text-light me-3 fs-5">
                             <i class="bi bi-linkedin"></i>
                         </a>
-                        <a class="social-icon tiktok" href="https://www.tiktok.com/@eluwadepeter" target="_blank" data-bs-toggle="tooltip" aria-label="Watch my TikTok videos" data-bs-original-title="Watch my TikTok videos">
-                            <i class="bi bi-tiktok"></i>
-                        </a>
-                        <a class="social-icon youtube" href="https://www.youtube.com/@peterlightspeedvibes" target="_blank" data-bs-toggle="tooltip" aria-label="Subscribe to my YouTube" data-bs-original-title="Subscribe to my YouTube">
+                        <a href="https://www.youtube.com/@peterlightspeedvibes" target="_blank" class="text-light me-3 fs-5">
                             <i class="bi bi-youtube"></i>
                         </a>
-                        <a class="social-icon whatsapp" href="https://wa.me/2348108821809" target="_blank" data-bs-toggle="tooltip" aria-label="Chat on WhatsApp" data-bs-original-title="Chat on WhatsApp">
-                            <i class="bi bi-whatsapp"></i>
+                        <a href="mailto:peterlightspeed123@gmail.com" class="text-light me-3 fs-5">
+                            <i class="bi bi-envelope-fill"></i>
                         </a>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Footer Bottom -->
-        <hr class="my-4 border-secondary opacity-25">
-        <div class="row align-items-center">
-            <div class="col-md-6 text-center text-md-start">
-                <p class="mb-0 text-muted">
-                    <small>
-                        © 2025 <strong class="text-white">Eluwade Peter Toluwanimi</strong>. All rights reserved.
-                    </small>
-                </p>
+                <!-- Quick Links -->
+                <div class="col-lg-2 col-md-6">
+                    <h6 class="fw-bold mb-3">Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="index.html" class="text-muted text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="project.html" class="text-muted text-decoration-none">Projects</a></li>
+                        <li class="mb-2"><a href="https://peterlight123.github.io/portfolio/index.html#Services" class="text-muted text-decoration-none">Services</a></li>
+                        <li class="mb-2"><a href="https://peterlight123.github.io/portfolio/index.html#About" class="text-muted text-decoration-none">About</a></li>
+                        <li class="mb-2"><a href="https://peterlight123.github.io/portfolio/index.html#Contact" class="text-muted text-decoration-none">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div class="col-lg-3 col-md-6">
+                    <h6 class="fw-bold mb-3">Services</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Web Development</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Graphic Design</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Virtual Assistant</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Content Creation</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">SEO Optimization</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="col-lg-3 col-md-6">
+                    <h6 class="fw-bold mb-3">Contact Info</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2 text-muted">
+                            <i class="bi bi-envelope-fill me-2"></i>
+                            peterlightspeed123@gmail.com
+                        </li>
+                        <li class="mb-2 text-muted">
+                            <i class="bi bi-phone-fill me-2"></i>
+                            +234 906 847 8914
+                        </li>
+                        <li class="mb-2 text-muted">
+                            <i class="bi bi-geo-alt-fill me-2"></i>
+                            Lagos, Nigeria
+                        </li>
+                        <li class="mb-2 text-muted">
+                            <i class="bi bi-clock-fill me-2"></i>
+                            Available 24/7
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="col-md-6 text-center text-md-end">
-                <div class="footer-bottom-links">
-                    <a href="#" class="footer-link me-3" data-bs-toggle="modal" data-bs-target="#privacyModal">
-                        <small>Privacy Policy</small>
-                    </a>
-                    <a href="#" class="footer-link me-3" data-bs-toggle="modal" data-bs-target="#termsModal">
-                        <small>Terms of Service</small>
-                    </a>
-                    <a href="#Home" class="footer-link">
-                        <small>Back to Top <i class="bi bi-arrow-up"></i></small>
-                    </a>
+
+            <hr class="my-4 border-secondary">
+
+            <!-- Copyright -->
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="text-muted mb-0">© 2024 Peter Lightspeed. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="text-muted mb-0">Made with <i class="bi bi-heart-fill text-danger"></i> by Peter Eluwade</p>
                 </div>
             </div>
         </div>
-
-        <!-- Built with love -->
-        <div class="text-center mt-3">
-            <small class="text-muted">
-                Built with <i class="bi bi-heart-fill text-danger"></i> and ⚡ by Peter Lightspeed | 
-                Professional Virtual Assistant &amp; Web Developer
-            </small>
-        </div>
-    </div>
+    </footer>
 
     <!-- Back to Top Button -->
-    <button class="back-to-top show" id="backToTop" title="Back to Top">
+    <button type="button" class="btn btn-primary btn-floating btn-lg" id="btn-back-to-top">
         <i class="bi bi-arrow-up"></i>
     </button>
-</footer>
-    <!-- Privacy Policy Modal -->
-    <div class="modal fade" id="privacyModal" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Privacy Policy</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <h6>Information Collection</h6>
-                <p>I collect information you provide directly to me, such as when you contact me for services or subscribe to updates.</p>
-                
-                <h6>Use of Information</h6>
-                <p>I use the information to provide services, communicate with you, and improve my offerings.</p>
-                
-                <h6>Information Sharing</h6>
-                <p>I do not sell, trade, or otherwise transfer your personal information to third parties without your consent.</p>
-                
-                <h6>Contact</h6>
-                <p>If you have questions about this Privacy Policy, please contact me at petereluwade55@gmail.com</p>
-            </div>
-        </div>
-    </div>
-</div>
-    <!-- Terms of Service Modal -->
-    <div class="modal fade" id="termsModal" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Terms of Service</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <h6>Service Agreement</h6>
-                <p>By hiring my services, you agree to these terms and conditions.</p>
-                
-                <h6>Payment Terms</h6>
-                <p>Payment is required as agreed upon before project commencement. Refunds are subject to project completion status.</p>
-                
-                <h6>Intellectual Property</h6>
-                <p>Upon full payment, you own the rights to the delivered work. I retain the right to showcase the work in my portfolio.</p>
-                
-                <h6>Limitation of Liability</h6>
-                <p>I strive for excellence but cannot guarantee specific results. My liability is limited to the amount paid for services.</p>
-            </div>
-        </div>
-    </div>
-</div>
-    <!-- Enhanced CSS -->
-    <style>
-/* Footer Styles */
-.footer {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-    position: relative;
-    overflow: hidden;
-}
 
-.footer::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #ffc107, transparent);
-}
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-.footer-brand {
-    position: relative;
-}
-
-.footer-stats .stat-item {
-    padding: 0.5rem;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.05);
-    margin-bottom: 0.5rem;
-    transition: all 0.3s ease;
-}
-
-.footer-stats .stat-item:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateY(-2px);
-}
-
-.newsletter-signup {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 1rem;
-    border-radius: 10px;
-    border: 1px solid rgba(255, 193, 7, 0.2);
-}
-
-.newsletter-signup .form-control {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: white;
-}
-
-.newsletter-signup .form-control::placeholder {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.newsletter-signup .form-control:focus {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: #ffc107;
-    color: white;
-    box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
-}
-
-.footer-links {
-    list-style: none;
-}
-
-.footer-link {
-    color: #adb5bd;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    font-size: 0.9rem;
-}
-
-.footer-link:hover {
-    color: #ffc107;
-    text-decoration: none;
-    transform: translateX(5px);
-}
-
-.footer-link i {
-    font-size: 0.8rem;
-    opacity: 0.7;
-}
-
-.contact-item {
-    transition: all 0.3s ease;
-    padding: 0.25rem 0;
-}
-
-.contact-item:hover {
-    transform: translateX(3px);
-}
-
-.social-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-
-.social-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.1);
-    color: #adb5bd;
-    border-radius: 50%;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.social-icon:hover {
-    transform: translateY(-3px);
-    color: white;
-    border-color: currentColor;
-}
-
-.social-icon.twitter:hover { background: #1da1f2; }
-.social-icon.instagram:hover { background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); }
-.social-icon.linkedin:hover { background: #0077b5; }
-.social-icon.tiktok:hover { background: #000; }
-.social-icon.youtube:hover { background: #ff0000; }
-.social-icon.whatsapp:hover { background: #25d366; }
-
-.footer-bottom-links .footer-link {
-    font-size: 0.8rem;
-}
-
-/* Back to Top Button */
-.back-to-top {
-    position: fixed;
-    bottom: 20px;
-    right: 80px;
-    width: 45px;
-    height: 45px;
-    background: #ffc107;
-    color: #000;
-    border: none;
-    border-radius: 50%;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    z-index: 1000;
-    box-shadow: 0 2px 10px rgba(255, 193, 7, 0.3);
-}
-
-.back-to-top:hover {
-    background: #ffcd39;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
-}
-
-.back-to-top.show {
-    display: flex;
-}
-
-/* Modal Styles */
-.modal-content {
-    background: #f8f9fa;
-    border: none;
-    border-radius: 15px;
-}
-
-.modal-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border-radius: 15px 15px 0 0;
-}
-
-.modal-body h6 {
-    color: #495057;
-    font-weight: 600;
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .footer-brand {
-        text-align: center;
-        margin-bottom: 2rem;
-    }
-    
-    .footer-stats {
-        margin-bottom: 1.5rem;
-    }
-    
-    .social-links {
-        justify-content: center;
-    }
-    
-    .back-to-top {
-        right: 20px;
-        bottom: 80px;
-    }
-    
-    .newsletter-signup {
-        margin-top: 1rem;
-    }
-}
-
-/* Animation for AOS */
-[data-aos] {
-    pointer-events: none;
-}
-
-[data-aos].aos-animate {
-    pointer-events: auto;
-}
-</style>
-    <!-- Enhanced JavaScript -->
+    <!-- Custom JavaScript -->
     <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize tooltips
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
-    });
-
-    // Back to top button functionality
-    const backToTopBtn = document.getElementById('backToTop');
-    
-    window.addEventListener('scroll', function() {
-        if (window.pageYOffset > 300) {
-            backToTopBtn.classList.add('show');
-        } else {
-            backToTopBtn.classList.remove('show');
-        }
-    });
-
-    backToTopBtn.addEventListener('click', function() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
+        // Initialize AOS (Animate On Scroll)
+        AOS.init({
+            duration: 1000,
+            easing: 'ease-in-out',
+            once: true,
+            mirror: false
         });
-    });
 
-    // Newsletter signup
-    const newsletterBtn = document.getElementById('newsletter-btn');
-    const newsletterEmail = document.getElementById('newsletter-email');
+        // Back to Top Button
+        let mybutton = document.getElementById("btn-back-to-top");
 
-    newsletterBtn.addEventListener('click', function() {
-        const email = newsletterEmail.value.trim();
-        
-        if (!email) {
-            alert('Please enter your email address');
-            return;
-        }
-        
-        if (!isValidEmail(email)) {
-            alert('Please enter a valid email address');
-            return;
+        window.onscroll = function () {
+            scrollFunction();
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
         }
 
-        // Simulate newsletter signup
-        newsletterBtn.innerHTML = '<i class="bi bi-check"></i>';
-        newsletterBtn.classList.remove('btn-warning');
-        newsletterBtn.classList.add('btn-success');
-        newsletterEmail.value = '';
-        
-        setTimeout(() => {
-            newsletterBtn.innerHTML = '<i class="bi bi-send"></i>';
-            newsletterBtn.classList.remove('btn-success');
-            newsletterBtn.classList.add('btn-warning');
-        }, 2000);
-        
-        // You can integrate with your email service here
-        console.log('Newsletter signup:', email);
-    });
+        mybutton.addEventListener("click", function() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        });
 
-    newsletterEmail.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            newsletterBtn.click();
-        }
-    });
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
 
-    // Email validation function
-    function isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    }
+        // Add loading animation to project cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                                      this.style.transform = 'translateY(-10px)';
+                    this.style.transition = 'all 0.3s ease';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
 
-    // Smooth scrolling for footer links
-    document.querySelectorAll('.footer-link[href^="#"]').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            const targetElement = document.getElementById(targetId);
+        // Project filter functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabButtons = document.querySelectorAll('#projectTabs .nav-link');
+            const tabPanes = document.querySelectorAll('.tab-pane');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons and panes
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabPanes.forEach(pane => {
+                        pane.classList.remove('show', 'active');
+                    });
+
+                    // Add active class to clicked button
+                    this.classList.add('active');
+
+                    // Show corresponding tab pane
+                    const targetPane = document.querySelector(this.getAttribute('data-bs-target'));
+                    if (targetPane) {
+                        targetPane.classList.add('show', 'active');
+                        
+                        // Re-initialize AOS for newly visible elements
+                        AOS.refresh();
+                    }
+                });
+            });
+        });
+
+        // Lazy loading for images
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('img[data-src]');
             
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazy');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+
+            images.forEach(img => imageObserver.observe(img));
+        });
+
+        // Project statistics counter animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            
+            counters.forEach(counter => {
+                const target = parseInt(counter.innerText);
+                if (!isNaN(target)) {
+                    let current = 0;
+                    const increment = target / 100;
+                    
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            counter.innerText = target;
+                            clearInterval(timer);
+                        } else {
+                            counter.innerText = Math.floor(current);
+                        }
+                    }, 20);
+                }
+            });
+        }
+
+        // Trigger counter animation when stats section is visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        document.querySelectorAll('.project-stats').forEach(stats => {
+            statsObserver.observe(stats);
+        });
+
+        // Add ripple effect to buttons
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.classList.add('ripple');
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Search functionality for projects
+        function createSearchBar() {
+            const searchContainer = document.createElement('div');
+            searchContainer.className = 'search-container mb-4';
+            searchContainer.innerHTML = `
+                <div class="input-group">
+                    <span class="input-group-text">
+                        <i class="bi bi-search"></i>
+                    </span>
+                    <input type="text" class="form-control" id="projectSearch" placeholder="Search projects...">
+                </div>
+            `;
+            
+            const projectSection = document.querySelector('#all-projects');
+            projectSection.insertBefore(searchContainer, projectSection.firstChild);
+            
+            // Search functionality
+            document.getElementById('projectSearch').addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                const projectCards = document.querySelectorAll('#all-projects .card');
+                
+                projectCards.forEach(card => {
+                    const title = card.querySelector('.card-title').textContent.toLowerCase();
+                    const description = card.querySelector('.card-description').textContent.toLowerCase();
+                    const techStack = Array.from(card.querySelectorAll('.tech-badge')).map(badge => badge.textContent.toLowerCase()).join(' ');
+                    
+                    if (title.includes(searchTerm) || description.includes(searchTerm) || techStack.includes(searchTerm)) {
+                        card.parentElement.style.display = 'block';
+                    } else {
+                        card.parentElement.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Initialize search bar
+        document.addEventListener('DOMContentLoaded', createSearchBar);
+
+        // Performance monitoring
+        window.addEventListener('load', function() {
+            // Log page load time
+            const loadTime = performance.now();
+            console.log(`Page loaded in ${loadTime.toFixed(2)}ms`);
+            
+            // Track user interactions
+            document.addEventListener('click', function(e) {
+                if (e.target.matches('.btn, .nav-link, .card')) {
+                    console.log(`User clicked: ${e.target.textContent.trim()}`);
+                }
+            });
+        });
+
+        // Error handling for external links
+        document.querySelectorAll('a[target="_blank"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                try {
+                    // You can add analytics tracking here
+                    console.log(`External link clicked: ${this.href}`);
+                } catch (error) {
+                    console.error('Error tracking external link:', error);
+                }
+            });
+        });
+
+        // Keyboard navigation support
+        document.addEventListener('keydown', function(e) {
+            // Press 'Escape' to close any open dropdowns
+            if (e.key === 'Escape') {
+                const openDropdowns = document.querySelectorAll('.dropdown-menu.show');
+                openDropdowns.forEach(dropdown => {
+                    dropdown.classList.remove('show');
                 });
             }
+            
+            // Press 'Home' to scroll to top
+            if (e.key === 'Home' && e.ctrlKey) {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
         });
-    });
-});
-</script>
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- AOS Animation Library -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    
-    <!-- Custom Scripts -->
-    <script src="script.js"></script>
-    <script src="bot.js"></script>
-    
-    <script>
-        // Initialize AOS
-        document.addEventListener('DOMContentLoaded', function() {
-            AOS.init({
-                duration: 800,
-                easing: 'ease-in-out',
-                once: true,
-                offset: 100
+
+        // Add loading states for external content
+        document.querySelectorAll('img').forEach(img => {
+            img.addEventListener('load', function() {
+                this.style.opacity = '1';
             });
             
-            // Show notification on chat button after delay
-            setTimeout(function() {
-                const notificationBadge = document.getElementById('notification-badge');
-                if (notificationBadge) {
-                    notificationBadge.classList.remove('d-none');
-                }
-            }, 15000);
+            img.addEventListener('error', function() {
+                this.src = 'https://via.placeholder.com/500x300?text=Image+Not+Available';
+                this.alt = 'Image not available';
+            });
         });
+
+        // Theme detection and adaptation
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            // User prefers dark mode - you can add dark mode styles here
+            console.log('User prefers dark mode');
+        }
+
+        // Responsive navigation handling
+        window.addEventListener('resize', function() {
+            const navbar = document.querySelector('.navbar-collapse');
+            if (window.innerWidth > 992 && navbar.classList.contains('show')) {
+                navbar.classList.remove('show');
+            }
+        });
+
     </script>
+
+    <!-- Additional CSS for animations and effects -->
+    <style>
+        /* Custom styles for enhanced user experience */
+        .card {
+            transition: all 0.3s ease;
+            border: none;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1) !important;
+        }
+
+        .project-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 10;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tech-badge {
+            display: inline-block;
+            background: #f8f9fa;
+            color: #495057;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            margin: 2px;
+            font-weight: 500;
+        }
+
+        .project-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 15px 0;
+            padding: 15px 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: #007bff;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-floating {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: scale(0);
+            animation: ripple-animation 0.6s linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        .search-container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .card-img-top {
+            transform: scale(1.05);
+        }
+
+        .social-links a:hover {
+            color: #007bff !important;
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+
+        /* Loading animation */
+        .lazy {
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .project-stats {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .stat-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .btn-floating {
+                bottom: 15px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+            }
+        }
+
+        /* Accessibility improvements */
+        .nav-link:focus,
+        .btn:focus {
+            outline: 2px solid #007bff;
+            outline-offset: 2px;
+        }
+
+        /* Print styles */
+        @media print {
+            .navbar,
+            .btn-floating,
+            .social-links {
+                display: none !important;
+            }
+            
+            .card {
+                break-inside: avoid;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+
 </body>
 </html>
+  
+
