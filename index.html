@@ -1668,6 +1668,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="newsletter-signup">
                         <h6 class="fw-semibold mb-2 text-white">Stay Updated</h6>
                         <div class="input-group input-group-sm">
+                            <input type="text" name="_gotcha" style="display:none !important">
+
                             <input type="email" class="form-control" placeholder="Your email" id="newsletter-email">
                             <button class="btn btn-warning" type="button" id="newsletter-btn">
                                 <i class="bi bi-send"></i>
@@ -1919,221 +1921,78 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     </div>
 </div>
-
-<!-- Enhanced CSS -->
-<style>
-/* Footer Styles */
-.footer {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-    position: relative;
+    <style>
+        /* Newsletter Form Enhancements */
+#newsletterForm .input-group {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
     overflow: hidden;
 }
 
-.footer::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #ffc107, transparent);
-}
-
-.footer-brand {
-    position: relative;
-}
-
-.footer-stats .stat-item {
-    padding: 0.5rem;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.05);
-    margin-bottom: 0.5rem;
-    transition: all 0.3s ease;
-}
-
-.footer-stats .stat-item:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateY(-2px);
-}
-
-.newsletter-signup {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 1rem;
-    border-radius: 10px;
-    border: 1px solid rgba(255, 193, 7, 0.2);
-}
-
-.newsletter-signup .form-control {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: white;
-}
-
-.newsletter-signup .form-control::placeholder {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.newsletter-signup .form-control:focus {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: #ffc107;
-    color: white;
-    box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
-}
-
-.footer-links {
-    list-style: none;
-}
-
-.footer-link {
-    color: #adb5bd;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
+#newsletterForm .form-control {
+    border: none;
+    padding: 12px 15px;
     font-size: 0.9rem;
 }
 
-.footer-link:hover {
-    color: #ffc107;
-    text-decoration: none;
-    transform: translateX(5px);
+#newsletterForm .form-control:focus {
+    box-shadow: none;
+    border-color: transparent;
 }
 
-.footer-link i {
-    font-size: 0.8rem;
+#newsletterForm .btn {
+    border: none;
+    padding: 12px 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+#newsletterForm .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,123,255,0.3);
+}
+
+#newsletterForm .btn:disabled {
+    transform: none;
     opacity: 0.7;
 }
 
-.contact-item {
-    transition: all 0.3s ease;
-    padding: 0.25rem 0;
+/* Toast notification styles */
+.toast-notification {
+    animation: slideInRight 0.3s ease-out;
 }
 
-.contact-item:hover {
-    transform: translateX(3px);
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
-.social-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-
-.social-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.1);
-    color: #adb5bd;
-    border-radius: 50%;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.social-icon:hover {
-    transform: translateY(-3px);
-    color: white;
-    border-color: currentColor;
-}
-
-.social-icon.twitter:hover { background: #1da1f2; }
-.social-icon.instagram:hover { background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); }
-.social-icon.linkedin:hover { background: #0077b5; }
-.social-icon.tiktok:hover { background: #000; }
-.social-icon.youtube:hover { background: #ff0000; }
-.social-icon.whatsapp:hover { background: #25d366; }
-
-.footer-bottom-links .footer-link {
-    font-size: 0.8rem;
-}
-
-/* Back to Top Button */
-.back-to-top {
-    position: fixed;
-    bottom: 20px;
-    right: 80px;
-    width: 45px;
-    height: 45px;
-    background: #ffc107;
-    color: #000;
-    border: none;
-    border-radius: 50%;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    z-index: 1000;
-    box-shadow: 0 2px 10px rgba(255, 193, 7, 0.3);
-}
-
-.back-to-top:hover {
-    background: #ffcd39;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
-}
-
-.back-to-top.show {
-    display: flex;
-}
-
-/* Modal Styles */
-.modal-content {
-    background: #f8f9fa;
-    border: none;
-    border-radius: 15px;
-}
-
-.modal-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border-radius: 15px 15px 0 0;
-}
-
-.modal-body h6 {
-    color: #495057;
-    font-weight: 600;
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
-}
-
-/* Responsive Design */
+/* Responsive adjustments */
 @media (max-width: 768px) {
-    .footer-brand {
-        text-align: center;
-        margin-bottom: 2rem;
+    #newsletterForm .input-group {
+        flex-direction: column;
     }
     
-    .footer-stats {
-        margin-bottom: 1.5rem;
+    #newsletterForm .btn {
+        border-radius: 0 0 8px 8px !important;
+        margin-top: -1px;
     }
     
-    .social-links {
-        justify-content: center;
-    }
-    
-    .back-to-top {
-        right: 20px;
-        bottom: 80px;
-    }
-    
-    .newsletter-signup {
-        margin-top: 1rem;
+    .toast-notification {
+        left: 10px;
+        right: 10px;
+        min-width: auto;
+        max-width: none;
     }
 }
 
-/* Animation for AOS */
-[data-aos] {
-    pointer-events: none;
-}
-
-[data-aos].aos-animate {
-    pointer-events: auto;
-}
-</style>
+    </style>
 
 <!-- Enhanced JavaScript -->
 <script>
@@ -2162,51 +2021,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Newsletter signup
-    const newsletterBtn = document.getElementById('newsletter-btn');
-    const newsletterEmail = document.getElementById('newsletter-email');
-
-    newsletterBtn.addEventListener('click', function() {
-        const email = newsletterEmail.value.trim();
-        
-        if (!email) {
-            alert('Please enter your email address');
-            return;
-        }
-        
-        if (!isValidEmail(email)) {
-            alert('Please enter a valid email address');
-            return;
-        }
-
-        // Simulate newsletter signup
-        newsletterBtn.innerHTML = '<i class="bi bi-check"></i>';
-        newsletterBtn.classList.remove('btn-warning');
-        newsletterBtn.classList.add('btn-success');
-        newsletterEmail.value = '';
-        
-        setTimeout(() => {
-            newsletterBtn.innerHTML = '<i class="bi bi-send"></i>';
-            newsletterBtn.classList.remove('btn-success');
-            newsletterBtn.classList.add('btn-warning');
-        }, 2000);
-        
-        // You can integrate with your email service here
-        console.log('Newsletter signup:', email);
-    });
-
-    newsletterEmail.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            newsletterBtn.click();
-        }
-    });
-
-    // Email validation function
-    function isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    }
-
+    
     // Smooth scrolling for footer links
     document.querySelectorAll('.footer-link[href^="#"]').forEach(link => {
         link.addEventListener('click', function(e) {
@@ -2292,6 +2107,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <!-- Custom Scripts -->
     <script src="script.js"></script>
     <script src="bot.js"></script>
+    <script src="newsletter.js"></script>
     
 <script src="chatbot-fix.js"></script>
     <script src="simple-chatbot.js"></script>
