@@ -1559,6 +1559,48 @@
     position: relative;
     overflow: hidden;
 }
+/* Back to top stays on the right */
+.back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--warning-color);
+    color: var(--dark-color);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Move bot icon to the left side */
+.bot-icon, 
+.chatbot-icon, 
+.chat-widget,
+[id*="chat"],
+[class*="chat"],
+.tawk-min-container {
+    position: fixed !important;
+    bottom: 20px !important;
+    left: 20px !important;  /* Move to LEFT side */
+    right: auto !important;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1001;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
 
 .newsletter-loading::after {
     content: '';
