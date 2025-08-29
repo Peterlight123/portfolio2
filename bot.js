@@ -1,17 +1,222 @@
-// Enhanced PeterBot - Advanced AI Assistant for Saxophonist
+// Enhanced PeterBot - Advanced AI Assistant
 console.log('Loading Enhanced PeterBot v2.0...');
 
 // Enhanced Bot Configuration
 const BOT_CONFIG = {
     name: 'PeterBot',
     avatar: 'https://i.imgur.com/Cgy2Aeq.png',
-    welcomeMessage: "👋 Hello! I'm PeterBot, Peter's AI assistant. I can help you with saxophone performances, web development, pricing, bookings, and much more! How can I assist you today?",
+    welcomeMessage: "👋 Hello! I'm PeterBot, Peter's AI assistant. I can help you with web development, virtual assistant services, digital marketing, and even saxophone performances! How can I assist you today?",
     responseDelay: 1200,
     showTypingIndicator: true,
     showQuickReplies: true,
     version: '2.0',
     lastUpdated: new Date().toISOString()
 };
+// Enhanced Knowledge Base
+const KNOWLEDGE_BASE = {
+    personal: {
+        name: "Peter Lightspeed",
+        alias: "Peterphonist",
+        profession: "Web Developer, Virtual Assistant & Saxophonist",
+        experience: "2+ years in digital services and creative work",
+        location: "Available globally (Remote services)",
+        languages: ["English", "Professional Communication"],
+        specialties: ["Web Development", "Virtual Assistant Services", "Digital Marketing", "Saxophone Performance"]
+    },
+    
+    services: {
+        web: {
+            title: "Web Development & Design",
+            description: "Full-stack web development and modern design solutions",
+            offerings: [
+                "Responsive website development",
+                "E-commerce solutions",
+                "Web application development",
+                "Website redesign and optimization",
+                "CMS development (WordPress, etc.)",
+                "API integration and development",
+                "Website maintenance and updates",
+                "SEO optimization",
+                "Performance optimization"
+            ],
+            pricing: {
+                basic: {
+                    usd: "$200-1000 (Simple websites)",
+                    naira: "₦150,000-₦750,000 (Simple websites)"
+                },
+                standard: {
+                    usd: "$1,000-3,000 (Business websites)",
+                    naira: "₦750,000-₦2,250,000 (Business websites)"
+                },
+                premium: {
+                    usd: "$3,000-7,000 (Complex applications)",
+                    naira: "₦2,250,000-₦5,250,000 (Complex applications)"
+                },
+                maintenance: {
+                    usd: "$100-300/month",
+                    naira: "₦75,000-₦225,000/month"
+                },
+                consultation: {
+                    usd: "$100/hour",
+                    naira: "₦75,000/hour"
+                }
+            },
+            technologies: ["HTML5", "CSS3", "JavaScript", "React", "Bootstrap", "PHP", "WordPress"]
+        },
+        
+        virtual_assistant: {
+            title: "Professional Virtual Assistant Services",
+            description: "Comprehensive remote assistance for businesses and entrepreneurs",
+            offerings: [
+                "Administrative support",
+                "Email management and communication",
+                "Social media management",
+                "Content creation and copywriting",
+                "Research and data analysis",
+                "Project management",
+                "Customer service support",
+                "Lead generation and CRM management",
+                "Digital marketing assistance",
+                "Technical support and troubleshooting"
+            ],
+            pricing: {
+                hourly: {
+                    usd: "$10-30/hour",
+                    naira: "₦7,500-₦22,500/hour"
+                },
+                part_time: {
+                    usd: "$800-1,500/month (20 hours/week)",
+                    naira: "₦600,000-₦1,125,000/month (20 hours/week)"
+                },
+                full_time: {
+                    usd: "$1,500-3,000/month (40 hours/week)",
+                    naira: "₦1,125,000-₦2,250,000/month (40 hours/week)"
+                },
+                project_based: "Varies by scope"
+            }
+        },
+        
+        digital_marketing: {
+            title: "Digital Marketing Services",
+            description: "Strategic digital marketing to grow your online presence",
+            offerings: [
+                "Social media marketing",
+                "Content marketing strategy",
+                "SEO optimization",
+                "Email marketing campaigns",
+                "PPC advertising management",
+                "Analytics and reporting",
+                "Brand development",
+                "Influencer marketing coordination",
+                "Marketing automation"
+            ],
+            pricing: {
+                basic: {
+                    usd: "$300-800/month",
+                    naira: "₦225,000-₦600,000/month"
+                },
+                standard: {
+                    usd: "$800-2,000/month",
+                    naira: "₦600,000-₦1,500,000/month"
+                },
+                premium: {
+                    usd: "$2,000-5,000/month",
+                    naira: "₦1,500,000-₦3,750,000/month"
+                },
+                consultation: {
+                    usd: "$80/hour",
+                    naira: "₦60,000/hour"
+                }
+            }
+        },
+        
+        saxophone: {
+            title: "Saxophone Performance & Music Services",
+            description: "Professional saxophonist performing under the name 'Peterphonist'",
+            offerings: [
+                "Live saxophone performances for events (weddings, parties, concerts)",
+                "Church programs and worship ministrations (free except transportation)",
+                "Session recording for songs, albums, or collaborations",
+                "Background instrumental music for special occasions",
+                "Personalized saxophone renditions (birthday songs, anniversary surprises, etc.)",
+                "Music coaching & saxophone lessons (beginner to advanced)",
+                "Online collaborations & remote recording"
+            ],
+            pricing: {
+                livePerformance: {
+                    usd: "$200-500 per event (varies by duration & location)",
+                    naira: "₦150,000-₦380,000 per event (varies by duration & location)"
+                },
+                churchPrograms: {
+                    usd: "Free (transportation costs only)",
+                    naira: "Free (transportation costs only)"
+                },
+                sessionRecording: {
+                    usd: "$100-300 per track",
+                    naira: "₦75,000-₦225,000 per track"
+                },
+                personalizedSong: {
+                    usd: "$75-150 per request",
+                    naira: "₦55,000-₦115,000 per request"
+                },
+                coaching: {
+                    usd: "$50/hour (online or in-person)",
+                    naira: "₦38,000/hour (online or in-person)"
+                }
+            }
+        },
+        
+        additional: {
+            title: "Additional Creative Services",
+            offerings: [
+                "Graphic design and branding",
+                "Mobile app development",
+                "Video editing and production",
+                "Content strategy and creation",
+                "Consultation and coaching"
+            ]
+        }
+    },
+    
+    social_media: {
+        youtube: "@peterphonist",
+        facebook: "@peterphonist", 
+        instagram: "@peterphonist",
+        tiktok: "@peterphonist",
+        snapchat: "@peterphonist",
+        twitter: "@peterphonist",
+        linkedin: "Peter Lightspeed",
+        audiomack: "peterphonist",
+        spotify: "Peterphonist"
+    },
+    
+    contact: {
+        email: "petereluwade55@gmail.com",
+        whatsapp: "+234 8108821809",
+        telegram: "@peterlightspeed",
+        website: "https://peterlight123.github.io/portfolio/",
+        booking: "Available for consultations and project discussions"
+    },
+    
+    business: {
+        sponsorship: {
+            available: true,
+            types: ["Brand partnerships", "Content sponsorships", "Event partnerships", "Music collaborations"],
+            requirements: "Aligned with creative and professional values",
+            contact_method: "Email or WhatsApp for sponsorship inquiries"
+        },
+        
+        negotiation: {
+            flexible_pricing: true,
+            bulk_discounts: true,
+            long_term_contracts: "Special rates available",
+            payment_plans: "Available for larger projects",
+            barter_system: "Open to skill exchanges and collaborations"
+        }
+    }
+};
+
+
 // Advanced Response Patterns
 const RESPONSE_PATTERNS = {
     greetings: [
@@ -24,11 +229,6 @@ const RESPONSE_PATTERNS = {
         /\b(skills|abilities|expertise|specialization)\b/i
     ],
     
-    saxophone: [
-        /\b(saxophone|sax|saxophonist|peterphonist|music|performance|play|instrument)\b/i,
-        /\b(concert|event|wedding|church|worship|ministration)\b/i
-    ],
-    
     web: [
         /\b(web|website|development|app|programming|code)\b/i,
         /\b(html|css|javascript|react|wordpress)\b/i
@@ -37,6 +237,16 @@ const RESPONSE_PATTERNS = {
     virtual_assistant: [
         /\b(virtual assistant|va|administrative|support|help)\b/i,
         /\b(email management|social media|customer service)\b/i
+    ],
+    
+    digital_marketing: [
+        /\b(digital marketing|marketing|seo|social media|content|advertising)\b/i,
+        /\b(promote|brand|audience|campaign|strategy)\b/i
+    ],
+    
+    saxophone: [
+        /\b(saxophone|sax|saxophonist|peterphonist|music|performance|play|instrument)\b/i,
+        /\b(concert|event|wedding|church|worship|ministration)\b/i
     ],
     
     pricing: [
@@ -72,11 +282,6 @@ const RESPONSE_PATTERNS = {
     about: [
         /\b(about|who is peter|tell me about|background|experience)\b/i,
         /\b(biography|story|journey|career)\b/i
-    ],
-    
-    church: [
-        /\b(church|worship|ministration|gospel|christian|praise)\b/i,
-        /\b(religious|spiritual|faith|service)\b/i
     ]
 };
 
@@ -131,14 +336,17 @@ class EnhancedResponseGenerator {
             case 'services':
                 return this.getServicesResponse(message);
                 
-            case 'music':
-                return this.getMusicResponse(message);
-                
             case 'web':
                 return this.getWebResponse(message);
                 
             case 'virtual_assistant':
                 return this.getVAResponse(message);
+                
+            case 'digital_marketing':
+                return this.getDigitalMarketingResponse(message);
+                
+            case 'saxophone':
+                return this.getSaxophoneResponse(message);
                 
             case 'pricing':
                 return this.getPricingResponse(message);
@@ -168,7 +376,7 @@ class EnhancedResponseGenerator {
     
     handleMultipleIntents(intents, message) {
         // Prioritize intents
-        const priority = ['sponsorship', 'negotiation', 'pricing', 'services', 'contact'];
+        const priority = ['web', 'virtual_assistant', 'digital_marketing', 'sponsorship', 'negotiation', 'pricing', 'services', 'contact', 'saxophone'];
         
         for (const priorityIntent of priority) {
             if (intents.includes(priorityIntent)) {
@@ -182,8 +390,8 @@ class EnhancedResponseGenerator {
     
     getGreetingResponse() {
         const greetings = [
-            "👋 Hello! I'm PeterBot, your AI assistant for all things Peter Lightspeed! I'm here to help you with music production, web development, virtual assistant services, and more. What can I help you with today?",
-            "🎵 Hey there! Welcome to Peter's creative world! I can assist you with music production (as Peterphonist), web development, VA services, pricing info, and even sponsorship opportunities. How can I help?",
+            "👋 Hello! I'm PeterBot, your AI assistant for all things Peter Lightspeed! I'm here to help you with web development, virtual assistant services, digital marketing, and more. What can I help you with today?",
+            "💻 Hey there! Welcome to Peter's digital world! I can assist you with web development, VA services, digital marketing, pricing info, and even sponsorship opportunities. How can I help?",
             "✨ Hi! Great to meet you! I'm Peter's AI assistant, ready to help with any questions about his services, pricing, portfolio, or business opportunities. What interests you most?"
         ];
         
@@ -191,13 +399,7 @@ class EnhancedResponseGenerator {
     }
     
     getServicesResponse(message) {
-        return `🚀 **Peter Lightspeed offers comprehensive creative services:**
-
-🎵 **Music Production (as Peterphonist)**
-• Custom beats & compositions
-• Mixing & mastering
-• Jingles & commercial music
-• Sound design
+        return `🚀 **Peter Lightspeed offers comprehensive professional services:**
 
 💻 **Web Development**
 • Responsive websites
@@ -211,66 +413,26 @@ class EnhancedResponseGenerator {
 • Content creation
 • Project management
 
+📊 **Digital Marketing**
+• Social media marketing
+• Content strategy
+• SEO optimization
+• Email campaigns
+
+🎷 **Saxophone Performance**
+• Live performances for events
+• Church programs & worship
+• Session recordings
+
 🎨 **Additional Services**
 • Graphic design
 • Mobile app development
 • Video editing
-• Digital marketing
 
-💰 **Flexible pricing & payment plans available**
+💰 **Pricing available in USD ($) and Naira (₦)**
 🤝 **Open to sponsorships & partnerships**
 
 Which service interests you most? I can provide detailed information and pricing!`;
-    }
-    
-    getMusicResponse(message) {
-        if (message.includes('peterphonist')) {
-            return `🎵 **Peterphonist - Peter's Music Identity!**
-
-Find Peter's music on ALL platforms:
-🎬 **YouTube:** @peterphonist
-📘 **Facebook:** @peterphonist  
-📸 **Instagram:** @peterphonist
-🎵 **TikTok:** @peterphonist
-👻 **Snapchat:** @peterphonist
-🎧 **Audiomack:** peterphonist
-🎶 **Spotify:** Peterphonist
-
-**Music Services:**
-livePerformance: "$200-500 per event (varies by duration & location) note: church programs are free apart from transportation",
-sessionRecording: "$100-300 per track",
-personalizedSong: "$75-150 per request",
-coaching: "$50/hour (online or in-person)"
-🎯 **Special offers for bulk orders!**
-🤝 **Open to music collaborations & sponsorships!**
-
-Want to hear samples or discuss a project?`;
-        }
-        
-        return `🎵 **Peter's Music Production Services:**
-
-What I Offer:
-
-• 🎷 Live saxophone performances (weddings, parties, concerts, church programs)
-• 🎶 Worship & ministration music
-• 🎧 Session recordings for songs, albums, or collaborations
-• 🎼 Personalized saxophone renditions (birthday/anniversary surprises)
-• 📚 Saxophone lessons & coaching (beginner to advanced)
-• 🌍 Online collaborations & remote recordings
-• 🎤 Background instrumental music for special occasions
-
-Pricing (Starting At):
-
-• Live Performances: $200–500 per event (varies by duration & location)
-• Session Recordings: $100–300 per track
-• Personalized Sax Rendition: $75–150 per request
-• Coaching / Lessons: $50 per hour (online or in-person)
-
-**Find my music as "Peterphonist" on:**
-YouTube, Spotify, Audiomack, Instagram, TikTok & more!
-
-🎯 **Bulk discounts available!**
-💬 Ready to create something amazing together?`;
     }
     
     getWebResponse(message) {
@@ -285,20 +447,26 @@ YouTube, Spotify, Audiomack, Instagram, TikTok & more!
 • Website redesigns & optimization
 
 **Technologies I use:**
-HTML5, CSS3, JavaScript, React, Node.js, PHP, WordPress
+HTML5, CSS3, JavaScript, React, Bootstrap, PHP, WordPress
 
-**Pricing Structure:**
-• Simple websites: $200-1000
-• Business websites: $1,000-3,000
-• Complex applications: $3,000-7,000
-• Maintenance: $100-300/month
-• Consultation: $100/hour
+**Pricing Structure (USD & Naira):**
+• Simple websites: $200-1000 (₦150,000-₦750,000)
+• Business websites: $1,000-3,000 (₦750,000-₦2,250,000)
+• Complex applications: $3,000-7,000 (₦2,250,000-₦5,250,000)
+• Maintenance: $100-300 (₦75,000-₦225,000) per month
+• Consultation: $100 (₦75,000) per hour
 
 **✨ What makes me different:**
 • Fast delivery & responsive design
 • SEO optimization included
 • Ongoing support & maintenance
 • Flexible payment plans available
+
+**Recent Projects:**
+• E-commerce platform for fashion retailer
+• Portfolio site for creative professionals
+• Booking system for service business
+• Corporate website with custom CMS
 
 🤝 **Special rates for long-term partnerships!**
 Ready to discuss your web project?`;
@@ -325,11 +493,17 @@ Ready to discuss your web project?`;
 • Technical troubleshooting
 • Market research & analysis
 
-**Pricing Options:**
-• Hourly: $15-35/hour
-• Part-time: $800-1,500/month (20 hrs/week)
-• Full-time: $1,500-3,000/month (40 hrs/week)
+**Pricing Options (USD & Naira):**
+• Hourly: $10-30 (₦7,500-₦22,500) per hour
+• Part-time: $800-1,500 (₦600,000-₦1,125,000) per month (20 hrs/week)
+• Full-time: $1,500-3,000 (₦1,125,000-₦2,250,000) per month (40 hrs/week)
 • Project-based: Custom quotes
+
+**Client Success Stories:**
+• Reduced email management time by 70% for small business
+• Increased social media engagement by 150% in 3 months
+• Streamlined operations saving 15+ hours per week
+• Improved customer response time from 24 hours to 2 hours
 
 🌟 **Why choose me as your VA:**
 • 2+ years experience
@@ -340,34 +514,261 @@ Ready to discuss your web project?`;
 Ready to streamline your business operations?`;
     }
     
+    getDigitalMarketingResponse(message) {
+        return `📊 **Strategic Digital Marketing Services:**
+
+**Marketing Solutions:**
+• Social media marketing & management
+• Content marketing strategy & creation
+• SEO optimization & keyword research
+• Email marketing campaigns
+• PPC advertising management
+• Analytics & performance reporting
+
+**Platform Expertise:**
+• Instagram, Facebook, Twitter, LinkedIn
+• Google Business Profile optimization
+• YouTube channel management
+• Email marketing platforms
+• Google Ads & Facebook Ads
+
+**Pricing Options (USD & Naira):**
+• Basic Package: $300-800 (₦225,000-₦600,000) per month
+• Standard Package: $800-2,000 (₦600,000-₦1,500,000) per month
+• Premium Package: $2,000-5,000 (₦1,500,000-₦3,750,000) per month
+• Consultation: $80 (₦60,000) per hour
+
+**What You Get:**
+• Customized marketing strategy
+• Regular content creation & posting
+• Audience growth & engagement
+• Performance analytics & reporting
+• Competitor analysis
+• Brand voice development
+
+**Success Metrics:**
+• Average 40-200% increase in engagement
+• 30-80% growth in followers/audience
+• 25-50% improvement in conversion rates
+• Measurable ROI on marketing spend
+
+Ready to boost your online presence and grow your business? Let's create a tailored marketing strategy for you!`;
+    }
+    
+    getSaxophoneResponse(message) {
+        return `🎷 **Saxophone Performance Services:**
+
+**What I Offer:**
+• Live saxophone performances for events (weddings, parties, concerts)
+• Church programs and worship ministrations (free except transportation)
+• Session recordings for songs, albums, or collaborations
+• Personalized saxophone renditions for special occasions
+
+**Pricing (USD & Naira):**
+• Live Performances: $200-500 (₦150,000-₦380,000) per event
+• Church Programs: Free (transportation costs only)
+• Session Recordings: $100-300 (₦75,000-₦225,000) per track
+• Personalized Renditions: $75-150 (₦55,000-₦115,000) per request
+
+**Find my music as "Peterphonist" on:**
+YouTube, Spotify, Audiomack, Instagram, TikTok & more!
+
+Would you like to book a performance or discuss collaboration options?`;
+    }
+    
     getPricingResponse(message) {
         if (message.includes('negotiate') || message.includes('bargain') || message.includes('discount')) {
             return this.getNegotiationResponse();
         }
         
-        return `💰 **Transparent Pricing Structure:**
+        if (message.includes('web') || message.includes('website') || message.includes('development')) {
+            return `💰 **Web Development Pricing (USD & Naira):**
 
-🎵 **Music Production:**
-• Live Performances: $200–500 per event (varies by duration & location)
-• Session Recordings: $100–300 per track
-• Personalized Sax Rendition: $75–150 per request
-• Coaching / Lessons: $50 per hour (online or in-person)
+• **Simple Websites:** $200-1000 (₦150,000-₦750,000)
+  - Landing pages
+  - Personal portfolios
+  - Small business sites
+  - Basic blogs
+
+• **Business Websites:** $1,000-3,000 (₦750,000-₦2,250,000)
+  - Corporate websites
+  - Business catalogs
+  - Professional portfolios
+  - Advanced blogs
+  - Small e-commerce sites
+
+• **Complex Applications:** $3,000-7,000 (₦2,250,000-₦5,250,000)
+  - Custom web applications
+  - Large e-commerce platforms
+  - Membership sites
+  - Online learning platforms
+  - Booking systems
+
+• **Maintenance:** $100-300 (₦75,000-₦225,000) per month
+  - Regular updates
+  - Security monitoring
+  - Content updates
+  - Performance optimization
+
+• **Consultation:** $100 (₦75,000) per hour
+  - Technical advice
+  - Project planning
+  - System architecture
+
+**All websites include:**
+✅ Mobile responsive design
+✅ Basic SEO optimization
+✅ Contact forms
+✅ Social media integration
+✅ Google Analytics setup
+
+**Payment terms:**
+• 50% deposit to start
+• 50% upon completion
+• Maintenance billed monthly
+
+Need a custom quote for your specific project?`;
+        }
+        
+        if (message.includes('va') || message.includes('virtual') || message.includes('assistant')) {
+            return `💰 **Virtual Assistant Pricing (USD & Naira):**
+
+• **Hourly Rate:** $10-30 (₦7,500-₦22,500) per hour
+  - Pay only for hours worked
+  - Flexible scheduling
+  - Ideal for small tasks or variable workloads
+
+• **Part-Time Package:** $800-1,500 (₦600,000-₦1,125,000) per month
+  - 20 hours per week
+  - Dedicated support
+  - Priority response
+  - Regular reporting
+
+• **Full-Time Package:** $1,500-3,000 (₦1,125,000-₦2,250,000) per month
+  - 40 hours per week
+  - Fully dedicated support
+  - Priority response
+  - Comprehensive reporting
+  - Strategic planning
+
+• **Project-Based:** Custom quotes based on scope
+  - Clearly defined deliverables
+  - Fixed price for peace of mind
+  - Timeline guarantees
+
+**All VA services include:**
+✅ Regular communication
+✅ Weekly progress reports
+✅ Tools & software expertise
+✅ Confidentiality agreement
+
+**Payment terms:**
+• Monthly retainers billed in advance
+• Hourly work billed weekly
+• Project-based: 50% deposit, 50% upon completion
+
+Need a custom package tailored to your business needs?`;
+        }
+        
+        if (message.includes('marketing') || message.includes('digital marketing')) {
+            return `💰 **Digital Marketing Pricing (USD & Naira):**
+
+• **Basic Package:** $300-800 (₦225,000-₦600,000) per month
+  - Social media management (2 platforms)
+  - 8-12 posts per month
+  - Basic engagement monitoring
+  - Monthly performance report
+
+• **Standard Package:** $800-2,000 (₦600,000-₦1,500,000) per month
+  - Social media management (3-4 platforms)
+  - 16-20 posts per month
+  - Content calendar development
+  - Community engagement
+  - SEO optimization
+  - Bi-weekly performance reports
+
+• **Premium Package:** $2,000-5,000 (₦1,500,000-₦3,750,000) per month
+  - Comprehensive social media management (all platforms)
+  - 20-30 posts per month
+  - Content strategy & creation
+  - Paid advertising management
+  - Influencer outreach
+  - Competitor analysis
+  - Weekly performance reports
+
+• **Consultation:** $80 (₦60,000) per hour
+  - Marketing strategy development
+  - Campaign planning
+  - Performance analysis
+
+**All marketing packages include:**
+✅ Content creation
+✅ Analytics tracking
+✅ Audience growth strategies
+✅ Brand voice consistency
+
+**Payment terms:**
+• Monthly retainers billed in advance
+• 3-month minimum commitment recommended
+
+Ready to boost your online presence with a custom marketing plan?`;
+        }
+        
+        if (message.includes('naira') || message.includes('nigeria') || message.includes('₦')) {
+            return `💰 **Pricing in Naira (₦):**
 
 💻 **Web Development:**
-• Simple sites: $500-1,500
-• Business sites: $1,500-5,000
-• Complex apps: $5,000-15,000
-• Maintenance: $100-300/month
+• Simple sites: ₦150,000-₦750,000
+• Business sites: ₦750,000-₦2,250,000
+• Complex apps: ₦2,250,000-₦5,250,000
+• Maintenance: ₦75,000-₦225,000/month
 
 👨‍💼 **Virtual Assistant:**
-• Hourly: $15-35/hour
-• Part-time: $800-1,500/month
-• Full-time: $1,500-3,000/month
+• Hourly: ₦7,500-₦22,500/hour
+• Part-time: ₦600,000-₦1,125,000/month
+• Full-time: ₦1,125,000-₦2,250,000/month
 
-🎨 **Additional Services:**
-• Graphic design: $25-150 per design
-• Mobile apps: $1,000-10,000
-• Video editing: $50-200 per project
+📊 **Digital Marketing:**
+• Basic: ₦225,000-₦600,000/month
+• Standard: ₦600,000-₦1,500,000/month
+• Premium: ₦1,500,000-₦3,750,000/month
+
+🎷 **Saxophone Services:**
+• Live Performances: ₦150,000-₦380,000 per event
+• Church Programs: Free (transportation costs only)
+• Session Recordings: ₦75,000-₦225,000 per track
+
+**💡 Money-Saving Options:**
+✅ Bulk project discounts
+✅ Long-term contract rates
+✅ Payment plan options
+✅ Skill exchange opportunities
+
+Want a custom quote for your specific project?`;
+        }
+        
+        return `💰 **Transparent Pricing Structure (USD & Naira):**
+
+💻 **Web Development:**
+• Simple sites: $200-1000 (₦150,000-₦750,000)
+• Business sites: $1,000-3,000 (₦750,000-₦2,250,000)
+• Complex apps: $3,000-7,000 (₦2,250,000-₦5,250,000)
+• Maintenance: $100-300 (₦75,000-₦225,000)/month
+
+👨‍💼 **Virtual Assistant:**
+• Hourly: $10-30 (₦7,500-₦22,500)/hour
+• Part-time: $800-1,500 (₦600,000-₦1,125,000)/month
+• Full-time: $1,500-3,000 (₦1,125,000-₦2,250,000)/month
+
+📊 **Digital Marketing:**
+• Basic: $300-800 (₦225,000-₦600,000)/month
+• Standard: $800-2,000 (₦600,000-₦1,500,000)/month
+• Premium: $2,000-5,000 (₦1,500,000-₦3,750,000)/month
+
+🎷 **Saxophone Services:**
+• Live Performances: $200-500 (₦150,000-₦380,000) per event
+• Church Programs: Free (transportation costs only)
+• Session Recordings: $100-300 (₦75,000-₦225,000) per track
 
 **💡 Money-Saving Options:**
 ✅ Bulk project discounts
@@ -382,17 +783,16 @@ Want a custom quote for your specific project?`;
         return `🤝 **Sponsorship & Partnership Opportunities:**
 
 **I'm open to collaborations in:**
-🎵 Music collaborations & features
-🎬 Content creation partnerships
-💼 Brand ambassadorships
-🎪 Event partnerships & performances
-📱 Product reviews & endorsements
+💻 Tech & web development partnerships
+📊 Digital marketing collaborations
+👨‍💼 Business service alliances
+🎷 Music & creative projects
 
-**What I offer sponsors:**
-• Authentic engagement across all platforms
-• Professional content creation
-• Cross-platform promotion
-• Creative collaboration opportunities
+**What I offer partners:**
+• Professional service delivery
+• Cross-promotion opportunities
+• Creative collaboration
+• Audience engagement
 • Measurable results & analytics
 
 **My Reach:**
@@ -403,13 +803,13 @@ Want a custom quote for your specific project?`;
 👻 Snapchat: @peterphonist
 
 **Partnership Requirements:**
-✅ Aligned with creative/professional values
+✅ Aligned with professional values
 ✅ Mutual benefit & fair compensation
 ✅ Creative freedom maintained
 ✅ Long-term relationship potential
 
 **Ready to partner?**
-📧 Email: ppetereluwade55@gmail.com
+📧 Email: petereluwade55@gmail.com
 📱 WhatsApp: +234 8108821809
 
 Let's create something amazing together! 🚀`;
@@ -421,7 +821,7 @@ Let's create something amazing together! 🚀`;
 **I understand budgets vary! Here's how we can work together:**
 
 🎯 **Discount Opportunities:**
-• Bulk projects: 10-25% off
+• Multiple projects: 10-25% off
 • Long-term contracts: Special rates
 • Referral bonuses: 15% off next project
 • Student/startup discounts: 20% off
@@ -430,7 +830,7 @@ Let's create something amazing together! 🚀`;
 • Payment plans for larger projects
 • Milestone-based payments
 • Retainer agreements available
-• Cryptocurrency accepted
+• Multiple currency options (USD, Naira)
 
 🔄 **Alternative Arrangements:**
 • Skill exchange/bartering
@@ -452,7 +852,7 @@ What's your project scope and budget range? I'm confident we can find a win-win 
     }
     
     getContactResponse() {
-        return `📞 **Get in Touch with Peter Lightspeed:**
+    return `📞 **Get in Touch with Peter Lightspeed:**
 
 **Primary Contact:**
 📧 **Email:** petereluwade55@gmail.com
@@ -471,10 +871,6 @@ What's your project scope and budget range? I'm confident we can find a win-win 
 💼 **LinkedIn:** Eluwade Peter Toluwanimi
 🌐 **Website:** https://peterlight123.github.io/portfolio/
 
-**Music Platforms:**
-🎧 **Audiomack:** peterphonist
-🎶 **Spotify:** Peterphonist
-
 **⏰ Response Times:**
 • Email: Within 24 hours
 • WhatsApp: Within 2-6 hours
@@ -485,29 +881,30 @@ Available globally for remote work
 Flexible timezone accommodation
 
 Ready to start your project? Reach out anytime! 🚀`;
-    }
+}
     
-    getSocialResponse() {
-        return `📱 **Follow Peter on Social Media:**
+getSocialResponse() {
+    return `📱 **Follow Peter on Social Media:**
 
 **All handles: @peterphonist**
 **All handles: @eluwadepeter**
 
-
 🎬 **YouTube:** @peterphonist
-• Music videos & tutorials
+• Tutorial videos
+• Project showcases
 • Behind-the-scenes content
 • Live streams & Q&As
 
 📸 **Instagram:** @peterphonist  
+• Portfolio highlights
 • Daily creative updates
-• Work-in-progress shots
+• Web development tips
 • Stories & reels
 
 🎵 **TikTok:** @peterphonist
-• Quick music clips
+• Quick tech tips
 • Creative process videos
-• Trending audio content
+• Trending content
 
 📘 **Facebook:** @peterphonist
 • Professional updates
@@ -524,23 +921,13 @@ Ready to start your project? Reach out anytime! 🚀`;
 • Quick updates
 • Networking
 
-**Music Platforms:**
-🎧 **SoundCloud:** peterphonist
-🎶 **Spotify:** Peterphonist
-
 **💡 Pro Tip:** Follow on multiple platforms for different types of content and exclusive updates!
 
 Which platform would you like to connect on first? 🚀`;
-    }
+}
     
-    getPortfolioResponse() {
-        return `🎨 **Peter's Portfolio & Work Samples:**
-
-🎵 **Music Portfolio (Peterphonist):**
-• Audiomack: peterphonist
-• Spotify: Peterphonist  
-• YouTube: @peterphonist
-• Instagram: @peterphonist (audio posts)
+getPortfolioResponse() {
+    return `🎨 **Peter's Portfolio & Work Samples:**
 
 💻 **Web Development:**
 • GitHub: github.com/peterlight123
@@ -548,55 +935,74 @@ Which platform would you like to connect on first? 🚀`;
 • Case studies: Detailed project breakdowns
 • Client testimonials: 5-star ratings
 
+**Featured Web Projects:**
+• E-commerce platform with 300% conversion improvement
+• Corporate website with custom CMS
+• Portfolio site for creative professionals
+• Booking system for service business
+
 👨‍💼 **Virtual Assistant Work:**
 • Client success stories
 • Process improvements achieved
 • Efficiency metrics & results
 • Before/after case studies
 
-🎨 **Creative Work:**
-• Instagram: @eluwadepeter
+**VA Achievements:**
+• Reduced email management time by 70% for small business
+• Increased social media engagement by 150% in 3 months
+• Streamlined operations saving 15+ hours per week
+• Improved customer response time from 24 hours to 2 hours
+
+📊 **Digital Marketing:**
+• Campaign results
+• Growth metrics
+• Content strategy examples
+• Social media management showcases
+
+🎷 **Saxophone Portfolio (Peterphonist):**
+• Audiomack: peterphonist
+• Spotify: Peterphonist  
+• YouTube: @peterphonist
+• Instagram: @peterphonist (performance videos)
 
 **📊 Recent Achievements:**
 • 20+ successful web projects
 • 15+ satisfied VA clients
 • 90% client retention rate
-
-**🎯 Specialization Examples:**
-• E-commerce sites with 300% conversion improvement
-• Viral music content (1M+ plays)
-• Streamlined business operations (40% efficiency gain)
+• Multiple successful marketing campaigns
 
 Want to see specific examples for your type of project? Let me know what you're interested in! 🚀`;
-    }
+}
     
-    getAboutResponse() {
-        return `👨‍💻 **Meet Peter Lightspeed:**
+getAboutResponse() {
+    return `👨‍💻 **Meet Peter Lightspeed:**
 
-**🎯 Multi-Talented Creative Professional**
-Known in the music world as "Peterphonist"
+**🎯 Multi-Talented Digital Professional**
+Web Developer, Virtual Assistant, Digital Marketer & Saxophonist
 
 **📈 Experience & Expertise:**
-• 2+ years in digital creative services
-• Saxophonis, web developer, VA specialist
+• 2+ years in digital services and creative work
+• Full-stack web developer
+• Professional virtual assistant
+• Digital marketing specialist
+• Saxophonist (performing as "Peterphonist")
 • Served 50+ clients globally
-• Expertise across multiple industries
 
 **🌟 What Makes Peter Unique:**
 • Multi-disciplinary skill set
-• Creative + technical expertise
+• Technical + creative expertise
 • Reliable & professional communication
 • Flexible & adaptable to client needs
 • Passionate about bringing ideas to life
 
-**🎵 Music Journey:**
-Started as bedroom saxophonis, now creating professional saxophone scales and compositions for artists worldwide under "Peterphonist"
-
 **💻 Tech Journey:**
-Self-taught developer who became proficient in modern web technologies, helping businesses establish strong online presence
+Self-taught developer who became proficient in modern web technologies, helping businesses establish strong online presence with responsive, user-friendly websites and applications.
 
 **👨‍💼 Business Journey:**
-Evolved into comprehensive virtual assistant, helping entrepreneurs and businesses streamline operations
+Evolved into comprehensive virtual assistant and digital marketer, helping entrepreneurs and businesses streamline operations and grow their online presence.
+
+**🎷 Music Side:**
+Passionate saxophonist performing at events and creating music under the name "Peterphonist"
 
 **🌍 Global Reach:**
 • Available for remote work worldwide
@@ -607,66 +1013,41 @@ Evolved into comprehensive virtual assistant, helping entrepreneurs and business
 "Every project is an opportunity to create something amazing and help others achieve their goals."
 
 Ready to work with someone who truly cares about your success? Let's connect! 🚀`;
-    }
+}
     
-    getSmartDefaultResponse(message) {
-        // Analyze message for keywords and provide contextual response
-        const responses = [
-            "That's a great question! I'd love to help you with that. Could you tell me more about what you're looking for? I can assist with music production, web development, virtual assistant services, pricing, or partnerships.",
-            
-            "Interesting! I'm here to help with anything related to Peter's services. Whether you need music production (as Peterphonist), web development, VA support, or want to discuss sponsorships - I've got you covered!",
-            
-            "I'd be happy to help! Peter offers music production, web development, virtual assistant services, and is open to partnerships. What specific area interests you most?",
-            
-            "Thanks for reaching out! I can provide detailed information about Peter's services, pricing, portfolio, or business opportunities. What would you like to know more about?",
-            
-            "Great to hear from you! I'm equipped to answer questions about music production (Peterphonist), web development, virtual assistant services, pricing negotiations, sponsorships, and more. How can I assist you today?"
-        ];
+getSmartDefaultResponse(message) {
+    // Analyze message for keywords and provide contextual response
+    const responses = [
+        "That's a great question! I'd love to help you with that. Could you tell me more about what you're looking for? I can assist with web development, virtual assistant services, digital marketing, or even saxophone performances.",
         
-        return responses[Math.floor(Math.random() * responses.length)];
-    }
-}
-
-// Initialize enhanced response generator
-const responseGenerator = new EnhancedResponseGenerator();
-
-// Enhanced getBotResponse function
-function getBotResponse(message) {
-    // Get conversation context (last 3 messages)
-    const context = chatHistory.slice(-6).map(msg => ({
-        text: msg.text,
-        sender: msg.sender
-    }));
+        "Interesting! I'm here to help with anything related to Peter's services. Whether you need web development, VA support, digital marketing strategy, or want to discuss collaborations - I've got you covered!",
+        
+        "I'd be happy to help! Peter offers web development, virtual assistant services, digital marketing, and saxophone performances. What specific area interests you most?",
+        
+        "Thanks for reaching out! I can provide detailed information about Peter's services, pricing (in USD and Naira), portfolio, or business opportunities. What would you like to know more about?",
+        
+        "Great to hear from you! I'm equipped to answer questions about web development, virtual assistant services, digital marketing, pricing negotiations, sponsorships, and more. How can I assist you today?"
+    ];
     
-    return responseGenerator.generateResponse(message, context);
+    return responses[Math.floor(Math.random() * responses.length)];
 }
-
 // Enhanced quick replies based on context
 function getContextualQuickReplies() {
     const lastBotMessage = chatHistory.slice().reverse().find(msg => msg.sender === 'bot');
     
     if (!lastBotMessage) {
         return [
-            "🎵 Saxophone",
-            "💻 Web Development", 
-            "👨‍💼 Virtual Assistant",
+            "💻 Web Development",
+            "👨‍💼 Virtual Assistant", 
+            "📊 Digital Marketing",
             "💰 Pricing Info",
-            "🤝 Sponsorships"
+            "🎷 Saxophone Services"
         ];
     }
     
     const lastMessage = lastBotMessage.text.toLowerCase();
     
-    if (lastMessage.includes('music') || lastMessage.includes('peterphonist')) {
-        return [
-            "🎧 Hear music",
-            "💰 Music Pricing",
-            "📱 Social Media",
-            "🤝 Music Collaboration"
-        ];
-    }
-    
-    if (lastMessage.includes('web') || lastMessage.includes('development')) {
+    if (lastMessage.includes('web') || lastMessage.includes('website') || lastMessage.includes('development')) {
         return [
             "🌐 Web Portfolio",
             "💰 Web Pricing", 
@@ -686,9 +1067,29 @@ function getContextualQuickReplies() {
         ];
     }
     
+    if (lastMessage.includes('digital marketing') || lastMessage.includes('marketing')) {
+        return [
+            "📱 Social Media Marketing",
+            "🔍 SEO Services",
+            "📧 Email Campaigns",
+            "📊 Marketing Analytics",
+            "💰 Marketing Packages"
+        ];
+    }
+    
+    if (lastMessage.includes('saxophone') || lastMessage.includes('music') || lastMessage.includes('performance')) {
+        return [
+            "🎧 Hear Performances",
+            "💰 Performance Pricing",
+            "⛪ Church Programs",
+            "📱 Follow @peterphonist",
+            "🎵 Music Collaboration"
+        ];
+    }
+    
     if (lastMessage.includes('sponsor') || lastMessage.includes('partnership')) {
         return [
-            "📧 Contact for Sponsorship",
+            "📧 Contact for Partnership",
             "📊 Audience Analytics",
             "🎯 Partnership Types",
             "💼 Brand Alignment",
@@ -698,11 +1099,11 @@ function getContextualQuickReplies() {
     
     if (lastMessage.includes('pricing') || lastMessage.includes('cost')) {
         return [
+            "💲 USD Pricing",
+            "₦ Naira Pricing",
             "💡 Negotiate Price",
             "📦 Package Deals",
-            "💳 Payment Plans",
-            "🎯 Bulk Discounts",
-            "📞 Custom Quote"
+            "💳 Payment Plans"
         ];
     }
     
@@ -715,31 +1116,150 @@ function getContextualQuickReplies() {
         "❓ Ask Another Question"
     ];
 }
-
-// Update the showQuickReplies function
-function showQuickReplies() {
-    if (!BOT_CONFIG.showQuickReplies) return;
+// Admin Storage System
+class AdminStorage {
+    constructor() {
+        this.storageKey = 'peterbot_admin_data';
+        this.data = this.loadData();
+    }
     
-    const quickRepliesContainer = document.getElementById('peterbot-quick-replies');
-    if (!quickRepliesContainer) return;
+    loadData() {
+        try {
+            const storedData = localStorage.getItem(this.storageKey);
+            return storedData ? JSON.parse(storedData) : this.getDefaultData();
+        } catch (error) {
+            console.error('Error loading admin data:', error);
+            return this.getDefaultData();
+        }
+    }
     
-    const replies = getContextualQuickReplies();
+    getDefaultData() {
+        return {
+            leads: [],
+            conversations: [],
+            projects: [],
+            analytics: {
+                totalInteractions: 0,
+                serviceInterests: {
+                    web: 0,
+                    va: 0,
+                    marketing: 0,
+                    saxophone: 0
+                },
+                conversionRate: 0
+            },
+            settings: {
+                notificationsEnabled: true,
+                autoFollowUp: true,
+                dataRetentionDays: 90
+            },
+            lastUpdated: new Date().toISOString()
+        };
+    }
     
-    quickRepliesContainer.innerHTML = '';
+    saveData() {
+        try {
+            localStorage.setItem(this.storageKey, JSON.stringify(this.data));
+            return true;
+        } catch (error) {
+            console.error('Error saving admin data:', error);
+            return false;
+        }
+    }
     
-    replies.forEach(reply => {
-        const button = document.createElement('button');
-        button.className = 'quick-reply-btn';
-        button.textContent = reply;
-        button.addEventListener('click', () => {
-            handleQuickReply(reply);
+    addLead(lead) {
+        this.data.leads.push({
+            ...lead,
+            id: `lead_${Date.now()}`,
+            timestamp: new Date().toISOString(),
+            status: 'new'
         });
-        quickRepliesContainer.appendChild(button);
-    });
+        
+        this.saveData();
+    }
     
-    quickRepliesContainer.style.display = 'flex';
+    addProject(project) {
+        this.data.projects.push({
+            ...project,
+            id: `project_${Date.now()}`,
+            timestamp: new Date().toISOString(),
+            status: 'pending'
+        });
+        
+        this.saveData();
+    }
+    
+    logConversation(conversation) {
+        this.data.conversations.push({
+            ...conversation,
+            id: `conv_${Date.now()}`,
+            timestamp: new Date().toISOString()
+        });
+        
+        // Update analytics
+        this.data.analytics.totalInteractions++;
+        
+        // Update service interests if applicable
+        if (conversation.topic) {
+            if (conversation.topic.includes('web')) {
+                this.data.analytics.serviceInterests.web++;
+            } else if (conversation.topic.includes('va') || conversation.topic.includes('assistant')) {
+                this.data.analytics.serviceInterests.va++;
+            } else if (conversation.topic.includes('marketing')) {
+                this.data.analytics.serviceInterests.marketing++;
+            } else if (conversation.topic.includes('saxophone') || conversation.topic.includes('music')) {
+                this.data.analytics.serviceInterests.saxophone++;
+            }
+        }
+        
+        this.data.lastUpdated = new Date().toISOString();
+        this.saveData();
+    }
+    
+    getLeads(status = null) {
+        if (status) {
+            return this.data.leads.filter(lead => lead.status === status);
+        }
+        return this.data.leads;
+    }
+    
+    getProjects(status = null) {
+        if (status) {
+            return this.data.projects.filter(project => project.status === status);
+        }
+        return this.data.projects;
+    }
+    
+    getAnalytics() {
+        return this.data.analytics;
+    }
+    
+    updateSettings(newSettings) {
+        this.data.settings = {
+            ...this.data.settings,
+            ...newSettings
+        };
+        
+        this.saveData();
+    }
+    
+    cleanupOldData() {
+        const cutoffDate = new Date();
+        cutoffDate.setDate(cutoffDate.getDate() - this.data.settings.dataRetentionDays);
+        const cutoffTimestamp = cutoffDate.toISOString();
+        
+        // Clean up old data
+        this.data.leads = this.data.leads.filter(lead => lead.timestamp >= cutoffTimestamp);
+        this.data.conversations = this.data.conversations.filter(conv => conv.timestamp >= cutoffTimestamp);
+        
+        // Keep all projects for record
+        
+        this.saveData();
+    }
 }
 
+// Initialize admin storage
+const adminStorage = new AdminStorage();
 // Enhanced analytics and learning
 function logInteraction(userMessage, botResponse, userSatisfaction = null) {
     const interaction = {
@@ -761,630 +1281,120 @@ function logInteraction(userMessage, botResponse, userSatisfaction = null) {
     }
     
     localStorage.setItem('peterbot_analytics', JSON.stringify(analytics));
-}
-
-// Add feedback system
-function addFeedbackButtons(messageElement) {
-    const feedbackDiv = document.createElement('div');
-    feedbackDiv.className = 'message-feedback';
-    feedbackDiv.innerHTML = `
-        <button class="feedback-btn positive" title="Helpful">👍</button>
-        <button class="feedback-btn negative" title="Not helpful">👎</button>
-    `;
     
-    messageElement.appendChild(feedbackDiv);
-    
-    // Add event listeners
-    feedbackDiv.querySelector('.positive').addEventListener('click', () => {
-        logInteraction('', '', 'positive');
-        feedbackDiv.innerHTML = '<span class="feedback-thanks">Thanks for your feedback! 😊</span>';
+    // Log to admin storage
+    const topic = detectTopic(userMessage);
+    adminStorage.logConversation({
+        userMessage,
+        botResponse,
+        topic,
+        satisfaction: userSatisfaction
     });
     
-    feedbackDiv.querySelector('.negative').addEventListener('click', () => {
-        logInteraction('', '', 'negative');
-        feedbackDiv.innerHTML = '<span class="feedback-thanks">Thanks! I\'ll improve. 🤔</span>';
-    });
+    // Check for lead or project intent
+    checkForLeadIntent(userMessage, botResponse);
 }
 
-// Enhanced message display with feedback
-function displayMessage(text, sender, animate = true) {
-    const messagesContainer = document.getElementById('peterbot-messages');
-    if (!messagesContainer) return;
+// Detect conversation topic
+function detectTopic(message) {
+    const msg = message.toLowerCase();
     
-    const messageDiv = document.createElement('div');
-    messageDiv.className = `message ${sender}-message`;
-    
-    if (animate) {
-        messageDiv.style.opacity = '0';
-        messageDiv.style.transform = 'translateY(20px)';
+    if (msg.includes('web') || msg.includes('website') || msg.includes('development')) {
+        return 'web';
     }
     
-    const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    if (msg.includes('virtual') || msg.includes('assistant') || msg.includes('va')) {
+        return 'va';
+    }
     
-    if (sender === 'bot') {
-        messageDiv.innerHTML = `
-            <div class="message-avatar">
-                <img src="${BOT_CONFIG.avatar}" alt="${BOT_CONFIG.name}">
-            </div>
-            <div class="message-content">
-                <div class="message-bubble">${text}</div>
-                <div class="message-time">${time}</div>
-            </div>`;
-    // Add feedback buttons for bot messages
-    setTimeout(() => {
-        addFeedbackButtons(messageDiv);
-    }, 1000);
-} else {
-    messageDiv.innerHTML = `
-        <div class="message-content">
-            <div class="message-bubble">${text}</div>
-            <div class="message-time">${time}</div>
-        </div>
-    `;
+    if (msg.includes('marketing') || msg.includes('promote') || msg.includes('seo') || msg.includes('social media')) {
+        return 'marketing';
+    }
+    
+    if (msg.includes('saxophone') || msg.includes('sax') || msg.includes('music') || msg.includes('performance')) {
+        return 'saxophone';
+    }
+    
+    if (msg.includes('price') || msg.includes('cost') || msg.includes('rate') || msg.includes('naira') || msg.includes('dollar')) {
+        return 'pricing';
+    }
+    
+    return 'general';
 }
 
-messagesContainer.appendChild(messageDiv);
-
-if (animate) {
-    setTimeout(() => {
-        messageDiv.style.opacity = '1';
-        messageDiv.style.transform = 'translateY(0)';
-    }, 50);
-}
-
-scrollToBottom();
-}
-
-// Enhanced CSS with feedback styles
-function addBotStyles() {
-if (document.getElementById('peterbot-styles')) return;
-    const styles = `
-    <style id="peterbot-styles">
-    /* Enhanced PeterBot Styles */
-    .peterbot-container {
-        position: fixed;
-        bottom: 20px;
-        left: 20px;
-        z-index: 10000;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
+// Check for lead or project intent
+function checkForLeadIntent(userMessage, botResponse) {
+    const msg = userMessage.toLowerCase();
     
-    .peterbot-toggle {
-        width: 60px;
-        height: 60px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        border-radius: 50%;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-        transition: all 0.3s ease;
-        position: relative;
-    }
-    
-    .peterbot-toggle:hover {
-        transform: scale(1.1);
-        box-shadow: 0 6px 25px rgba(0,0,0,0.2);
-    }
-    
-    .peterbot-toggle.hidden {
-        opacity: 0;
-        transform: scale(0);
-        pointer-events: none;
-    }
-    
-    .bot-avatar {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        border: 2px solid white;
-    }
-    
-    .pulse-ring {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        border: 2px solid #667eea;
-        border-radius: 50%;
-        animation: pulse 2s infinite;
-    }
-    
-    @keyframes pulse {
-        0% { transform: scale(1); opacity: 1; }
-        100% { transform: scale(1.5); opacity: 0; }
-    }
-    
-    .peterbot-chat {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 380px;
-        height: 550px;
-        background: white;
-        border-radius: 15px;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-        display: flex;
-        flex-direction: column;
-        opacity: 0;
-        transform: translateY(20px) scale(0.95);
-        pointer-events: none;
-        transition: all 0.3s ease;
-        overflow: hidden;
-    }
-    
-    .peterbot-chat.open {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        pointer-events: all;
-    }
-    
-    .peterbot-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 15px 20px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-    
-    .bot-info {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    
-    .bot-avatar-small {
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
-        border: 2px solid rgba(255,255,255,0.3);
-    }
-    
-    .bot-name {
-        font-weight: 600;
-        font-size: 16px;
-    }
-    
-    .bot-status {
-        font-size: 12px;
-        opacity: 0.8;
-    }
-    
-    .header-actions {
-        display: flex;
-        gap: 5px;
-    }
-    
-    .btn-icon {
-        background: none;
-        border: none;
-        color: white;
-        cursor: pointer;
-        padding: 5px;
-        border-radius: 5px;
-        transition: background 0.2s;
-    }
-    
-    .btn-icon:hover {
-        background: rgba(255,255,255,0.1);
-    }
-    
-    .peterbot-messages {
-        flex: 1;
-        padding: 20px;
-        overflow-y: auto;
-        background: #f8f9fa;
-    }
-    
-    .message {
-        margin-bottom: 15px;
-        display: flex;
-        transition: all 0.3s ease;
-    }
-    
-    .user-message {
-        justify-content: flex-end;
-    }
-    
-    .bot-message {
-        justify-content: flex-start;
-    }
-    
-    .message-avatar {
-        width: 30px;
-        height: 30px;
-        margin-right: 10px;
-        flex-shrink: 0;
-    }
-    
-    .message-avatar img {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-    }
-    
-    .message-content {
-        max-width: 85%;
-    }
-    
-    .message-bubble {
-        padding: 12px 16px;
-        border-radius: 18px;
-        word-wrap: break-word;
-        white-space: pre-line;
-        line-height: 1.4;
-    }
-    
-    .user-message .message-bubble {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border-bottom-right-radius: 5px;
-    }
-    
-    .bot-message .message-bubble {
-        background: white;
-        color: #333;
-        border: 1px solid #e9ecef;
-        border-bottom-left-radius: 5px;
-    }
-    
-    .message-time {
-        font-size: 11px;
-        color: #666;
-        margin-top: 5px;
-        text-align: right;
-    }
-    
-    .bot-message .message-time {
-        text-align: left;
-    }
-    
-    .message-feedback {
-        margin-top: 8px;
-        display: flex;
-        gap: 5px;
-        opacity: 0.7;
-    }
-    
-    .feedback-btn {
-        background: none;
-        border: none;
-        font-size: 14px;
-        cursor: pointer;
-        padding: 2px 5px;
-        border-radius: 3px;
-        transition: all 0.2s;
-    }
-    
-    .feedback-btn:hover {
-        background: #f0f0f0;
-        transform: scale(1.1);
-    }
-    
-    .feedback-thanks {
-        font-size: 11px;
-        color: #28a745;
-        font-style: italic;
-    }
-    
-    .typing-indicator .message-bubble {
-        padding: 16px;
-    }
-    
-    .typing-dots {
-        display: flex;
-        gap: 4px;
-    }
-    
-    .typing-dots span {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: #999;
-        animation: typing 1.4s infinite;
-    }
-    
-    .typing-dots span:nth-child(2) {
-        animation-delay: 0.2s;
-    }
-    
-    .typing-dots span:nth-child(3) {
-        animation-delay: 0.4s;
-    }
-    
-    @keyframes typing {
-        0%, 60%, 100% { transform: translateY(0); }
-        30% { transform: translateY(-10px); }
-    }
-    
-    .peterbot-quick-replies {
-        padding: 10px 20px;
-        background: white;
-        border-top: 1px solid #e9ecef;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        max-height: 120px;
-        overflow-y: auto;
-    }
-    
-    .quick-reply-btn {
-        background: #f8f9fa;
-        border: 1px solid #dee2e6;
-        border-radius: 20px;
-        padding: 8px 12px;
-        font-size: 12px;
-        cursor: pointer;
-        transition: all 0.2s;
-        white-space: nowrap;
-    }
-    
-    .quick-reply-btn:hover {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        transform: translateY(-1px);
-        box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
-    }
-    
-    .peterbot-input {
-        background: white;
-        border-top: 1px solid #e9ecef;
-        padding: 15px 20px;
-    }
-    
-    .input-container {
-        display: flex;
-        align-items: flex-end;
-        gap: 10px;
-    }
-    
-    #peterbot-input {
-        flex: 1;
-        border: 1px solid #dee2e6;
-        border-radius: 20px;
-        padding: 10px 15px;
-        font-size: 14px;
-        resize: none;
-        outline: none;
-        min-height: 20px;
-        max-height: 80px;
-        font-family: inherit;
-    }
-    
-    #peterbot-input:focus {
-        border-color: #667eea;
-        box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
-    }
-    
-    .send-button {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        border: none;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        color: white;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.2s;
-        flex-shrink: 0;
-    }
-    
-    .send-button:hover {
-        transform: scale(1.1);
-        box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
-    }
-    
-    .send-button:active {
-        transform: scale(0.95);
-    }
-    
-    /* Enhanced scrollbar */
-    .peterbot-messages::-webkit-scrollbar {
-        width: 6px;
-    }
-    
-    .peterbot-messages::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 3px;
-    }
-    
-    .peterbot-messages::-webkit-scrollbar-thumb {
-        background: #c1c1c1;
-        border-radius: 3px;
-    }
-    
-    .peterbot-messages::-webkit-scrollbar-thumb:hover {
-        background: #a8a8a8;
-    }
-    
-    /* Mobile Responsive */
-    @media (max-width: 768px) {
-        .peterbot-container {
-            bottom: 15px;
-            left: 15px;
-        }
+    // Check for web project lead
+    if ((msg.includes('need') || msg.includes('want') || msg.includes('looking for')) && 
+        (msg.includes('website') || msg.includes('web') || msg.includes('app'))) {
         
-        .peterbot-chat {
-            width: calc(100vw - 30px);
-            height: calc(100vh - 120px);
-            max-width: 380px;
-            max-height: 550px;
-        }
+        adminStorage.addLead({
+            type: 'web',
+            message: userMessage,
+            response: botResponse,
+            followUpScheduled: true,
+            priority: 'high'
+        });
+    }
+    
+    // Check for VA lead
+    if ((msg.includes('need') || msg.includes('want') || msg.includes('looking for')) && 
+        (msg.includes('assistant') || msg.includes('va') || msg.includes('help'))) {
         
-        .message-content {
-            max-width: 90%;
-        }
+        adminStorage.addLead({
+            type: 'va',
+            message: userMessage,
+            response: botResponse,
+            followUpScheduled: true,
+            priority: 'high'
+        });
+    }
+    
+    // Check for marketing lead
+    if ((msg.includes('need') || msg.includes('want') || msg.includes('looking for')) && 
+        (msg.includes('marketing') || msg.includes('promote') || msg.includes('seo'))) {
         
-        .peterbot-toggle {
-            width: 55px;
-            height: 55px;
-        }
+        adminStorage.addLead({
+            type: 'marketing',
+            message: userMessage,
+            response: botResponse,
+            followUpScheduled: true,
+            priority: 'high'
+        });
+    }
+    
+    // Check for saxophone booking
+    if ((msg.includes('book') || msg.includes('hire') || msg.includes('schedule')) && 
+        (msg.includes('saxophone') || msg.includes('performance') || msg.includes('event'))) {
         
-        .bot-avatar {
-            width: 35px;
-            height: 35px;
-        }
+        adminStorage.addProject({
+            type: 'saxophone',
+            message: userMessage,
+            response: botResponse,
+            followUpScheduled: true,
+            priority: 'medium'
+        });
     }
     
-    /* Animation for new messages */
-    @keyframes messageSlideIn {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    // Check for contact info (strong lead)
+    if (msg.includes('email') || msg.includes('phone') || msg.includes('contact') || msg.includes('whatsapp')) {
+        adminStorage.addLead({
+            type: 'contact_request',
+            message: userMessage,
+            response: botResponse,
+            priority: 'high',
+            followUpScheduled: true
+        });
     }
-    
-    .message {
-        animation: messageSlideIn 0.3s ease-out;
-    }
-    
-    /* Enhanced quick reply animations */
-    .quick-reply-btn {
-        animation: fadeInUp 0.3s ease-out;
-    }
-    
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    
-    /* Status indicator */
-    .bot-status::before {
-        content: '●';
-        color: #28a745;
-        margin-right: 5px;
-        animation: blink 2s infinite;
-    }
-    
-    @keyframes blink {
-        0%, 50% { opacity: 1; }
-        51%, 100% { opacity: 0.5; }
-    }
-    </style>
-`;
-
-document.head.insertAdjacentHTML('beforeend', styles);
 }
-
-// Enhanced initialization with error handling
-function initializeBot() {
-try {
-console.log('Initializing Enhanced PeterBot v2.0...');
-    // Load settings
-    loadBotSettings();
-    
-    // Create container
-    createBotContainer();
-    
-    // Create session
-    createNewSession();
-    
-    // Load history
-    loadChatHistory();
-    
-    // Welcome message
-    if (chatHistory.length === 0) {
-        setTimeout(() => {
-            addBotMessage(BOT_CONFIG.welcomeMessage);
-            showQuickReplies();
-        }, 1000);
-    } else {
-        // Show quick replies for existing conversation
-        setTimeout(() => {
-            showQuickReplies();
-        }, 500);
-    }
-    
-    console.log('Enhanced PeterBot v2.0 initialized successfully! 🚀');
-    
-    // Log initialization
-    logInteraction('system_init', 'Bot initialized successfully', 'positive');
-    
-} catch (error) {
-    console.error('Error initializing Enhanced PeterBot:', error);
-    
-    // Fallback initialization
-    setTimeout(() => {
-        initializeBot();
-    }, 2000);
-}
-    }
-
-// Enhanced session management
-function createNewSession() {
-currentSessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-chatHistory = [];
-    // Store session metadata
-const sessionData = {
-    id: currentSessionId,
-    startTime: new Date().toISOString(),
-    userAgent: navigator.userAgent,
-    referrer: document.referrer,
-    url: window.location.href
-};
-
-localStorage.setItem(`peterbot_session_${currentSessionId}`, JSON.stringify(sessionData));
-
-console.log('New enhanced session created:', currentSessionId);
-setTimeout(() => {
-    hideTypingIndicator();
-    
-    const response = getBotResponse(userMessage);
-    addBotMessage(response);
-    
-    // Log interaction
-    logInteraction(userMessage, response);
-    
-    // Show contextual quick replies
-    if (BOT_CONFIG.showQuickReplies) {
-        setTimeout(() => {
-            showQuickReplies();
-        }, 500);
-    }
-}, BOT_CONFIG.responseDelay);
-}
-
-// Export enhanced bot
-window.PeterBot = {
-init: initializeBot,
-config: BOT_CONFIG,
-knowledge: KNOWLEDGE_BASE,
-openChat: openChat,
-closeChat: closeChat,
-addMessage: addBotMessage,
-getAnalytics: () => JSON.parse(localStorage.getItem('peterbot_analytics') || '[]'),
-version: '2.0'
-};
-
-// Auto-initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', function() {
-console.log('DOM loaded, initializing Enhanced PeterBot v2.0...');
-initializeBot();
-});
-
-// Advanced Features Extension for Enhanced PeterBot v2.0
-console.log('Loading Advanced Features Extension...');
-
 // Advanced AI Response System
 class AdvancedAI {
     constructor() {
         this.learningData = this.loadLearningData();
         this.userProfiles = this.loadUserProfiles();
         this.conversationFlow = new Map();
-        this.sentimentAnalyzer = new SentimentAnalyzer();
     }
     
     // Sentiment Analysis for better responses
@@ -1407,9 +1417,9 @@ class AdvancedAI {
     // Smart lead qualification
     qualifyLead(message, userHistory) {
         const qualificationScore = {
-            budget_mentioned: /\$|\d+|budget|price|cost/.test(message.toLowerCase()) ? 20 : 0,
-            timeline_mentioned: /when|deadline|asap|soon|month|week/.test(message.toLowerCase()) ? 15 : 0,
-            specific_service: /beat|website|app|design|va|assistant/.test(message.toLowerCase()) ? 25 : 0,
+            budget_mentioned: /\$|\d+|budget|price|cost|naira|dollar/.test(message.toLowerCase()) ? 20 : 0,
+            timeline_mentioned: /when|deadline|asap|soon|month|week|date|schedule/.test(message.toLowerCase()) ? 15 : 0,
+            specific_service: /website|web|app|design|va|assistant|marketing|seo/.test(message.toLowerCase()) ? 25 : 0,
             contact_info: /email|phone|whatsapp|contact/.test(message.toLowerCase()) ? 30 : 0,
             return_visitor: userHistory.length > 3 ? 10 : 0
         };
@@ -1471,9 +1481,10 @@ class FollowUpSystem {
     getFollowUpMessage(type) {
         const messages = {
             'no_response': "👋 Hi! I noticed you were interested in Peter's services. Do you have any questions I can help with?",
-            'pricing_inquiry': "💰 Hi! You asked about pricing earlier. Would you like a detailed quote for your project?",
-            'service_interest': "🎯 Hello! You showed interest in our services. Ready to discuss your project in detail?",
-            'portfolio_request': "🎨 Hi! You wanted to see Peter's portfolio. I can share specific examples for your type of project!",
+            'web_inquiry': "💻 Hello! You showed interest in our web development services. Ready to discuss your project in detail?",
+            'va_inquiry': "👨‍💼 Hi! You inquired about virtual assistant services. Would you like to discuss how Peter can help streamline your business?",
+            'marketing_inquiry': "📊 Hello! You were interested in our digital marketing services. Would you like to explore how we can boost your online presence?",
+            'pricing_inquiry': "💰 Hi! You asked about pricing earlier. Would you like a detailed quote for your project in USD or Naira?",
             'contact_attempt': "📞 Hello! You were looking to contact Peter. He's available for a consultation - shall I help you schedule one?"
         };
         
@@ -1574,14 +1585,14 @@ class SuperEnhancedResponseGenerator extends EnhancedResponseGenerator {
         
         // Add urgency handling
         if (sentiment.urgency === 'high') {
-            enhanced += "\n\n⚡ I see this is urgent! Peter prioritizes time-sensitive projects. Let me connect you directly: 📱 WhatsApp: +1234567890";
+            enhanced += "\n\n⚡ I see this is urgent! Peter prioritizes time-sensitive projects. Let me connect you directly: 📱 WhatsApp: +234 8108821809";
         }
         
         // Add lead quality enhancements
         if (leadQuality.level === 'hot') {
             enhanced += "\n\n🔥 **Ready to get started?** Let me connect you with Peter directly for immediate assistance!";
-            enhanced += "\n📧 **Direct Email:** peter@peterlightspeed.com";
-            enhanced += "\n📱 **WhatsApp:** +1234567890";
+            enhanced += "\n📧 **Direct Email:** petereluwade55@gmail.com";
+            enhanced += "\n📱 **WhatsApp:** +234 8108821809";
         } else if (leadQuality.level === 'warm') {
             enhanced += "\n\n💡 **Next Steps:** I'd love to learn more about your project to provide the best assistance!";
         }
@@ -1594,6 +1605,18 @@ class SuperEnhancedResponseGenerator extends EnhancedResponseGenerator {
         
         if (msg.includes('think about it') || msg.includes('consider')) {
             this.followUpSystem.scheduleFollowUp('current_user', 'no_response', 2 * 60 * 60 * 1000); // 2 hours
+        }
+        
+        if (msg.includes('web') || msg.includes('website')) {
+            this.followUpSystem.scheduleFollowUp('current_user', 'web_inquiry', 4 * 60 * 60 * 1000); // 4 hours
+        }
+        
+        if (msg.includes('virtual') || msg.includes('assistant')) {
+            this.followUpSystem.scheduleFollowUp('current_user', 'va_inquiry', 6 * 60 * 60 * 1000); // 6 hours
+        }
+        
+        if (msg.includes('marketing') || msg.includes('promote')) {
+            this.followUpSystem.scheduleFollowUp('current_user', 'marketing_inquiry', 8 * 60 * 60 * 1000); // 8 hours
         }
         
         if (msg.includes('price') || msg.includes('cost')) {
@@ -1612,97 +1635,176 @@ class SuperEnhancedResponseGenerator extends EnhancedResponseGenerator {
             leadScore: leadQuality.score,
             leadLevel: leadQuality.level,
             timestamp: Date.now(),
-            messageCount: (this.userProfiles.current?.messageCount || 0) + 1
+            messageCount: (this.userProfiles?.current?.messageCount || 0) + 1
         };
         
+        this.userProfiles = this.userProfiles || {};
         this.userProfiles.current = profile;
         localStorage.setItem('peterbot_profiles', JSON.stringify(this.userProfiles));
     }
 }
+// Initialize enhanced systems
+const superAI = new SuperEnhancedResponseGenerator();
+const followUpSystem = new FollowUpSystem();
 
-// Smart Project Calculator
-class ProjectCalculator {
-    constructor() {
-        this.projectData = {};
+// Enhanced getBotResponse function with AI
+function getBotResponse(message) {
+    const context = chatHistory.slice(-6).map(msg => ({
+        text: msg.text,
+        sender: msg.sender
+    }));
+    
+    // Check for special commands first
+    if (message.toLowerCase().includes('get quote')) {
+        const projectType = extractProjectType(message);
+        return getQuoteResponse(projectType);
     }
     
-    calculateEstimate(projectType, requirements) {
-        const basePrices = {
-            music: {
-                beat: { min: 50, max: 200 },
-                mixing: { min: 100, max: 300 },
-                mastering: { min: 50, max: 150 },
-                jingle: { min: 150, max: 500 }
-            },
-            web: {
-                simple: { min: 500, max: 1500 },
-                business: { min: 1500, max: 5000 },
-                ecommerce: { min: 3000, max: 8000 },
-                app: { min: 5000, max: 15000 }
-            },
-            va: {
-                hourly: { min: 15, max: 35 },
-                parttime: { min: 800, max: 1500 },
-                fulltime: { min: 1500, max: 3000 }
-            }
-        };
-        
-        let estimate = basePrices[projectType] || { min: 100, max: 500 };
-        
-        // Apply multipliers based on requirements
-        if (requirements.includes('urgent')) {
-            estimate.min *= 1.5;
-            estimate.max *= 1.5;
-        }
-        
-        if (requirements.includes('complex')) {
-            estimate.min *= 1.3;
-            estimate.max *= 1.3;
-        }
-        
-        return {
-            range: `$${Math.round(estimate.min)}-${Math.round(estimate.max)}`,
-            factors: this.getEstimateFactors(requirements)
-        };
+    if (message.toLowerCase().includes('schedule') || message.toLowerCase().includes('book') || message.toLowerCase().includes('consultation')) {
+        return getConsultationResponse(message);
     }
     
-    getEstimateFactors(requirements) {
-        const factors = [];
-        
-        if (requirements.includes('urgent')) factors.push('Rush delivery (+50%)');
-        if (requirements.includes('complex')) factors.push('Complex requirements (+30%)');
-        if (requirements.includes('revisions')) factors.push('Multiple revisions included');
-        
-        return factors;
+    if (message.toLowerCase().includes('portfolio') || message.toLowerCase().includes('samples') || message.toLowerCase().includes('examples')) {
+        const category = extractCategory(message);
+        return getPortfolioResponse(category);
     }
+    
+    // Use AI-enhanced response generation
+    return superAI.generateResponse(message, context);
 }
 
-// Enhanced Quick Actions
-const ENHANCED_QUICK_ACTIONS = {
-    getQuote: (projectType) => {
-        return `🎯 **Get Instant Quote for ${projectType}:**
-        
+// Helper functions
+function extractProjectType(message) {
+    const msg = message.toLowerCase();
+    if (msg.includes('web') || msg.includes('website')) return 'Web Development';
+    if (msg.includes('va') || msg.includes('assistant')) return 'Virtual Assistant';
+    if (msg.includes('marketing')) return 'Digital Marketing';
+    if (msg.includes('saxophone') || msg.includes('music')) return 'Saxophone Performance';
+    return 'Custom Project';
+}
+
+function extractCategory(message) {
+    const msg = message.toLowerCase();
+    if (msg.includes('web') || msg.includes('website')) return 'web';
+    if (msg.includes('va') || msg.includes('assistant')) return 'va';
+    if (msg.includes('marketing')) return 'marketing';
+    if (msg.includes('saxophone') || msg.includes('music')) return 'saxophone';
+    return 'web';
+}
+
+function getQuoteResponse(projectType) {
+    return `🎯 **Get Instant Quote for ${projectType}:**
+    
 Please tell me:
-1️⃣ Project scope/requirements
+1️⃣ Project details and requirements
 2️⃣ Timeline/deadline
-3️⃣ Budget range
+3️⃣ Budget range (USD or Naira)
 4️⃣ Any special requirements
 
 I'll provide an accurate quote within minutes! 💰`;
-    },
+}
+
+function getConsultationResponse(message) {
+    const msg = message.toLowerCase();
     
-    scheduleCall: () => {
-        return `📞 **Schedule a Call with Peter:**
+    if (msg.includes('web') || msg.includes('website')) {
+        return `💻 **Schedule a Web Development Consultation:**
+        
+To discuss your web project with Peter:
+
+1️⃣ **Project Information:**
+   • Type of website/application needed
+   • Key features and functionality
+   • Design preferences (if any)
+   • Timeline expectations
+
+2️⃣ **Available Consultation Times:**
+   • Monday-Friday: 9 AM - 6 PM WAT
+   • Saturday: 10 AM - 2 PM WAT
+   • Emergency projects: 24/7 availability
+
+3️⃣ **Consultation Process:**
+   • 30-minute initial consultation (free)
+   • Project scope discussion
+   • Technology recommendations
+   • Timeline and budget planning
+
+**Contact to Schedule:**
+📱 WhatsApp: +234 8108821809
+📧 Email: petereluwade55@gmail.com
+
+Ready to bring your web project to life? Let's schedule your consultation! 🚀`;
+    }
+    
+    if (msg.includes('va') || msg.includes('virtual') || msg.includes('assistant')) {
+        return `👨‍💼 **Schedule a Virtual Assistant Consultation:**
+        
+To discuss how Peter can help streamline your business:
+
+1️⃣ **Business Information:**
+   • Type of business/industry
+   • Current pain points
+   • Tasks requiring assistance
+   • Hours of support needed
+
+2️⃣ **Available Consultation Times:**
+   • Monday-Friday: 9 AM - 6 PM WAT
+   • Saturday: 10 AM - 2 PM WAT
+   • Flexible scheduling available
+
+3️⃣ **Consultation Process:**
+   • 30-minute initial consultation (free)
+   • Workflow assessment
+   • Task prioritization
+   • Custom VA solution planning
+
+**Contact to Schedule:**
+📱 WhatsApp: +234 8108821809
+📧 Email: petereluwade55@gmail.com
+
+Ready to reclaim your time and boost productivity? Let's talk! ⏰`;
+    }
+    
+    if (msg.includes('marketing') || msg.includes('digital marketing')) {
+        return `📊 **Schedule a Digital Marketing Consultation:**
+        
+To discuss growing your online presence:
+
+1️⃣ **Business Information:**
+   • Current online presence
+   • Target audience
+   • Marketing goals
+   • Previous marketing efforts
+
+2️⃣ **Available Consultation Times:**
+   • Monday-Friday: 9 AM - 6 PM WAT
+   • Saturday: 10 AM - 2 PM WAT
+   • Flexible scheduling available
+
+3️⃣ **Consultation Process:**
+   • 30-minute initial consultation (free)
+   • Digital presence audit
+   • Strategy recommendations
+   • ROI projection planning
+
+**Contact to Schedule:**
+📱 WhatsApp: +234 8108821809
+📧 Email: petereluwade55@gmail.com
+
+Ready to boost your online visibility and engagement? Let's connect! 📈`;
+    }
+    
+    return `📅 **Schedule a Consultation with Peter:**
         
 🗓️ **Available Times:**
-• Monday-Friday: 9 AM - 6 PM EST
-• Saturday: 10 AM - 2 PM EST
+• Monday-Friday: 9 AM - 6 PM WAT
+• Saturday: 10 AM - 2 PM WAT
 • Emergency projects: 24/7 availability
 
 **To schedule:**
-📧 Email: peter@peterlightspeed.com
-📱 WhatsApp: +1234567890
-💬 Telegram: @peterphonist
+📧 Email: petereluwade55@gmail.com
+📱 WhatsApp: +234 8108821809
+💬 Telegram: @peterlightspeed
 
 **What to prepare:**
 ✅ Project details
@@ -1710,31 +1812,14 @@ I'll provide an accurate quote within minutes! 💰`;
 ✅ Budget expectations
 ✅ Reference materials
 
+**All initial consultations are free!**
+
 Ready to book your consultation? 🚀`;
-    },
-    
-    viewSamples: (category) => {
-        const samples = {
-            music: `🎵 **Music Samples (Peterphonist):**
-            
-🎧 **Listen Now:**
-• Spotify: Peterphonist
-• SoundCloud: peterphonist
-• YouTube: @peterphonist
+}
 
-🎼 **Sample Beats:**
-• Hip-Hop: "Urban Vibes" - 2M+ plays
-• Pop: "Sunset Dreams" - 1.5M+ plays  
-• Electronic: "Digital Pulse" - 800K+ plays
-• R&B: "Smooth Nights" - 1.2M+ plays
-
-🎯 **Client Testimonials:**
-"Peterphonist delivered exactly what I needed!" - Artist MC Flow
-"Professional quality, fast delivery!" - Singer Luna Rose
-
-Want a custom beat in your style? 🎵`,
-
-            web: `💻 **Web Development Portfolio:**
+function getPortfolioResponse(category) {
+    const portfolios = {
+        web: `💻 **Web Development Portfolio:**
             
 🌐 **Recent Projects:**
 • E-commerce: Fashion store (+300% sales)
@@ -1753,9 +1838,13 @@ Want a custom beat in your style? 🎵`,
 • Average 40% speed improvement
 • 200% increase in conversions
 
+**Client Testimonials:**
+"Peter transformed our outdated website into a modern, user-friendly platform that's doubled our leads!" - Marketing Agency
+"Our e-commerce sales increased by 300% after the redesign" - Fashion Retailer
+
 Ready to see your project come to life? 🚀`,
 
-            va: `👨‍💼 **Virtual Assistant Success Stories:**
+        va: `👨‍💼 **Virtual Assistant Success Stories:**
             
 📈 **Client Results:**
 • 40% efficiency improvement
@@ -1775,154 +1864,518 @@ Ready to see your project come to life? 🚀`,
 • Healthcare & Wellness
 • Technology & Startups
 
-Ready to scale your business? 📊`
-        };
+**Client Testimonials:**
+"Peter's VA services saved me 15+ hours per week that I can now spend on growing my business" - E-commerce Owner
+"Our customer response time went from 24 hours to under 2 hours" - Service Business
+
+Ready to scale your business with professional VA support? 📊`,
+
+        marketing: `📊 **Digital Marketing Portfolio:**
+            
+📱 **Social Media Campaigns:**
+• Fashion Brand: 200% follower growth in 3 months
+• Restaurant: 150% increase in engagement
+• Service Business: 300% increase in leads from social
+
+🔍 **SEO Success Stories:**
+• Local Business: From page 5 to page 1 in 2 months
+• E-commerce: 80% increase in organic traffic
+• Blog: 200% increase in search visibility
+
+📧 **Email Marketing Results:**
+• Retail: 25% open rate, 10% conversion rate
+• B2B: 35% open rate, 15% meeting booking rate
+• Nonprofit: 40% open rate, 20% donation rate
+
+**Client Testimonials:**
+"Peter's marketing strategies helped us reach a completely new audience" - Retail Store
+"Our social media presence has completely transformed" - Service Business
+
+Ready to transform your digital presence? 📈`,
+
+        saxophone: `🎷 **Saxophone Performance Portfolio:**
+            
+🎧 **Listen Now:**
+• YouTube: @peterphonist
+• Audiomack: peterphonist
+• Instagram: @peterphonist (performance videos)
+
+🎵 **Performance Highlights:**
+• Corporate Events: Annual galas and product launches
+• Weddings: Ceremony and reception performances
+• Church Programs: Worship services and special events
+• Recording Sessions: Studio work for various artists
+
+**Client Testimonials:**
+"Peter's saxophone performance added the perfect elegant touch to our wedding" - Happy Couple
+"His music created the exact atmosphere we wanted for our corporate event" - Event Planner
+
+Interested in booking a performance for your event? 🎵`
+    };
+    
+    return portfolios[category] || portfolios.web;
+}
+// Enhanced process bot response with logging
+function processBotResponse(userMessage) {
+    showTypingIndicator();
+    
+    setTimeout(() => {
+        hideTypingIndicator();
         
-        return samples[category] || samples.web;
-    }
-};
-
-// Initialize enhanced systems
-const superAI = new SuperEnhancedResponseGenerator();
-const projectCalculator = new ProjectCalculator();
-const followUpSystem = new FollowUpSystem();
-
-// Enhanced getBotResponse function with AI
-function getBotResponse(message) {
-    const context = chatHistory.slice(-6).map(msg => ({
-        text: msg.text,
-        sender: msg.sender
-    }));
-    
-    // Check for special commands first
-    if (message.toLowerCase().includes('get quote')) {
-        const projectType = extractProjectType(message);
-        return ENHANCED_QUICK_ACTIONS.getQuote(projectType);
-    }
-    
-    if (message.toLowerCase().includes('schedule call') || message.toLowerCase().includes('book consultation')) {
-        return ENHANCED_QUICK_ACTIONS.scheduleCall();
-    }
-    
-    if (message.toLowerCase().includes('samples') || message.toLowerCase().includes('portfolio')) {
-        const category = extractCategory(message);
-        return ENHANCED_QUICK_ACTIONS.viewSamples(category);
-    }
-    
-    // Use AI-enhanced response generation
-    return superAI.generateResponse(message, context);
+        const response = getBotResponse(userMessage);
+        addBotMessage(response);
+        
+        // Log interaction
+        logInteraction(userMessage, response);
+        
+        // Show contextual quick replies
+        if (BOT_CONFIG.showQuickReplies) {
+            setTimeout(() => {
+                showQuickReplies();
+            }, 500);
+        }
+    }, BOT_CONFIG.responseDelay);
 }
-
-// Helper functions
-function extractProjectType(message) {
-    const msg = message.toLowerCase();
-    if (msg.includes('music') || msg.includes('beat')) return 'Music Production';
-    if (msg.includes('web') || msg.includes('website')) return 'Web Development';
-    if (msg.includes('va') || msg.includes('assistant')) return 'Virtual Assistant';
-    return 'Custom Project';
-}
-
-function extractCategory(message) {
-    const msg = message.toLowerCase();
-    if (msg.includes('music') || msg.includes('beat')) return 'music';
-    if (msg.includes('web') || msg.includes('website')) return 'web';
-    if (msg.includes('va') || msg.includes('assistant')) return 'va';
-    return 'web';
-}
-
-// Enhanced Quick Replies with Smart Suggestions
-function getContextualQuickReplies() {
-    const lastBotMessage = chatHistory.slice().reverse().find(msg => msg.sender === 'bot');
-    const userProfile = JSON.parse(localStorage.getItem('peterbot_profiles') || '{}').current;
+// Enhanced CSS with feedback styles
+function addBotStyles() {
+    if (document.getElementById('peterbot-styles')) return;
     
-    // Smart suggestions based on user behavior
-    if (userProfile?.leadLevel === 'hot') {
-        return [
-            "📞 Schedule Call Now",
-            "💰 Get Custom Quote", 
-            "📧 Contact Directly",
-            "🎯 View Portfolio",
-            "⚡ Rush Project"
-        ];
-    }
-    
-    if (userProfile?.leadLevel === 'warm') {
-        return [
-            "💰 Pricing Calculator",
-            "🎨 View Samples",
-            "📋 Project Details", 
-            "📞 Free Consultation",
-            "🤝 Partnership Info"
-        ];
-    }
-    
-    // Context-based suggestions
-    if (!lastBotMessage) {
-        return [
-            "🎵 Music Production",
-            "💻 Web Development", 
-            "👨‍💼 Virtual Assistant",
-            "💰 Get Quote",
-            "🤝 Sponsorship"
-        ];
-    }
-    
-    const lastMessage = lastBotMessage.text.toLowerCase();
-    
-    if (lastMessage.includes('music') || lastMessage.includes('peterphonist')) {
-        return [
-            "🎧 Hear Samples",
-            "💰 Beat Pricing",
-            "🎵 Custom Order",
-            "📱 Follow @peterphonist",
-            "🤝 Collaboration"
-        ];
-    }
-    
-    if (lastMessage.includes('web') || lastMessage.includes('development')) {
-        return [
-            "🌐 View Portfolio",
-            "💰 Website Quote", 
-            "🛒 E-commerce Info",
-            "📱 Mobile Apps",
-            "🔧 Maintenance"
-        ];
-    }
-    
-    if (lastMessage.includes('virtual assistant') || lastMessage.includes('va')) {
-        return [
-            "📋 VA Services",
-            "💰 VA Pricing",
-            "📊 Success Stories",
-            "⏰ Availability",
-            "🤝 Long-term Deal"
-        ];
-    }
-    
-    if (lastMessage.includes('sponsor') || lastMessage.includes('partnership')) {
-        return [
-            "📧 Sponsorship Email",
-            "📊 Audience Stats",
-            "🎯 Partnership Types",
-            "💼 Brand Deals",
-            "📱 Social Reach"
-        ];
-    }
-    
-    // Default smart suggestions
-    return [
-        "📞 Contact Peter",
-        "🎨 View Portfolio",
-        "💰 Get Quote",
-        "🤝 Partnership",
-        "❓ Ask Question"
-    ];
-}
-
-// Enhanced CSS for new features
-function addEnhancedStyles() {
-    const additionalStyles = `
-        <style id="peterbot-enhanced-styles">
+    const styles = `
+        <style id="peterbot-styles">
+        /* Enhanced PeterBot Styles */
+        .peterbot-container {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 10000;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .peterbot-toggle {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .peterbot-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.2);
+        }
+        
+        .peterbot-toggle.hidden {
+            opacity: 0;
+            transform: scale(0);
+            pointer-events: none;
+        }
+        
+        .bot-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+        
+        .pulse-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid #667eea;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+        
+        .peterbot-chat {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 380px;
+            height: 550px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+            pointer-events: none;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .peterbot-chat.open {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: all;
+        }
+        
+        .peterbot-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .bot-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .bot-avatar-small {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        
+        .bot-name {
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .bot-status {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .btn-icon {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 5px;
+            transition: background 0.2s;
+        }
+        
+        .btn-icon:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .peterbot-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            transition: all 0.3s ease;
+        }
+        
+        .user-message {
+            justify-content: flex-end;
+        }
+        
+        .bot-message {
+            justify-content: flex-start;
+        }
+        
+        .message-avatar {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        
+        .message-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+        
+        .message-content {
+            max-width: 85%;
+        }
+        
+        .message-bubble {
+            padding: 12px 16px;
+            border-radius: 18px;
+            word-wrap: break-word;
+            white-space: pre-line;
+            line-height: 1.4;
+        }
+        
+        .user-message .message-bubble {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .bot-message .message-bubble {
+            background: white;
+            color: #333;
+            border: 1px solid #e9ecef;
+            border-bottom-left-radius: 5px;
+        }
+        
+        .message-time {
+            font-size: 11px;
+            color: #666;
+            margin-top: 5px;
+            text-align: right;
+        }
+        
+        .bot-message .message-time {
+            text-align: left;
+        }
+        
+        .message-feedback {
+            margin-top: 8px;
+            display: flex;
+            gap: 5px;
+            opacity: 0.7;
+        }
+        
+        .feedback-btn {
+            background: none;
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 2px 5px;
+            border-radius: 3px;
+            transition: all 0.2s;
+        }
+        
+        .feedback-btn:hover {
+            background: #f0f0f0;
+            transform: scale(1.1);
+        }
+        
+        .feedback-thanks {
+            font-size: 11px;
+            color: #28a745;
+            font-style: italic;
+        }
+        
+        .typing-indicator .message-bubble {
+            padding: 16px;
+        }
+        
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+        }
+        
+        .typing-dots span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #999;
+            animation: typing 1.4s infinite;
+        }
+        
+        .typing-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-10px); }
+        }
+        
+        .peterbot-quick-replies {
+            padding: 10px 20px;
+            background: white;
+            border-top: 1px solid #e9ecef;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            max-height: 120px;
+            overflow-y: auto;
+        }
+        
+        .quick-reply-btn {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 20px;
+            padding: 8px 12px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        
+        .quick-reply-btn:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+        
+        .peterbot-input {
+            background: white;
+            border-top: 1px solid #e9ecef;
+            padding: 15px 20px;
+        }
+        
+        .input-container {
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+        }
+        
+        #peterbot-input {
+            flex: 1;
+            border: 1px solid #dee2e6;
+            border-radius: 20px;
+            padding: 10px 15px;
+            font-size: 14px;
+            resize: none;
+            outline: none;
+            min-height: 20px;
+            max-height: 80px;
+            font-family: inherit;
+        }
+        
+        #peterbot-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+        }
+        
+        .send-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        
+        .send-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+        
+        .send-button:active {
+            transform: scale(0.95);
+        }
+        
+        /* Enhanced scrollbar */
+        .peterbot-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .peterbot-messages::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+        
+        .peterbot-messages::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 3px;
+        }
+        
+        .peterbot-messages::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .peterbot-container {
+                bottom: 15px;
+                left: 15px;
+            }
+            
+            .peterbot-chat {
+                width: calc(100vw - 30px);
+                height: calc(100vh - 120px);
+                max-width: 380px;
+                max-height: 550px;
+            }
+            
+            .message-content {
+                max-width: 90%;
+            }
+            
+            .peterbot-toggle {
+                width: 55px;
+                height: 55px;
+            }
+            
+            .bot-avatar {
+                width: 35px;
+                height: 35px;
+            }
+        }
+        
+        /* Animation for new messages */
+        @keyframes messageSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .message {
+            animation: messageSlideIn 0.3s ease-out;
+        }
+        
+        /* Enhanced quick reply animations */
+        .quick-reply-btn {
+            animation: fadeInUp 0.3s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Status indicator */
+        .bot-status::before {
+            content: '●';
+            color: #28a745;
+            margin-right: 5px;
+            animation: blink 2s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.5; }
+        }
+        
         /* Notification Badge */
         .notification-badge {
             position: absolute;
@@ -1946,140 +2399,73 @@ function addEnhancedStyles() {
             50% { transform: scale(1.2); }
             100% { transform: scale(1); }
         }
-        
-        /* Enhanced Quick Reply Buttons */
-        .quick-reply-btn.priority {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
-            color: white;
-            font-weight: 600;
-            animation: glow 2s infinite alternate;
-        }
-        
-        @keyframes glow {
-            from { box-shadow: 0 0 5px rgba(255, 107, 107, 0.5); }
-            to { box-shadow: 0 0 20px rgba(255, 107, 107, 0.8); }
-        }
-        
-        /* Lead Quality Indicators */
-        .message.hot-lead .message-bubble {
-            border-left: 4px solid #ff6b6b;
-        }
-        
-        .message.warm-lead .message-bubble {
-            border-left: 4px solid #ffa502;
-        }
-        
-        .message.cold-lead .message-bubble {
-            border-left: 4px solid #70a1ff;
-        }
-        
-        /* Smart Suggestions */
-        .smart-suggestion {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 10px;
-            margin: 5px 0;
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .smart-suggestion:hover {
-            transform: translateX(5px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-        }
-        
-        /* Enhanced Status Indicators */
-        .typing-indicator-enhanced {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px;
-            background: rgba(102, 126, 234, 0.1);
-            border-radius: 10px;
-            margin: 10px 0;
-        }
-        
-        .ai-thinking {
-            color: #667eea;
-            font-style: italic;
-            font-size: 12px;
-        }
         </style>
     `;
     
-    document.head.insertAdjacentHTML('beforeend', additionalStyles);
+    document.head.insertAdjacentHTML('beforeend', styles);
 }
-
-// Initialize all enhanced features
-function initializeEnhancedFeatures() {
-    // Add enhanced styles
-    addEnhancedStyles();
-    
-    // Initialize AI systems
-    console.log('🤖 AI Systems initialized');
-    console.log('📊 Analytics tracking enabled');
-    console.log('🔄 Follow-up system active');
-    console.log('💡 Smart suggestions ready');
-    
-    // Setup advanced event listeners
-    setupAdvancedEventListeners();
-}
-
-function setupAdvancedEventListeners() {
-    // Track user engagement
-    document.addEventListener('click', (e) => {
-        if (e.target.closest('.peterbot-container')) {
-            logUserEngagement('click', e.target.className);
-        }
-    });
-    
-    // Track scroll behavior in chat
-    const messagesContainer = document.getElementById('peterbot-messages');
-    if (messagesContainer) {
-        messagesContainer.addEventListener('scroll', () => {
-            logUserEngagement('scroll', 'messages');
-        });
-    }
-    
-    // Track typing patterns
-    const input = document.getElementById('peterbot-input');
-    if (input) {
-        let typingTimer;
-        input.addEventListener('input', () => {
-            clearTimeout(typingTimer);
-            typingTimer = setTimeout(() => {
-                logUserEngagement('typing_pause', input.value.length);
+// Enhanced initialization with error handling
+function initializeBot() {
+    try {
+        console.log('Initializing Enhanced PeterBot v2.0...');
+        
+        // Load settings
+        loadBotSettings();
+        
+        // Create container
+        createBotContainer();
+        
+        // Create session
+        createNewSession();
+        
+        // Load history
+        loadChatHistory();
+        
+        // Welcome message
+        if (chatHistory.length === 0) {
+            setTimeout(() => {
+                addBotMessage(BOT_CONFIG.welcomeMessage);
+                showQuickReplies();
             }, 1000);
-        });
+        } else {
+            // Show quick replies for existing conversation
+            setTimeout(() => {
+                showQuickReplies();
+            }, 500);
+        }
+        
+        console.log('Enhanced PeterBot v2.0 initialized successfully! 🚀');
+        
+        // Log initialization
+        logInteraction('system_init', 'Bot initialized successfully', 'positive');
+        
+    } catch (error) {
+        console.error('Error initializing Enhanced PeterBot:', error);
+        
+        // Fallback initialization
+        setTimeout(() => {
+            initializeBot();
+        }, 2000);
     }
 }
 
-function logUserEngagement(action, data) {
-    const engagement = {
-        timestamp: Date.now(),
-        action: action,
-        data: data,
-        sessionId: currentSessionId
-    };
-    
-    let engagementLog = JSON.parse(localStorage.getItem('peterbot_engagement') || '[]');
-    engagementLog.push(engagement);
-    
-    // Keep only last 50 engagement events
-    if (engagementLog.length > 50) {
-        engagementLog = engagementLog.slice(-50);
-    }
-    
-    localStorage.setItem('peterbot_engagement', JSON.stringify(engagementLog));
-}
+// Export enhanced bot
+window.PeterBot = {
+    init: initializeBot,
+    config: BOT_CONFIG,
+    knowledge: KNOWLEDGE_BASE,
+    openChat: openChat,
+    closeChat: closeChat,
+    addMessage: addBotMessage,
+    getAnalytics: () => JSON.parse(localStorage.getItem('peterbot_analytics') || '[]'),
+    getAdminData: () => adminStorage.data,
+    version: '2.0'
+};
 
-// Initialize enhanced features when DOM is ready
+// Auto-initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(() => {
-        initializeEnhancedFeatures();
-    }, 1000);
+    console.log('DOM loaded, initializing Enhanced PeterBot v2.0...');
+    initializeBot();
 });
 
-console.log('🚀 Enhanced PeterBot v2.0 with Advanced AI Features loaded! 🎵💻🤖');
+console.log('Enhanced PeterBot v2.0 script loaded successfully! 💻👨‍💼📊');
