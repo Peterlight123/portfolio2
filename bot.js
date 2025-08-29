@@ -1,3 +1,4 @@
+
 // Enhanced PeterBot - Advanced AI Assistant
 console.log('Loading Enhanced PeterBot v2.0...');
 
@@ -12,6 +13,12 @@ const BOT_CONFIG = {
     version: '2.0',
     lastUpdated: new Date().toISOString()
 };
+ jshint esversion: 11 
+ jshint unused:false 
+
+let chatHistory = [];
+let currentSessionId = null;
+
 // Enhanced Knowledge Base
 const KNOWLEDGE_BASE = {
     personal: {
@@ -215,6 +222,372 @@ const KNOWLEDGE_BASE = {
         }
     }
 };
+// Basic bot functions
+function loadBotSettings() {
+    // Load settings from localStorage if available
+    try {
+        const savedSettings = localStorage.getItem('peterbot_settings');
+        if (savedSettings) {
+            const parsedSettings = JSON.parse(savedSettings);
+            Object.assign(BOT_CONFIG, parsedSettings);
+        }
+    } catch (error) {
+        console.error('Error loading bot settings:', error);
+    }
+}
+
+function createBotContainer() {
+    // Create the bot container if it doesn't exist
+    if (document.getElementById('peterbot-container')) return;
+    
+    const container = document.createElement('div');
+    container.id = 'peterbot-container';
+    container.className = 'peterbot-container';
+    
+    // Create toggle button
+    const toggle = document.createElement('div');
+    toggle.id = 'peterbot-toggle';
+    toggle.className = 'peterbot-toggle';
+    toggle.innerHTML = `
+        <div class="pulse-ring"></div>
+        <img src="${BOT_CONFIG.avatar}" alt="${BOT_CONFIG.name}" class="bot-avatar">
+    `;
+    toggle.addEventListener('click', toggleChat);
+    
+    // Create chat interface
+    const chat = document.createElement('div');
+    chat.id = 'peterbot-chat';
+    chat.className = 'peterbot-chat';
+    chat.innerHTML = `
+        <div class="peterbot-header">
+            <div class="bot-info">
+                <img src="${BOT_CONFIG.avatar}" alt="${BOT_CONFIG.name}" class="bot-avatar-small">
+                <div>
+                    <div class="bot-name">${BOT_CONFIG.name}</div>
+                    <div class="bot-status">Online</div>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="btn-icon" id="peterbot-minimize">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M14 8a.5.5 0 0 1-.5.5H1.5a.5.5 0 0 1 0-1H13.5a.5.5 0 0 1 .5.5z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="peterbot-messages" id="peterbot-messages"></div>
+        <div class="peterbot-quick-replies" id="peterbot-quick-replies" style="display: none;"></div>
+        <div class="peterbot-input">
+            <div class="input-container">
+                <textarea id="peterbot-input" placeholder="Type a message..." rows="1"></textarea>
+                <button class="send-button" id="peterbot-send">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    `;
+    
+    // Add event listeners
+    document.addEventListener('DOMContentLoaded', () => {
+        const sendButton = document.getElementById('peterbot-send');
+        const inputField = document.getElementById('peterbot-input');
+        const minimizeButton = document.getElementById('peterbot-minimize');
+        
+        if (sendButton) {
+            sendButton.addEventListener('click', sendMessage);
+        }
+        
+        if (inputField) {
+            inputField.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+                
+                // Auto-resize textarea
+                inputField.style.height = 'auto';
+                inputField.style.height = (inputField.scrollHeight) + 'px';
+            });
+            
+            inputField.addEventListener('input', () => {
+                // Auto-resize textarea
+                inputField.style.height = 'auto';
+                inputField.style.height = (inputField.scrollHeight) + 'px';
+            });
+        }
+        
+        if (minimizeButton) {
+            minimizeButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                closeChat();
+            });
+        }
+    });
+    
+    container.appendChild(toggle);
+    container.appendChild(chat);
+    document.body.appendChild(container);
+    
+    // Add styles
+    addBotStyles();
+}
+
+function createNewSession() {
+    currentSessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    chatHistory = [];
+    
+    // Store session metadata
+    const sessionData = {
+        id: currentSessionId,
+        startTime: new Date().toISOString(),
+        userAgent: navigator.userAgent,
+        referrer: document.referrer,
+        url: window.location.href
+    };
+    
+    localStorage.setItem(`peterbot_session_${currentSessionId}`, JSON.stringify(sessionData));
+    
+    console.log('New enhanced session created:', currentSessionId);
+}
+
+function loadChatHistory() {
+    // Try to load chat history from localStorage
+    try {
+        const savedHistory = localStorage.getItem(`peterbot_history_${currentSessionId}`);
+        if (savedHistory) {
+            chatHistory = JSON.parse(savedHistory);
+            
+            // Display loaded messages
+            chatHistory.forEach(msg => {
+                displayMessage(msg.text, msg.sender, false);
+            });
+            
+            scrollToBottom();
+        }
+    } catch (error) {
+        console.error('Error loading chat history:', error);
+        chatHistory = [];
+    }
+}
+
+function toggleChat() {
+    const chat = document.getElementById('peterbot-chat');
+    const toggle = document.getElementById('peterbot-toggle');
+    
+    if (chat.classList.contains('open')) {
+        closeChat();
+    } else {
+        openChat();
+    }
+}
+
+function openChat() {
+    const chat = document.getElementById('peterbot-chat');
+    const toggle = document.getElementById('peterbot-toggle');
+    
+    chat.classList.add('open');
+    toggle.classList.add('hidden');
+    
+    // Remove notification badge if exists
+    const badge = toggle.querySelector('.notification-badge');
+    if (badge) {
+        badge.remove();
+    }
+    
+    // Focus input field
+    setTimeout(() => {
+        const input = document.getElementById('peterbot-input');
+        if (input) input.focus();
+    }, 300);
+    
+    scrollToBottom();
+}
+
+function closeChat() {
+    const chat = document.getElementById('peterbot-chat');
+    const toggle = document.getElementById('peterbot-toggle');
+    
+    chat.classList.remove('open');
+    toggle.classList.remove('hidden');
+}
+
+function sendMessage() {
+    const input = document.getElementById('peterbot-input');
+    const message = input.value.trim();
+    
+    if (message) {
+        // Add user message
+        addUserMessage(message);
+        
+        // Clear input
+        input.value = '';
+        input.style.height = 'auto';
+        
+        // Process bot response
+        processBotResponse(message);
+    }
+}
+
+function addUserMessage(text) {
+    displayMessage(text, 'user');
+    
+    // Add to chat history
+    chatHistory.push({
+        text: text,
+        sender: 'user',
+        timestamp: new Date().toISOString()
+    });
+    
+    // Save chat history
+    saveChatHistory();
+}
+
+function addBotMessage(text) {
+    displayMessage(text, 'bot');
+    
+    // Add to chat history
+    chatHistory.push({
+        text: text,
+        sender: 'bot',
+        timestamp: new Date().toISOString()
+    });
+    
+    // Save chat history
+    saveChatHistory();
+}
+
+function saveChatHistory() {
+    try {
+        localStorage.setItem(`peterbot_history_${currentSessionId}`, JSON.stringify(chatHistory));
+    } catch (error) {
+        console.error('Error saving chat history:', error);
+    }
+}
+
+function scrollToBottom() {
+    const messagesContainer = document.getElementById('peterbot-messages');
+    if (messagesContainer) {
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+}
+
+function showTypingIndicator() {
+    const messagesContainer = document.getElementById('peterbot-messages');
+    if (!messagesContainer) return;
+    
+    // Create typing indicator
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'message bot-message typing-indicator';
+    typingDiv.id = 'typing-indicator';
+    
+    typingDiv.innerHTML = `
+        <div class="message-avatar">
+            <img src="${BOT_CONFIG.avatar}" alt="${BOT_CONFIG.name}">
+        </div>
+        <div class="message-content">
+            <div class="message-bubble">
+                <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    messagesContainer.appendChild(typingDiv);
+    scrollToBottom();
+}
+
+function hideTypingIndicator() {
+    const typingIndicator = document.getElementById('typing-indicator');
+    if (typingIndicator) {
+        typingIndicator.remove();
+    }
+}
+
+function handleQuickReply(reply) {
+    // Add user message
+    addUserMessage(reply);
+    
+    // Process bot response
+    processBotResponse(reply);
+}
+
+function showQuickReplies() {
+    if (!BOT_CONFIG.showQuickReplies) return;
+    
+    const quickRepliesContainer = document.getElementById('peterbot-quick-replies');
+    if (!quickRepliesContainer) return;
+    
+    const replies = getContextualQuickReplies();
+    
+    quickRepliesContainer.innerHTML = '';
+    
+    replies.forEach(reply => {
+        const button = document.createElement('button');
+        button.className = 'quick-reply-btn';
+        button.textContent = reply;
+        button.addEventListener('click', () => {
+            handleQuickReply(reply);
+        });
+        quickRepliesContainer.appendChild(button);
+    });
+    
+    quickRepliesContainer.style.display = 'flex';
+}
+
+function displayMessage(text, sender, animate = true) {
+    const messagesContainer = document.getElementById('peterbot-messages');
+    if (!messagesContainer) return;
+    
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${sender}-message`;
+    
+    if (animate) {
+        messageDiv.style.opacity = '0';
+        messageDiv.style.transform = 'translateY(20px)';
+    }
+    
+    const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    
+    if (sender === 'bot') {
+        messageDiv.innerHTML = `
+            <div class="message-avatar">
+                <img src="${BOT_CONFIG.avatar}" alt="${BOT_CONFIG.name}">
+            </div>
+            <div class="message-content">
+                <div class="message-bubble">${text}</div>
+                <div class="message-time">${time}</div>
+            </div>
+        `;
+        
+        // Add feedback buttons for bot messages
+        setTimeout(() => {
+            addFeedbackButtons(messageDiv);
+        }, 1000);
+    } else {
+        messageDiv.innerHTML = `
+            <div class="message-content">
+                <div class="message-bubble">${text}</div>
+                <div class="message-time">${time}</div>
+            </div>
+        `;
+    }
+    
+    messagesContainer.appendChild(messageDiv);
+    
+    if (animate) {
+        setTimeout(() => {
+            messageDiv.style.opacity = '1';
+            messageDiv.style.transform = 'translateY(0)';
+        }, 50);
+    }
+    
+    scrollToBottom();
+}
 
 
 // Advanced Response Patterns
@@ -398,7 +771,7 @@ class EnhancedResponseGenerator {
         return greetings[Math.floor(Math.random() * greetings.length)];
     }
     
-    getServicesResponse(message) {
+    getServicesResponse() {
         return `🚀 **Peter Lightspeed offers comprehensive professional services:**
 
 💻 **Web Development**
@@ -1488,7 +1861,7 @@ class FollowUpSystem {
             'contact_attempt': "📞 Hello! You were looking to contact Peter. He's available for a consultation - shall I help you schedule one?"
         };
         
-        return messages[type] || messages['no_response'];
+        return messages[type] || messages.no_response;
     }
     
     setupFollowUpTimer() {
