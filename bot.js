@@ -13,7 +13,6 @@ const BOT_CONFIG = {
     version: '2.0',
     lastUpdated: new Date().toISOString()
 };
- jshint esversion: 11 
  jshint unused:false 
 
 let chatHistory = [];
@@ -1541,12 +1540,12 @@ class AdminStorage {
     }
     
     addLead(lead) {
-        this.data.leads.push({
-            ...lead,
-            id: `lead_${Date.now()}`,
-            timestamp: new Date().toISOString(),
-            status: 'new'
-        });
+        const newLead = Object.assign({}, lead, {
+    id: `lead_${Date.now()}`,
+    timestamp: new Date().toISOString(),
+    status: 'new'
+});
+this.data.leads.push(newLead);
         
         this.saveData();
     }
@@ -2008,7 +2007,7 @@ class SuperEnhancedResponseGenerator extends EnhancedResponseGenerator {
             leadScore: leadQuality.score,
             leadLevel: leadQuality.level,
             timestamp: Date.now(),
-            messageCount: (this.userProfiles?.current?.messageCount || 0) + 1
+            messageCount: ((this.userProfiles && this.userProfiles.current && this.userProfiles.current.messageCount) || 0) + 1
         };
         
         this.userProfiles = this.userProfiles || {};
