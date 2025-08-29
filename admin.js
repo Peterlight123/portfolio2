@@ -329,6 +329,120 @@ function initAdminPanel() {
 
 // Load dashboard data
 function loadDashboardData() {
+    // Add to loadDashboardData function
+function loadDashboardData() {
+    // Existing code...
+    
+    // Add service distribution analysis
+    const serviceDistribution = {
+        web: 0,
+        va: 0,
+        marketing: 0,
+        saxophone: 0,
+        other: 0
+    };
+    
+    const serviceKeywords = {
+        web: ['web', 'website', 'development', 'app', 'application', 'responsive'],
+        va: ['virtual', 'assistant', 'va', 'administrative', 'support', 'email management'],
+        marketing: ['marketing', 'digital marketing', 'seo', 'social media', 'content', 'promotion'],
+        saxophone: ['saxophone', 'music', 'performance', 'sax', 'peterphonist', 'church']
+    };
+    
+    // Count user messages by service category
+    Object.values(sessions).forEach(session => {
+        session.messages.forEach(msg => {
+            if (msg.sender === 'user') {
+                const text = msg.text.toLowerCase();
+                let categorized = false;
+                
+                for (const [service, keywords] of Object.entries(serviceKeywords)) {
+                    if (keywords.some(keyword => text.includes(keyword))) {
+                        serviceDistribution[service]++;
+                        categorized = true;
+                        break;
+                    }
+                }
+                
+                if (!categorized) {
+                    serviceDistribution.other++;
+                }
+            }
+        });
+    });
+    
+    // Update service distribution in dashboard
+    const serviceDistributionEl = document.getElementById('service-distribution');
+    if (serviceDistributionEl) {
+        const totalServiceMentions = Object.values(serviceDistribution).reduce((a, b) => a + b, 0);
+        
+        if (totalServiceMentions > 0) {
+            serviceDistributionEl.innerHTML = `
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Service Interest Distribution</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="service-bars">
+                            <div class="service-bar mb-3">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Web Development</span>
+                                    <span>${Math.round((serviceDistribution.web / totalServiceMentions) * 100)}%</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar bg-primary" role="progressbar" 
+                                        style="width: ${(serviceDistribution.web / totalServiceMentions) * 100}%"></div>
+                                </div>
+                            </div>
+                            <div class="service-bar mb-3">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Virtual Assistant</span>
+                                    <span>${Math.round((serviceDistribution.va / totalServiceMentions) * 100)}%</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar bg-success" role="progressbar" 
+                                        style="width: ${(serviceDistribution.va / totalServiceMentions) * 100}%"></div>
+                                </div>
+                            </div>
+                            <div class="service-bar mb-3">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Digital Marketing</span>
+                                    <span>${Math.round((serviceDistribution.marketing / totalServiceMentions) * 100)}%</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar bg-warning" role="progressbar" 
+                                        style="width: ${(serviceDistribution.marketing / totalServiceMentions) * 100}%"></div>
+                                </div>
+                            </div>
+                            <div class="service-bar mb-3">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Saxophone Performance</span>
+                                    <span>${Math.round((serviceDistribution.saxophone / totalServiceMentions) * 100)}%</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar bg-info" role="progressbar" 
+                                        style="width: ${(serviceDistribution.saxophone / totalServiceMentions) * 100}%"></div>
+                                </div>
+                            </div>
+                            <div class="service-bar">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Other</span>
+                                    <span>${Math.round((serviceDistribution.other / totalServiceMentions) * 100)}%</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar bg-secondary" role="progressbar" 
+                                        style="width: ${(serviceDistribution.other / totalServiceMentions) * 100}%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        } else {
+            serviceDistributionEl.innerHTML = '<div class="alert alert-info">No service data available yet.</div>';
+        }
+    }
+}
     // Get all chat sessions from localStorage
     const sessions = getAllChatSessions();
     const sessionCount = Object.keys(sessions).length;
@@ -447,6 +561,7 @@ function updateRecentSessionsTable(sessions) {
 }
 
 // Update common questions section
+
 function updateCommonQuestions(sessions) {
     const commonQuestionsDiv = document.getElementById('common-questions');
     if (!commonQuestionsDiv) return;
@@ -469,12 +584,45 @@ function updateCommonQuestions(sessions) {
     
     // Count question frequencies
     const questionCounts = {};
+    // Update in the updateCommonQuestions function
+function updateCommonQuestions(sessions) {
+    const commonQuestionsDiv = document.getElementById('common-questions');
+    if (!commonQuestionsDiv) return;
+    
+    // Extract all user messages
+    const userMessages = [];
+    Object.values(sessions).forEach(session => {
+        session.messages.forEach(msg => {
+            if (msg.sender === 'user') {
+                userMessages.push(msg.text.toLowerCase());
+            }
+        });
+    });
+    
+    // If no messages
+    if (userMessages.length === 0) {
+        commonQuestionsDiv.innerHTML = '<div class="alert alert-info">No chat data available yet.</div>';
+        return;
+    }
+    
+    // Count question frequencies
+    const questionCounts = {
+        web: 0,
+        va: 0,
+        marketing: 0,
+        saxophone: 0,
+        pricing: 0,
+        contact: 0,
+        other: 0
+    };
+    
     const questionCategories = {
-        services: ['service', 'offer', 'provide', 'do you', 'can you', 'help with'],
+        web: ['web', 'website', 'development', 'app', 'application', 'responsive'],
+        va: ['virtual', 'assistant', 'va', 'administrative', 'support', 'email management'],
+        marketing: ['marketing', 'digital marketing', 'seo', 'social media', 'content', 'promotion'],
+        saxophone: ['saxophone', 'music', 'performance', 'sax', 'peterphonist', 'church'],
         pricing: ['price', 'cost', 'rate', 'charge', 'fee', 'pricing', 'package', 'pay'],
-        portfolio: ['project', 'portfolio', 'work', 'sample', 'showcase', 'example'],
-        contact: ['contact', 'reach', 'email', 'phone', 'whatsapp', 'call', 'message'],
-        music: ['music', 'song', 'artist', 'peterphonist', 'beat', 'producer', 'track']
+        contact: ['contact', 'reach', 'email', 'phone', 'whatsapp', 'call', 'message']
     };
     
     userMessages.forEach(msg => {
@@ -501,11 +649,12 @@ function updateCommonQuestions(sessions) {
         
         let icon, color;
         switch(category) {
-            case 'services': icon = 'bi-gear'; color = 'primary'; break;
+            case 'web': icon = 'bi-laptop'; color = 'primary'; break;
+            case 'va': icon = 'bi-person-workspace'; color = 'success'; break;
+            case 'marketing': icon = 'bi-graph-up'; color = 'warning'; break;
+            case 'saxophone': icon = 'bi-music-note'; color = 'info'; break;
             case 'pricing': icon = 'bi-cash'; color = 'success'; break;
-            case 'portfolio': icon = 'bi-folder'; color = 'warning'; break;
             case 'contact': icon = 'bi-envelope'; color = 'danger'; break;
-            case 'music': icon = 'bi-music-note'; color = 'info'; break;
             default: icon = 'bi-question-circle'; color = 'secondary';
         }
         
@@ -518,7 +667,7 @@ function updateCommonQuestions(sessions) {
                                 <i class="bi ${icon} text-${color} fs-4"></i>
                             </div>
                             <div>
-                                <h6 class="mb-0 text-capitalize">${category} Questions</h6>
+                                <h6 class="mb-0 text-capitalize">${category === 'va' ? 'VA' : category} Questions</h6>
                                 <div class="d-flex align-items-center">
                                     <div class="progress flex-grow-1 me-2" style="height: 6px;">
                                         <div class="progress-bar bg-${color}" role="progressbar" style="width: ${percentage}%"></div>
@@ -537,6 +686,7 @@ function updateCommonQuestions(sessions) {
     html += '</div>';
     commonQuestionsDiv.innerHTML = html;
 }
+
 
 // Load chat sessions
 function loadChatSessions() {
@@ -718,42 +868,99 @@ function initCharts() {
     const sessions = getAllChatSessions();
     
     // Message distribution chart
-    const messageCtx = document.getElementById('message-distribution-chart');
-    if (messageCtx) {
-        let userMessages = 0;
-        let botMessages = 0;
-        
-        Object.values(sessions).forEach(session => {
-            session.messages.forEach(msg => {
-                if (msg.sender === 'user') {
-                    userMessages++;
-                } else {
-                    botMessages++;
-                }
-            });
+   // Update in the initCharts function
+// Top questions chart
+const questionsCtx = document.getElementById('top-questions-chart');
+if (questionsCtx) {
+    // Extract all user messages
+    const userMessages = [];
+    Object.values(sessions).forEach(session => {
+        session.messages.forEach(msg => {
+            if (msg.sender === 'user') {
+                userMessages.push(msg.text.toLowerCase());
+            }
         });
+    });
+    
+    // Count question categories
+    const questionCategories = {
+        web: 0,
+        va: 0,
+        marketing: 0,
+        saxophone: 0,
+        pricing: 0,
+        contact: 0,
+        other: 0
+    };
+    
+    const categoryKeywords = {
+        web: ['web', 'website', 'development', 'app', 'application', 'responsive'],
+        va: ['virtual', 'assistant', 'va', 'administrative', 'support', 'email management'],
+        marketing: ['marketing', 'digital marketing', 'seo', 'social media', 'content', 'promotion'],
+        saxophone: ['saxophone', 'music', 'performance', 'sax', 'peterphonist', 'church'],
+        pricing: ['price', 'cost', 'rate', 'charge', 'fee', 'pricing', 'package', 'pay'],
+        contact: ['contact', 'reach', 'email', 'phone', 'whatsapp', 'call', 'message']
+    };
+    
+    userMessages.forEach(msg => {
+        let categorized = false;
         
-        new Chart(messageCtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['User Messages', 'Bot Responses'],
-                datasets: [{
-                    data: [userMessages, botMessages],
-                    backgroundColor: ['#0d6efd', '#20c997'],
-                    hoverOffset: 4
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
+        for (const [category, keywords] of Object.entries(categoryKeywords)) {
+            if (keywords.some(keyword => msg.includes(keyword))) {
+                questionCategories[category]++;
+                categorized = true;
+                break;
+            }
+        }
+        
+        if (!categorized) {
+            questionCategories.other++;
+        }
+    });
+    
+    new Chart(questionsCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Web Dev', 'VA Services', 'Marketing', 'Saxophone', 'Pricing', 'Contact', 'Other'],
+            datasets: [{
+                label: 'Frequency',
+                data: [
+                    questionCategories.web,
+                    questionCategories.va,
+                    questionCategories.marketing,
+                    questionCategories.saxophone,
+                    questionCategories.pricing,
+                    questionCategories.contact,
+                    questionCategories.other
+                ],
+                backgroundColor: [
+                    '#0d6efd',  // Web - Blue
+                    '#20c997',  // VA - Teal
+                    '#fd7e14',  // Marketing - Orange
+                    '#6f42c1',  // Saxophone - Purple
+                    '#ffc107',  // Pricing - Yellow
+                    '#dc3545',  // Contact - Red
+                    '#6c757d'   // Other - Gray
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
                     }
                 }
             }
-        });
-    }
+        }
+    });
     
+    // Update analytics table
+    updateAnalyticsTable(questionCategories, userMessages.length);
+}
+
     // Sessions over time chart
     const sessionsCtx = document.getElementById('sessions-time-chart');
     if (sessionsCtx) {
@@ -898,6 +1105,7 @@ function initCharts() {
 }
 
 // Update analytics table
+    // Update in the updateAnalyticsTable function
 function updateAnalyticsTable(categories, totalMessages) {
     const table = document.getElementById('analytics-table');
     if (!table) return;
@@ -914,9 +1122,11 @@ function updateAnalyticsTable(categories, totalMessages) {
     
     // Create rows for each category
     const categoryData = [
-        { name: 'Services Inquiries', count: categories.services },
+        { name: 'Web Development', count: categories.web },
+        { name: 'Virtual Assistant', count: categories.va },
+        { name: 'Digital Marketing', count: categories.marketing },
+        { name: 'Saxophone Performance', count: categories.saxophone },
         { name: 'Pricing Questions', count: categories.pricing },
-        { name: 'Portfolio Requests', count: categories.portfolio },
         { name: 'Contact Information', count: categories.contact },
         { name: 'Other Questions', count: categories.other }
     ];
@@ -945,6 +1155,7 @@ function updateAnalyticsTable(categories, totalMessages) {
         table.appendChild(row);
     });
 }
+
 
 // Load settings
 function loadSettings() {
@@ -1301,6 +1512,7 @@ function exportAllData() {
 }
 
 // Export analytics data
+// Update in the exportAnalyticsData function
 function exportAnalyticsData() {
     const sessions = getAllChatSessions();
     
@@ -1310,20 +1522,22 @@ function exportAnalyticsData() {
     
     // Count messages by category
     const categories = {
-        services: 0,
+        web: 0,
+        va: 0,
+        marketing: 0,
+        saxophone: 0,
         pricing: 0,
-        portfolio: 0,
         contact: 0,
-        music: 0,
         other: 0
     };
     
     const categoryKeywords = {
-        services: ['service', 'offer', 'provide', 'do you', 'can you', 'help with'],
+        web: ['web', 'website', 'development', 'app', 'application', 'responsive'],
+        va: ['virtual', 'assistant', 'va', 'administrative', 'support', 'email management'],
+        marketing: ['marketing', 'digital marketing', 'seo', 'social media', 'content', 'promotion'],
+        saxophone: ['saxophone', 'music', 'performance', 'sax', 'peterphonist', 'church'],
         pricing: ['price', 'cost', 'rate', 'charge', 'fee', 'pricing', 'package', 'pay'],
-        portfolio: ['project', 'portfolio', 'work', 'sample', 'showcase', 'example'],
-        contact: ['contact', 'reach', 'email', 'phone', 'whatsapp', 'call', 'message'],
-        music: ['music', 'song', 'artist', 'peterphonist', 'beat', 'producer', 'track']
+        contact: ['contact', 'reach', 'email', 'phone', 'whatsapp', 'call', 'message']
     };
     
     // Count messages by date
@@ -1374,6 +1588,17 @@ function exportAnalyticsData() {
         messagesByDate,
         exportedAt: new Date().toISOString()
     };
+    
+    const dataStr = JSON.stringify(analyticsData, null, 2);
+    const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+    
+    const exportFileName = `peterbot_analytics_${new Date().toISOString().split('T')[0]}.json`;
+    
+    const linkElement = document.createElement('a');
+    linkElement.setAttribute('href', dataUri);
+    linkElement.setAttribute('download', exportFileName);
+    linkElement.click();
+}
     
     const dataStr = JSON.stringify(analyticsData, null, 2);
     const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
