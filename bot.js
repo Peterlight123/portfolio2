@@ -5,7 +5,7 @@ console.log('Loading Enhanced PeterBot v2.0...');
 // Bot configuration
 const BOT_CONFIG = {
     name: 'PeterBot',
-    avatar: 'https://i.imgur.com/Cgy2Aeq.png',
+    avatar: 'https://i.imgur.com/5Eu01Tk.jpeg',
     welcomeMessage: "👋 Hello! I'm PeterBot, Peter's AI assistant. I can help you with web development, virtual assistant services, digital marketing, and saxophone performances! How can I assist you today?",
     responseDelay: 800,
     showTypingIndicator: true,
