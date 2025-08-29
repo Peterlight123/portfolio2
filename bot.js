@@ -1030,7 +1030,7 @@ getSmartDefaultResponse(message) {
     ];
     
     return responses[Math.floor(Math.random() * responses.length)];
-}
+}}
 // Enhanced quick replies based on context
 function getContextualQuickReplies() {
     const lastBotMessage = chatHistory.slice().reverse().find(msg => msg.sender === 'bot');
