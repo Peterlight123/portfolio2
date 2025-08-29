@@ -1,150 +1,17 @@
-// Enhanced PeterBot - Advanced AI Assistant
+// Enhanced PeterBot - Advanced AI Assistant for Saxophonist
 console.log('Loading Enhanced PeterBot v2.0...');
 
 // Enhanced Bot Configuration
 const BOT_CONFIG = {
     name: 'PeterBot',
     avatar: 'https://i.imgur.com/Cgy2Aeq.png',
-    welcomeMessage: "👋 Hello! I'm PeterBot, Peter Lightspeed's AI assistant. I can help you with music, web development, pricing, sponsorships, and much more! How can I assist you today?",
+    welcomeMessage: "👋 Hello! I'm PeterBot, Peter's AI assistant. I can help you with saxophone performances, web development, pricing, bookings, and much more! How can I assist you today?",
     responseDelay: 1200,
     showTypingIndicator: true,
     showQuickReplies: true,
     version: '2.0',
     lastUpdated: new Date().toISOString()
 };
-
-// Enhanced Knowledge Base
-const KNOWLEDGE_BASE = {
-    personal: {
-        name: "Peter Lightspeed",
-        alias: "Peterphonist",
-        profession: "Multi-talented Creative Professional & Virtual Assistant",
-        experience: "2+ years in digital creative services",
-        location: "Available globally (Remote services)",
-        languages: ["English", "Professional Communication"],
-        specialties: ["Music Production", "Web Development", "Virtual Assistant Services", "Digital Marketing"]
-    },
-    
-    services: {
-        saxophone: {
-        title: "Saxophone Performance & Music Services",
-        description: "Professional saxophonist performing under the name 'Peterphonist'",
-        offerings: [
-            "Live saxophone performances for events (weddings, parties, concerts, church programs)",
-            "Session recording for songs, albums, or collaborations",
-            "Worship & ministration music",
-            "Background instrumental music for special occasions",
-            "Personalized saxophone renditions (birthday songs, anniversary surprises, etc.)",
-            "Music coaching & saxophone lessons (beginner to advanced)",
-            "Online collaborations & remote recording",
-            "Musical mentorship and guidance"
-        ],
-        pricing: {
-            livePerformance: "$200-500 per event (varies by duration & location) note: churh programs are free apart from transportations",
-            sessionRecording: "$100-300 per track",
-            personalizedSong: "$75-150 per request",
-            coaching: "$50/hour (online or in-person)",
-            portfolio: "Available on all major platforms as 'Peterphonist'"
-        },
-        
-        web: {
-            title: "Web Development & Design",
-            description: "Full-stack web development and modern design solutions",
-            offerings: [
-                "Responsive website development",
-                "E-commerce solutions",
-                "Web application development",
-                "Website redesign and optimization",
-                "CMS development (WordPress, etc.)",
-                "API integration and development",
-                "Website maintenance and updates",
-                "SEO optimization",
-                "Performance optimization"
-            ],
-            pricing: {
-                basic: "$500-1,500 (Simple websites)",
-                standard: "$1,500-5,000 (Business websites)",
-                premium: "$5,000-15,000 (Complex applications)",
-                maintenance: "$100-300/month",
-                consultation: "$100/hour"
-            },
-            technologies: ["HTML5", "CSS3", "JavaScript", "React","Bootstrap", "PHP", "WordPress"]
-        },
-        
-        virtual_assistant: {
-            title: "Professional Virtual Assistant Services",
-            description: "Comprehensive remote assistance for businesses and entrepreneurs",
-            offerings: [
-                "Administrative support",
-                "Email management and communication",
-                "Social media management",
-                "Content creation and copywriting",
-                "Research and data analysis",
-                "Project management",
-                "Customer service support",
-                "Lead generation and CRM management",
-                "Digital marketing assistance",
-                "Technical support and troubleshooting"
-            ],
-            pricing: {
-                hourly: "$10-30/hour",
-                part_time: "$800-1,500/month (20 hours/week)",
-                full_time: "$1,500-3,000/month (40 hours/week)",
-                project_based: "Varies by scope"
-            }
-        },
-        
-        additional: {
-            title: "Additional Creative Services",
-            offerings: [
-                "Graphic design and branding",
-                "Mobile app development",
-                "Video editing and production",
-                "Digital marketing campaigns",
-                "Content strategy and creation",
-                "Consultation and coaching"
-            ]
-        }
-    },
-    
-    social_media: {
-        youtube: "@peterphonist",
-        facebook: "@peterphonist", 
-        instagram: "@peterphonist",
-        tiktok: "@peterphonist",
-        snapchat: "@peterphonist",
-        twitter: "@peterphonist",
-        linkedin: "Peter Lightspeed",
-        audiomack: "peterphonist",
-        spotify: "Peterphonist"
-    },
-    
-    contact: {
-        email: "petereluwade55@gmail.com",
-        whatsapp: "+234 8108821809",
-        telegram: "@peterlightspeed",
-        website: "https://peterlight123.github.io/portfolio/",
-        booking: "Available for consultations and project discussions"
-    },
-    
-    business: {
-        sponsorship: {
-            available: true,
-            types: ["Music collaborations", "Brand partnerships", "Content sponsorships", "Event partnerships"],
-            requirements: "Aligned with creative and professional values",
-            contact_method: "Email or WhatsApp for sponsorship inquiries"
-        },
-        
-        negotiation: {
-            flexible_pricing: true,
-            bulk_discounts: true,
-            long_term_contracts: "Special rates available",
-            payment_plans: "Available for larger projects",
-            barter_system: "Open to skill exchanges and collaborations"
-        }
-    }
-};
-
 // Advanced Response Patterns
 const RESPONSE_PATTERNS = {
     greetings: [
@@ -157,9 +24,9 @@ const RESPONSE_PATTERNS = {
         /\b(skills|abilities|expertise|specialization)\b/i
     ],
     
-    music: [
-        /\b(music|beat|producer|peterphonist|audio|sound|song|track)\b/i,
-        /\b(mixing|mastering|composition|jingle)\b/i
+    saxophone: [
+        /\b(saxophone|sax|saxophonist|peterphonist|music|performance|play|instrument)\b/i,
+        /\b(concert|event|wedding|church|worship|ministration)\b/i
     ],
     
     web: [
@@ -174,7 +41,7 @@ const RESPONSE_PATTERNS = {
     
     pricing: [
         /\b(price|cost|rate|charge|fee|budget|expensive|cheap|affordable)\b/i,
-        /\b(how much|payment|invoice|quote)\b/i
+        /\b(how much|payment|invoice|quote|naira|dollar)\b/i
     ],
     
     contact: [
@@ -199,14 +66,20 @@ const RESPONSE_PATTERNS = {
     
     portfolio: [
         /\b(portfolio|work|sample|example|previous projects)\b/i,
-        /\b(showcase|gallery|demo|case study)\b/i
+        /\b(showcase|gallery|demo|case study|listen|hear)\b/i
     ],
     
     about: [
         /\b(about|who is peter|tell me about|background|experience)\b/i,
         /\b(biography|story|journey|career)\b/i
+    ],
+    
+    church: [
+        /\b(church|worship|ministration|gospel|christian|praise)\b/i,
+        /\b(religious|spiritual|faith|service)\b/i
     ]
 };
+
 
 // Enhanced Response Generator
 class EnhancedResponseGenerator {
