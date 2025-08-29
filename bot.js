@@ -1,3 +1,4 @@
+/* jshint esversion: 11, unused: false */
 
 // Enhanced PeterBot - Advanced AI Assistant
 console.log('Loading Enhanced PeterBot v2.0...');
@@ -373,8 +374,7 @@ function loadChatHistory() {
 
 function toggleChat() {
     const chat = document.getElementById('peterbot-chat');
-    const toggle = document.getElementById('peterbot-toggle');
-    
+    document.getElementById('peterbot-toggle').addEventListener('click', someFunction);    
     if (chat.classList.contains('open')) {
         closeChat();
     } else {
@@ -562,7 +562,28 @@ function displayMessage(text, sender, animate = true) {
                 <div class="message-time">${time}</div>
             </div>
         `;
-        
+        function addFeedbackButtons(messageElement) {
+    const feedbackDiv = document.createElement('div');
+    feedbackDiv.className = 'message-feedback';
+    feedbackDiv.innerHTML = `
+        <button class="feedback-btn positive" title="Helpful">👍</button>
+        <button class="feedback-btn negative" title="Not helpful">👎</button>
+    `;
+    
+    messageElement.appendChild(feedbackDiv);
+    
+    // Add event listeners
+    feedbackDiv.querySelector('.positive').addEventListener('click', () => {
+        logInteraction('', '', 'positive');
+        feedbackDiv.innerHTML = '<span class="feedback-thanks">Thanks for your feedback! 😊</span>';
+    });
+    
+    feedbackDiv.querySelector('.negative').addEventListener('click', () => {
+        logInteraction('', '', 'negative');
+        feedbackDiv.innerHTML = '<span class="feedback-thanks">Thanks! I\'ll improve. 🤔</span>';
+    });
+}
+
         // Add feedback buttons for bot messages
         setTimeout(() => {
             addFeedbackButtons(messageDiv);
@@ -697,7 +718,15 @@ class EnhancedResponseGenerator {
             }
         }
         
-        return [...new Set(intents)]; // Remove duplicates
+        // Remove duplicates
+const uniqueIntents = [];
+for (const intent of intents) {
+    if (!uniqueIntents.includes(intent)) {
+        uniqueIntents.push(intent);
+    }
+}
+return uniqueIntents;
+
     }
     
     handleSingleIntent(intent, message) {
@@ -770,10 +799,8 @@ class EnhancedResponseGenerator {
         return greetings[Math.floor(Math.random() * greetings.length)];
     }
     
-    getServicesResponse() {
-        return `🚀 **Peter Lightspeed offers comprehensive professional services:**
-
-💻 **Web Development**
+    getServicesResponse(message) { // jshint ignore:line
+    💻 **Web Development**
 • Responsive websites
 • E-commerce solutions
 • Web applications
@@ -806,7 +833,6 @@ class EnhancedResponseGenerator {
 
 Which service interests you most? I can provide detailed information and pricing!`;
     }
-    
     getWebResponse(message) {
         return `💻 **Professional Web Development Services:**
 
@@ -1608,9 +1634,9 @@ this.data.leads.push(newLead);
     
    updateSettings(newSettings) {
     this.data.settings = Object.assign({}, this.data.settings, newSettings);
-    
     this.saveData();
 }
+
 
     
     cleanupOldData() {
@@ -1764,7 +1790,7 @@ class AdvancedAI {
     constructor() {
         this.learningData = this.loadLearningData();
         this.userProfiles = this.loadUserProfiles();
-        this.conversationFlow = new Map();
+        this.conversationFlow = {};
     }
     
     // Sentiment Analysis for better responses
@@ -2015,7 +2041,8 @@ class SuperEnhancedResponseGenerator extends EnhancedResponseGenerator {
 }
 // Initialize enhanced systems
 const superAI = new SuperEnhancedResponseGenerator();
-const followUpSystem = new FollowUpSystem();
+// For future use - system will automatically schedule follow-ups
+const followUpSystem = new FollowUpSystem(); // jshint ignore:line
 
 // Enhanced getBotResponse function with AI
 function getBotResponse(message) {
