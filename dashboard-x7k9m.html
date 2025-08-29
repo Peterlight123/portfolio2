@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link rel="stylesheet" href="chatbot.css">
   <!-- Favicon -->
-    <link rel="icon" type="image/png" href="https://i.imgur.com/2Ocmg4m.png">
+  <link rel="icon" type="image/png" href="https://i.imgur.com/2Ocmg4m.png">
   <style>
     .sidebar {
       height: 100vh;
@@ -80,6 +80,127 @@
       margin-top: 5px;
       text-align: right;
     }
+    
+    /* Service icons */
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      font-size: 24px;
+      margin-right: 15px;
+    }
+    
+    .service-icon.web {
+      background-color: rgba(13, 110, 253, 0.1);
+      color: #0d6efd;
+    }
+    
+    .service-icon.va {
+      background-color: rgba(32, 201, 151, 0.1);
+      color: #20c997;
+    }
+    
+    .service-icon.marketing {
+      background-color: rgba(253, 126, 20, 0.1);
+      color: #fd7e14;
+    }
+    
+    .service-icon.saxophone {
+      background-color: rgba(111, 66, 193, 0.1);
+      color: #6f42c1;
+    }
+    
+    /* Service cards */
+    .service-card {
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      border: 1px solid #dee2e6;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .service-card .card-header {
+      border-bottom: none;
+      padding: 15px 20px;
+    }
+    
+    .service-card .card-body {
+      padding: 20px;
+    }
+    
+    .service-stats {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .service-progress {
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+      background-color: #e9ecef;
+      margin-bottom: 5px;
+    }
+    
+    .service-progress-bar {
+      height: 100%;
+      border-radius: 4px;
+    }
+    
+    .service-progress-bar.web {
+      background-color: #0d6efd;
+    }
+    
+    .service-progress-bar.va {
+      background-color: #20c997;
+    }
+    
+    .service-progress-bar.marketing {
+      background-color: #fd7e14;
+    }
+    
+    .service-progress-bar.saxophone {
+      background-color: #6f42c1;
+    }
+    
+    /* Tab content fade animation */
+    .tab-pane.fade {
+      transition: opacity 0.3s linear;
+    }
+    
+    /* Custom badges */
+    .badge-service {
+      font-size: 0.75rem;
+      padding: 0.35em 0.65em;
+      font-weight: 500;
+    }
+    
+    .badge-web {
+      background-color: rgba(13, 110, 253, 0.1);
+      color: #0d6efd;
+    }
+    
+    .badge-va {
+      background-color: rgba(32, 201, 151, 0.1);
+      color: #20c997;
+    }
+    
+    .badge-marketing {
+      background-color: rgba(253, 126, 20, 0.1);
+      color: #fd7e14;
+    }
+    
+    .badge-saxophone {
+      background-color: rgba(111, 66, 193, 0.1);
+      color: #6f42c1;
+    }
   </style>
 </head>
 <body>
@@ -107,6 +228,11 @@
             <li class="nav-item">
               <a class="nav-link" href="#analytics" data-bs-toggle="tab">
                 <i class="bi bi-graph-up me-2"></i> Analytics
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#services" data-bs-toggle="tab">
+                <i class="bi bi-briefcase me-2"></i> Services
               </a>
             </li>
             <li class="nav-item">
@@ -205,6 +331,21 @@
               </div>
             </div>
             
+            <!-- Service Distribution -->
+            <div class="card mb-4">
+              <div class="card-header bg-light">
+                <h5 class="mb-0">Service Interest Distribution</h5>
+              </div>
+              <div class="card-body" id="service-distribution">
+                <div class="text-center py-4">
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  <p class="mt-2">Loading service distribution data...</p>
+                </div>
+              </div>
+            </div>
+            
             <!-- Recent Sessions -->
             <div class="card mb-4">
               <div class="card-header bg-light">
@@ -219,12 +360,13 @@
                         <th>Date</th>
                         <th>Messages</th>
                         <th>Last Message</th>
+                        <th>Service</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody id="recent-sessions-table">
                       <tr>
-                        <td colspan="5" class="text-center">Loading sessions...</td>
+                        <td colspan="6" class="text-center">Loading sessions...</td>
                       </tr>
                     </tbody>
                   </table>
@@ -254,7 +396,20 @@
                     <i class="bi bi-search"></i>
                   </button>
                 </div>
-                <button type="button" class="btn btn-sm btn-outline-secondary" id="export-all-chats">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Filter by Service
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#" data-filter="all">All Services</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#" data-filter="web">Web Development</a></li>
+                    <li><a class="dropdown-item" href="#" data-filter="va">Virtual Assistant</a></li>
+                    <li><a class="dropdown-item" href="#" data-filter="marketing">Digital Marketing</a></li>
+                    <li><a class="dropdown-item" href="#" data-filter="saxophone">Saxophone</a></li>
+                  </ul>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-secondary ms-2" id="export-all-chats">
                   <i class="bi bi-download me-1"></i> Export All
                 </button>
               </div>
@@ -345,9 +500,88 @@
               <div class="col-md-4">
                 <div class="card analytics-card">
                   <div class="card-body">
-                    <h5 class="card-title">Top Questions</h5>
+                    <h5 class="card-title">Service Interest</h5>
                     <div class="text-center py-4">
                       <canvas id="top-questions-chart" height="200"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Service Performance -->
+            <div class="card mb-4">
+              <div class="card-header bg-light">
+                <h5 class="mb-0">Service Performance</h5>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+                    <div class="d-flex align-items-center mb-3">
+                      <div class="service-icon web">
+                        <i class="bi bi-laptop"></i>
+                      </div>
+                      <div class="flex-grow-1">
+                        <h6 class="mb-0">Web Development</h6>
+                        <div class="service-progress mt-2">
+                          <div class="service-progress-bar web" id="web-progress" style="width: 0%"></div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                          <small class="text-muted">Inquiries: <span id="web-inquiries">0</span></small>
+                          <small class="text-muted"><span id="web-percentage">0%</span> of total</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <div class="d-flex align-items-center mb-3">
+                      <div class="service-icon va">
+                        <i class="bi bi-person-workspace"></i>
+                      </div>
+                      <div class="flex-grow-1">
+                        <h6 class="mb-0">Virtual Assistant</h6>
+                        <div class="service-progress mt-2">
+                          <div class="service-progress-bar va" id="va-progress" style="width: 0%"></div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                          <small class="text-muted">Inquiries: <span id="va-inquiries">0</span></small>
+                          <small class="text-muted"><span id="va-percentage">0%</span> of total</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <div class="d-flex align-items-center mb-3">
+                      <div class="service-icon marketing">
+                        <i class="bi bi-graph-up"></i>
+                      </div>
+                      <div class="flex-grow-1">
+                        <h6 class="mb-0">Digital Marketing</h6>
+                        <div class="service-progress mt-2">
+                          <div class="service-progress-bar marketing" id="marketing-progress" style="width: 0%"></div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                          <small class="text-muted">Inquiries: <span id="marketing-inquiries">0</span></small>
+                          <small class="text-muted"><span id="marketing-percentage">0%</span> of total</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <div class="d-flex align-items-center mb-3">
+                      <div class="service-icon saxophone">
+                        <i class="bi bi-music-note"></i>
+                      </div>
+                      <div class="flex-grow-1">
+                        <h6 class="mb-0">Saxophone Performance</h6>
+                        <div class="service-progress mt-2">
+                          <div class="service-progress-bar saxophone" id="saxophone-progress" style="width: 0%"></div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                          <small class="text-muted">Inquiries: <span id="saxophone-inquiries">0</span></small>
+                          <small class="text-muted"><span id="saxophone-percentage">0%</span> of total</small>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -372,38 +606,1067 @@
                     </thead>
                     <tbody id="analytics-table">
                       <tr>
-                        <td>Services Inquiries</td>
-                        <td>0</td>
-                        <td>0%</td>
-                        <td><span class="text-success"><i class="bi bi-arrow-up"></i> 0%</span></td>
-                      </tr>
-                      <tr>
-                        <td>Pricing Questions</td>
-                        <td>0</td>
-                        <td>0%</td>
-                        <td><span class="text-danger"><i class="bi bi-arrow-down"></i> 0%</span></td>
-                      </tr>
-                      <tr>
-                        <td>Portfolio Requests</td>
-                        <td>0</td>
-                        <td>0%</td>
-                        <td><span class="text-success"><i class="bi bi-arrow-up"></i> 0%</span></td>
-                      </tr>
-                      <tr>
-                        <td>Contact Information</td>
-                        <td>0</td>
-                        <td>0%</td>
-                        <td><span class="text-warning"><i class="bi bi-dash"></i> 0%</span></td>
-                      </tr>
-                      <tr>
-                        <td>Other Questions</td>
-                        <td>0</td>
-                        <td>0%</td>
-                        <td><span class="text-danger"><i class="bi bi-arrow-down"></i> 0%</span></td>
+                        <td colspan="4" class="text-center">Loading analytics data...</td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Services Tab (New) -->
+          <div class="tab-pane fade" id="services">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+              <h1 class="h2">Services Management</h1>
+              <button type="button" class="btn btn-primary" id="save-services">
+                <i class="bi bi-save me-1"></i> Save Changes
+              </button>
+            </div>
+            
+            <!-- Services Tabs -->
+            <ul class="nav nav-tabs mb-4" id="servicesTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="web-tab" data-bs-toggle="tab" data-bs-target="#web-content" type="button" role="tab" aria-controls="web-content" aria-selected="true">
+                  <i class="bi bi-laptop me-1"></i> Web Development
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="va-tab" data-bs-toggle="tab" data-bs-target="#va-content" type="button" role="tab" aria-controls="va-content" aria-selected="false">
+                  <i class="bi bi-person-workspace me-1"></i> Virtual Assistant
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="marketing-tab" data-bs-toggle="tab" data-bs-target="#marketing-content" type="button" role="tab" aria-controls="marketing-content" aria-selected="false">
+                  <i class="bi bi-graph-up me-1"></i> Digital Marketing
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="saxophone-tab" data-bs-toggle="tab" data-bs-target="#saxophone-content" type="button" role="tab" aria-controls="saxophone-content" aria-selected="false">
+                  <i class="bi bi-music-note me-1"></i> Saxophone
+                </button>
+              </li>
+            </ul>
+            
+            <div class="tab-content" id="servicesTabContent">
+              <!-- Web Development Service -->
+              <div class="tab-pane fade show active" id="web-content" role="tabpanel" aria-labelledby="web-tab">
+                <div class="card mb-4">
+                  <div class="card-header bg-light">
+                    <h5 class="mb-0">Web Development Service</h5>
+                  </div>
+                  <div class="card-body">
+                    <form>
+                      <div class="mb-3">
+                        <label for="web-title" class="form-label">Service Title</label>
+                        <input type="text" class="form-control" id="web-title" value="Web Development & Design">
+                      </div>
+                      <div class="mb-3">
+                        <label for="web-description" class="form-label">Service Description</label>
+                        <textarea class="form-control" id="web-description" rows="3">Professional web development services for businesses and individuals</textarea>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Service Offerings</label>
+                        <ul class="list-group mb-3" id="web-offerings">
+                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <input type="text" class="form-control" value="Responsive website development">
+                            <button type="button" class="btn btn-sm btn-outline-danger ms-2 remove-offering"><i class="bi bi-trash"></i></button>
+                          </li>
+                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <input type="text" class="form-control" value="E-commerce solutions">
+                            <button type="button" class="btn btn-sm btn-outline-danger ms-2 remove-offering"><i class="bi bi-trash"></i></button>
+                          </li>
+                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <input type="text" class="form-control" value="Web application development">
+                            <button type="button" class="btn btn-sm btn-outline-danger ms-2 remove-offering"><i class="bi bi-trash"></i></button>
+                          </li>
+                        </ul>
+                        <button type="button" class="btn btn-sm btn-outline-primary" id="add-web-offering">
+                          <i class="bi bi-plus-circle me-1"></i> Add Offering
+                        </button>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Pricing</label>
+                        <div class="row g-3">
+                          <div class="col-md-6">
+                            <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PeterBot Admin Panel</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="chatbot.css">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://i.imgur.com/2Ocmg4m.png">
+  <style>
+    .sidebar {
+      height: 100vh;
+      background-color: #212529;
+      color: white;
+      position: sticky;
+      top: 0;
+    }
+    
+    .sidebar .nav-link {
+      color: rgba(255, 255, 255, 0.75);
+      border-radius: 0;
+      padding: 0.75rem 1rem;
+    }
+    
+    .sidebar .nav-link:hover {
+      color: white;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .sidebar .nav-link.active {
+      color: white;
+      background-color: #0d6efd;
+    }
+    
+    .chat-session-item {
+      transition: all 0.2s ease;
+    }
+    
+    .chat-session-item:hover {
+      background-color: rgba(13, 110, 253, 0.1);
+    }
+    
+    .chat-viewer {
+      height: calc(100vh - 200px);
+      overflow-y: auto;
+    }
+    
+    .analytics-card {
+      transition: all 0.3s ease;
+    }
+    
+    .analytics-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .user-message .chat-bubble {
+      background-color: #0d6efd;
+      color: white;
+      border-radius: 18px 18px 0 18px;
+      padding: 10px 15px;
+      max-width: 80%;
+      margin-left: auto;
+    }
+    
+    .bot-message .chat-bubble {
+      background-color: #f1f1f1;
+      color: #212529;
+      border-radius: 18px 18px 18px 0;
+      padding: 10px 15px;
+      max-width: 80%;
+      margin-right: auto;
+    }
+    
+    .message-time {
+      font-size: 0.7rem;
+      opacity: 0.7;
+      margin-top: 5px;
+      text-align: right;
+    }
+    
+    /* Service icons */
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      font-size: 24px;
+      margin-right: 15px;
+    }
+    
+    .service-icon.web {
+      background-color: rgba(13, 110, 253, 0.1);
+      color: #0d6efd;
+    }
+    
+    .service-icon.va {
+      background-color: rgba(32, 201, 151, 0.1);
+      color: #20c997;
+    }
+    
+    .service-icon.marketing {
+      background-color: rgba(253, 126, 20, 0.1);
+      color: #fd7e14;
+    }
+    
+    .service-icon.saxophone {
+      background-color: rgba(111, 66, 193, 0.1);
+      color: #6f42c1;
+    }
+    
+    /* Service cards */
+    .service-card {
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      border: 1px solid #dee2e6;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .service-card .card-header {
+      border-bottom: none;
+      padding: 15px 20px;
+    }
+    
+    .service-card .card-body {
+      padding: 20px;
+    }
+    
+    .service-stats {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .service-progress {
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+      background-color: #e9ecef;
+      margin-bottom: 5px;
+    }
+    
+    .service-progress-bar {
+      height: 100%;
+      border-radius: 4px;
+    }
+    
+    .service-progress-bar.web {
+      background-color: #0d6efd;
+    }
+    
+    .service-progress-bar.va {
+      background-color: #20c997;
+    }
+    
+    .service-progress-bar.marketing {
+      background-color: #fd7e14;
+    }
+    
+    .service-progress-bar.saxophone {
+      background-color: #6f42c1;
+    }
+    
+    /* Tab content fade animation */
+    .tab-pane.fade {
+      transition: opacity 0.3s linear;
+    }
+    
+    /* Custom badges */
+    .badge-service {
+      font-size: 0.75rem;
+      padding: 0.35em 0.65em;
+      font-weight: 500;
+    }
+    
+    .badge-web {
+      background-color: rgba(13, 110, 253, 0.1);
+      color: #0d6efd;
+    }
+    
+    .badge-va {
+      background-color: rgba(32, 201, 151, 0.1);
+      color: #20c997;
+    }
+    
+    .badge-marketing {
+      background-color: rgba(253, 126, 20, 0.1);
+      color: #fd7e14;
+    }
+    
+    .badge-saxophone {
+      background-color: rgba(111, 66, 193, 0.1);
+      color: #6f42c1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+        <div class="position-sticky pt-3">
+          <div class="px-3 py-4 d-flex align-items-center">
+            <img src="https://i.imgur.com/Cgy2Aeq.png" alt="Peter Logo" class="rounded-circle me-2" width="40" height="40">
+            <h5 class="m-0">PeterBot Admin</h5>
+          </div>
+          <hr class="bg-light">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" href="#dashboard" data-bs-toggle="tab">
+                <i class="bi bi-speedometer2 me-2"></i> Dashboard
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#chat-sessions" data-bs-toggle="tab">
+                <i class="bi bi-chat-dots me-2"></i> Chat Sessions
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#analytics" data-bs-toggle="tab">
+                <i class="bi bi-graph-up me-2"></i> Analytics
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#services" data-bs-toggle="tab">
+                <i class="bi bi-briefcase me-2"></i> Services
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#settings" data-bs-toggle="tab">
+                <i class="bi bi-gear me-2"></i> Settings
+              </a>
+            </li>
+          </ul>
+          <hr class="bg-light">
+          <div class="px-3">
+            <a href="index.html" class="btn btn-outline-light btn-sm w-100 mb-2">
+              <i class="bi bi-arrow-left me-2"></i> Back to Website
+            </a>
+            <button id="logout-btn" class="btn btn-danger btn-sm w-100">
+              <i class="bi bi-box-arrow-right me-2"></i> Logout
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Main content -->
+      <div class="col-md-9 col-lg-10 ms-sm-auto px-md-4 py-4">
+        <div class="tab-content">
+          <!-- Dashboard Tab -->
+          <div class="tab-pane fade show active" id="dashboard">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+              <h1 class="h2">Dashboard</h1>
+              <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="btn-group me-2">
+                  <button type="button" class="btn btn-sm btn-outline-secondary" id="refresh-dashboard">
+                    <i class="bi bi-arrow-clockwise me-1"></i> Refresh
+                  </button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary" id="export-all-data">
+                    <i class="bi bi-download me-1"></i> Export All Data
+                  </button>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-primary" id="clear-all-data">
+                  <i class="bi bi-trash me-1"></i> Clear All Data
+                </button>
+              </div>
+            </div>
+            
+            <!-- Dashboard Stats -->
+            <div class="row g-4 mb-4">
+              <div class="col-md-3">
+                <div class="card text-white bg-primary">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                        <h6 class="card-title">Total Sessions</h6>
+                        <h2 class="mb-0" id="total-sessions">0</h2>
+                      </div>
+                      <i class="bi bi-chat-square-text fs-1 opacity-50"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card text-white bg-success">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                        <h6 class="card-title">Total Messages</h6>
+                        <h2 class="mb-0" id="total-messages">0</h2>
+                      </div>
+                      <i class="bi bi-chat-dots fs-1 opacity-50"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card text-white bg-warning">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                        <h6 class="card-title">Avg. Messages/Session</h6>
+                        <h2 class="mb-0" id="avg-messages">0</h2>
+                      </div>
+                      <i class="bi bi-calculator fs-1 opacity-50"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card text-white bg-info">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                        <h6 class="card-title">Active Today</h6>
+                        <h2 class="mb-0" id="active-today">0</h2>
+                      </div>
+                      <i class="bi bi-calendar-check fs-1 opacity-50"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Service Distribution -->
+            <div class="card mb-4">
+              <div class="card-header bg-light">
+                <h5 class="mb-0">Service Interest Distribution</h5>
+              </div>
+              <div class="card-body" id="service-distribution">
+                <div class="text-center py-4">
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  <p class="mt-2">Loading service distribution data...</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Recent Sessions -->
+            <div class="card mb-4">
+              <div class="card-header bg-light">
+                <h5 class="mb-0">Recent Chat Sessions</h5>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Session ID</th>
+                        <th>Date</th>
+                        <th>Messages</th>
+                        <th>Last Message</th>
+                        <th>Service</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="recent-sessions-table">
+                      <tr>
+                        <td colspan="6" class="text-center">Loading sessions...</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Common Questions -->
+            <div class="card">
+              <div class="card-header bg-light">
+                <h5 class="mb-0">Common Questions</h5>
+              </div>
+              <div class="card-body">
+                <div id="common-questions">Loading common questions...</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Chat Sessions Tab -->
+          <div class="tab-pane fade" id="chat-sessions">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+              <h1 class="h2">Chat Sessions</h1>
+              <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="input-group me-2">
+                  <input type="text" class="form-control form-control-sm" id="session-search" placeholder="Search sessions...">
+                  <button class="btn btn-outline-secondary btn-sm" type="button" id="search-btn">
+                    <i class="bi bi-search"></i>
+                  </button>
+                </div>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Filter by Service
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#" data-filter="all">All Services</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#" data-filter="web">Web Development</a></li>
+                    <li><a class="dropdown-item" href="#" data-filter="va">Virtual Assistant</a></li>
+                    <li><a class="dropdown-item" href="#" data-filter="marketing">Digital Marketing</a></li>
+                    <li><a class="dropdown-item" href="#" data-filter="saxophone">Saxophone</a></li>
+                  </ul>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-secondary ms-2" id="export-all-chats">
+                  <i class="bi bi-download me-1"></i> Export All
+                </button>
+              </div>
+            </div>
+            
+            <div class="row">
+              <!-- Sessions List -->
+              <div class="col-md-4">
+                <div class="card">
+                  <div class="card-header bg-light">
+                    <h6 class="mb-0">All Sessions</h6>
+                  </div>
+                  <div class="list-group list-group-flush" id="chat-sessions-list" style="max-height: 600px; overflow-y: auto;">
+                    <div class="list-group-item text-center">
+                      <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+                      <span class="ms-2">Loading sessions...</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Chat Viewer -->
+              <div class="col-md-8">
+                <div class="card">
+                  <div class="card-header bg-light">
+                    <h6 class="mb-0">Chat Conversation</h6>
+                  </div>
+                  <div class="card-body chat-viewer" id="chat-viewer">
+                    <div class="text-center text-muted py-5">
+                      <i class="bi bi-chat-square-text fs-1"></i>
+                      <p class="mt-3">Select a chat session to view the conversation</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Analytics Tab -->
+          <div class="tab-pane fade" id="analytics">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+              <h1 class="h2">Analytics</h1>
+              <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="btn-group me-2">
+                  <button type="button" class="btn btn-sm btn-outline-secondary" id="refresh-analytics">
+                    <i class="bi bi-arrow-clockwise me-1"></i> Refresh
+                  </button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary" id="export-analytics">
+                    <i class="bi bi-download me-1"></i> Export
+                  </button>
+                </div>
+                <div class="dropdown">
+                  <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="timeRangeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    Last 30 Days
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="timeRangeDropdown">
+                    <li><a class="dropdown-item" href="#">Today</a></li>
+                    <li><a class="dropdown-item" href="#">Last 7 Days</a></li>
+                    <li><a class="dropdown-item" href="#">Last 30 Days</a></li>
+                    <li><a class="dropdown-item" href="#">All Time</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Analytics Cards -->
+            <div class="row g-4 mb-4">
+              <div class="col-md-4">
+                <div class="card analytics-card">
+                  <div class="card-body">
+                    <h5 class="card-title">Message Distribution</h5>
+                    <div class="text-center py-4">
+                      <canvas id="message-distribution-chart" height="200"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card analytics-card">
+                  <div class="card-body">
+                    <h5 class="card-title">Sessions Over Time</h5>
+                    <div class="text-center py-4">
+                      <canvas id="sessions-time-chart" height="200"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card analytics-card">
+                  <div class="card-body">
+                    <h5 class="card-title">Service Interest</h5>
+                    <div class="text-center py-4">
+                      <canvas id="top-questions-chart" height="200"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Service Performance -->
+            <div class="card mb-4">
+              <div class="card-header bg-light">
+                <h5 class="mb-0">Service Performance</h5>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+                    <div class="d-flex align-items-center mb-3">
+                      <div class="service-icon web">
+                        <i class="bi bi-laptop"></i>
+                      </div>
+                      <div class="flex-grow-1">
+                        <h6 class="mb-0">Web Development</h6>
+                        <div class="service-progress mt-2">
+                          <div class="service-progress-bar web" id="web-progress" style="width: 0%"></div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                          <small class="text-muted">Inquiries: <span id="web-inquiries">0</span></small>
+                          <small class="text-muted"><span id="web-percentage">0%</span> of total</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <div class="d-flex align-items-center mb-3">
+                      <div class="service-icon va">
+                        <i class="bi bi-person-workspace"></i>
+                      </div>
+                      <div class="flex-grow-1">
+                        <h6 class="mb-0">Virtual Assistant</h6>
+                        <div class="service-progress mt-2">
+                          <div class="service-progress-bar va" id="va-progress" style="width: 0%"></div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                          <small class="text-muted">Inquiries: <span id="va-inquiries">0</span></small>
+                          <small class="text-muted"><span id="va-percentage">0%</span> of total</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <div class="d-flex align-items-center mb-3">
+                      <div class="service-icon marketing">
+                        <i class="bi bi-graph-up"></i>
+                      </div>
+                      <div class="flex-grow-1">
+                        <h6 class="mb-0">Digital Marketing</h6>
+                        <div class="service-progress mt-2">
+                          <div class="service-progress-bar marketing" id="marketing-progress" style="width: 0%"></div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                          <small class="text-muted">Inquiries: <span id="marketing-inquiries">0</span></small>
+                          <small class="text-muted"><span id="marketing-percentage">0%</span> of total</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <div class="d-flex align-items-center mb-3">
+                      <div class="service-icon saxophone">
+                        <i class="bi bi-music-note"></i>
+                      </div>
+                      <div class="flex-grow-1">
+                        <h6 class="mb-0">Saxophone Performance</h6>
+                        <div class="service-progress mt-2">
+                          <div class="service-progress-bar saxophone" id="saxophone-progress" style="width: 0%"></div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                          <small class="text-muted">Inquiries: <span id="saxophone-inquiries">0</span></small>
+                          <small class="text-muted"><span id="saxophone-percentage">0%</span> of total</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Detailed Analytics -->
+            <div class="card">
+              <div class="card-header bg-light">
+                <h5 class="mb-0">Detailed Analytics</h5>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Category</th>
+                        <th>Count</th>
+                        <th>Percentage</th>
+                        <th>Trend</th>
+                      </tr>
+                    </thead>
+                    <tbody id="analytics-table">
+                      <tr>
+                        <td colspan="4" class="text-center">Loading analytics data...</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Services Tab (New) -->
+          <div class="tab-pane fade" id="services">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+              <h1 class="h2">Services Management</h1>
+              <button type="button" class="btn btn-primary" id="save-services">
+                <i class="bi bi-save me-1"></i> Save Changes
+              </button>
+            </div>
+            
+            <!-- Services Tabs -->
+            <ul class="nav nav-tabs mb-4" id="servicesTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="web-tab" data-bs-toggle="tab" data-bs-target="#web-content" type="button" role="tab" aria-controls="web-content" aria-selected="true">
+                  <i class="bi bi-laptop me-1"></i> Web Development
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="va-tab" data-bs-toggle="tab" data-bs-target="#va-content" type="button" role="tab" aria-controls="va-content" aria-selected="false">
+                  <i class="bi bi-person-workspace me-1"></i> Virtual Assistant
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="marketing-tab" data-bs-toggle="tab" data-bs-target="#marketing-content" type="button" role="tab" aria-controls="marketing-content" aria-selected="false">
+                  <i class="bi bi-graph-up me-1"></i> Digital Marketing
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="saxophone-tab" data-bs-toggle="tab" data-bs-target="#saxophone-content" type="button" role="tab" aria-controls="saxophone-content" aria-selected="false">
+                  <i class="bi bi-music-note me-1"></i> Saxophone
+                </button>
+              </li>
+            </ul>
+            
+            <div class="tab-content" id="servicesTabContent">
+              <!-- Web Development Service -->
+              <div class="tab-pane fade show active" id="web-content" role="tabpanel" aria-labelledby="web-tab">
+                <div class="card mb-4">
+                  <div class="card-header bg-light">
+                    <h5 class="mb-0">Web Development Service</h5>
+                  </div>
+                  <div class="card-body">
+                    <form>
+                      <div class="mb-3">
+                        <label for="web-title" class="form-label">Service Title</label>
+                        <input type="text" class="form-control" id="web-title" value="Web Development & Design">
+                      </div>
+                      <div class="mb-3">
+                        <label for="web-description" class="form-label">Service Description</label>
+                        <textarea class="form-control" id="web-description" rows="3">Professional web development services for businesses and individuals</textarea>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Service Offerings</label>
+                        <ul class="list-group mb-3" id="web-offerings">
+                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <input type="text" class="form-control" value="Responsive website development">
+                            <button type="button" class="btn btn-sm btn-outline-danger ms-2 remove-offering"><i class="bi bi-trash"></i></button>
+                          </li>
+                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <input type="text" class="form-control" value="E-commerce solutions">
+                            <button type="button" class="btn btn-sm btn-outline-danger ms-2 remove-offering"><i class="bi bi-trash"></i></button>
+                          </li>
+                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <input type="text" class="form-control" value="Web application development">
+                            <button type="button" class="btn btn-sm btn-outline-danger ms-2 remove-offering"><i class="bi bi-trash"></i></button>
+                          </li>
+                        </ul>
+                        <button type="button" class="btn btn-sm btn-outline-primary" id="add-web-offering">
+                          <i class="bi bi-plus-circle me-1"></i> Add Offering
+                        </button>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Pricing</label>
+                        <div class="row g-3">
+                          <div class="col-md-6">
+                                                        <label for="web-price-basic" class="form-label">Basic</label>
+                            <input type="text" class="form-control" id="web-price-basic" value="$200-1000 (₦150,000-₦750,000) - Simple websites">
+                          </div>
+                          <div class="col-md-6">
+                            <label for="web-price-standard" class="form-label">Standard</label>
+                            <input type="text" class="form-control" id="web-price-standard" value="$1,000-3,000 (₦750,000-₦2,250,000) - Business websites">
+                          </div>
+                          <div class="col-md-6">
+                            <label for="web-price-premium" class="form-label">Premium</label>
+                            <input type="text" class="form-control" id="web-price-premium" value="$3,000-7,000 (₦2,250,000-₦5,250,000) - Complex applications">
+                          </div>
+                          <div class="col-md-6">
+                            <label for="web-price-maintenance" class="form-label">Maintenance</label>
+                            <input type="text" class="form-control" id="web-price-maintenance" value="$100-300 (₦75,000-₦225,000) per month">
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Virtual Assistant Service -->
+              <div class="tab-pane fade" id="va-content" role="tabpanel" aria-labelledby="va-tab">
+                <div class="card mb-4">
+                  <div class="card-header bg-light">
+                    <h5 class="mb-0">Virtual Assistant Service</h5>
+                  </div>
+                  <div class="card-body">
+                    <form>
+                      <div class="mb-3">
+                        <label for="va-title" class="form-label">Service Title</label>
+                        <input type="text" class="form-control" id="va-title" value="Virtual Assistant Services">
+                      </div>
+                      <div class="mb-3">
+                        <label for="va-description" class="form-label">Service Description</label>
+                        <textarea class="form-control" id="va-description" rows="3">Comprehensive remote assistance for businesses and entrepreneurs</textarea>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Service Offerings</label>
+                        <ul class="list-group mb-3" id="va-offerings">
+                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <input type="text" class="form-control" value="Administrative support">
+                            <button type="button" class="btn btn-sm btn-outline-danger ms-2 remove-offering"><i class="bi bi-trash"></i></button>
+                          </li>
+                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <input type="text" class="form-control" value="Email management">
+                            <button type="button" class="btn btn-sm btn-outline-danger ms-2 remove-offering"><i class="bi bi-trash"></i></button>
+                          </li>
+                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <input type="text" class="form-control" value="Social media management">
+                            <button type="button" class="btn btn-sm btn-outline-danger ms-2 remove-offering"><i class="bi bi-trash"></i></button>
+                          </li>
+                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <input type="text" class="form-control" value="Content creation and copywriting">
+                            <button type="button" class="btn btn-sm btn-outline-danger ms-2 remove-offering"><i class="bi bi-trash"></i></button>
+                          </li>
+                        </ul>
+                        <button type="button" class="btn btn-sm btn-outline-primary" id="add-va-offering">
+                          <i class="bi bi-plus-circle me-1"></i> Add Offering
+                        </button>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Pricing</label>
+                        <div class="row g-3">
+                          <div class="col-md-4">
+                            <label for="va-price-hourly" class="form-label">Hourly</label>
+                            <input type="text" class="form-control" id="va-price-hourly" value="$10-30 (₦7,500-₦22,500) per hour">
+                          </div>
+                          <div class="col-md-4">
+                            <label for="va-price-part_time" class="form-label">Part-time</label>
+                            <input type="text" class="form-control" id="va-price-part_time" value="$800-1,500 (₦600,000-₦1,125,000) per month (20 hrs/week)">
+                          </div>
+                          <div class="col-md-4">
+                            <label for="va-price-full_time" class="form-label">Full-time</label>
+                            <input type="text" class="form-control" id="va-price-full_time" value="$1,500-3,000 (₦1,125,000-₦2,250,000) per month (40 hrs/week)">
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Digital Marketing Service -->
+              <div class="tab-pane fade" id="marketing-content" role="tabpanel" aria-labelledby="marketing-tab">
+                <div class="card mb-4">
+                  <div class="card-header bg-light">
+                    <h5 class="mb-0">Digital Marketing Service</h5>
+                  </div>
+                  <div class="card-body">
+                    <form>
+                      <div class="mb-3">
+                        <label for="marketing-title" class="form-label">Service Title</label>
+                        <input type="text" class="form-control" id="marketing-title" value="Digital Marketing Services">
+                      </div>
+                      <div class="mb-3">
+                        <label for="marketing-description" class="form-label">Service Description</label>
+                        <textarea class="form-control" id="marketing-description" rows="3">Strategic digital marketing to grow your online presence</textarea>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Service Offerings</label>
+                        <ul class="list-group mb-3" id="marketing-offerings">
+                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <input type="text" class="form-control" value="Social media marketing">
+                            <button type="button" class="btn btn-sm btn-outline-danger ms-2 remove-offering"><i class="bi bi-trash"></i></button>
+                          </li>
+                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <input type="text" class="form-control" value="Content marketing strategy">
+                            <button type="button" class="btn btn-sm btn-outline-danger ms-2 remove-offering"><i class="bi bi-trash"></i></button>
+                          </li>
+                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <input type="text" class="form-control" value="SEO optimization">
+                            <button type="button" class="btn btn-sm btn-outline-danger ms-2 remove-offering"><i class="bi bi-trash"></i></button>
+                          </li>
+                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <input type="text" class="form-control" value="Email marketing campaigns">
+                            <button type="button" class="btn btn-sm btn-outline-danger ms-2 remove-offering"><i class="bi bi-trash"></i></button>
+                          </li>
+                        </ul>
+                        <button type="button" class="btn btn-sm btn-outline-primary" id="add-marketing-offering">
+                          <i class="bi bi-plus-circle me-1"></i> Add Offering
+                        </button>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Pricing</label>
+                        <div class="row g-3">
+                          <div class="col-md-4">
+                            <label for="marketing-price-basic" class="form-label">Basic</label>
+                            <input type="text" class="form-control" id="marketing-price-basic" value="$300-800 (₦225,000-₦600,000) per month">
+                          </div>
+                          <div class="col-md-4">
+                            <label for="marketing-price-standard" class="form-label">Standard</label>
+                            <input type="text" class="form-control" id="marketing-price-standard" value="$800-2,000 (₦600,000-₦1,500,000) per month">
+                          </div>
+                          <div class="col-md-4">
+                            <label for="marketing-price-premium" class="form-label">Premium</label>
+                            <input type="text" class="form-control" id="marketing-price-premium" value="$2,000-5,000 (₦1,500,000-₦3,750,000) per month">
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Saxophone Service -->
+              <div class="tab-pane fade" id="saxophone-content" role="tabpanel" aria-labelledby="saxophone-tab">
+                <div class="card mb-4">
+                  <div class="card-header bg-light">
+                    <h5 class="mb-0">Saxophone Performance Service</h5>
+                  </div>
+                  <div class="card-body">
+                    <form>
+                      <div class="mb-3">
+                        <label for="saxophone-title" class="form-label">Service Title</label>
+                        <input type="text" class="form-control" id="saxophone-title" value="Saxophone Performance">
+                      </div>
+                      <div class="mb-3">
+                        <label for="saxophone-description" class="form-label">Service Description</label>
+                        <textarea class="form-control" id="saxophone-description" rows="3">Professional saxophone performances as 'Peterphonist'</textarea>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Service Offerings</label>
+                        <ul class="list-group mb-3" id="saxophone-offerings">
+                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <input type="text" class="form-control" value="Live performances for events (weddings, parties, concerts)">
+                            <button type="button" class="btn btn-sm btn-outline-danger ms-2 remove-offering"><i class="bi bi-trash"></i></button>
+                          </li>
+                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <input type="text" class="form-control" value="Church programs and worship ministrations (free except transportation)">
+                            <button type="button" class="btn btn-sm btn-outline-danger ms-2 remove-offering"><i class="bi bi-trash"></i></button>
+                          </li>
+                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <input type="text" class="form-control" value="Session recordings for songs and albums">
+                            <button type="button" class="btn btn-sm btn-outline-danger ms-2 remove-offering"><i class="bi bi-trash"></i></button>
+                          </li>
+                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <input type="text" class="form-control" value="Personalized saxophone renditions">
+                            <button type="button" class="btn btn-sm btn-outline-danger ms-2 remove-offering"><i class="bi bi-trash"></i></button>
+                          </li>
+                        </ul>
+                        <button type="button" class="btn btn-sm btn-outline-primary" id="add-saxophone-offering">
+                          <i class="bi bi-plus-circle me-1"></i> Add Offering
+                        </button>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Pricing</label>
+                        <div class="row g-3">
+                          <div class="col-md-6">
+                            <label for="saxophone-price-livePerformance" class="form-label">Live Performance</label>
+                            <input type="text" class="form-control" id="saxophone-price-livePerformance" value="$200-500 (₦150,000-₦380,000) per event">
+                          </div>
+                          <div class="col-md-6">
+                            <label for="saxophone-price-churchPrograms" class="form-label">Church Programs</label>
+                            <input type="text" class="form-control" id="saxophone-price-churchPrograms" value="Free (transportation costs only)">
+                          </div>
+                          <div class="col-md-6">
+                            <label for="saxophone-price-sessionRecording" class="form-label">Session Recording</label>
+                            <input type="text" class="form-control" id="saxophone-price-sessionRecording" value="$100-300 (₦75,000-₦225,000) per track">
+                          </div>
+                          <div class="col-md-6">
+                            <label for="saxophone-price-personalizedSong" class="form-label">Personalized Song</label>
+                            <input type="text" class="form-control" id="saxophone-price-personalizedSong" value="$75-150 (₦55,000-₦115,000) per request">
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Contact Information -->
+            <div class="card mb-4">
+              <div class="card-header bg-light">
+                <h5 class="mb-0">Contact Information</h5>
+              </div>
+              <div class="card-body">
+                <form>
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <label for="contact-email" class="form-label">Email</label>
+                      <input type="email" class="form-control" id="contact-email" value="petereluwade55@gmail.com">
+                    </div>
+                    <div class="col-md-6">
+                      <label for="contact-whatsapp" class="form-label">WhatsApp</label>
+                      <input type="text" class="form-control" id="contact-whatsapp" value="+234 8108821809">
+                    </div>
+                    <div class="col-md-6">
+                      <label for="contact-telegram" class="form-label">Telegram</label>
+                      <input type="text" class="form-control" id="contact-telegram" value="@peterlightspeed">
+                    </div>
+                    <div class="col-md-6">
+                      <label for="contact-website" class="form-label">Website</label>
+                      <input type="text" class="form-control" id="contact-website" value="https://peterlight123.github.io/portfolio/">
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            
+            <!-- Social Media -->
+            <div class="card">
+              <div class="card-header bg-light">
+                <h5 class="mb-0">Social Media</h5>
+              </div>
+              <div class="card-body">
+                <form>
+                  <div class="row g-3">
+                    <div class="col-md-4">
+                      <label for="social-youtube" class="form-label">YouTube</label>
+                      <div class="input-group">
+                        <span class="input-group-text">@</span>
+                        <input type="text" class="form-control" id="social-youtube" value="peterphonist">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="social-facebook" class="form-label">Facebook</label>
+                      <div class="input-group">
+                        <span class="input-group-text">@</span>
+                        <input type="text" class="form-control" id="social-facebook" value="peterphonist">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="social-instagram" class="form-label">Instagram</label>
+                      <div class="input-group">
+                        <span class="input-group-text">@</span>
+                        <input type="text" class="form-control" id="social-instagram" value="peterphonist">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="social-tiktok" class="form-label">TikTok</label>
+                      <div class="input-group">
+                        <span class="input-group-text">@</span>
+                        <input type="text" class="form-control" id="social-tiktok" value="peterphonist">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="social-twitter" class="form-label">Twitter</label>
+                      <div class="input-group">
+                        <span class="input-group-text">@</span>
+                        <input type="text" class="form-control" id="social-twitter" value="peterphonist">
+                      </div>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
@@ -430,7 +1693,7 @@
                   </div>
                   <div class="mb-3">
                     <label for="welcome-message" class="form-label">Welcome Message</label>
-                    <textarea class="form-control" id="welcome-message" rows="3">👋 Hello! I'm PeterBot. How can I help you today?</textarea>
+                    <textarea class="form-control" id="welcome-message" rows="3">👋 Hello! I'm PeterBot, Peter's AI assistant. I can help you with web development, virtual assistant services, digital marketing, and saxophone performances! How can I assist you today?</textarea>
                   </div>
                   <div class="mb-3">
                     <label for="bot-avatar" class="form-label">Bot Avatar URL</label>
@@ -528,3 +1791,5 @@
   <script src="admin.js"></script>
 </body>
 </html>
+
+
