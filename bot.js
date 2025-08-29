@@ -13,7 +13,7 @@ const BOT_CONFIG = {
     version: '2.0',
     lastUpdated: new Date().toISOString()
 };
- jshint unused:false 
+ 
 
 let chatHistory = [];
 let currentSessionId = null;
@@ -1552,7 +1552,7 @@ this.data.leads.push(newLead);
     
     addProject(project) {
         this.data.projects.push({
-            ...project,
+            project,
             id: `project_${Date.now()}`,
             timestamp: new Date().toISOString(),
             status: 'pending'
@@ -1563,7 +1563,7 @@ this.data.leads.push(newLead);
     
     logConversation(conversation) {
         this.data.conversations.push({
-            ...conversation,
+            conversation,
             id: `conv_${Date.now()}`,
             timestamp: new Date().toISOString()
         });
@@ -1606,14 +1606,12 @@ this.data.leads.push(newLead);
         return this.data.analytics;
     }
     
-    updateSettings(newSettings) {
-        this.data.settings = {
-            ...this.data.settings,
-            ...newSettings
-        };
-        
-        this.saveData();
-    }
+   updateSettings(newSettings) {
+    this.data.settings = Object.assign({}, this.data.settings, newSettings);
+    
+    this.saveData();
+}
+
     
     cleanupOldData() {
         const cutoffDate = new Date();
