@@ -5,7 +5,7 @@ console.log('Loading Enhanced PeterBot v3.0 with AI...');
 // Configuration (only declare once)
 const PETERBOT_API_CONFIG = {
     googleAI: {
-        apiKey: 'AIzaSyDOQ2dCJgqJhJLNJjJLNJjJLNJjJLNJjJL', // Replace with your actual API key
+        apiKey: 'AIzaSyB03WLfMuQIz8iZjwu6sebdtwfXXjXG-Qw',
         model: 'gemini-pro',
         endpoint: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent'
     }
@@ -13,7 +13,7 @@ const PETERBOT_API_CONFIG = {
 
 const BOT_CONFIG = {
     name: 'PLS BOT',
-    avatar: 'https://i.imgur.com/YourBotAvatar.png', // Replace with actual avatar URL
+    avatar: 'https://i.imgur.com/5Eu01Tk.jpeg', 
     primaryColor: '#667eea',
     secondaryColor: '#764ba2',
     showTypingIndicator: true,
