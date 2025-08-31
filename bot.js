@@ -6,7 +6,7 @@ console.log('Loading Enhanced PeterBot v2.0...');
 const BOT_CONFIG = {
     name: 'PeterBot',
     avatar: 'https://i.imgur.com/5Eu01Tk.jpeg',
-    welcomeMessage: "👋 Hello! I'm PeterBot, Peter's AI assistant. I can help you with web development, virtual assistant services, digital marketing, and saxophone performances! How can I assist you today?",
+    welcomeMessage: "👋 Hello! I'm PLS BOT, Peter's AI assistant. I can help you with web development, virtual assistant services, digital marketing, and saxophone performances! How can I assist you today?",
     responseDelay: 800,
     showTypingIndicator: true,
     showQuickReplies: true,
@@ -121,14 +121,14 @@ let botContainer = null;
 
 // Initialize bot when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded, initializing PeterBot...');
+    console.log('DOM loaded, initializing PLS Bot...');
     initializeBot();
 });
 
 // Initialize the chatbot
 function initializeBot() {
     try {
-        console.log('Initializing PeterBot v2.0...');
+        console.log('Initializing PLS BOT 0.025...');
         
         // Load settings from localStorage
         loadBotSettings();
@@ -155,9 +155,9 @@ function initializeBot() {
             }, 500);
         }
         
-        console.log('PeterBot v2.0 initialized successfully');
+        console.log('PLS Bot v0.025 initialized successfully');
     } catch (error) {
-        console.error('Error initializing PeterBot:', error);
+        console.error('Error initializing PLS Bot:', error);
     }
 }
 
