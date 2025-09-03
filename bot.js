@@ -1,8 +1,7 @@
-
 // Enhanced PeterBot v3.0 with AI Integration
 console.log('Loading Enhanced PeterBot v3.0 with AI...');
 
-// Configuration (only declare once)
+// Configuration
 const PETERBOT_API_CONFIG = {
     googleAI: {
         apiKey: 'AIzaSyB03WLfMuQIz8iZjwu6sebdtwfXXjXG-Qw',
@@ -411,6 +410,7 @@ function addEnhancedBotStyles() {
             align-items: flex-end;
             gap: 10px;
             max-width: 100%;
+            animation: messageSlideIn 0.3s ease-out;
         }
         
         .user-message {
@@ -595,24 +595,6 @@ function addEnhancedBotStyles() {
             transform: scale(0.95);
         }
         
-        .send-button::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255,255,255,0.3);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.3s, height 0.3s;
-        }
-        
-        .send-button:active::before {
-            width: 100%;
-            height: 100%;
-        }
-        
         /* Enhanced scrollbar */
         .peterbot-messages::-webkit-scrollbar {
             width: 6px;
@@ -716,26 +698,11 @@ function addEnhancedBotStyles() {
             }
         }
         
-        .message {
-            animation: messageSlideIn 0.3s ease-out;
-        }
-        
         /* Loading states */
         .loading-shimmer {
             background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
             background-size: 200% 100%;
             animation: shimmer 1.5s infinite;
-        }
-        
-        /* Success/Error states */
-        .success-message {
-            border-left: 4px solid #10ac84;
-            background: #f0fff4;
-        }
-        
-        .error-message {
-            border-left: 4px solid #ff6b6b;
-            background: #fff5f5;
         }
         
         /* Enhanced hover effects */
@@ -783,6 +750,8 @@ I'm Peter's AI-powered assistant, ready to help you with:
 🌟 AI-Enhanced Responses
 ⚡ Instant Support Available
 💳 Crypto & Bank Payments Accepted
+
+🌐 **Visit Portfolio:** https://peterlight123.github.io/portfolio/
 
 What can I help you with today?`;
 
@@ -866,13 +835,13 @@ async function processBotResponse(userMessage) {
     }
 }
 
-// Determine context for quick replies
+// Determine context for quick replies - FIXED SYNTAX ERROR
 function determineContext(message) {
     const msg = message.toLowerCase();
     
     if (msg.includes('saxophone') || msg.includes('music') || msg.includes('performance')) {
         return 'saxophone';
-    }     } else if (msg.includes('payment') || msg.includes('pay') || msg.includes('crypto') || msg.includes('bank')) {
+    } else if (msg.includes('payment') || msg.includes('pay') || msg.includes('crypto') || msg.includes('bank')) {
         return 'payment';
     } else if (msg.includes('contact') || msg.includes('reach') || msg.includes('phone') || msg.includes('email')) {
         return 'contact';
@@ -883,7 +852,7 @@ function determineContext(message) {
     return 'default';
 }
 
-// AI Response function with enhanced context
+// AI Response function with enhanced context (continued)
 async function getAIResponse(userMessage) {
     if (!BOT_CONFIG.useAI || !PETERBOT_API_CONFIG.googleAI.apiKey) {
         return null;
@@ -899,7 +868,7 @@ async function getAIResponse(userMessage) {
         const context = `You are PLS BOT, an AI assistant for Peter Eluwade (@peterphonist), a multi-talented professional offering:
 
 SERVICES & PRICING:
-1. Web Development - Custom websites, e-commerce, web applications
+1. Web Development - Custom websites, e-commerce, web applications using HTML5, CSS3, JavaScript, React, Node.js, PHP
 2. Virtual Assistant - Email management, social media, content creation, admin support
 3. Digital Marketing - Social media marketing, SEO, content strategy, email campaigns
 4. Saxophone Performances:
@@ -977,7 +946,7 @@ function getBotResponse(message) {
     
     // Greetings
     if (msg.includes('hello') || msg.includes('hi') || msg.includes('hey') || msg.includes('greetings')) {
-        return "👋 Hello! I'm PLS BOT, Peter's AI assistant. I can help you with information about his services:\n\n💻 Web Development\n👨‍💼 Virtual Assistant Services\n📊 Digital Marketing\n🎷 Saxophone Performances\n\nWhat would you like to know more about?";
+        return "👋 Hello! I'm PLS BOT, Peter's AI assistant. I can help you with information about his services:\n\n💻 Web Development\n👨‍💼 Virtual Assistant Services\n📊 Digital Marketing\n🎷 Saxophone Performances\n\n🌐 Visit: https://peterlight123.github.io/portfolio/\n\nWhat would you like to know more about?";
     }
     
     // Services overview
@@ -1010,6 +979,8 @@ function getBotResponse(message) {
 💳 **Payment Methods:**
 • <span class="payment-highlight">Cryptocurrency</span> (Bitcoin, Ethereum, USDT)
 • <span class="payment-highlight">Bank Transfer</span> (Zenith Bank: 4291620354)
+
+🌐 **Portfolio:** https://peterlight123.github.io/portfolio/
 
 Which service interests you most?`;
     }
@@ -1065,7 +1036,7 @@ Would you like to book a performance?`;
 📧 **Email:** <a href="mailto:petereluwade55@gmail.com">petereluwade55@gmail.com</a>
 📱 **WhatsApp:** <a href="https://wa.me/2348108821809" target="_blank">+234 8108821809</a>
 💬 **Telegram:** @peterlightspeed
-🌐 **Website:** <a href="https://peterlight123.github.io/portfolio/" target="_blank">Portfolio</a>
+🌐 **Website:** <a href="https://peterlight123.github.io/portfolio/" target="_blank">https://peterlight123.github.io/portfolio/</a>
 
 **Social Media (all @peterphonist):**
 🎬 YouTube | 📸 Instagram | 📘 Facebook | 🎵 TikTok | 🐦 Twitter
@@ -1102,6 +1073,8 @@ Ready to start your project? Reach out anytime!`;
 3. Development & testing
 4. Launch & optimization
 5. Ongoing support
+
+**Portfolio:** <a href="https://peterlight123.github.io/portfolio/" target="_blank">https://peterlight123.github.io/portfolio/</a>
 
 **Get Started:**
 📧 Email: <a href="mailto:petereluwade55@gmail.com">petereluwade55@gmail.com</a>
@@ -1145,13 +1118,37 @@ Ready to build your dream website?`;
 Ready to streamline your business?`;
     }
     
+    // Portfolio/website specific
+    if (msg.includes('portfolio') || msg.includes('website') || msg.includes('site')) {
+        return `🌐 **Peter's Portfolio Website:**
+
+**Visit:** <a href="https://peterlight123.github.io/portfolio/" target="_blank">https://peterlight123.github.io/portfolio/</a>
+
+**What you'll find:**
+• Complete service overview
+• Project showcases
+• Client testimonials
+• Contact information
+• Payment details
+• Social media links
+
+**Features:**
+✅ Responsive design
+✅ Fast loading
+✅ Professional layout
+✅ Easy navigation
+✅ Contact forms
+
+The portfolio showcases Peter's expertise in web development, virtual assistance, digital marketing, and saxophone performances. Check it out!`;
+    }
+    
     // Default response
     const defaultResponses = [
-        "I'd be happy to help! Peter offers web development, virtual assistant services, digital marketing, and saxophone performances. What specific area interests you most?",
+        "I'd be happy to help! Peter offers web development, virtual assistant services, digital marketing, and saxophone performances. Visit his portfolio at https://peterlight123.github.io/portfolio/ or ask me about any specific service!",
         
-        "Thanks for reaching out! I can provide detailed information about Peter's services, pricing (in USD and Naira), or help you get in touch. What would you like to know?",
+        "Thanks for reaching out! I can provide detailed information about Peter's services, pricing (in USD and Naira), or help you get in touch. Check out https://peterlight123.github.io/portfolio/ for more details. What would you like to know?",
         
-        "Great question! Peter specializes in web development, virtual assistant services, digital marketing, and saxophone performances. Which service would you like to learn more about?"
+        "Great question! Peter specializes in web development, virtual assistant services, digital marketing, and saxophone performances. Visit https://peterlight123.github.io/portfolio/ to see his work. Which service would you like to learn more about?"
     ];
     
     return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
@@ -1503,5 +1500,3 @@ window.PeterBot = {
 };
 
 console.log('Enhanced PeterBot v3.0 with AI integration loaded successfully');
-
-
