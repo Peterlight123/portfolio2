@@ -1,15 +1,14 @@
-// PeterBot Professional v4.0 - Fixed Version
+// PeterBot Professional v4.0 - Integrated with Existing Admin System
 (function() {
     'use strict';
 
-    // Configuration - Fixed syntax error
+    // Configuration
     const PETERBOT_CONFIG = {
         name: 'PeterBot',
         version: '4.0',
         avatar: 'https://i.imgur.com/5Eu01Tk.jpeg',
         apiKey: 'AIzaSyB03WLfMuQIz8iZjwu6sebdtwfXXjXG-Qw',
         apiUrl: 'https://api.openai.com/v1/chat/completions',
-        adminPassword: 'peter2024admin',
         storageKey: 'peterbot_data'
     };
 
@@ -18,12 +17,12 @@
         isOpen: false,
         isTyping: false,
         apiConnected: false,
-        isAdmin: false,
         messages: [],
         analytics: {
             totalChats: 0,
             commonQuestions: {},
-            userFeedback: []
+            userFeedback: [],
+            dailyStats: {}
         }
     };
 
@@ -35,6 +34,14 @@
         pricing: ['Web Pricing', 'VA Rates', 'Marketing Costs', 'Music Rates']
     };
 
+    // Check if user is admin (integrate with your existing admin system)
+    function isUserAdmin() {
+        // Check if your admin panel is active/logged in
+        return document.querySelector('.admin-panel')?.style.display !== 'none' || 
+               localStorage.getItem('adminLoggedIn') === 'true' ||
+               sessionStorage.getItem('adminAccess') === 'true';
+    }
+
     // Storage Functions
     function saveToStorage() {
         try {
@@ -44,6 +51,11 @@
                 timestamp: new Date().toISOString()
             };
             localStorage.setItem(PETERBOT_CONFIG.storageKey, JSON.stringify(data));
+            
+            // Also save to your existing admin data if admin is logged in
+            if (isUserAdmin()) {
+                saveToBotAnalytics(data);
+            }
         } catch (error) {
             console.error('Storage save error:', error);
         }
@@ -63,6 +75,46 @@
         return null;
     }
 
+    // Integrate with your existing admin analytics
+    function saveToBotAnalytics(data) {
+        try {
+            // Save to your existing admin system's data structure
+            const existingAnalytics = JSON.parse(localStorage.getItem('websiteAnalytics') || '{}');
+            
+            if (!existingAnalytics.chatbot) {
+                existingAnalytics.chatbot = {
+                    totalConversations: 0,
+                    totalMessages: 0,
+                    popularQuestions: {},
+                    dailyActivity: {},
+                    lastUpdated: new Date().toISOString()
+                };
+            }
+
+            // Update chatbot analytics in your existing system
+            existingAnalytics.chatbot.totalConversations = data.analytics.totalChats;
+            existingAnalytics.chatbot.totalMessages = data.messages.length;
+            existingAnalytics.chatbot.popularQuestions = data.analytics.commonQuestions;
+            existingAnalytics.chatbot.lastUpdated = new Date().toISOString();
+
+            // Add daily stats
+            const today = new Date().toISOString().split('T')[0];
+            if (!existingAnalytics.chatbot.dailyActivity[today]) {
+                existingAnalytics.chatbot.dailyActivity[today] = 0;
+            }
+            existingAnalytics.chatbot.dailyActivity[today]++;
+
+            localStorage.setItem('websiteAnalytics', JSON.stringify(existingAnalytics));
+            
+            // Trigger update in your existing admin panel if it's open
+            if (typeof window.updateAdminDashboard === 'function') {
+                window.updateAdminDashboard();
+            }
+        } catch (error) {
+            console.error('Admin analytics integration error:', error);
+        }
+    }
+
     function updateAnalytics(message, type) {
         if (type === 'user') {
             chatState.analytics.totalChats++;
@@ -73,7 +125,7 @@
         saveToStorage();
     }
 
-    // Professional CSS Styles
+    // Professional CSS Styles (same as before but without admin panel styles)
     const styles = `
         .peterbot-container {
             position: fixed;
@@ -200,6 +252,30 @@
         .peterbot-close:hover {
             background: rgba(255,255,255,0.3);
             transform: rotate(90deg);
+        }
+
+        /* Admin indicator for when admin is logged in */
+        .peterbot-admin-indicator {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(251, 191, 36, 0.4);
+            animation: adminPulse 2s infinite;
+        }
+
+        @keyframes adminPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
 
         .peterbot-messages {
@@ -404,36 +480,6 @@
             transform: translateY(-2px);
         }
 
-        .admin-panel {
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-            padding: 15px 25px;
-            font-size: 13px;
-            color: #92400e;
-        }
-
-        .admin-controls {
-            display: flex;
-            gap: 10px;
-            margin-top: 8px;
-        }
-
-        .admin-btn {
-            padding: 6px 12px;
-            background: rgba(255,255,255,0.9);
-            color: #92400e;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 11px;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-
-        .admin-btn:hover {
-            background: white;
-            transform: translateY(-1px);
-        }
-
         .bold { 
             font-weight: 700; 
             color: #1e293b;
@@ -512,14 +558,17 @@
         }
     }
 
-    // Create Bot HTML
+    // Create Bot HTML (without admin panel)
     function createBotHTML() {
         if (document.getElementById('peterbot-container')) return;
+
+        const adminIndicator = isUserAdmin() ? '<div class="peterbot-admin-indicator">A</div>' : '';
 
         const botHTML = `
             <div class="peterbot-container" id="peterbot-container">
                 <button class="peterbot-toggle" id="peterbot-toggle" title="Chat with PeterBot">
                     💬
+                    ${adminIndicator}
                 </button>
                 
                 <div class="peterbot-chat" id="peterbot-chat">
@@ -531,20 +580,11 @@
                                 <div class="peterbot-title">${PETERBOT_CONFIG.name}</div>
                                 <div class="peterbot-status">
                                     <span class="status-dot"></span>
-                                    Online
+                                    Online ${isUserAdmin() ? '(Admin)' : ''}
                                 </div>
                             </div>
                         </div>
                         <button class="peterbot-close" id="peterbot-close">×</button>
-                    </div>
-                    
-                    <div id="admin-panel" class="admin-panel" style="display: none;">
-                        <div><span class="bold">🔧 Admin Mode Active</span></div>
-                        <div class="admin-controls">
-                            <button class="admin-btn" onclick="window.PeterBot.exportData()">📊 Export</button>
-                            <button class="admin-btn" onclick="window.PeterBot.clearData()">🗑️ Clear</button>
-                            <button class="admin-btn" onclick="window.PeterBot.showAnalytics()">📈 Analytics</button>
-                        </div>
                     </div>
                     
                     <div class="peterbot-messages" id="messages-container">
@@ -586,24 +626,6 @@
                     sendMessage();
                 }
             });
-
-            // Admin access
-            input.addEventListener('keydown', function(e) {
-                if (e.ctrlKey && e.shiftKey && e.key === 'A') {
-                    checkAdminAccess();
-                }
-            });
-        }
-    }
-
-    // Admin Functions
-    function checkAdminAccess() {
-        const password = prompt('Enter admin password:');
-        if (password === PETERBOT_CONFIG.adminPassword) {
-            chatState.isAdmin = true;
-            const adminPanel = document.getElementById('admin-panel');
-            if (adminPanel) adminPanel.style.display = 'block';
-            addMessage('🔧 <span class="bold">Admin mode activated.</span>', 'bot');
         }
     }
 
@@ -621,6 +643,11 @@
             chatState.isOpen = true;
             toggle.textContent = '×';
             toggle.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+            
+            // Add admin indicator back if admin is logged in
+            if (isUserAdmin()) {
+                toggle.innerHTML = '× <div class="peterbot-admin-indicator">A</div>';
+            }
             
             // Show welcome message if no messages
             if (chatState.messages.length === 0) {
@@ -647,8 +674,15 @@
         if (chat && toggle) {
             chat.style.display = 'none';
             chatState.isOpen = false;
-            toggle.textContent = '💬';
             toggle.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+            
+            // Reset toggle content with admin indicator if needed
+            if (isUserAdmin()) {
+                toggle.innerHTML = '💬 <div class="peterbot-admin-indicator">A</div>';
+            } else {
+                toggle.textContent = '💬';
+            }
+            
             hideQuickReplies();
         }
     }
@@ -735,7 +769,7 @@
         }, 2000);
     }
 
-    // Rule-based Response
+    // Rule-based Response (same as before)
     function getRuleBasedResponse(message) {
         const msg = message.toLowerCase();
         
@@ -759,11 +793,25 @@
             return `💰 <span class="service-title">Pricing Overview:</span><br><br><span class="bold">🎷 Saxophone:</span><br>• Weddings: <span class="price">$55</span><br>• Birthdays: <span class="price">$45</span><br>• Church: <span class="price">$75</span><br><br><span class="bold">💻 Web Development:</span><br>• Basic site: <span class="price">$200-500</span><br>• E-commerce: <span class="price">$500-1,500</span><br><br><span class="bold">👨‍💼 Virtual Assistant:</span><br>• Hourly: <span class="price">$8-15/hour</span><br>• Monthly: <span class="price">$300-800</span>`;
         }
         
+        // Admin-only responses
+        if (isUserAdmin() && (msg.includes('analytics') || msg.includes('stats'))) {
+            const analytics = chatState.analytics;
+            const topQuestions = Object.entries(analytics.commonQuestions)
+                .sort(function(a, b) { return b[1] - a[1]; })
+                .slice(0, 3)
+                .map(function(item) { 
+                    return '• ' + item[0].substring(0, 30) + '... (' + item[1] + 'x)'; 
+                })
+                .join('<br>');
+            
+            return `📊 <span class="service-title">Chatbot Analytics (Admin View)</span><br><br><span class="bold">📈 Usage Stats:</span><br>• Total conversations: <span class="highlight">${analytics.totalChats}</span><br>• Total messages: <span class="highlight">${chatState.messages.length}</span><br><br><span class="bold">🔥 Popular Questions:</span><br>${topQuestions || 'No data yet'}<br><br><span class="bold">💾 Data:</span> Integrated with main admin panel`;
+        }
+        
         // Default response
         return `Thanks for reaching out! I can help you learn about Peter's services:<br><br>💻 <span class="highlight">Web Development</span><br>👨‍💼 <span class="highlight">Virtual Assistant</span><br>📊 <span class="highlight">Digital Marketing</span><br>🎷 <span class="highlight">Saxophone Performances</span><br><br>What would you like to know more about?`;
     }
 
-    // Show/Hide Typing
+    // Show/Hide Typing (same as before)
     function showTyping() {
         if (chatState.isTyping) return;
         
@@ -858,10 +906,20 @@
         }
     }
 
-    // Admin Functions
-    function exportData() {
-        if (!chatState.isAdmin) return;
-        
+    // Functions to integrate with your existing admin system
+    function getChatbotData() {
+        return {
+            totalConversations: chatState.analytics.totalChats,
+            totalMessages: chatState.messages.length,
+            popularQuestions: chatState.analytics.commonQuestions,
+            recentMessages: chatState.messages.slice(-10),
+            isActive: chatState.isOpen,
+            lastActivity: chatState.messages.length > 0 ? 
+                chatState.messages[chatState.messages.length - 1].timestamp : null
+        };
+    }
+
+    function exportChatData() {
         const data = {
             messages: chatState.messages,
             analytics: chatState.analytics,
@@ -869,62 +927,26 @@
             version: PETERBOT_CONFIG.version
         };
         
-        const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `peterbot-data-${new Date().toISOString().split('T')[0]}.json`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-        
-        addMessage('📊 <span class="bold">Data exported successfully!</span>', 'bot');
+        return JSON.stringify(data, null, 2);
     }
 
-    function clearData() {
-        if (!chatState.isAdmin) return;
-        
-        if (confirm('⚠️ Clear all chat data? This cannot be undone.')) {
+    function clearChatData() {
+        if (confirm('⚠️ Clear all chatbot data? This cannot be undone.')) {
             localStorage.removeItem(PETERBOT_CONFIG.storageKey);
             chatState.messages = [];
             chatState.analytics = {
                 totalChats: 0,
                 commonQuestions: {},
-                userFeedback: []
+                userFeedback: [],
+                dailyStats: {}
             };
             
-            document.getElementById('messages-container').innerHTML = '';
-            addMessage('🗑️ <span class="bold">All data cleared!</span>', 'bot');
-            saveToStorage();
+            const container = document.getElementById('messages-container');
+            if (container) container.innerHTML = '';
+            
+            return true;
         }
-    }
-
-    function showAnalytics() {
-        if (!chatState.isAdmin) return;
-        
-        const analytics = chatState.analytics;
-        const topQuestions = Object.entries(analytics.commonQuestions)
-            .sort(function(a, b) { return b[1] - a[1]; })
-            .slice(0, 5)
-            .map(function(item) { 
-                return '• ' + item[0].substring(0, 30) + '... (' + item[1] + ' times)'; 
-            })
-            .join('<br>');
-        
-        const analyticsMsg = `
-            📊 <span class="service-title">Analytics Dashboard</span><br><br>
-            <span class="bold">Usage Stats:</span><br>
-            • Total chats: <span class="highlight">${analytics.totalChats}</span><br>
-            • Total messages: <span class="highlight">${chatState.messages.length}</span><br><br>
-            <span class="bold">Top Questions:</span><br>
-            ${topQuestions || 'No data yet'}<br><br>
-            <span class="bold">System:</span><br>
-            • Version: <span class="highlight">${PETERBOT_CONFIG.version}</span><br>
-            • Status: <span class="highlight">Active</span>
-        `;
-        
-        addMessage(analyticsMsg, 'bot');
+        return false;
     }
 
     // Fallback Bot
@@ -958,8 +980,9 @@
         }
     }
 
-    // Global API
+    // Global API - Enhanced for admin integration
     window.PeterBot = {
+        // Core functions
         init: initPeterBot,
         open: function() {
             if (!chatState.isOpen) toggleChat();
@@ -975,15 +998,24 @@
                 }
             }, 300);
         },
-        exportData: exportData,
-        clearData: clearData,
-        showAnalytics: showAnalytics,
+        
+        // Admin integration functions
+        getData: getChatbotData,
+        exportData: exportChatData,
+        clearData: clearChatData,
+        isAdmin: isUserAdmin,
+        
+        // Configuration & state
         config: PETERBOT_CONFIG,
         state: chatState,
         version: '4.0',
+        
+        // Utility functions
         isOpen: function() { return chatState.isOpen; },
-        isAdmin: function() { return chatState.isAdmin; },
         getMessageCount: function() { return chatState.messages.length; },
+        getAnalytics: function() { return chatState.analytics; },
+        
+        // Quick actions
         showServices: function() {
             if (!chatState.isOpen) toggleChat();
             setTimeout(function() { processResponse('services'); }, 500);
@@ -995,27 +1027,78 @@
         showContact: function() {
             if (!chatState.isOpen) toggleChat();
             setTimeout(function() { processResponse('contact'); }, 500);
+        },
+        
+        // Admin panel integration
+        refreshAdminIndicator: function() {
+            const toggle = document.getElementById('peterbot-toggle');
+            if (toggle && isUserAdmin()) {
+                if (!toggle.querySelector('.peterbot-admin-indicator')) {
+                    toggle.innerHTML += '<div class="peterbot-admin-indicator">A</div>';
+                }
+            }
+        },
+        
+        // Update admin dashboard (call this from your admin panel)
+        updateAdminDashboard: function() {
+            if (typeof window.updateAdminDashboard === 'function') {
+                window.updateAdminDashboard();
+            }
         }
     };
 
     // Initialize the bot
     initializeBot();
 
+    // Listen for admin login/logout events from your existing system
+    document.addEventListener('adminLogin', function() {
+        const toggle = document.getElementById('peterbot-toggle');
+        if (toggle && !toggle.querySelector('.peterbot-admin-indicator')) {
+            toggle.innerHTML += '<div class="peterbot-admin-indicator">A</div>';
+        }
+        
+        // Update status in header if chat is open
+        const status = document.querySelector('.peterbot-status');
+        if (status && chatState.isOpen) {
+            status.innerHTML = '<span class="status-dot"></span>Online (Admin)';
+        }
+    });
+
+    document.addEventListener('adminLogout', function() {
+        const adminIndicator = document.querySelector('.peterbot-admin-indicator');
+        if (adminIndicator) {
+            adminIndicator.remove();
+        }
+        
+        // Update status in header if chat is open
+        const status = document.querySelector('.peterbot-status');
+        if (status && chatState.isOpen) {
+            status.innerHTML = '<span class="status-dot"></span>Online';
+        }
+    });
+
     // Console message
     console.log(`
-    🚀 PeterBot Professional v4.0 Loaded!
+    🚀 PeterBot Professional v4.0 - Admin Integrated!
     
     ✨ Features:
+    • Integrated with existing admin system
     • Professional styling with Peter's image
-    • Admin system (Ctrl+Shift+A, password: peter2024admin)
     • Complete service information
     • Mobile responsive design
-    • Analytics tracking
+    • Analytics integration
     
-    💻 API Available:
-    • PeterBot.open() - Open chat
-    • PeterBot.send('message') - Send message
-    • PeterBot.showServices() - Show services
+    🔧 Admin Integration:
+    • Auto-detects admin login status
+    • Saves data to existing admin analytics
+    • Admin indicator on chat button
+    • Special admin-only responses
+    
+    💻 API for Admin Panel:
+    • PeterBot.getData() - Get chatbot analytics
+    • PeterBot.exportData() - Export chat data
+    • PeterBot.clearData() - Clear all data
+    • PeterBot.refreshAdminIndicator() - Update admin status
     
     📱 Contact Peter:
     • Email: petereluwade55@gmail.com
@@ -1025,5 +1108,5 @@
 
 })();
 
-console.log('✅ PeterBot Professional v4.0 script loaded successfully!');
+console.log('✅ PeterBot Professional v4.0 - Admin Integrated - Loaded successfully!');
 
