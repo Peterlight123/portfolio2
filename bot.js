@@ -7,7 +7,7 @@
         name: 'PeterBot',
         version: '4.0',
         avatar: 'https://i.imgur.com/5Eu01Tk.jpeg',
-        apiKey: 'your-api-key-here', // Replace with actual API key
+        apiKey: 'AIzaSyB03WLfMuQIz8iZjwu6sebdtwfXXjXG-Qw'
         apiUrl: 'https://api.openai.com/v1/chat/completions',
         adminPassword: 'peter2024admin',
         storageKey: 'peterbot_data'
