@@ -969,8 +969,8 @@
                 <h3 class="h5 mb-0">Share Your Experience</h3>
             </div>
             <div class="card-body p-4">
-                <form id="testimonialForm" class="needs-validation" novalidate>
-                    <input type="hidden" name="form_type" value="testimonial_submission">
+                <form name="testimonial" method="POST" data-netlify="true" enctype="multipart/form-data" class="needs-validation" novalidate>
+                    <input type="hidden" name="form-name" value="testimonial">
                     
                     <div class="row g-3">
                         <div class="col-md-6">
@@ -1030,7 +1030,7 @@
                                 <span class="input-group-text"><i class="bi bi-image"></i></span>
                                 <input type="file" class="form-control" id="testimonialPhoto" name="photo" accept="image/*">
                             </div>
-                            <div class="form-text">Max file size: 5MB. Recommended: square image.</div>
+                            <div class="form-text">Max file size: 10MB. Recommended: square image.</div>
                         </div>
                         
                         <div class="col-12">
@@ -1049,73 +1049,68 @@
                             </button>
                         </div>
                     </div>
-                    
-                    <div class="alert alert-success mt-4 d-none" id="testimonialSuccess">
-                        Thank you for your testimonial! It will be reviewed and added to the site soon.
-                    </div>
-                    
-                    <div class="alert alert-danger mt-4 d-none" id="testimonialError">
-                        <span id="errorMessage">There was an error submitting your testimonial. Please try again later.</span>
-                    </div>
                 </form>
+                
+                <!-- Success Message -->
+                <div class="alert alert-success mt-4 d-none" id="successMessage">
+                    <i class="bi bi-check-circle me-2"></i>
+                    Thank you for your testimonial! It has been submitted successfully.
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-document.getElementById('testimonialForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    const form = this;
+// Enhanced form handling for Netlify
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form[name="testimonial"]');
     const submitBtn = document.getElementById('submitBtn');
-    const successAlert = document.getElementById('testimonialSuccess');
-    const errorAlert = document.getElementById('testimonialError');
-    const errorMessage = document.getElementById('errorMessage');
+    const successMessage = document.getElementById('successMessage');
     
-    // Reset alerts
-    successAlert.classList.add('d-none');
-    errorAlert.classList.add('d-none');
-    
-    // Validate form
-    if (!form.checkValidity()) {
-        form.classList.add('was-validated');
-        return;
-    }
-    
-    // Show loading state
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i> Submitting...';
-    
-    try {
-        const formData = new FormData(form);
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
         
-        const response = await fetch('/api/testimonial', {
-            method: 'POST',
-            body: formData
-        });
-        
-        const result = await response.json();
-        
-        if (result.success) {
-            successAlert.classList.remove('d-none');
-            form.reset();
-            form.classList.remove('was-validated');
-        } else {
-            throw new Error(result.message || 'Submission failed');
+        // Validate form
+        if (!form.checkValidity()) {
+            form.classList.add('was-validated');
+            return;
         }
         
-    } catch (error) {
-        console.error('Submission error:', error);
-        errorMessage.textContent = error.message || 'There was an error submitting your testimonial. Please try again later.';
-        errorAlert.classList.remove('d-none');
-    } finally {
-        // Reset button
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i class="bi bi-send me-2"></i> Submit Testimonial';
-    }
+        // Show loading state
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i> Submitting...';
+        
+        // Submit to Netlify
+        const formData = new FormData(form);
+        
+        fetch('/', {
+            method: 'POST',
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams(formData).toString()
+        })
+        .then(() => {
+            // Show success message
+            successMessage.classList.remove('d-none');
+            form.reset();
+            form.classList.remove('was-validated');
+            
+            // Scroll to success message
+            successMessage.scrollIntoView({ behavior: 'smooth' });
+        })
+        .catch((error) => {
+            alert('There was an error submitting your testimonial. Please try again.');
+            console.error('Error:', error);
+        })
+        .finally(() => {
+            // Reset button
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="bi bi-send me-2"></i> Submit Testimonial';
+        });
+    });
 });
 </script>
+
 
 </section>
 
