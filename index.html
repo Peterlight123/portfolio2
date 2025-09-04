@@ -962,115 +962,161 @@
         </div>
         
         <!-- Testimonial Submission Form -->
-        <div class="row justify-content-center mt-5">
-            <div class="col-lg-8">
-                <div class="card border-0 shadow">
-                    <div class="card-header bg-primary text-white py-3">
-                        <h3 class="h5 mb-0">Share Your Experience</h3>
+<div class="row justify-content-center mt-5">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow">
+            <div class="card-header bg-primary text-white py-3">
+                <h3 class="h5 mb-0">Share Your Experience</h3>
+            </div>
+            <div class="card-body p-4">
+                <form id="testimonialForm" class="needs-validation" novalidate>
+                    <input type="hidden" name="form_type" value="testimonial_submission">
+                    
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="testimonialName" class="form-label">Your Name *</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                <input type="text" class="form-control" id="testimonialName" name="name" required>
+                                <div class="invalid-feedback">Please provide your name.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label for="testimonialCompany" class="form-label">Company/Position</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-building"></i></span>
+                                <input type="text" class="form-control" id="testimonialCompany" name="company_position" placeholder="e.g., CEO at XYZ Company">
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label for="testimonialEmail" class="form-label">Email Address *</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                <input type="email" class="form-control" id="testimonialEmail" name="email" required>
+                                <div class="invalid-feedback">Please provide a valid email.</div>
+                            </div>
+                            <div class="form-text">Your email won't be displayed publicly.</div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label for="testimonialProject" class="form-label">Project Type</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-briefcase"></i></span>
+                                <select class="form-select" id="testimonialProject" name="project_type">
+                                    <option value="" selected>Select project type...</option>
+                                    <option value="Web Development">Web Development</option>
+                                    <option value="Graphic Design">Graphic Design</option>
+                                    <option value="Content Creation">Content Creation</option>
+                                    <option value="Virtual Assistant">Virtual Assistant Services</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12">
+                            <label for="testimonialMessage" class="form-label">Your Testimonial *</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-chat-quote"></i></span>
+                                <textarea class="form-control" id="testimonialMessage" name="testimonial" rows="4" required placeholder="Share your experience working with me..."></textarea>
+                                <div class="invalid-feedback">Please share your experience.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12">
+                            <label for="testimonialPhoto" class="form-label">Your Photo (Optional)</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-image"></i></span>
+                                <input type="file" class="form-control" id="testimonialPhoto" name="photo" accept="image/*">
+                            </div>
+                            <div class="form-text">Max file size: 5MB. Recommended: square image.</div>
+                        </div>
+                        
+                        <div class="col-12">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="testimonialConsent" name="consent" required>
+                                <label class="form-check-label" for="testimonialConsent">
+                                    I consent to having my testimonial and name displayed on this website.
+                                </label>
+                                <div class="invalid-feedback">You must agree before submitting.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-primary px-4 py-2" id="submitBtn">
+                                <i class="bi bi-send me-2"></i> Submit Testimonial
+                            </button>
+                        </div>
                     </div>
-                    <div class="card-body p-4">
-                        <form id="testimonialForm" action="https://formspree.io/f/xpwrbkrr" method="POST" class="needs-validation" novalidate>
-                            <input type="hidden" name="form_type" value="testimonial_submission">
-                            
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label for="testimonialName" class="form-label">Your Name *</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="bi bi-person"></i></span>
-                                        <input type="text" class="form-control" id="testimonialName" name="name" required>
-                                        <div class="invalid-feedback">
-                                            Please provide your name.
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="col-md-6">
-                                    <label for="testimonialCompany" class="form-label">Company/Position</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="bi bi-building"></i></span>
-                                        <input type="text" class="form-control" id="testimonialCompany" name="company_position" placeholder="e.g., CEO at XYZ Company">
-                                    </div>
-                                </div>
-                                
-                                <div class="col-md-6">
-                                    <label for="testimonialEmail" class="form-label">Email Address *</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                                        <input type="email" class="form-control" id="testimonialEmail" name="email" required>
-                                        <div class="invalid-feedback">
-                                            Please provide a valid email.
-                                        </div>
-                                    </div>
-                                    <div class="form-text">Your email won't be displayed publicly.</div>
-                                </div>
-                                
-                                <div class="col-md-6">
-                                    <label for="testimonialProject" class="form-label">Project Type</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="bi bi-briefcase"></i></span>
-                                        <select class="form-select" id="testimonialProject" name="project_type">
-                                            <option value="" selected>Select project type...</option>
-                                            <option value="Web Development">Web Development</option>
-                                            <option value="Graphic Design">Graphic Design</option>
-                                            <option value="Content Creation">Content Creation</option>
-                                            <option value="Virtual Assistant">Virtual Assistant Services</option>
-                                            <option value="Other">Other</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                
-                                <div class="col-12">
-                                    <label for="testimonialMessage" class="form-label">Your Testimonial *</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="bi bi-chat-quote"></i></span>
-                                        <textarea class="form-control" id="testimonialMessage" name="testimonial" rows="4" required placeholder="Share your experience working with me..."></textarea>
-                                        <div class="invalid-feedback">
-                                            Please share your experience.
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="col-12">
-                                    <label for="testimonialPhoto" class="form-label">Your Photo (Optional)</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="bi bi-image"></i></span>
-                                        <input type="file" class="form-control" id="testimonialPhoto" name="photo" accept="image/*">
-                                    </div>
-                                    <div class="form-text">Max file size: 2MB. Recommended: square image.</div>
-                                </div>
-                                
-                                <div class="col-12">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="testimonialConsent" name="consent" required>
-                                        <label class="form-check-label" for="testimonialConsent">
-                                            I consent to having my testimonial and name displayed on this website.
-                                        </label>
-                                        <div class="invalid-feedback">
-                                            You must agree before submitting.
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="col-12 text-center">
-                                    <button type="submit" class="btn btn-primary px-4 py-2">
-                                        <i class="bi bi-send me-2"></i> Submit Testimonial
-                                    </button>
-                                </div>
-                            </div>
-                            
-                            <div class="alert alert-success mt-4 d-none" id="testimonialSuccess">
-                                Thank you for your testimonial! It will be reviewed and added to the site soon.
-                            </div>
-                            
-                            <div class="alert alert-danger mt-4 d-none" id="testimonialError">
-                                There was an error submitting your testimonial. Please try again later.
-                            </div>
-                        </form>
+                    
+                    <div class="alert alert-success mt-4 d-none" id="testimonialSuccess">
+                        Thank you for your testimonial! It will be reviewed and added to the site soon.
                     </div>
-                </div>
+                    
+                    <div class="alert alert-danger mt-4 d-none" id="testimonialError">
+                        <span id="errorMessage">There was an error submitting your testimonial. Please try again later.</span>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
+
+<script>
+document.getElementById('testimonialForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const form = this;
+    const submitBtn = document.getElementById('submitBtn');
+    const successAlert = document.getElementById('testimonialSuccess');
+    const errorAlert = document.getElementById('testimonialError');
+    const errorMessage = document.getElementById('errorMessage');
+    
+    // Reset alerts
+    successAlert.classList.add('d-none');
+    errorAlert.classList.add('d-none');
+    
+    // Validate form
+    if (!form.checkValidity()) {
+        form.classList.add('was-validated');
+        return;
+    }
+    
+    // Show loading state
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i> Submitting...';
+    
+    try {
+        const formData = new FormData(form);
+        
+        const response = await fetch('/api/testimonial', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            successAlert.classList.remove('d-none');
+            form.reset();
+            form.classList.remove('was-validated');
+        } else {
+            throw new Error(result.message || 'Submission failed');
+        }
+        
+    } catch (error) {
+        console.error('Submission error:', error);
+        errorMessage.textContent = error.message || 'There was an error submitting your testimonial. Please try again later.';
+        errorAlert.classList.remove('d-none');
+    } finally {
+        // Reset button
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="bi bi-send me-2"></i> Submit Testimonial';
+    }
+});
+</script>
+
 </section>
 
 
