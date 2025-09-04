@@ -302,9 +302,6 @@ function createAdminPanel() {
                                     <div class="stat-number" id="response-rate">98%</div>
                                 </div>
                             </div>
-                            <div class="chart-container">
-                                <canvas id="analytics-chart"></canvas>
-                            </div>
                         </div>
                         
                         <!-- Export/Import Tab -->
@@ -353,20 +350,34 @@ function createAdminPanel() {
 // Setup admin event listeners
 function setupAdminEventListeners() {
     // Admin access button
-    document.getElementById('admin-access').addEventListener('click', () => {
-        document.getElementById('peterbot-admin-panel').style.display = 'flex';
-    });
+    const adminAccessBtn = document.getElementById('admin-access');
+    if (adminAccessBtn) {
+        adminAccessBtn.addEventListener('click', () => {
+            document.getElementById('peterbot-admin-panel').style.display = 'flex';
+        });
+    }
     
     // Close admin panel
-    document.getElementById('admin-close').addEventListener('click', () => {
-        document.getElementById('peterbot-admin-panel').style.display = 'none';
-    });
+    const adminCloseBtn = document.getElementById('admin-close');
+    if (adminCloseBtn) {
+        adminCloseBtn.addEventListener('click', () => {
+            document.getElementById('peterbot-admin-panel').style.display = 'none';
+        });
+    }
     
     // Admin login
-    document.getElementById('admin-login-btn').addEventListener('click', handleAdminLogin);
-    document.getElementById('admin-password').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') handleAdminLogin();
-    });
+    const adminLoginBtn = document.getElementById('admin-login-btn');
+    const adminPassword = document.getElementById('admin-password');
+    
+    if (adminLoginBtn) {
+        adminLoginBtn.addEventListener('click', handleAdminLogin);
+    }
+    
+    if (adminPassword) {
+        adminPassword.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleAdminLogin();
+        });
+    }
     
     // Tab switching
     document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -377,35 +388,79 @@ function setupAdminEventListeners() {
     });
     
     // Save settings
-    document.getElementById('save-settings').addEventListener('click', saveAdminSettings);
+    const saveSettingsBtn = document.getElementById('save-settings');
+    if (saveSettingsBtn) {
+        saveSettingsBtn.addEventListener('click', saveAdminSettings);
+    }
     
     // Test API
-    document.getElementById('test-api').addEventListener('click', testAPIConnection);
+    const testApiBtn = document.getElementById('test-api');
+    if (testApiBtn) {
+        testApiBtn.addEventListener('click', testAPIConnection);
+    }
     
     // Theme preview
-    document.getElementById('preview-theme').addEventListener('click', previewTheme);
-    document.getElementById('reset-theme').addEventListener('click', resetTheme);
+    const previewThemeBtn = document.getElementById('preview-theme');
+    const resetThemeBtn = document.getElementById('reset-theme');
+    
+    if (previewThemeBtn) {
+        previewThemeBtn.addEventListener('click', previewTheme);
+    }
+    
+    if (resetThemeBtn) {
+        resetThemeBtn.addEventListener('click', resetTheme);
+    }
     
     // Export functions
-    document.getElementById('export-settings').addEventListener('click', () => exportData('settings'));
-    document.getElementById('export-conversations').addEventListener('click', () => exportData('conversations'));
-    document.getElementById('export-analytics').addEventListener('click', () => exportData('analytics'));
+    const exportSettingsBtn = document.getElementById('export-settings');
+    const exportConversationsBtn = document.getElementById('export-conversations');
+    const exportAnalyticsBtn = document.getElementById('export-analytics');
+    
+    if (exportSettingsBtn) {
+        exportSettingsBtn.addEventListener('click', () => exportData('settings'));
+    }
+    
+    if (exportConversationsBtn) {
+        exportConversationsBtn.addEventListener('click', () => exportData('conversations'));
+    }
+    
+    if (exportAnalyticsBtn) {
+        exportAnalyticsBtn.addEventListener('click', () => exportData('analytics'));
+    }
     
     // Import function
-    document.getElementById('import-data').addEventListener('click', importData);
+    const importDataBtn = document.getElementById('import-data');
+    if (importDataBtn) {
+        importDataBtn.addEventListener('click', importData);
+    }
     
     // Backup functions
-    document.getElementById('create-backup').addEventListener('click', createBackup);
-    document.getElementById('clear-data').addEventListener('click', clearAllData);
+    const createBackupBtn = document.getElementById('create-backup');
+    const clearDataBtn = document.getElementById('clear-data');
+    
+    if (createBackupBtn) {
+        createBackupBtn.addEventListener('click', createBackup);
+    }
+    
+    if (clearDataBtn) {
+        clearDataBtn.addEventListener('click', clearAllData);
+    }
     
     // Restart bot
-    document.getElementById('restart-bot').addEventListener('click', restartBot);
+    const restartBotBtn = document.getElementById('restart-bot');
+    if (restartBotBtn) {
+        restartBotBtn.addEventListener('click', restartBot);
+    }
 }
 
 // Handle admin login
 function handleAdminLogin() {
-    const password = document.getElementById('admin-password').value;
+    const passwordInput = document.getElementById('admin-password');
     const errorDiv = document.getElementById('login-error');
+    
+    if (!passwordInput || !errorDiv) return;
+    
+    const password = passwordInput.value;
     
     if (password === ADMIN_CONFIG.password) {
         ADMIN_CONFIG.isAuthenticated = true;
@@ -415,7 +470,7 @@ function handleAdminLogin() {
         errorDiv.textContent = '';
     } else {
         errorDiv.innerHTML = '<strong>❌ Invalid password. Please try again.</strong>';
-        document.getElementById('admin-password').value = '';
+        passwordInput.value = '';
     }
 }
 
@@ -426,27 +481,30 @@ function switchAdminTab(tabName) {
     document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
     
     // Add active class to selected tab and content
-    document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
-    document.getElementById(`tab-${tabName}`).classList.add('active');
+    const selectedTab = document.querySelector(`[data-tab="${tabName}"]`);
+    const selectedContent = document.getElementById(`tab-${tabName}`);
+    
+    if (selectedTab) selectedTab.classList.add('active');
+    if (selectedContent) selectedContent.classList.add('active');
 }
 
 // Save admin settings
 function saveAdminSettings() {
     const settings = {
-        botName: document.getElementById('bot-name').value,
-        botAvatar: document.getElementById('bot-avatar').value,
-        welcomeMessage: document.getElementById('welcome-message').value,
-        responseDelay: parseInt(document.getElementById('response-delay').value),
-        showTypingIndicator: document.getElementById('show-typing').checked,
-        showQuickReplies: document.getElementById('show-quick-replies').checked,
-        apiKey: document.getElementById('api-key').value,
-        apiEndpoint: document.getElementById('api-endpoint').value,
-        useAI: document.getElementById('use-ai').checked,
+        botName: getElementValue('bot-name') || BOT_CONFIG.name,
+        botAvatar: getElementValue('bot-avatar') || BOT_CONFIG.avatar,
+        welcomeMessage: getElementValue('welcome-message') || BOT_CONFIG.welcomeMessage,
+        responseDelay: parseInt(getElementValue('response-delay')) || BOT_CONFIG.responseDelay,
+        showTypingIndicator: getElementChecked('show-typing'),
+        showQuickReplies: getElementChecked('show-quick-replies'),
+        apiKey: getElementValue('api-key') || BOT_CONFIG.apiKey,
+        apiEndpoint: getElementValue('api-endpoint') || BOT_CONFIG.apiEndpoint,
+        useAI: getElementChecked('use-ai'),
         theme: {
-            primaryColor: document.getElementById('primary-color').value,
-            secondaryColor: document.getElementById('secondary-color').value,
-            accentColor: document.getElementById('accent-color').value,
-            backgroundColor: document.getElementById('bg-color').value
+            primaryColor: getElementValue('primary-color') || BOT_CONFIG.theme.primaryColor,
+            secondaryColor: getElementValue('secondary-color') || BOT_CONFIG.theme.secondaryColor,
+            accentColor: getElementValue('accent-color') || BOT_CONFIG.theme.accentColor,
+            backgroundColor: getElementValue('bg-color') || BOT_CONFIG.theme.backgroundColor
         }
     };
     
@@ -454,19 +512,37 @@ function saveAdminSettings() {
     Object.assign(BOT_CONFIG, settings);
     
     // Save to localStorage
-    localStorage.setItem('peterbot_settings', JSON.stringify(settings));
-    
-    // Apply theme changes
-    applyTheme();
-    
-    // Show success message
-    showAdminMessage('✅ Settings saved successfully!', 'success');
+    try {
+        localStorage.setItem('peterbot_settings', JSON.stringify(settings));
+        
+        // Apply theme changes
+        applyTheme();
+        
+        // Show success message
+        showAdminMessage('✅ Settings saved successfully!', 'success');
+    } catch (error) {
+        console.error('Error saving settings:', error);
+        showAdminMessage('❌ Error saving settings!', 'error');
+    }
+}
+
+// Helper functions for getting element values safely
+function getElementValue(id) {
+    const element = document.getElementById(id);
+    return element ? element.value : null;
+}
+
+function getElementChecked(id) {
+    const element = document.getElementById(id);
+    return element ? element.checked : false;
 }
 
 // Test API connection
 async function testAPIConnection() {
-    const apiKey = document.getElementById('api-key').value;
+    const apiKey = getElementValue('api-key');
     const statusDiv = document.getElementById('api-status');
+    
+    if (!statusDiv) return;
     
     if (!apiKey) {
         statusDiv.innerHTML = '<strong>❌ Please enter an API key first.</strong>';
@@ -519,12 +595,17 @@ function resetTheme() {
         backgroundColor: '#f8f9fa'
     };
     
-    document.getElementById('primary-color').value = defaultTheme.primaryColor;
-    document.getElementById('secondary-color').value = defaultTheme.secondaryColor;
-    document.getElementById('accent-color').value = defaultTheme.accentColor;
-    document.getElementById('bg-color').value = defaultTheme.backgroundColor;
+    const primaryColorInput = document.getElementById('primary-color');
+    const secondaryColorInput = document.getElementById('secondary-color');
+    const accentColorInput = document.getElementById('accent-color');
+    const bgColorInput = document.getElementById('bg-color');
     
-    BOT_CONFIG.theme = defaultTheme;
+    if (primaryColorInput) primaryColorInput.value = defaultTheme.primaryColor;
+    if (secondaryColorInput) secondaryColorInput.value = defaultTheme.secondaryColor;
+    if (accentColorInput) accentColorInput.value = defaultTheme.accentColor;
+    if (bgColorInput) bgColorInput.value = defaultTheme.backgroundColor;
+    
+    BOT_CONFIG.theme = { ...BOT_CONFIG.theme, ...defaultTheme };
     applyTheme();
     showAdminMessage('🔄 Theme reset to default!', 'info');
 }
@@ -540,23 +621,31 @@ function applyTheme() {
 
 // Load analytics data
 function loadAnalytics() {
-    // Get analytics from localStorage
-    const sessions = JSON.parse(localStorage.getItem('peterbot_sessions_index') || '[]');
-    const today = new Date().toDateString();
-    let messagesToday = 0;
-    
-    sessions.forEach(sessionId => {
-        const sessionData = JSON.parse(localStorage.getItem(`peterbot_chat_${sessionId}`) || '[]');
-        sessionData.forEach(message => {
-            if (new Date(message.time).toDateString() === today) {
-                messagesToday++;
-            }
+    try {
+        // Get analytics from localStorage
+        const sessions = JSON.parse(localStorage.getItem('peterbot_sessions_index') || '[]');
+        const today = new Date().toDateString();
+        let messagesToday = 0;
+        
+        sessions.forEach(sessionId => {
+            const sessionData = JSON.parse(localStorage.getItem(`peterbot_chat_${sessionId}`) || '[]');
+            sessionData.forEach(message => {
+                if (new Date(message.time).toDateString() === today) {
+                    messagesToday++;
+                }
+            });
         });
-    });
-    
-    document.getElementById('total-conversations').textContent = sessions.length;
-    document.getElementById('messages-today').textContent = messagesToday;
-    document.getElementById('active-sessions').textContent = sessions.length > 0 ? 1 : 0;
+        
+        const totalConversationsEl = document.getElementById('total-conversations');
+        const messagesTodayEl = document.getElementById('messages-today');
+        const activeSessionsEl = document.getElementById('active-sessions');
+        
+        if (totalConversationsEl) totalConversationsEl.textContent = sessions.length;
+        if (messagesTodayEl) messagesTodayEl.textContent = messagesToday;
+        if (activeSessionsEl) activeSessionsEl.textContent = sessions.length > 0 ? 1 : 0;
+    } catch (error) {
+        console.error('Error loading analytics:', error);
+    }
 }
 
 // Export data functions
@@ -564,42 +653,50 @@ function exportData(type) {
     let data = {};
     let filename = '';
     
-    switch (type) {
-        case 'settings':
-            data = BOT_CONFIG;
-            filename = 'peterbot-settings.json';
-            break;
-        case 'conversations':
-            const sessions = JSON.parse(localStorage.getItem('peterbot_sessions_index') || '[]');
-            data = sessions.map(sessionId => ({
-                sessionId,
-                messages: JSON.parse(localStorage.getItem(`peterbot_chat_${sessionId}`) || '[]')
-            }));
-            filename = 'peterbot-conversations.json';
-            break;
-        case 'analytics':
-            data = {
-                totalSessions: JSON.parse(localStorage.getItem('peterbot_sessions_index') || '[]').length,
-                exportDate: new Date().toISOString()
-            };
-            filename = 'peterbot-analytics.json';
-            break;
+    try {
+        switch (type) {
+            case 'settings':
+                data = BOT_CONFIG;
+                filename = 'peterbot-settings.json';
+                break;
+            case 'conversations':
+                const sessions = JSON.parse(localStorage.getItem('peterbot_sessions_index') || '[]');
+                data = sessions.map(sessionId => ({
+                    sessionId,
+                    messages: JSON.parse(localStorage.getItem(`peterbot_chat_${sessionId}`) || '[]')
+                }));
+                filename = 'peterbot-conversations.json';
+                break;
+            case 'analytics':
+                data = {
+                    totalSessions: JSON.parse(localStorage.getItem('peterbot_sessions_index') || '[]').length,
+                    exportDate: new Date().toISOString()
+                };
+                filename = 'peterbot-analytics.json';
+                break;
+        }
+        
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        a.click();
+        URL.revokeObjectURL(url);
+        
+        showAdminMessage(`📥 ${type} exported successfully!`, 'success');
+    } catch (error) {
+        console.error('Export error:', error);
+        showAdminMessage(`❌ Error exporting ${type}!`, 'error');
     }
-    
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    a.click();
-    URL.revokeObjectURL(url);
-    
-    showAdminMessage(`📥 ${type} exported successfully!`, 'success');
 }
 
 // Import data function
 function importData() {
     const fileInput = document.getElementById('import-file');
+    
+    if (!fileInput) return;
+    
     const file = fileInput.files[0];
     
     if (!file) {
@@ -622,6 +719,7 @@ function importData() {
                 showAdminMessage('❌ Invalid file format.', 'error');
             }
         } catch (error) {
+            console.error('Import error:', error);
             showAdminMessage('❌ Error parsing file.', 'error');
         }
     };
@@ -630,223 +728,203 @@ function importData() {
 
 // Create backup
 function createBackup() {
-    const backup = {
-        settings: BOT_CONFIG,
-        conversations: {},
-        timestamp: new Date().toISOString()
-    };
-    
-    const sessions = JSON.parse(localStorage.getItem('peterbot_sessions_index') || '[]');
-    sessions.forEach(sessionId => {
-        backup.conversations[sessionId] = JSON.parse(localStorage.getItem(`peterbot_chat_${sessionId}`) || '[]');
-    });
-    
-    const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `peterbot-backup-${new Date().toISOString().split('T')[0]}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
-    
-    showAdminMessage('💾 Backup created successfully!', 'success');
+    try {
+        const backup = {
+            settings: BOT_CONFIG,
+            conversations: {},
+            timestamp: new Date().toISOString()
+        };
+        
+        const sessions = JSON.parse(localStorage.getItem('peterbot_sessions_index') || '[]');
+        sessions.forEach(sessionId => {
+            backup.conversations[sessionId] = JSON.parse(localStorage.getItem(`peterbot_chat_${sessionId}`) || '[]');
+        });
+        
+        const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `peterbot-backup-${new Date().toISOString().split('T')[0]}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+        
+        showAdminMessage('💾 Backup created successfully!', 'success');
+    } catch (error) {
+        console.error('Backup error:', error);
+        showAdminMessage('❌ Error creating backup!', 'error');
+    }
 }
 
 // Clear all data
 function clearAllData() {
-    if (confirm('⚠️ Are you sure you want to clear all bot data? This action cannot be undone.')) {
-        const keys = Object.keys(localStorage).filter(key => key.startsWith('peterbot_'));
-        keys.forEach(key => localStorage.removeItem(key));
-        
-        chatHistory = [];
-        currentSessionId = null;
-        
-        showAdminMessage('🗑️ All data cleared successfully!', 'success');
-        setTimeout(() => location.reload(), 2000);
+    if (confirm('⚠️ Are you sure you want to clear all data? This action cannot be undone.')) {
+        try {
+            // Clear all PeterBot related localStorage items
+            const keys = Object.keys(localStorage);
+            keys.forEach(key => {
+                if (key.startsWith('peterbot_')) {
+                    localStorage.removeItem(key);
+                }
+            });
+            
+            // Reset chat history
+            chatHistory = [];
+            
+            // Clear chat container
+            const messagesContainer = document.querySelector('.peterbot-messages');
+            if (messagesContainer) {
+                messagesContainer.innerHTML = '';
+            }
+            
+            showAdminMessage('<span style="color: #4CAF50; font-weight: bold;">✅ All data cleared successfully!</span>', 'success');
+            
+            // Restart bot after clearing
+            setTimeout(() => {
+                restartBot();
+            }, 1500);
+        } catch (error) {
+            console.error('Clear data error:', error);
+            showAdminMessage('<span style="color: #f44336; font-weight: bold;">❌ Error clearing data!</span>', 'error');
+        }
     }
 }
 
 // Restart bot
 function restartBot() {
-    showAdminMessage('🔄 Restarting bot...', 'info');
-    setTimeout(() => {
-        location.reload();
-    }, 1500);
-}
-
-// Show admin message
-function showAdminMessage(message, type) {
-    const messageDiv = document.createElement('div');
-    messageDiv.className = `admin-message ${type}`;
-    messageDiv.innerHTML = `<strong>${message}</strong>`;
-    
-    document.querySelector('.admin-content').appendChild(messageDiv);
-    
-    setTimeout(() => {
-        messageDiv.remove();
-    }, 3000);
-}
-
-// Load bot settings from localStorage
-function loadBotSettings() {
     try {
-        const settings = JSON.parse(localStorage.getItem('peterbot_settings') || '{}');
+        // Hide admin panel
+        document.getElementById('peterbot-admin-panel').style.display = 'none';
         
-        if (settings.botName) BOT_CONFIG.name = settings.botName;
-        if (settings.botAvatar) BOT_CONFIG.avatar = settings.botAvatar;
-        if (settings.welcomeMessage) BOT_CONFIG.welcomeMessage = settings.welcomeMessage;
-        if (settings.responseDelay) BOT_CONFIG.responseDelay = settings.responseDelay;
-        if (settings.showTypingIndicator !== undefined) BOT_CONFIG.showTypingIndicator = settings.showTypingIndicator;
-        if (settings.showQuickReplies !== undefined) BOT_CONFIG.showQuickReplies = settings.showQuickReplies;
-        if (settings.apiKey) BOT_CONFIG.apiKey = settings.apiKey;
-        if (settings.useAI !== undefined) BOT_CONFIG.useAI = settings.useAI;
-        if (settings.theme) BOT_CONFIG.theme = { ...BOT_CONFIG.theme, ...settings.theme };
+        // Remove existing bot container
+        if (botContainer) {
+            botContainer.remove();
+        }
         
-        // Apply theme
-        applyTheme();
+        // Reset variables
+        currentSessionId = null;
+        chatHistory = [];
+        isTyping = false;
         
-        console.log('Bot settings loaded:', BOT_CONFIG);
+        // Reinitialize bot
+        setTimeout(() => {
+            initializeBot();
+            showAdminMessage('<span style="color: #2196F3; font-weight: bold;">🔄 Bot restarted successfully!</span>', 'info');
+        }, 500);
     } catch (error) {
-        console.error('Error loading bot settings:', error);
+        console.error('Restart error:', error);
+        showAdminMessage('<span style="color: #f44336; font-weight: bold;">❌ Error restarting bot!</span>', 'error');
     }
 }
 
-// Enhanced message formatting function
-function formatMessage(text) {
-    // Convert **text** to <strong>text</strong>
-    text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+// Show admin messages
+function showAdminMessage(message, type = 'info') {
+    // Create or update admin message element
+    let messageEl = document.getElementById('admin-message');
     
-    // Convert *text* to <em>text</em>
-    text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    if (!messageEl) {
+        messageEl = document.createElement('div');
+        messageEl.id = 'admin-message';
+        messageEl.className = 'admin-message';
+        
+        const adminContent = document.querySelector('.admin-content');
+        if (adminContent) {
+            adminContent.appendChild(messageEl);
+        }
+    }
     
-    // Convert URLs to links
-    text = text.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
+    messageEl.innerHTML = message;
+    messageEl.className = `admin-message ${type}`;
+    messageEl.style.display = 'block';
     
-    // Convert email addresses to mailto links
-    text = text.replace(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g, '<a href="mailto:$1">$1</a>');
-    
-        // Convert phone numbers to tel links
-    text = text.replace(/(\+?\d{1,4}[\s-]?\d{3,4}[\s-]?\d{3,4}[\s-]?\d{3,4})/g, '<a href="tel:$1">$1</a>');
-    
-    // Convert line breaks to <br>
-    text = text.replace(/\n/g, '<br>');
-    
-    // Convert numbered lists
-    text = text.replace(/^\d+\.\s(.+)$/gm, '<li>$1</li>');
-    text = text.replace(/(<li>.*<\/li>)/s, '<ol>$1</ol>');
-    
-    // Convert bullet points
-    text = text.replace(/^[-•]\s(.+)$/gm, '<li>$1</li>');
-    text = text.replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>');
-    
-    return text;
+    // Auto hide after 3 seconds
+    setTimeout(() => {
+        if (messageEl) {
+            messageEl.style.display = 'none';
+        }
+    }, 3000);
 }
 
-// Create the main bot container
+// Create bot container with enhanced styling
 function createBotContainer() {
     const containerHTML = `
         <div id="peterbot-container" class="peterbot-container">
-            <!-- Chat Toggle Button -->
-            <div id="peterbot-toggle" class="chat-toggle">
-                <div class="toggle-icon">
-                    <svg class="chat-icon" width="24" height="24" viewBox="0 0 24 24" fill="white">
-                        <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
-                    </svg>
-                    <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="white" style="display: none;">
-                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-                    </svg>
+            <div class="peterbot-header">
+                <div class="bot-avatar">
+                    <img src="${BOT_CONFIG.avatar}" alt="${BOT_CONFIG.name}" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiM2NjdlZWEiLz4KPHN2ZyB4PSI4IiB5PSI4IiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPgo8cGF0aCBkPSJNMTIgMkM2LjQ4IDIgMiA2LjQ4IDIgMTJzNC40OCAxMCAxMCAxMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnptLTIgMTVsLTUtNSAxLjQxLTEuNDFMMTAgMTQuMTdsNy41OS03LjU5TDE5IDhsLTkgOXoiLz4KPC9zdmc+Cg=='">
                 </div>
-                <div class="notification-badge" id="notification-badge" style="display: none;">1</div>
+                <div class="bot-info">
+                    <div class="bot-name">
+                        <span style="color: #667eea; font-weight: bold;">${BOT_CONFIG.name}</span>
+                        <span class="bot-version" style="color: #999; font-size: 0.8em;">v${BOT_CONFIG.version}</span>
+                    </div>
+                    <div class="bot-status">
+                        <span class="status-indicator"></span>
+                        <span style="color: #4CAF50; font-weight: bold;">Online</span>
+                    </div>
+                </div>
+                <div class="bot-controls">
+                    <button id="minimize-bot" class="control-btn" title="Minimize">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 13H5v-2h14v2z"/>
+                        </svg>
+                    </button>
+                    <button id="close-bot" class="control-btn" title="Close">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
             
-            <!-- Main Chat Interface -->
-            <div id="peterbot-chat" class="chat-interface">
-                <!-- Chat Header -->
-                <div class="chat-header">
-                    <div class="bot-info">
-                        <img src="${BOT_CONFIG.avatar}" alt="${BOT_CONFIG.name}" class="bot-avatar" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzY2N2VlYSI+PHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyczQuNDggMTAgMTAgMTAgMTAtNC40OCAxMC0xMFMxNy41MiAyIDEyIDJ6bTAgM2MxLjY2IDAgMyAxLjM0IDMgM3MtMS4zNCAzLTMgMy0zLTEuMzQtMy0zIDEuMzQtMyAzLTN6bTAgMTQuMmMtMi41IDAtNC43MS0xLjI4LTYtMy4yMi4wMy0xLjk5IDQtMy4wOCA2LTMuMDhzNS45NyAxLjA5IDYgMy4wOGMtMS4yOSAxLjk0LTMuNSAzLjIyLTYgMy4yMnoiLz48L3N2Zz4='">
-                        <div class="bot-details">
-                            <div class="bot-name">${BOT_CONFIG.name}</div>
-                            <div class="bot-status">
-                                <span class="status-indicator online"></span>
-                                <span class="status-text">Online</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="chat-actions">
-                        <button id="clear-chat" class="action-btn" title="Clear Chat">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
-                            </svg>
-                        </button>
-                        <button id="minimize-chat" class="action-btn" title="Minimize">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M19 13H5v-2h14v2z"/>
-                            </svg>
-                        </button>
+            <div class="peterbot-messages" id="peterbot-messages">
+                <!-- Messages will be inserted here -->
+            </div>
+            
+            <div class="peterbot-quick-replies" id="peterbot-quick-replies" style="display: none;">
+                <!-- Quick replies will be inserted here -->
+            </div>
+            
+            <div class="peterbot-input-container">
+                <div class="input-wrapper">
+                    <input type="text" id="peterbot-input" class="peterbot-input" 
+                           placeholder="Type your message..." maxlength="500">
+                    <button id="peterbot-send" class="peterbot-send-btn" title="Send message">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="input-footer">
+                    <span style="color: #999; font-size: 0.75em;">
+                        Powered by <span style="color: #667eea; font-weight: bold;">PeterBot AI</span>
+                    </span>
+                </div>
+            </div>
+            
+            <div class="peterbot-typing" id="peterbot-typing" style="display: none;">
+                <div class="typing-avatar">
+                    <img src="${BOT_CONFIG.avatar}" alt="Bot typing">
+                </div>
+                <div class="typing-indicator">
+                    <span style="color: #667eea; font-weight: bold;">${BOT_CONFIG.name} is typing</span>
+                    <div class="typing-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
                     </div>
                 </div>
-                
-                <!-- Chat Messages Area -->
-                <div id="chat-messages" class="chat-messages">
-                    <div class="messages-container">
-                        <!-- Messages will be inserted here -->
-                    </div>
-                </div>
-                
-                <!-- Typing Indicator -->
-                <div id="typing-indicator" class="typing-indicator" style="display: none;">
-                    <div class="typing-avatar">
-                        <img src="${BOT_CONFIG.avatar}" alt="${BOT_CONFIG.name}">
-                    </div>
-                    <div class="typing-text">
-                        <div class="typing-dots">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                        <span class="typing-label">${BOT_CONFIG.name} is typing...</span>
-                    </div>
-                </div>
-                
-                <!-- Quick Replies -->
-                <div id="quick-replies" class="quick-replies" style="display: none;">
-                    <!-- Quick reply buttons will be inserted here -->
-                </div>
-                
-                <!-- Chat Input Area -->
-                <div class="chat-input-area">
-                    <div class="input-container">
-                        <textarea id="user-input" class="user-input" placeholder="Type your message..." rows="1"></textarea>
-                        <button id="send-button" class="send-button" disabled>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="input-actions">
-                        <button id="attach-file" class="input-action-btn" title="Attach File">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z"/>
-                            </svg>
-                        </button>
-                        <button id="voice-input" class="input-action-btn" title="Voice Input">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/>
-                            </svg>
-                        </button>
-                        <button id="emoji-picker" class="input-action-btn" title="Emoji">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Powered By -->
-                <div class="powered-by">
-                    <span>Powered by <strong>PeterBot v${BOT_CONFIG.version}</strong></span>
-                </div>
+            </div>
+        </div>
+        
+        <!-- Bot Toggle Button -->
+        <div id="peterbot-toggle" class="peterbot-toggle" title="Open PeterBot">
+            <div class="toggle-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+            </div>
+            <div class="notification-badge" id="notification-badge" style="display: none;">
+                <span style="color: white; font-weight: bold; font-size: 0.7em;">1</span>
             </div>
         </div>
     `;
@@ -854,283 +932,283 @@ function createBotContainer() {
     document.body.insertAdjacentHTML('beforeend', containerHTML);
     botContainer = document.getElementById('peterbot-container');
     
-    setupEventListeners();
-    addBotStyles();
+    setupBotEventListeners();
+    applyTheme();
 }
 
-// Setup event listeners for chat functionality
-function setupEventListeners() {
-    // Toggle chat
-    document.getElementById('peterbot-toggle').addEventListener('click', toggleChat);
+// Setup bot event listeners
+function setupBotEventListeners() {
+    // Toggle bot visibility
+    const toggleBtn = document.getElementById('peterbot-toggle');
+    const minimizeBtn = document.getElementById('minimize-bot');
+    const closeBtn = document.getElementById('close-bot');
     
-    // Minimize chat
-    document.getElementById('minimize-chat').addEventListener('click', toggleChat);
-    
-    // Clear chat
-    document.getElementById('clear-chat').addEventListener('click', clearChat);
-    
-    // Send message
-    document.getElementById('send-button').addEventListener('click', sendMessage);
-    
-    // Input handling
-    const userInput = document.getElementById('user-input');
-    userInput.addEventListener('keypress', handleKeyPress);
-    userInput.addEventListener('input', handleInputChange);
-    
-    // Auto-resize textarea
-    userInput.addEventListener('input', autoResizeTextarea);
-    
-    // Voice input (if supported)
-    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-        document.getElementById('voice-input').addEventListener('click', startVoiceInput);
-    } else {
-        document.getElementById('voice-input').style.display = 'none';
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+            if (botContainer) {
+                const isVisible = botContainer.style.display !== 'none';
+                botContainer.style.display = isVisible ? 'none' : 'flex';
+                toggleBtn.style.display = isVisible ? 'flex' : 'none';
+                
+                // Hide notification badge when opened
+                const badge = document.getElementById('notification-badge');
+                if (badge && !isVisible) {
+                    badge.style.display = 'none';
+                }
+            }
+        });
     }
     
-    // File attachment
-    document.getElementById('attach-file').addEventListener('click', handleFileAttachment);
-    
-    // Emoji picker
-    document.getElementById('emoji-picker').addEventListener('click', showEmojiPicker);
-}
-
-// Toggle chat interface
-function toggleChat() {
-    const chatInterface = document.getElementById('peterbot-chat');
-    const toggleButton = document.getElementById('peterbot-toggle');
-    const chatIcon = toggleButton.querySelector('.chat-icon');
-    const closeIcon = toggleButton.querySelector('.close-icon');
-    const notificationBadge = document.getElementById('notification-badge');
-    
-    if (chatInterface.style.display === 'none' || !chatInterface.style.display) {
-        chatInterface.style.display = 'flex';
-        chatIcon.style.display = 'none';
-        closeIcon.style.display = 'block';
-        notificationBadge.style.display = 'none';
-        
-        // Focus on input
-        setTimeout(() => {
-            document.getElementById('user-input').focus();
-        }, 300);
-        
-        // Scroll to bottom
-        scrollToBottom();
-    } else {
-        chatInterface.style.display = 'none';
-        chatIcon.style.display = 'block';
-        closeIcon.style.display = 'none';
+    if (minimizeBtn) {
+        minimizeBtn.addEventListener('click', () => {
+            if (botContainer && toggleBtn) {
+                botContainer.style.display = 'none';
+                toggleBtn.style.display = 'flex';
+            }
+        });
     }
-}
-
-// Clear chat history
-function clearChat() {
-    if (confirm('Are you sure you want to clear the chat history?')) {
-        chatHistory = [];
-        saveChatHistory();
+    
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            if (botContainer && toggleBtn) {
+                botContainer.style.display = 'none';
+                toggleBtn.style.display = 'flex';
+            }
+        });
+    }
+    
+    // Message input handling
+    const messageInput = document.getElementById('peterbot-input');
+    const sendBtn = document.getElementById('peterbot-send');
+    
+    if (messageInput) {
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
         
-        const messagesContainer = document.querySelector('.messages-container');
-        messagesContainer.innerHTML = '';
-        
-        // Show welcome message again
-        setTimeout(() => {
-            addBotMessage(BOT_CONFIG.welcomeMessage);
-            showQuickReplies();
-        }, 500);
+        messageInput.addEventListener('input', (e) => {
+            const sendButton = document.getElementById('peterbot-send');
+            if (sendButton) {
+                sendButton.disabled = e.target.value.trim().length === 0;
+            }
+        });
+    }
+    
+    if (sendBtn) {
+        sendBtn.addEventListener('click', sendMessage);
     }
 }
 
-// Handle key press in input
-function handleKeyPress(e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        sendMessage();
-    }
-}
-
-// Handle input changes
-function handleInputChange(e) {
-    const sendButton = document.getElementById('send-button');
-    const hasText = e.target.value.trim().length > 0;
+// Send message function with enhanced formatting
+function sendMessage() {
+    const messageInput = document.getElementById('peterbot-input');
     
-    sendButton.disabled = !hasText;
-    sendButton.style.opacity = hasText ? '1' : '0.5';
-}
-
-// Auto-resize textarea
-function autoResizeTextarea() {
-    const textarea = document.getElementById('user-input');
-    textarea.style.height = 'auto';
-    textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
-}
-
-// Send user message
-async function sendMessage() {
-    const userInput = document.getElementById('user-input');
-    const message = userInput.value.trim();
+    if (!messageInput) return;
+    
+    const message = messageInput.value.trim();
     
     if (!message || isTyping) return;
-    
-    // Clear input
-    userInput.value = '';
-    userInput.style.height = 'auto';
-    handleInputChange({ target: userInput });
     
     // Add user message
     addUserMessage(message);
     
-    // Hide quick replies
-    hideQuickReplies();
+    // Clear input
+    messageInput.value = '';
     
-    // Process message and get response
-    await processUserMessage(message);
+    // Process bot response
+    setTimeout(() => {
+        processBotResponse(message);
+    }, BOT_CONFIG.responseDelay);
 }
 
-// Add user message to chat
+// Add user message with styling
 function addUserMessage(message) {
-    const messageData = {
-        type: 'user',
-        content: message,
-        time: new Date().toISOString()
-    };
+    const messagesContainer = document.getElementById('peterbot-messages');
     
-    chatHistory.push(messageData);
-    saveChatHistory();
+    if (!messagesContainer) return;
     
-    const messagesContainer = document.querySelector('.messages-container');
-    const messageElement = createMessageElement(messageData);
-    messagesContainer.appendChild(messageElement);
+    const messageEl = document.createElement('div');
+    messageEl.className = 'message user-message';
+    messageEl.innerHTML = `
+        <div class="message-content">
+            <div class="message-text">
+                <span style="color: #333; font-weight: normal;">${escapeHtml(message)}</span>
+            </div>
+            <div class="message-time">
+                <span style="color: #999; font-size: 0.75em;">${formatTime(new Date())}</span>
+            </div>
+        </div>
+        <div class="message-avatar">
+            <div class="user-avatar">
+                <span style="color: white; font-weight: bold;">U</span>
+            </div>
+        </div>
+    `;
     
+    messagesContainer.appendChild(messageEl);
     scrollToBottom();
-}
-
-// Add bot message to chat
-function addBotMessage(message, showDelay = true) {
-    const messageData = {
-        type: 'bot',
-        content: message,
+    
+    // Save to chat history
+    chatHistory.push({
+        type: 'user',
+        message: message,
         time: new Date().toISOString()
-    };
-    
-    if (showDelay && BOT_CONFIG.showTypingIndicator) {
-        showTypingIndicator();
-        
-        setTimeout(() => {
-            hideTypingIndicator();
-            
-            chatHistory.push(messageData);
-            saveChatHistory();
-            
-            const messagesContainer = document.querySelector('.messages-container');
-            const messageElement = createMessageElement(messageData);
-            messagesContainer.appendChild(messageElement);
-            
-            scrollToBottom();
-        }, BOT_CONFIG.responseDelay);
-    } else {
-        chatHistory.push(messageData);
-        saveChatHistory();
-        
-        const messagesContainer = document.querySelector('.messages-container');
-        const messageElement = createMessageElement(messageData);
-        messagesContainer.appendChild(messageElement);
-        
-        scrollToBottom();
-    }
-}
-
-// Create message element
-function createMessageElement(messageData) {
-    const messageDiv = document.createElement('div');
-    messageDiv.className = `message ${messageData.type}-message`;
-    
-    const time = new Date(messageData.time).toLocaleTimeString([], { 
-        hour: '2-digit', 
-        minute: '2-digit' 
     });
     
-    if (messageData.type === 'bot') {
-        messageDiv.innerHTML = `
-            <div class="message-avatar">
-                <img src="${BOT_CONFIG.avatar}" alt="${BOT_CONFIG.name}">
-            </div>
-            <div class="message-content">
-                <div class="message-text">${formatMessage(messageData.content)}</div>
-                <div class="message-time">${time}</div>
-            </div>
-        `;
-    } else {
-        messageDiv.innerHTML = `
-            <div class="message-content">
-                <div class="message-text">${formatMessage(messageData.content)}</div>
-                <div class="message-time">${time}</div>
-            </div>
-        `;
-    }
+    saveChatHistory();
+}
+
+// Add bot message with enhanced styling and colors
+function addBotMessage(message) {
+    const messagesContainer = document.getElementById('peterbot-messages');
     
-    return messageDiv;
+    if (!messagesContainer) return;
+    
+    // Hide typing indicator
+    hideTypingIndicator();
+    
+    const messageEl = document.createElement('div');
+    messageEl.className = 'message bot-message';
+    
+    // Process message for enhanced formatting
+    const formattedMessage = formatBotMessage(message);
+    
+    messageEl.innerHTML = `
+        <div class="message-avatar">
+            <img src="${BOT_CONFIG.avatar}" alt="${BOT_CONFIG.name}" class="bot-avatar-img">
+        </div>
+        <div class="message-content">
+            <div class="message-header">
+                <span style="color: #667eea; font-weight: bold; font-size: 0.85em;">${BOT_CONFIG.name}</span>
+            </div>
+            <div class="message-text">
+                ${formattedMessage}
+            </div>
+            <div class="message-time">
+                <span style="color: #999; font-size: 0.75em;">${formatTime(new Date())}</span>
+            </div>
+        </div>
+    `;
+    
+    messagesContainer.appendChild(messageEl);
+    scrollToBottom();
+    
+    // Save to chat history
+    chatHistory.push({
+        type: 'bot',
+        message: message,
+        time: new Date().toISOString()
+    });
+    
+    saveChatHistory();
+}
+
+// Format bot message with colors and styling
+function formatBotMessage(message) {
+    // Convert markdown-style formatting to HTML with colors
+    let formatted = message
+        // Bold text with color
+        .replace(/\*\*(.*?)\*\*/g, '<span style="font-weight: bold; color: #667eea;">$1</span>')
+        // Italic text
+        .replace(/\*(.*?)\*/g, '<span style="font-style: italic; color: #764ba2;">$1</span>')
+        // Code blocks
+        .replace(/`(.*?)`/g, '<code style="background: #f5f5f5; padding: 2px 4px; border-radius: 3px; color: #e91e63; font-weight: bold;">$1</code>')
+        // Links
+        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" style="color: #4CAF50; font-weight: bold; text-decoration: none;">$1</a>')
+        // Line breaks
+        .replace(/\n/g, '<br>')
+        // Emojis enhancement
+        .replace(/(👋|🎯|💼|🎷|📧|📱|💰|✅|❌|🔥|⭐|🚀)/g, '<span style="font-size: 1.2em;">$1</span>');
+    
+    // Add special formatting for service sections
+    formatted = formatted
+        .replace(/(Web Development|Virtual Assistant|Digital Marketing|Saxophone Performance)/g, 
+                '<span style="color: #667eea; font-weight: bold; font-size: 1.1em;">$1</span>')
+        .replace(/(₦[\d,]+|$[\d,]+)/g, 
+                '<span style="color: #4CAF50; font-weight: bold; background: #e8f5e8; padding: 1px 4px; border-radius: 3px;">$1</span>')
+        .replace(/(Free|Available|Professional)/g, 
+                '<span style="color: #2196F3; font-weight: bold;">$1</span>');
+    
+    return formatted;
 }
 
 // Show typing indicator
 function showTypingIndicator() {
-    isTyping = true;
-    const typingIndicator = document.getElementById('typing-indicator');
-    typingIndicator.style.display = 'flex';
-    scrollToBottom();
+    if (!BOT_CONFIG.showTypingIndicator) return;
+    
+    const typingEl = document.getElementById('peterbot-typing');
+    if (typingEl) {
+        typingEl.style.display = 'flex';
+        isTyping = true;
+        scrollToBottom();
+    }
 }
 
 // Hide typing indicator
 function hideTypingIndicator() {
-    isTyping = false;
-    const typingIndicator = document.getElementById('typing-indicator');
-    typingIndicator.style.display = 'none';
+    const typingEl = document.getElementById('peterbot-typing');
+    if (typingEl) {
+        typingEl.style.display = 'none';
+        isTyping = false;
+    }
 }
 
-// Process user message and generate response
-async function processUserMessage(message) {
+// Process bot response with AI integration
+async function processBotResponse(userMessage) {
+    showTypingIndicator();
+    
     let response = '';
     
-    // Check if AI is enabled and API key is available
-    if (BOT_CONFIG.useAI && BOT_CONFIG.apiKey) {
-        try {
-            response = await getAIResponse(message);
-        } catch (error) {
-            console.error('AI response error:', error);
-            response = getKnowledgeBaseResponse(message);
+    try {
+        if (BOT_CONFIG.useAI && BOT_CONFIG.apiKey) {
+            response = await getAIResponse(userMessage);
+        } else {
+            response = getKnowledgeBaseResponse(userMessage);
         }
-    } else {
-        response = getKnowledgeBaseResponse(message);
+        
+        setTimeout(() => {
+            addBotMessage(response);
+            
+            // Show quick replies after response
+            if (BOT_CONFIG.showQuickReplies) {
+                setTimeout(() => {
+                    showQuickReplies();
+                }, 500);
+            }
+        }, BOT_CONFIG.responseDelay);
+        
+    } catch (error) {
+        console.error('Error processing response:', error);
+        setTimeout(() => {
+            addBotMessage(`<span style="color: #f44336; font-weight: bold;">❌ Sorry, I encountered an error.</span> Let me help you with my <span style="color: #667eea; font-weight: bold;">available services</span> instead! 🚀`);
+        }, BOT_CONFIG.responseDelay);
     }
-    
-    // Add bot response
-    addBotMessage(response);
-    
-    // Show quick replies after response
-    setTimeout(() => {
-        if (BOT_CONFIG.showQuickReplies) {
-            showQuickReplies();
-        }
-    }, BOT_CONFIG.responseDelay + 500);
 }
 
 // Get AI response from OpenAI
-async function getAIResponse(message) {
-    const systemPrompt = `You are PeterBot, Peter's professional AI assistant. Peter offers these services:
-
-1. **Web Development & Design** - Professional websites, e-commerce, web applications
-2. **Virtual Assistant Services** - Administrative support, email management, social media
-3. **Digital Marketing** - Social media marketing, SEO, content marketing, PPC
-4. **Saxophone Performance** - Live performances as 'Peterphonist', church programs (free), session recordings
-
-Contact Information:
-- Email: petereluwade55@gmail.com
-- WhatsApp: +234 8108821809
-- Telegram: @peterlightspeed
-- Website: https://peterlight123.github.io/portfolio/
-
-Social Media: @peterphonist (YouTube, Facebook, Instagram, TikTok, Twitter)
-
-Provide helpful, professional responses about Peter's services. Include pricing when relevant and always offer to connect them with Peter for detailed discussions.`;
-
+async function getAIResponse(userMessage) {
+    if (!BOT_CONFIG.apiKey) {
+        throw new Error('API key not configured');
+    }
+    
+    const systemPrompt = `You are PeterBot, Peter's professional AI assistant. You help with:
+    
+    **Services:**
+    - 🌐 **Web Development**: Responsive websites, e-commerce, web apps
+    - 👨‍💼 **Virtual Assistant**: Admin support, email management, social media
+    - 📈 **Digital Marketing**: SEO, social media marketing, content strategy  
+    - 🎷 **Saxophone Performance**: Live events, church programs, recordings
+    
+    **Contact Info:**
+    - Email: petereluwade55@gmail.com
+    - WhatsApp: +234 8108821809
+    - Social: @peterphonist (all platforms)
+    
+    Always be professional, helpful, and highlight Peter's expertise. Use emojis and formatting for engaging responses.`;
+    
     try {
         const response = await fetch(BOT_CONFIG.apiEndpoint, {
             method: 'POST',
@@ -1142,7 +1220,7 @@ Provide helpful, professional responses about Peter's services. Include pricing 
                 model: 'gpt-3.5-turbo',
                 messages: [
                     { role: 'system', content: systemPrompt },
-                    { role: 'user', content: message }
+                    { role: 'user', content: userMessage }
                 ],
                 max_tokens: 500,
                 temperature: 0.7
@@ -1155,433 +1233,286 @@ Provide helpful, professional responses about Peter's services. Include pricing 
         
         const data = await response.json();
         return data.choices[0].message.content;
+        
     } catch (error) {
         console.error('AI API Error:', error);
-        throw error;
+        return getKnowledgeBaseResponse(userMessage);
     }
 }
 
-// Get response from knowledge base
-function getKnowledgeBaseResponse(message) {
-    const lowerMessage = message.toLowerCase();
+// Get knowledge base response with enhanced formatting
+function getKnowledgeBaseResponse(userMessage) {
+    const message = userMessage.toLowerCase();
     
     // Greeting responses
-    if (lowerMessage.match(/^(hi|hello|hey|good morning|good afternoon|good evening)/)) {
-        return `Hello! 👋 Welcome to **Peter's Professional Services**! I'm here to help you learn about:
+    if (message.match(/^(hi|hello|hey|good morning|good afternoon|good evening)/)) {
+        return `👋 <span style="color: #667eea; font-weight: bold;">Hello there!</span> Welcome to **Peter's Professional Services**! 
 
-🌐 **Web Development & Design**
-🤝 **Virtual Assistant Services** 
-📈 **Digital Marketing**
-🎷 **Saxophone Performances** (as Peterphonist)
+I'm here to help you with:
+🌐 <span style="color: #2196F3; font-weight: bold;">Web Development & Design</span>
+👨‍💼 <span style="color: #9C27B0; font-weight: bold;">Virtual Assistant Services</span>  
+📈 <span style="color: #FF9800; font-weight: bold;">Digital Marketing</span>
+🎷 <span style="color: #4CAF50; font-weight: bold;">Saxophone Performances</span>
 
-What service interests you most, or would you like to know more about Peter's work?`;
+What service interests you most? 🚀`;
     }
     
     // Web development inquiries
-    if (lowerMessage.includes('web') || lowerMessage.includes('website') || lowerMessage.includes('development')) {
-        const webService = KNOWLEDGE_BASE.services.web;
-        return `🌐 **${webService.title}**
+    if (message.match(/(web|website|development|design|coding|programming|html|css|javascript|react)/)) {
+        return `🌐 <span style="color: #667eea; font-weight: bold; font-size: 1.2em;">Web Development & Design Services</span>
 
-${webService.description}
+**<span style="color: #2196F3;">What I Offer:</span>**
+✅ <span style="color: #4CAF50; font-weight: bold;">Responsive Website Development</span>
+✅ <span style="color: #4CAF50; font-weight: bold;">E-commerce Solutions</span>
+✅ <span style="color: #4CAF50; font-weight: bold;">Web Application Development</span>
+✅ <span style="color: #4CAF50; font-weight: bold;">Website Redesign & Optimization</span>
+✅ <span style="color: #4CAF50; font-weight: bold;">CMS Development (WordPress)</span>
+✅ <span style="color: #4CAF50; font-weight: bold;">API Integration</span>
 
-**Our Web Development Services:**
-${webService.offerings.map(item => `• ${item}`).join('\n')}
+**<span style="color: #FF9800;">Pricing:</span>**
+💰 Basic Sites: <span style="color: #4CAF50; font-weight: bold;">$200-1,000 (₦150,000-₦750,000)</span>
+💰 Business Sites: <span style="color: #4CAF50; font-weight: bold;">$1,000-3,000 (₦750,000-₦2,250,000)</span>
+💰 Complex Apps: <span style="color: #4CAF50; font-weight: bold;">$3,000-7,000 (₦2,250,000-₦5,250,000)</span>
 
-**💰 Pricing Range:**
-• **Basic Websites:** ${webService.pricing.basic}
-• **Business Websites:** ${webService.pricing.standard}
-• **Complex Applications:** ${webService.pricing.premium}
-• **Monthly Maintenance:** ${webService.pricing.maintenance}
+**<span style="color: #9C27B0;">Technologies:</span>** HTML5, CSS3, JavaScript, React, Bootstrap, PHP, WordPress
 
-**Technologies:** ${webService.technologies.join(', ')}
-
-Ready to discuss your web project? Contact Peter:
-📧 ${KNOWLEDGE_BASE.contact.email}
-📱 ${KNOWLEDGE_BASE.contact.whatsapp}`;
+Ready to bring your vision to life? 🚀 Contact me for a **<span style="color: #f44336; font-weight: bold;">FREE consultation!</span>**`;
     }
     
     // Virtual assistant inquiries
-    if (lowerMessage.includes('virtual') || lowerMessage.includes('assistant') || lowerMessage.includes('admin')) {
-        const vaService = KNOWLEDGE_BASE.services.virtual_assistant;
-        return `🤝 **${vaService.title}**
+    if (message.match(/(virtual assistant|va|admin|support|management|email|social media)/)) {
+        return `👨‍💼 <span style="color: #9C27B0; font-weight: bold; font-size: 1.2em;">Virtual Assistant Services</span>
 
-${vaService.description}
+**<span style="color: #2196F3;">Professional Remote Support:</span>**
+📋 <span style="color: #4CAF50; font-weight: bold;">Administrative Support</span>
+📧 <span style="color: #4CAF50; font-weight: bold;">Email Management</span>
+📱 <span style="color: #4CAF50; font-weight: bold;">Social Media Management</span>
+✍️ <span style="color: #4CAF50; font-weight: bold;">Content Creation & Copywriting</span>
+🔍 <span style="color: #4CAF50; font-weight: bold;">Research & Data Analysis</span>
+📊 <span style="color: #4CAF50; font-weight: bold;">Project Management</span>
+🎧 <span style="color: #4CAF50; font-weight: bold;">Customer Service Support</span>
+🎯 <span style="color: #4CAF50; font-weight: bold;">Lead Generation</span>
 
-**Virtual Assistant Services:**
-${vaService.offerings.map(item => `• ${item}`).join('\n')}
+**<span style="color: #FF9800;">Flexible Pricing:</span>**
+⏰ Hourly: <span style="color: #4CAF50; font-weight: bold;">$10-30 (₦7,500-₦22,500)</span>
+📅 Part-time: <span style="color: #4CAF50; font-weight: bold;">$800-1,500 (₦600,000-₦1,125,000)/month</span>
+🕐 Full-time: <span style="color: #4CAF50; font-weight: bold;">$1,500-3,000 (₦1,125,000-₦2,250,000)/month</span>
 
-**💰 Pricing Options:**
-• **Hourly Rate:** ${vaService.pricing.hourly}
-• **Part-time (20 hrs/week):** ${vaService.pricing.part_time}
-• **Full-time (40 hrs/week):** ${vaService.pricing.full_time}
-
-Let's discuss how Peter can support your business operations:
-📧 ${KNOWLEDGE_BASE.contact.email}
-💬 ${KNOWLEDGE_BASE.contact.whatsapp}`;
+Let me handle your tasks so you can focus on growing your business! 💼`;
     }
     
     // Digital marketing inquiries
-    if (lowerMessage.includes('marketing') || lowerMessage.includes('social media') || lowerMessage.includes('seo')) {
-        const marketingService = KNOWLEDGE_BASE.services.digital_marketing;
-        return `📈 **${marketingService.title}**
+    if (message.match(/(digital marketing|marketing|seo|social media|advertising|promotion|brand)/)) {
+        return `📈 <span style="color: #FF9800; font-weight: bold; font-size: 1.2em;">Digital Marketing Services</span>
 
-${marketingService.description}
+**<span style="color: #2196F3;">Grow Your Online Presence:</span>**
+📱 <span style="color: #4CAF50; font-weight: bold;">Social Media Marketing</span>
+📝 <span style="color: #4CAF50; font-weight: bold;">Content Marketing Strategy</span>
+🔍 <span style="color: #4CAF50; font-weight: bold;">SEO Optimization</span>
+📧 <span style="color: #4CAF50; font-weight: bold;">Email Marketing Campaigns</span>
+💰 <span style="color: #4CAF50; font-weight: bold;">PPC Advertising Management</span>
+📊 <span style="color: #4CAF50; font-weight: bold;">Analytics & Reporting</span>
+🎨 <span style="color: #4CAF50; font-weight: bold;">Brand Development</span>
+🤖 <span style="color: #4CAF50; font-weight: bold;">Marketing Automation</span>
 
-**Digital Marketing Services:**
-${marketingService.offerings.map(item => `• ${item}`).join('\n')}
+**<span style="color: #FF9800;">Investment Packages:</span>**
+🥉 Basic: <span style="color: #4CAF50; font-weight: bold;">$300-800 (₦225,000-₦600,000)/month</span>
+🥈 Standard: <span style="color: #4CAF50; font-weight: bold;">$800-2,000 (₦600,000-₦1,500,000)/month</span>
+🥇 Premium: <span style="color: #4CAF50; font-weight: bold;">$2,000-5,000 (₦1,500,000-₦3,750,000)/month</span>
 
-**💰 Monthly Packages:**
-• **Basic Package:** ${marketingService.pricing.basic}
-• **Standard Package:** ${marketingService.pricing.standard}
-• **Premium Package:** ${marketingService.pricing.premium}
-
-Ready to grow your online presence? Let's connect:
-📧 ${KNOWLEDGE_BASE.contact.email}
-📱 ${KNOWLEDGE_BASE.contact.whatsapp}`;
+Ready to dominate your market? Let's create a winning strategy! 🏆`;
     }
     
-    // Saxophone/music inquiries
-    if (lowerMessage.includes('saxophone') || lowerMessage.includes('music') || lowerMessage.includes('performance') || lowerMessage.includes('peterphonist')) {
-        const saxService = KNOWLEDGE_BASE.services.saxophone;
-        return `🎷 **${saxService.title}**
+    // Saxophone performance inquiries
+    if (message.match(/(saxophone|sax|music|performance|peterphonist|wedding|event|church)/)) {
+        return `🎷 <span style="color: #4CAF50; font-weight: bold; font-size: 1.2em;">Professional Saxophone Performances</span>
 
-Meet **Peterphonist** - Peter's musical persona!
+**<span style="color: #2196F3;">As "Peterphonist" - Your Musical Experience:</span>**
+🎊 <span style="color: #4CAF50; font-weight: bold;">Live Event Performances</span> (Weddings, Parties, Concerts)
+⛪ <span style="color: #4CAF50; font-weight: bold;">Church Programs & Worship</span> (Free - Transportation only!)
+🎵 <span style="color: #4CAF50; font-weight: bold;">Session Recordings</span> (Songs & Albums)
+🎼 <span style="color: #4CAF50; font-weight: bold;">Background Instrumental Music</span>
+💝 <span style="color: #4CAF50; font-weight: bold;">Personalized Saxophone Renditions</span>
 
-**Performance Services:**
-${saxService.offerings.map(item => `• ${item}`).join('\n')}
+**<span style="color: #FF9800;">Performance Rates:</span>**
+🎉 Live Events: <span style="color: #4CAF50; font-weight: bold;">$200-500 (₦150,000-₦380,000)</span>
+⛪ Church Programs: <span style="color: #4CAF50; font-weight: bold;">FREE</span> (Transportation costs only)
+🎧 Studio Sessions: <span style="color: #4CAF50; font-weight: bold;">$100-300 (₦75,000-₦225,000)/track</span>
+🎁 Custom Songs: <span style="color: #4CAF50; font-weight: bold;">$75-150 (₦55,000-₦115,000)</span>
 
-**💰 Performance Rates:**
-• **Live Events:** ${saxService.pricing.livePerformance}
-• **Church Programs:** ${saxService.pricing.churchPrograms}
-• **Session Recording:** ${saxService.pricing.sessionRecording}
-• **Personalized Songs:** ${saxService.pricing.personalizedSong}
+**<span style="color: #9C27B0;">Follow @peterphonist</span>** on all social platforms for amazing performances! 🎶
 
-**🎵 Follow Peterphonist:**
-• YouTube: ${KNOWLEDGE_BASE.social_media.youtube}
-• Instagram: ${KNOWLEDGE_BASE.social_media.instagram}
-• Facebook: ${KNOWLEDGE_BASE.social_media.facebook}
-
-Book your musical experience:
-📧 ${KNOWLEDGE_BASE.contact.email}
-📱 ${KNOWLEDGE_BASE.contact.whatsapp}`;
+Let's make your event unforgettable with soulful saxophone melodies! ✨`;
     }
     
     // Pricing inquiries
-    if (lowerMessage.includes('price') || lowerMessage.includes('cost') || lowerMessage.includes('rate')) {
-        return `💰 **Peter's Service Pricing Overview**
+    if (message.match(/(price|cost|rate|fee|budget|how much|pricing)/)) {
+        return `💰 <span style="color: #FF9800; font-weight: bold; font-size: 1.2em;">Professional Service Pricing</span>
 
-**🌐 Web Development:**
-• Basic: $200-1,000 (₦150K-₦750K)
-• Business: $1,000-3,000 (₦750K-₦2.25M)
-• Complex: $3,000-7,000 (₦2.25M-₦5.25M)
+**<span style="color: #667eea;">🌐 Web Development:</span>**
+• Basic: <span style="color: #4CAF50; font-weight: bold;">$200-1,000 (₦150K-₦750K)</span>
+• Business: <span style="color: #4CAF50; font-weight: bold;">$1,000-3,000 (₦750K-₦2.25M)</span>
+• Enterprise: <span style="color: #4CAF50; font-weight: bold;">$3,000-7,000 (₦2.25M-₦5.25M)</span>
 
-**🤝 Virtual Assistant:**
-• Hourly: $10-30 (₦7.5K-₦22.5K)
-• Part-time: $800-1,500/month
-• Full-time: $1,500-3,000/month
+**<span style="color: #9C27B0;">👨‍💼 Virtual Assistant:</span>**
+• Hourly: <span style="color: #4CAF50; font-weight: bold;">$10-30 (₦7.5K-₦22.5K)</span>
+• Part-time: <span style="color: #4CAF50; font-weight: bold;">$800-1,500 (₦600K-₦1.125M)/month</span>
+• Full-time: <span style="color: #4CAF50; font-weight: bold;">$1,500-3,000 (₦1.125M-₦2.25M)/month</span>
 
-**📈 Digital Marketing:**
-• Basic: $300-800/month
-• Standard: $800-2,000/month
-• Premium: $2,000-5,000/month
+**<span style="color: #FF9800;">📈 Digital Marketing:</span>**
+• Basic: <span style="color: #4CAF50; font-weight: bold;">$300-800 (₦225K-₦600K)/month</span>
+• Standard: <span style="color: #4CAF50; font-weight: bold;">$800-2,000 (₦600K-₦1.5M)/month</span>
+• Premium: <span style="color: #4CAF50; font-weight: bold;">$2,000-5,000 (₦1.5M-₦3.75M)/month</span>
 
-**🎷 Saxophone Performances:**
-• Live Events: $200-500 per event
-• Church Programs: Free (transport only)
-• Session Recording: $100-300 per track
+**<span style="color: #4CAF50;">🎷 Saxophone Performance:</span>**
+• Live Events: <span style="color: #4CAF50; font-weight: bold;">$200-500 (₦150K-₦380K)</span>
+• Church: <span style="color: #4CAF50; font-weight: bold;">FREE</span> (Transport only)
+• Recordings: <span style="color: #4CAF50; font-weight: bold;">$100-300 (₦75K-₦225K)/track</span>
 
-*Prices vary based on project complexity and requirements.*
-
-Get a detailed quote: ${KNOWLEDGE_BASE.contact.email}`;
+**<span style="color: #f44336; font-weight: bold;">🎁 Special Offer:</span>** First consultation is always **FREE!** 🚀`;
     }
     
     // Contact inquiries
-    if (lowerMessage.includes('contact') || lowerMessage.includes('reach') || lowerMessage.includes('connect')) {
-        return `📞 **Contact Peter**
+    if (message.match(/(contact|reach|phone|email|whatsapp|telegram|social)/)) {
+        return `📞 <span style="color: #2196F3; font-weight: bold; font-size: 1.2em;">Get In Touch With Peter</span>
 
-**Direct Communication:**
-📧 **Email:** ${KNOWLEDGE_BASE.contact.email}
-📱 **WhatsApp:** ${KNOWLEDGE_BASE.contact.whatsapp}
-💬 **Telegram:** ${KNOWLEDGE_BASE.contact.telegram}
-🌐 **Website:** ${KNOWLEDGE_BASE.contact.website}
+**<span style="color: #FF9800;">📧 Primary Contact:</span>**
+Email: <span style="color: #4CAF50; font-weight: bold;">petereluwade55@gmail.com</span>
 
-**Social Media (@peterphonist):**
-🎥 **YouTube:** ${KNOWLEDGE_BASE.social_media.youtube}
-📘 **Facebook:** ${KNOWLEDGE_BASE.social_media.facebook}
-📸 **Instagram:** ${KNOWLEDGE_BASE.social_media.instagram}
-🎵 **TikTok:** ${KNOWLEDGE_BASE.social_media.tiktok}
-🐦 **Twitter:** ${KNOWLEDGE_BASE.social_media.twitter}
+**<span style="color: #FF9800;">📱 Instant Messaging:</span>**
+WhatsApp: <span style="color: #4CAF50; font-weight: bold;">+234 8108821809</span>
+Telegram: <span style="color: #4CAF50; font-weight: bold;">@peterlightspeed</span>
 
-Peter typically responds within 2-4 hours during business hours. For urgent inquiries, WhatsApp is the fastest option!`;
+**<span style="color: #FF9800;">🌐 Online Presence:</span>**
+Portfolio: <span style="color: #4CAF50; font-weight: bold;">peterlight123.github.io/portfolio</span>
+
+**<span style="color: #FF9800;">📱 Social Media (@peterphonist):</span>**
+🎥 YouTube: <span style="color: #f44336; font-weight: bold;">@peterphonist</span>
+📘 Facebook: <span style="color: #3b5998; font-weight: bold;">@peterphonist</span>
+📷 Instagram: <span style="color: #e4405f; font-weight: bold;">@peterphonist</span>
+🎵 TikTok: <span style="color: #000; font-weight: bold;">@peterphonist</span>
+🐦 Twitter: <span style="color: #1da1f2; font-weight: bold;">@peterphonist</span>
+
+**<span style="color: #9C27B0;">⏰ Response Time:</span>** Usually within <span style="color: #4CAF50; font-weight: bold;">2-4 hours</span> during business hours!
+
+Ready to start your project? Let's connect! 🚀`;
     }
     
-    // Portfolio/work examples
-    if (lowerMessage.includes('portfolio') || lowerMessage.includes('work') || lowerMessage.includes('example')) {
-        return `🎯 **Peter's Work & Portfolio**
+    // About Peter inquiries
+    if (message.match(/(about|who|peter|background|experience|skills)/)) {
+        return `👨‍💻 <span style="color: #667eea; font-weight: bold; font-size: 1.2em;">Meet Peter - Your Multi-Talented Professional</span>
 
-**🌐 Web Development Portfolio:**
-Visit: ${KNOWLEDGE_BASE.contact.website}
+**<span style="color: #2196F3;">🎯 Professional Expertise:</span>**
+🌐 <span style="color: #4CAF50; font-weight: bold;">Full-Stack Web Developer</span> - Creating stunning, responsive websites
+👨‍💼 <span style="color: #4CAF50; font-weight: bold;">Virtual Assistant Expert</span> - Streamlining business operations  
+📈 <span style="color: #4CAF50; font-weight: bold;">Digital Marketing Strategist</span> - Growing online presence
+🎷 <span style="color: #4CAF50; font-weight: bold;">Professional Saxophonist "Peterphonist"</span> - Creating memorable musical experiences
 
-**🎷 Musical Performances:**
-Check out Peterphonist's performances:
-• YouTube: ${KNOWLEDGE_BASE.social_media.youtube}
-• Instagram: ${KNOWLEDGE_BASE.social_media.instagram}
+**<span style="color: #FF9800;">💡 What Makes Peter Special:</span>**
+✨ <span style="color: #9C27B0; font-weight: bold;">Multi-disciplinary expertise</span> across tech and arts
+✨ <span style="color: #9C27B0; font-weight: bold;">Client-focused approach</span> with personalized solutions
+✨ <span style="color: #9C27B0; font-weight: bold;">Proven track record</span> of successful projects
+✨ <span style="color: #9C27B0; font-weight: bold;">Excellent communication</span> and project management
+✨ <span style="color: #9C27B0; font-weight: bold;">Competitive pricing</span> with premium quality
 
-**📈 Marketing Case Studies:**
-Peter has helped numerous businesses grow their online presence through strategic digital marketing campaigns.
+**<span style="color: #4CAF50;">🎵 Fun Fact:</span>** When not coding or managing projects, you'll find Peter creating beautiful saxophone melodies as **"Peterphonist"**! 🎶
 
-**🤝 Client Testimonials:**
-Available upon request - Peter maintains strong relationships with all clients and delivers quality results consistently.
-
-Want to see specific examples related to your project? Contact Peter:
-📧 ${KNOWLEDGE_BASE.contact.email}
-📱 ${KNOWLEDGE_BASE.contact.whatsapp}`;
+Ready to work with a professional who brings both **<span style="color: #667eea; font-weight: bold;">technical expertise</span>** and **<span style="color: #4CAF50; font-weight: bold;">creative flair</span>** to every project? 🚀`;
     }
     
-    // Default response
-    return `Thank you for your message! 😊
+    // Default response for unmatched queries
+    return `🤔 <span style="color: #667eea; font-weight: bold;">Great question!</span> I'd love to help you with that.
 
-I'm **PeterBot**, and I'm here to help you learn about **Peter's professional services**:
+I specialize in **<span style="color: #2196F3; font-weight: bold;">four main areas:</span>**
 
-🌐 **Web Development & Design**
-🤝 **Virtual Assistant Services**
-📈 **Digital Marketing**
-🎷 **Saxophone Performances** (Peterphonist)
+🌐 **<span style="color: #667eea;">Web Development</span>** - Custom websites & applications
+👨‍💼 **<span style="color: #9C27B0;">Virtual Assistant</span>** - Business support & management  
+📈 **<span style="color: #FF9800;">Digital Marketing</span>** - Online growth strategies
+🎷 **<span style="color: #4CAF50;">Saxophone Performance</span>** - Live events & recordings
 
-Could you please let me know which service interests you, or ask a specific question? I'm here to provide detailed information and connect you with Peter for personalized assistance.
+**<span style="color: #f44336;">Which service interests you most?</span>** Or feel free to ask me anything specific about Peter's work! 
 
-You can also reach Peter directly:
-📧 ${KNOWLEDGE_BASE.contact.email}
-📱 ${KNOWLEDGE_BASE.contact.whatsapp}`;
+For immediate assistance: <span style="color: #4CAF50; font-weight: bold;">📱 +234 8108821809</span> (WhatsApp) 🚀`;
 }
 
-// Show quick reply buttons
+// Show quick replies with enhanced styling
 function showQuickReplies() {
     if (!BOT_CONFIG.showQuickReplies) return;
     
+    const quickRepliesContainer = document.getElementById('peterbot-quick-replies');
+    
+    if (!quickRepliesContainer) return;
+    
     const quickReplies = [
-        { text: '🌐 Web Development', value: 'Tell me about web development services' },
-        { text: '🤝 Virtual Assistant', value: 'I need virtual assistant services' },
-        { text: '📈 Digital Marketing', value: 'Tell me about digital marketing' },
-        { text: '🎷 Saxophone Performance', value: 'I want to book Peterphonist' },
-        { text: '💰 Pricing', value: 'What are your prices?' },
-        { text: '📞 Contact Info', value: 'How can I contact Peter?' }
+        { text: '🌐 Web Development', color: '#667eea' },
+        { text: '👨‍💼 Virtual Assistant', color: '#9C27B0' },
+        { text: '📈 Digital Marketing', color: '#FF9800' },
+        { text: '🎷 Saxophone Shows', color: '#4CAF50' },
+        { text: '💰 Pricing Info', color: '#f44336' },
+        { text: '📞 Contact Peter', color: '#2196F3' }
     ];
     
-    const quickRepliesContainer = document.getElementById('quick-replies');
-    quickRepliesContainer.innerHTML = '';
+    const repliesHTML = quickReplies.map(reply => 
+        `<button class="quick-reply-btn" style="border-color: ${reply.color}; color: ${reply.color};" data-message="${reply.text}">
+            <span style="font-weight: bold;">${reply.text}</span>
+         </button>`
+    ).join('');
     
-    quickReplies.forEach(reply => {
-        const button = document.createElement('button');
-        button.className = 'quick-reply-btn';
-        button.textContent = reply.text;
-        button.addEventListener('click', () => {
-            handleQuickReply(reply.value);
-        });
-        quickRepliesContainer.appendChild(button);
-    });
-    
-    quickRepliesContainer.style.display = 'flex';
-    scrollToBottom();
-}
-
-// Hide quick replies
-function hideQuickReplies() {
-    const quickRepliesContainer = document.getElementById('quick-replies');
-    quickRepliesContainer.style.display = 'none';
-}
-
-// Handle quick reply selection
-async function handleQuickReply(value) {
-    hideQuickReplies();
-    
-    // Add user message
-    addUserMessage(value);
-    
-    // Process the message
-    await processUserMessage(value);
-}
-
-// Voice input functionality
-function startVoiceInput() {
-    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-        alert('Speech recognition is not supported in your browser.');
-        return;
-    }
-    
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    const recognition = new SpeechRecognition();
-    
-    recognition.continuous = false;
-    recognition.interimResults = false;
-    recognition.lang = 'en-US';
-    
-    const voiceButton = document.getElementById('voice-input');
-    const originalHTML = voiceButton.innerHTML;
-    
-    // Show recording state
-    voiceButton.innerHTML = `
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="red">
-            <circle cx="12" cy="12" r="8"/>
-        </svg>
+    quickRepliesContainer.innerHTML = `
+        <div class="quick-replies-header">
+            <span style="color: #999; font-size: 0.85em; font-weight: bold;">💡 Quick Options:</span>
+        </div>
+        <div class="quick-replies-grid">
+            ${repliesHTML}
+        </div>
     `;
-    voiceButton.style.animation = 'pulse 1s infinite';
     
-    recognition.onstart = function() {
-        console.log('Voice recognition started');
-    };
+    quickRepliesContainer.style.display = 'block';
     
-    recognition.onresult = function(event) {
-        const transcript = event.results[0][0].transcript;
-        document.getElementById('user-input').value = transcript;
-        handleInputChange({ target: document.getElementById('user-input') });
-    };
-    
-    recognition.onerror = function(event) {
-        console.error('Speech recognition error:', event.error);
-        alert('Voice recognition error: ' + event.error);
-    };
-    
-    recognition.onend = function() {
-        // Restore original button
-        voiceButton.innerHTML = originalHTML;
-        voiceButton.style.animation = '';
-    };
-    
-    recognition.start();
-}
-
-// File attachment handler
-function handleFileAttachment() {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'image/*,.pdf,.doc,.docx,.txt';
-    
-    input.onchange = function(e) {
-        const file = e.target.files[0];
-        if (file) {
-            // Check file size (max 5MB)
-            if (file.size > 5 * 1024 * 1024) {
-                alert('File size must be less than 5MB');
-                return;
-            }
+    // Add event listeners to quick reply buttons
+    quickRepliesContainer.querySelectorAll('.quick-reply-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const message = e.target.closest('.quick-reply-btn').dataset.message;
             
-            // Add file message
-            addFileMessage(file);
-        }
-    };
-    
-    input.click();
-}
-
-// Add file message to chat
-function addFileMessage(file) {
-    const fileIcon = getFileIcon(file.type);
-    const fileSize = formatFileSize(file.size);
-    
-    const messageData = {
-        type: 'user',
-        content: `📎 **File Attached:** ${file.name} (${fileSize})`,
-        time: new Date().toISOString(),
-        isFile: true,
-        file: {
-            name: file.name,
-            size: file.size,
-            type: file.type
-        }
-    };
-    
-    chatHistory.push(messageData);
-    saveChatHistory();
-    
-    const messagesContainer = document.querySelector('.messages-container');
-    const messageElement = createMessageElement(messageData);
-    messagesContainer.appendChild(messageElement);
-    
-    scrollToBottom();
-    
-    // Bot response for file
-    setTimeout(() => {
-        addBotMessage(`Thank you for sharing **${file.name}**! 📎 
-
-I've noted that you've uploaded a file. For file review and detailed assistance, please contact Peter directly:
-
-📧 **Email:** ${KNOWLEDGE_BASE.contact.email}
-📱 **WhatsApp:** ${KNOWLEDGE_BASE.contact.whatsapp}
-
-Peter will review your file and provide personalized assistance based on your needs.`);
-    }, 1000);
-}
-
-// Get file icon based on type
-function getFileIcon(fileType) {
-    if (fileType.startsWith('image/')) return '🖼️';
-    if (fileType.includes('pdf')) return '📄';
-    if (fileType.includes('word') || fileType.includes('doc')) return '📝';
-    if (fileType.includes('text')) return '📄';
-    return '📎';
-}
-
-// Format file size
-function formatFileSize(bytes) {
-    if (bytes === 0) return '0 Bytes';
-    const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-}
-
-// Show emoji picker
-function showEmojiPicker() {
-    const emojis = ['😊', '👍', '❤️', '😂', '🤔', '👏', '🙏', '💪', '🎉', '🔥', '💯', '✨', '🚀', '💡', '📞', '📧', '💰', '🎯', '🌟', '👌'];
-    
-    // Remove existing picker
-    const existingPicker = document.getElementById('emoji-picker-popup');
-    if (existingPicker) {
-        existingPicker.remove();
-        return;
-    }
-    
-    const picker = document.createElement('div');
-    picker.id = 'emoji-picker-popup';
-    picker.className = 'emoji-picker-popup';
-    
-    emojis.forEach(emoji => {
-        const emojiBtn = document.createElement('button');
-        emojiBtn.textContent = emoji;
-        emojiBtn.className = 'emoji-btn';
-        emojiBtn.addEventListener('click', () => {
-            const userInput = document.getElementById('user-input');
-            userInput.value += emoji;
-            handleInputChange({ target: userInput });
-            picker.remove();
-            userInput.focus();
+            // Add user message
+            addUserMessage(message);
+            
+            // Hide quick replies
+            quickRepliesContainer.style.display = 'none';
+            
+            // Process response
+            setTimeout(() => {
+                processBotResponse(message);
+            }, BOT_CONFIG.responseDelay);
         });
-        picker.appendChild(emojiBtn);
     });
-    
-    document.querySelector('.chat-input-area').appendChild(picker);
-    
-    // Close picker when clicking outside
-    setTimeout(() => {
-        document.addEventListener('click', function closeEmojiPicker(e) {
-            if (!picker.contains(e.target) && e.target.id !== 'emoji-picker') {
-                picker.remove();
-                document.removeEventListener('click', closeEmojiPicker);
-            }
-        });
-    }, 100);
 }
 
-// Scroll to bottom of chat
+// Utility functions
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+function formatTime(date) {
+    return date.toLocaleTimeString('en-US', { 
+        hour: '2-digit', 
+        minute: '2-digit',
+        hour12: true 
+    });
+}
+
 function scrollToBottom() {
-    const chatMessages = document.getElementById('chat-messages');
-    setTimeout(() => {
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    }, 100);
+    const messagesContainer = document.getElementById('peterbot-messages');
+    if (messagesContainer) {
+        setTimeout(() => {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }, 100);
+    }
 }
 
-// Session management
+// Session and storage management
 function createNewSession() {
     currentSessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
     
@@ -1593,1527 +1524,1239 @@ function createNewSession() {
     console.log('New session created:', currentSessionId);
 }
 
-// Save chat history
 function saveChatHistory() {
-    if (currentSessionId) {
-        localStorage.setItem(`peterbot_chat_${currentSessionId}`, JSON.stringify(chatHistory));
-    }
-}
-
-// Load chat history
-function loadChatHistory() {
-    if (currentSessionId) {
-        const savedHistory = localStorage.getItem(`peterbot_chat_${currentSessionId}`);
-        if (savedHistory) {
-            chatHistory = JSON.parse(savedHistory);
-            displayChatHistory();
+    if (currentSessionId && chatHistory.length > 0) {
+        try {
+            localStorage.setItem(`peterbot_chat_${currentSessionId}`, JSON.stringify(chatHistory));
+        } catch (error) {
+            console.error('Error saving chat history:', error);
         }
     }
 }
 
-// Display loaded chat history
-function displayChatHistory() {
-    const messagesContainer = document.querySelector('.messages-container');
-    messagesContainer.innerHTML = '';
+function loadChatHistory() {
+    if (!currentSessionId) return;
     
-    chatHistory.forEach(messageData => {
-        const messageElement = createMessageElement(messageData);
-        messagesContainer.appendChild(messageElement);
-    });
-    
-    scrollToBottom();
+    try {
+        const savedHistory = localStorage.getItem(`peterbot_chat_${currentSessionId}`);
+        if (savedHistory) {
+            chatHistory = JSON.parse(savedHistory);
+            
+            // Restore messages to UI
+            const messagesContainer = document.getElementById('peterbot-messages');
+            if (messagesContainer) {
+                messagesContainer.innerHTML = '';
+                
+                chatHistory.forEach(msg => {
+                    if (msg.type === 'user') {
+                        addUserMessage(msg.message);
+                    } else {
+                        addBotMessage(msg.message);
+                    }
+                });
+            }
+        }
+    } catch (error) {
+        console.error('Error loading chat history:', error);
+        chatHistory = [];
+    }
+}
+
+function loadBotSettings() {
+    try {
+        const savedSettings = localStorage.getItem('peterbot_settings');
+        if (savedSettings) {
+            const settings = JSON.parse(savedSettings);
+            Object.assign(BOT_CONFIG, settings);
+        }
+    } catch (error) {
+        console.error('Error loading bot settings:', error);
+    }
 }
 
 // Add comprehensive CSS styles
-function addBotStyles() {
+function addAdminStyles() {
     const styles = `
-        <style id="peterbot-styles">
-            /* CSS Variables for theming */
-            :root {
-                --primary-color: ${BOT_CONFIG.theme.primaryColor};
-                --secondary-color: ${BOT_CONFIG.theme.secondaryColor};
-                --accent-color: ${BOT_CONFIG.theme.accentColor};
-                --bg-color: ${BOT_CONFIG.theme.backgroundColor};
-                --text-color: ${BOT_CONFIG.theme.textColor};
-                --border-radius: 12px;
-                --shadow: 0 4px 20px rgba(0,0,0,0.15);
-                --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        <style>
+        /* PeterBot Professional Styles */
+        :root {
+            --primary-color: ${BOT_CONFIG.theme.primaryColor};
+            --secondary-color: ${BOT_CONFIG.theme.secondaryColor};
+            --accent-color: ${BOT_CONFIG.theme.accentColor};
+            --bg-color: ${BOT_CONFIG.theme.backgroundColor};
+            --text-color: ${BOT_CONFIG.theme.textColor};
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --border-radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Bot Container Styles */
+        .peterbot-container {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            width: 380px;
+            height: 600px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            z-index: 10000;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid #e0e0e0;
+        }
+        
+        .peterbot-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+        }
+        
+        .bot-avatar img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.3);
+            object-fit: cover;
+        }
+        
+        .bot-info {
+            flex: 1;
+        }
+        
+        .bot-name {
+            font-weight: 600;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .bot-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            background: #4CAF50;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        .bot-controls {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .control-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        .control-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.05);
+        }
+        
+        /* Messages Area */
+        .peterbot-messages {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+            background: #fafafa;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .peterbot-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .peterbot-messages::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+        
+        .peterbot-messages::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 3px;
+        }
+        
+        .peterbot-messages::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+        
+        .message {
+            display: flex;
+            gap: 12px;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
             }
-            
-            /* Main Container */
-            .peterbot-container {
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                z-index: 10000;
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-                direction: ltr;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
-            
-            /* Chat Toggle Button */
-            .chat-toggle {
-                position: relative;
-                width: 60px;
-                height: 60px;
-                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-                border-radius: 50%;
-                cursor: pointer;
-                box-shadow: var(--shadow);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                transition: var(--transition);
-                animation: float 3s ease-in-out infinite;
+        }
+        
+        .user-message {
+            flex-direction: row-reverse;
+        }
+        
+        .message-avatar {
+            flex-shrink: 0;
+        }
+        
+        .bot-avatar-img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .message-content {
+            flex: 1;
+            max-width: 280px;
+        }
+        
+        .user-message .message-content {
+            text-align: right;
+        }
+        
+        .message-header {
+            margin-bottom: 4px;
+        }
+        
+        .message-text {
+            background: white;
+            padding: 12px 16px;
+            border-radius: 18px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+        
+        .user-message .message-text {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+        
+        .message-time {
+            margin-top: 4px;
+            font-size: 11px;
+            opacity: 0.7;
+        }
+        
+        /* Quick Replies */
+        .peterbot-quick-replies {
+            padding: 12px 16px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .quick-replies-header {
+            margin-bottom: 8px;
+        }
+        
+        .quick-replies-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        
+        .quick-reply-btn {
+            background: white;
+            border: 1.5px solid;
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: var(--transition);
+            text-align: center;
+        }
+        
+        .quick-reply-btn:hover {
+            background: currentColor;
+            color: white !important;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        /* Input Area */
+        .peterbot-input-container {
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            padding: 16px;
+        }
+        
+        .input-wrapper {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .peterbot-input {
+            flex: 1;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 24px;
+            padding: 12px 16px;
+            font-size: 14px;
+            outline: none;
+            transition: var(--transition);
+        }
+        
+        .peterbot-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .peterbot-send-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            color: white;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+        
+        .peterbot-send-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
+        }
+        
+        .peterbot-send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .input-footer {
+            margin-top: 8px;
+            text-align: center;
+        }
+        
+        /* Typing Indicator */
+        .peterbot-typing {
+            position: absolute;
+            bottom: 80px;
+            left: 16px;
+            right: 16px;
+            background: white;
+            border-radius: 12px;
+            padding: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideUp 0.3s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
             }
-            
-            .chat-toggle:hover {
-                transform: scale(1.1);
-                box-shadow: 0 6px 25px rgba(0,0,0,0.2);
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
-            
-            .toggle-icon svg {
-                transition: var(--transition);
-            }
-            
-            .notification-badge {
-                position: absolute;
-                top: -5px;
-                right: -5px;
-                background: #ff4444;
-                color: white;
-                border-radius: 50%;
-                width: 24px;
-                height: 24px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 12px;
-                font-weight: bold;
-                animation: bounce 2s infinite;
-            }
-            
-            /* Chat Interface */
-            .chat-interface {
-                position: absolute;
-                bottom: 80px;
-                right: 0;
-                width: 380px;
-                height: 600px;
-                background: white;
-                border-radius: var(--border-radius);
-                box-shadow: var(--shadow);
-                display: none;
-                flex-direction: column;
-                overflow: hidden;
-                animation: slideUp 0.3s ease-out;
-            }
-            
-            @media (max-width: 480px) {
-                .chat-interface {
-                    position: fixed;
-                    bottom: 0;
-                    right: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100vh;
-                    border-radius: 0;
-                }
-                
-                .peterbot-container {
-                    bottom: 15px;
-                    right: 15px;
-                }
-            }
-            
-            /* Chat Header */
-            .chat-header {
-                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-                color: white;
-                padding: 16px 20px;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-            }
-            
-            .bot-info {
-                display: flex;
-                align-items: center;
-                gap: 12px;
-            }
-            
-            .bot-avatar {
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                border: 2px solid rgba(255,255,255,0.3);
-            }
-            
-            .bot-name {
-                font-weight: 600;
-                font-size: 16px;
-            }
-            
-            .bot-status {
-                display: flex;
-                align-items: center;
-                gap: 6px;
-                font-size: 12px;
-                opacity: 0.9;
-            }
-            
-            .status-indicator {
-                width: 8px;
-                height: 8px;
-                border-radius: 50%;
-                background: #4CAF50;
-                animation: pulse 2s infinite;
-            }
-            
-            .chat-actions {
-                display: flex;
-                gap: 8px;
-            }
-            
-            .action-btn {
-                background: rgba(255,255,255,0.2);
-                border: none;
-                color: white;
-                width: 32px;
-                height: 32px;
-                border-radius: 6px;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                transition: var(--transition);
-            }
-            
-            .action-btn:hover {
-                background: rgba(255,255,255,0.3);
-            }
-            
-            /* Messages Area */
-            .chat-messages {
-                flex: 1;
-                overflow-y: auto;
-                padding: 20px;
-                background: var(--bg-color);
-            }
-            
-            .messages-container {
-                display: flex;
-                flex-direction: column;
-                gap: 16px;
-            }
-            
-            .message {
-                display: flex;
-                gap: 10px;
-                animation: fadeInUp 0.3s ease-out;
-            }
-            
-            .user-message {
-                flex-direction: row-reverse;
-            }
-            
-            .message-avatar img {
-                width: 32px;
-                height: 32px;
-                border-radius: 50%;
-            }
-            
-            .message-content {
-                max-width: 70%;
-                display: flex;
-                flex-direction: column;
-                gap: 4px;
-            }
-            
-            .message-text {
-                padding: 12px 16px;
-                border-radius: 18px;
-                line-height: 1.4;
-                word-wrap: break-word;
-            }
-            
-            .bot-message .message-text {
-                background: white;
-                color: var(--text-color);
-                border-bottom-left-radius: 6px;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            }
-            
-            .user-message .message-text {
-                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-                color: white;
-                border-bottom-right-radius: 6px;
-            }
-            
-            .message-time {
-                font-size: 11px;
-                opacity: 0.6;
-                padding: 0 8px;
-            }
-            
-            .user-message .message-time {
-                text-align: right;
-            }
-            
-            /* Typing Indicator */
-            .typing-indicator {
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                padding: 0 20px 10px;
-                background: var(--bg-color);
-            }
-            
-            .typing-avatar img {
-                width: 32px;
-                height: 32px;
-                border-radius: 50%;
-            }
-            
-            .typing-text {
-                background: white;
-                padding: 12px 16px;
-                border-radius: 18px;
-                border-bottom-left-radius: 6px;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-                display: flex;
-                align-items: center;
-                gap: 8px;
-            }
-            
-            .typing-dots {
-                display: flex;
-                gap: 4px;
-            }
-            
-            .typing-dots span {
-                width: 6px;
-                height: 6px;
-                border-radius: 50%;
-                background: var(--primary-color);
-                animation: typingDots 1.4s infinite ease-in-out;
-            }
-            
-            .typing-dots span:nth-child(1) { animation-delay: -0.32s; }
-            .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
-            
-            .typing-label {
-                font-size: 12px;
-                color: #666;
-            }
-            
-            /* Quick Replies */
-            .quick-replies {
-                padding: 10px 20px;
-                background: var(--bg-color);
-                display: flex;
-                flex-wrap: wrap;
-                gap: 8px;
-                border-top: 1px solid #eee;
-            }
-            
-            .quick-reply-btn {
-                background: white;
-                border: 1px solid #ddd;
-                color: var(--text-color);
-                padding: 8px 12px;
-                border-radius: 20px;
-                font-size: 13px;
-                cursor: pointer;
-                transition: var(--transition);
-                white-space: nowrap;
-            }
-            
-            .quick-reply-btn:hover {
-                background: var(--primary-color);
-                color: white;
-                border-color: var(--primary-color);
-            }
-            
-            /* Input Area */
-            .chat-input-area {
-                background: white;
-                border-top: 1px solid #eee;
-                padding: 16px 20px;
-                position: relative;
-            }
-            
-            .input-container {
-                display: flex;
-                align-items: flex-end;
-                gap: 12px;
-                background: #f8f9fa;
-                border-radius: 24px;
-                padding: 8px 8px 8px 16px;
-                border: 2px solid transparent;
-                transition: var(--transition);
-            }
-            
-            .input-container:focus-within {
-                border-color: var(--primary-color);
-                background: white;
-            }
-            
-            .user-input {
-                flex: 1;
-                border: none;
-                background: transparent;
-                resize: none;
-                outline: none;
-                font-family: inherit;
-                font-size: 14px;
-                line-height: 1.4;
-                max-height: 120px;
-                min-height: 20px;
-            }
-            
-            .user-input::placeholder {
-                color: #999;
-            }
-            
-            .send-button {
-                background: var(--primary-color);
-                border: none;
-                color: white;
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                transition: var(--transition);
-            }
-            
-            .send-button:hover:not(:disabled) {
-                background: var(--secondary-color);
-                transform: scale(1.05);
-            }
-            
-            .send-button:disabled {
+        }
+        
+        .typing-avatar img {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+        }
+        
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+        }
+        
+        .typing-dots {
+            display: flex;
+            gap: 2px;
+        }
+        
+        .typing-dots span {
+            width: 4px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            animation: typingDot 1.4s infinite ease-in-out;
+        }
+        
+        .typing-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
+        
+        @keyframes typingDot {
+            0%, 80%, 100% {
+                transform: scale(0);
                 opacity: 0.5;
-                cursor: not-allowed;
             }
-            
-            .input-actions {
-                display: flex;
-                gap: 8px;
-                margin-top: 8px;
-                justify-content: center;
+            40% {
+                transform: scale(1);
+                opacity: 1;
             }
-            
-            .input-action-btn {
-                background: none;
-                border: none;
-                color: #666;
-                cursor: pointer;
-                padding: 6px;
-                border-radius: 6px;
-                transition: var(--transition);
+        }
+        
+        /* Toggle Button */
+        .peterbot-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+            z-index: 9999;
+            transition: var(--transition);
+        }
+        
+        .peterbot-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background: #f44336;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
             }
-            
-            .input-action-btn:hover {
-                background: #f0f0f0;
-                color: var(--primary-color);
+            40% {
+                transform: translateY(-10px);
             }
-            
-            /* Emoji Picker */
-            .emoji-picker-popup {
-                position: absolute;
-                bottom: 100%;
-                right: 0;
-                background: white;
-                border: 1px solid #ddd;
-                border-radius: 12px;
-                padding: 12px;
-                display: grid;
-                grid-template-columns: repeat(5, 1fr);
-                gap: 8px;
-                box-shadow: var(--shadow);
-                z-index: 1000;
+            60% {
+                transform: translateY(-5px);
             }
-            
-            .emoji-btn {
-                background: none;
-                border: none;
-                font-size: 20px;
-                cursor: pointer;
-                padding: 8px;
-                border-radius: 6px;
-                transition: var(--transition);
+        }
+        
+        /* Admin Panel Styles */
+        .admin-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 20000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .admin-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+        }
+        
+        .admin-container {
+            position: relative;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            animation: modalSlideIn 0.4s ease-out;
+        }
+        
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(-20px);
             }
-            
-            .emoji-btn:hover {
-                background: #f0f0f0;
-                transform: scale(1.2);
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
             }
-            
-            /* Powered By */
-            .powered-by {
-                text-align: center;
-                padding: 8px;
-                font-size: 11px;
-                color: #999;
-                background: #f8f9fa;
-            }
-            
-            /* Admin Panel Styles */
-            .admin-panel {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0,0,0,0.5);
-                z-index: 20000;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                backdrop-filter: blur(5px);
+        }
+        
+        .admin-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .admin-header h2 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .admin-close {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        .admin-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+        
+        .admin-content {
+            padding: 0;
+            max-height: calc(90vh - 80px);
+            overflow-y: auto;
+        }
+        
+        .admin-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .admin-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        .admin-content::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+        
+        /* Login Section */
+        .login-form {
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .login-form h3 {
+            margin-bottom: 24px;
+            color: var(--primary-color);
+        }
+        
+        /* Admin Tabs */
+        .admin-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+            overflow-x: auto;
+        }
+        
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 16px 20px;
+            cursor: pointer;
+            font-weight: 500;
+            color: #666;
+            transition: var(--transition);
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab-btn:hover {
+            background: rgba(102, 126, 234, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .tab-btn.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+            background: white;
+        }
+        
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            padding: 24px;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .tab-content h3 {
+            margin-top: 0;
+            margin-bottom: 24px;
+            color: var(--primary-color);
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 8px;
+        }
+        
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .admin-input, .admin-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+        
+        .admin-input:focus, .admin-textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .admin-textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .color-input {
+            width: 60px;
+            height: 40px;
+            padding: 0;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: normal;
+            cursor: pointer;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-color);
+        }
+        
+        /* Color Grid */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+        
+        /* Buttons */
+        .admin-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        
+        .admin-btn.primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+        
+        .admin-btn.secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .admin-btn.accent {
+            background: var(--accent-color);
+            color: white;
+        }
+        
+        .admin-btn.danger {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .admin-btn.large {
+            padding: 16px 32px;
+            font-size: 16px;
+        }
+        
+        .admin-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .admin-btn:active {
+            transform: translateY(0);
+        }
+        
+        /* Analytics */
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .stat-card h4 {
+            margin: 0 0 8px 0;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        /* Export/Import Sections */
+        .export-section, .import-section, .backup-section {
+            margin-bottom: 32px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .export-section h4, .import-section h4, .backup-section h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+        
+        .file-input {
+            margin-bottom: 12px;
+            padding: 8px;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            width: 100%;
+        }
+        
+        /* Admin Actions */
+        .admin-actions {
+            padding: 24px;
+            background: #f8f9fa;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        /* Status Messages */
+        .status-message, .error-message, .admin-message {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin: 12px 0;
+            font-weight: 500;
+        }
+        
+        .status-message.success, .admin-message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status-message.error, .error-message, .admin-message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .status-message.info, .admin-message.info {
+            background: #cce7ff;
+            color: #004085;
+            border: 1px solid #b3d7ff;
+        }
+        
+        /* Admin Access Button */
+        .admin-access-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #6c757d, #495057);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 9998;
+            transition: var(--transition);
+            opacity: 0.7;
+        }
+        
+        .admin-access-btn:hover {
+            opacity: 1;
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .peterbot-container {
+                width: calc(100vw - 20px);
+                height: calc(100vh - 120px);
+                right: 10px;
+                bottom: 80px;
             }
             
             .admin-container {
-                background: white;
-                border-radius: var(--border-radius);
-                width: 90%;
-                max-width: 800px;
-                max-height: 90vh;
-                overflow: hidden;
-                box-shadow: var(--shadow);
-                animation: slideUp 0.3s ease-out;
-            }
-            
-            .admin-header {
-                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-                color: white;
-                padding: 20px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-            
-            .admin-header h2 {
-                margin: 0;
-                font-size: 20px;
-            }
-            
-            .admin-close {
-                background: rgba(255,255,255,0.2);
-                border: none;
-                color: white;
-                width: 32px;
-                height: 32px;
-                border-radius: 50%;
-                cursor: pointer;
-                font-size: 18px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            
-            .admin-content {
-                padding: 20px;
-                max-height: calc(90vh - 80px);
-                overflow-y: auto;
-            }
-            
-            .login-form {
-                text-align: center;
-                max-width: 300px;
-                margin: 0 auto;
-            }
-            
-            .admin-input, .admin-textarea {
-                width: 100%;
-                padding: 12px;
-                border: 2px solid #ddd;
-                border-radius: 8px;
-                font-size: 14px;
-                transition: var(--transition);
-                margin-bottom: 12px;
-            }
-            
-            .admin-input:focus, .admin-textarea:focus {
-                outline: none;
-                border-color: var(--primary-color);
-            }
-            
-            .admin-textarea {
-                min-height: 80px;
-                resize: vertical;
-            }
-            
-            .admin-btn {
-                padding: 12px 24px;
-                border: none;
-                border-radius: 8px;
-                cursor: pointer;
-                font-weight: 600;
-                transition: var(--transition);
-                margin: 4px;
-            }
-            
-            .admin-btn.primary {
-                background: var(--primary-color);
-                color: white;
-            }
-            
-            .admin-btn.secondary {
-                background: #6c757d;
-                color: white;
-            }
-            
-            .admin-btn.accent {
-                background: var(--accent-color);
-                color: white;
-            }
-            
-            .admin-btn.danger {
-                background: #dc3545;
-                color: white;
-            }
-            
-            .admin-btn.large {
-                padding: 16px 32px;
-                font-size: 16px;
-            }
-            
-            .admin-btn:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                width: 95%;
+                max-height: 95vh;
             }
             
             .admin-tabs {
-                display: flex;
-                border-bottom: 2px solid #eee;
-                margin-bottom: 20px;
-                overflow-x: auto;
+                flex-wrap: wrap;
             }
             
             .tab-btn {
-                background: none;
-                border: none;
-                padding: 12px 20px;
-                cursor: pointer;
-                font-weight: 500;
-                color: #666;
-                border-bottom: 3px solid transparent;
-                transition: var(--transition);
-                white-space: nowrap;
-            }
-            
-            .tab-btn.active {
-                color: var(--primary-color);
-                border-bottom-color: var(--primary-color);
-            }
-            
-            .tab-content {
-                display: none;
-            }
-            
-            .tab-content.active {
-                display: block;
-            }
-            
-            .form-group {
-                margin-bottom: 20px;
-            }
-            
-            .form-group label {
-                display: block;
-                margin-bottom: 8px;
-                font-weight: 500;
-                color: var(--text-color);
-            }
-            
-            .checkbox-group label {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                margin-bottom: 8px;
+                flex: 1;
+                min-width: 120px;
             }
             
             .color-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 16px;
-            }
-            
-            .color-input {
-                width: 60px;
-                height: 40px;
-                border: none;
-                border-radius: 8px;
-                cursor: pointer;
+                grid-template-columns: 1fr;
             }
             
             .analytics-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 16px;
-                margin-bottom: 20px;
+                grid-template-columns: repeat(2, 1fr);
             }
             
-            .stat-card {
-                background: #f8f9fa;
-                padding: 20px;
-                border-radius: 12px;
-                text-align: center;
-            }
-            
-            .stat-card h4 {
-                margin: 0 0 8px 0;
-                color: #666;
-                font-size: 14px;
-            }
-            
-            .stat-number {
-                font-size: 32px;
-                font-weight: bold;
-                color: var(--primary-color);
+            .quick-replies-grid {
+                grid-template-columns: 1fr;
             }
             
             .admin-actions {
-                text-align: center;
-                margin-top: 30px;
-                padding-top: 20px;
-                border-top: 2px solid #eee;
+                flex-direction: column;
+            }
+            
+            .admin-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .analytics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .peterbot-toggle {
+                width: 50px;
+                height: 50px;
+                bottom: 15px;
+                right: 15px;
             }
             
             .admin-access-btn {
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                width: 40px;
-                height: 40px;
-                background: rgba(0,0,0,0.7);
-                border-radius: 50%;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 15000;
-                transition: var(--transition);
+                width: 35px;
+                height: 35px;
+                top: 15px;
+                right: 15px;
+            }
+        }
+        
+        /* Enhanced Message Styling */
+        .message-text a {
+            color: inherit;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+        
+        .message-text a:hover {
+            opacity: 0.8;
+        }
+        
+        .message-text code {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9em;
+        }
+        
+        .message-text strong {
+            font-weight: 600;
+        }
+        
+        /* Loading States */
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Accessibility Improvements */
+        .peterbot-container:focus-within {
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+        }
+        
+        .admin-btn:focus,
+        .control-btn:focus,
+        .quick-reply-btn:focus,
+        .peterbot-send-btn:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+        
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            .peterbot-container {
+                background: #2d3748;
+                border-color: #4a5568;
             }
             
-            .admin-access-btn:hover {
-                background: rgba(0,0,0,0.9);
-                transform: scale(1.1);
+            .peterbot-messages {
+                background: #1a202c;
             }
             
-            .error-message {
-                color: #dc3545;
-                font-size: 14px;
-                margin-top: 8px;
+            .message-text {
+                background: #2d3748;
+                color: #e2e8f0;
             }
             
-            .status-message {
-                padding: 12px;
-                border-radius: 8px;
-                margin-top: 12px;
-                font-weight: 500;
+            .bot-message .message-text {
+                background: #4a5568;
             }
             
-            .status-message.success {
-                background: #d4edda;
-                color: #155724;
-                border: 1px solid #c3e6cb;
+            .peterbot-input-container {
+                background: #2d3748;
+                border-color: #4a5568;
             }
             
-            .status-message.error {
-                background: #f8d7da;
-                color: #721c24;
-                border: 1px solid #f5c6cb;
+            .peterbot-input {
+                background: #1a202c;
+                border-color: #4a5568;
+                color: #e2e8f0;
             }
             
-            .status-message.info {
-                background: #d1ecf1;
-                color: #0c5460;
-                border: 1px solid #bee5eb;
+            .admin-container {
+                background: #2d3748;
+                color: #e2e8f0;
             }
             
-            .admin-message {
-                position: fixed;
-                top: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-                padding: 12px 24px;
-                border-radius: 8px;
-                font-weight: 500;
-                z-index: 25000;
-                animation: slideDown 0.3s ease-out;
+            .tab-content {
+                background: #2d3748;
             }
             
-            .admin-message.success {
-                background: #d4edda;
-                color: #155724;
-                border: 1px solid #c3e6cb;
+            .admin-input,
+            .admin-textarea {
+                background: #1a202c;
+                border-color: #4a5568;
+                color: #e2e8f0;
             }
-            
-            .admin-message.error {
-                background: #f8d7da;
-                color: #721c24;
-                border: 1px solid #f5c6cb;
-            }
-            
-            .admin-message.info {
-                background: #d1ecf1;
-                color: #0c5460;
-                border: 1px solid #bee5eb;
-            }
-            
-            /* Animations */
-            @keyframes float {
-                0%, 100% { transform: translateY(0px); }
-                50% { transform: translateY(-10px); }
-            }
-            
-            @keyframes bounce {
-                0%, 20%, 53%, 80%, 100% { transform: translateY(0); }
-                40%, 43% { transform: translateY(-8px); }
-                70% { transform: translateY(-4px); }
-                90% { transform: translateY(-2px); }
-            }
-            
-            @keyframes pulse {
-                0% { opacity: 1; }
-                50% { opacity: 0.5; }
-                100% { opacity: 1; }
-            }
-            
-            @keyframes slideUp {
-                from {
-                    opacity: 0;
-                    transform: translateY(20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-            
-            @keyframes slideDown {
-                from {
-                    opacity: 0;
-                    transform: translateX(-50%) translateY(-20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateX(-50%) translateY(0);
-                }
-            }
-            
-            @keyframes fadeInUp {
-                from {
-                    opacity: 0;
-                    transform: translateY(10px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-            
-            @keyframes typingDots {
-                0%, 80%, 100% {
-                    transform: scale(0);
-                    opacity: 0.5;
-                }
-                40% {
-                    transform: scale(1);
-                    opacity: 1;
-                }
-            }
-            
-            /* Scrollbar Styling */
-            .chat-messages::-webkit-scrollbar,
-            .admin-content::-webkit-scrollbar {
-                width: 6px;
-            }
-            
-            .chat-messages::-webkit-scrollbar-track,
-            .admin-content::-webkit-scrollbar-track {
-                background: #f1f1f1;
-                border-radius: 3px;
-            }
-            
-            .chat-messages::-webkit-scrollbar-thumb,
-            .admin-content::-webkit-scrollbar-thumb {
-                background: #c1c1c1;
-                border-radius: 3px;
-            }
-            
-            .chat-messages::-webkit-scrollbar-thumb:hover,
-            .admin-content::-webkit-scrollbar-thumb:hover {
-                background: #a8a8a8;
-            }
-            
-            /* Dark mode support */
-            @media (prefers-color-scheme: dark) {
-                .chat-interface {
-                    background: #1a1a1a;
-                    color: #ffffff;
-                }
-                
-                .chat-messages {
-                    background: #2d2d2d;
-                }
-                
-                .bot-message .message-text {
-                    background: #3a3a3a;
-                    color: #ffffff;
-                }
-                
-                .input-container {
-                    background: #3a3a3a;
-                    color: #ffffff;
-                }
-                
-                .user-input {
-                    color: #ffffff;
-                }
-                
-                .user-input::placeholder {
-                    color: #aaa;
-                }
-                
-                .quick-reply-btn {
-                    background: #3a3a3a;
-                    color: #ffffff;
-                    border-color: #555;
-                }
-                
-                .admin-container {
-                    background: #1a1a1a;
-                    color: #ffffff;
-                }
-                
-                .admin-input, .admin-textarea {
-                    background: #2d2d2d;
-                    color: #ffffff;
-                    border-color: #555;
-                }
-                
-                .stat-card {
-                    background: #2d2d2d;
-                    color: #ffffff;
-                }
-            }
-            
-            /* Print styles */
-            @media print {
-                .peterbot-container {
-                    display: none !important;
-                }
-            }
-            
-            /* High contrast mode */
-            @media (prefers-contrast: high) {
-                .chat-toggle {
-                    border: 2px solid #000;
-                }
-                
-                .message-text {
-                    border: 1px solid #000;
-                }
-                
-                .input-container {
-                    border: 2px solid #000;
-                }
-            }
-            
-            /* Reduced motion */
-            @media (prefers-reduced-motion: reduce) {
-                * {
-                    animation-duration: 0.01ms !important;
-                    animation-iteration-count: 1 !important;
-                    transition-duration: 0.01ms !important;
-                }
-            }
+        }
         </style>
     `;
     
     document.head.insertAdjacentHTML('beforeend', styles);
 }
 
-// Initialize bot when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializePeterBot);
-} else {
-    initializePeterBot();
+// Enhanced notification system
+function showNotification(message, type = 'info', duration = 3000) {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `peterbot-notification ${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <span class="notification-icon">
+                ${type === 'success' ? '✅' : type === 'error' ? '❌' : type === 'warning' ? '⚠️' : 'ℹ️'}
+            </span>
+            <span class="notification-message">${message}</span>
+        </div>
+        <button class="notification-close">×</button>
+    `;
+    
+    // Add notification styles if not already added
+    if (!document.querySelector('#notification-styles')) {
+        const notificationStyles = `
+            <style id="notification-styles">
+            .peterbot-notification {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: white;
+                border-radius: 8px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+                padding: 16px;
+                z-index: 25000;
+                max-width: 400px;
+                animation: notificationSlideIn 0.3s ease-out;
+                border-left: 4px solid;
+            }
+            
+            .peterbot-notification.success {
+                border-left-color: #4CAF50;
+                background: #f1f8e9;
+            }
+            
+            .peterbot-notification.error {
+                border-left-color: #f44336;
+                background: #ffebee;
+            }
+            
+            .peterbot-notification.warning {
+                border-left-color: #ff9800;
+                background: #fff3e0;
+            }
+            
+            .peterbot-notification.info {
+                border-left-color: #2196F3;
+                background: #e3f2fd;
+            }
+            
+            .notification-content {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+            
+            .notification-icon {
+                font-size: 18px;
+            }
+            
+            .notification-message {
+                flex: 1;
+                font-weight: 500;
+                color: #333;
+            }
+            
+            .notification-close {
+                background: none;
+                border: none;
+                font-size: 18px;
+                cursor: pointer;
+                color: #666;
+                padding: 0;
+                width: 20px;
+                height: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .notification-close:hover {
+                color: #333;
+            }
+            
+            @keyframes notificationSlideIn {
+                from {
+                    opacity: 0;
+                    transform: translateX(100%);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+            
+            @keyframes notificationSlideOut {
+                from {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+                to {
+                    opacity: 0;
+                    transform: translateX(100%);
+                }
+            }
+            </style>
+        `;
+        document.head.insertAdjacentHTML('beforeend', notificationStyles);
+    }
+    
+    // Add to page
+    document.body.appendChild(notification);
+    
+    // Close button functionality
+    const closeBtn = notification.querySelector('.notification-close');
+    closeBtn.addEventListener('click', () => {
+        removeNotification(notification);
+    });
+    
+    // Auto remove after duration
+    if (duration > 0) {
+        setTimeout(() => {
+            removeNotification(notification);
+        }, duration);
+    }
+    
+    return notification;
 }
+
+function removeNotification(notification) {
+    notification.style.animation = 'notificationSlideOut 0.3s ease-out';
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+        }
+    }, 300);
+}
+
+// Enhanced error handling
+window.addEventListener('error', function(e) {
+    console.error('PeterBot Error:', e.error);
+    showNotification('<span style="color: #f44336; font-weight: bold;">An error occurred. Please refresh the page.</span>', 'error');
+});
+
+// Performance monitoring
+function logPerformance(action, startTime) {
+    const endTime = performance.now();
+    const duration = endTime - startTime;
+    console.log(`PeterBot Performance - ${action}: ${duration.toFixed(2)}ms`);
+}
+
+// Initialize performance monitoring
+const initStartTime = performance.now();
+
+// Final initialization
+document.addEventListener('DOMContentLoaded', function() {
+    logPerformance('DOM Load', initStartTime);
+    
+    // Show welcome notification
+    setTimeout(() => {
+        showNotification(
+            '<span style="color: #667eea; font-weight: bold;">🚀 PeterBot v3.0 is ready!</span> Click the chat icon to get started.',
+            'success',
+            5000
+        );
+    }, 1000);
+});
 
 // Export for potential external use
 window.PeterBot = {
-    init: initializePeterBot,
-    show: showChat,
-    hide: hideChat,
-    sendMessage: function(message) {
-        if (typeof message === 'string' && message.trim()) {
-            document.getElementById('user-input').value = message;
-            sendMessage();
-        }
-    },
-    addCustomResponse: function(trigger, response) {
-        if (typeof trigger === 'string' && typeof response === 'string') {
-            KNOWLEDGE_BASE.customResponses = KNOWLEDGE_BASE.customResponses || {};
-            KNOWLEDGE_BASE.customResponses[trigger.toLowerCase()] = response;
-        }
-    },
-    updateConfig: function(newConfig) {
-        if (typeof newConfig === 'object') {
-            Object.assign(BOT_CONFIG, newConfig);
-        }
-    }
+    config: BOT_CONFIG,
+    addMessage: addBotMessage,
+    showNotification: showNotification,
+    version: '3.0'
 };
 
-})();
+console.log('%c🤖 PeterBot v3.0 Professional Edition Loaded Successfully! 🚀', 
+    'color: #667eea; font-size: 16px; font-weight: bold; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent;');
 
-// Additional utility functions for enhanced functionality
-(function() {
-    'use strict';
-    
-    // Advanced message processing
-    function processAdvancedMessage(message) {
-        // Handle special commands
-        if (message.startsWith('/')) {
-            return handleCommand(message);
-        }
-        
-        // Handle mathematical expressions
-        if (message.match(/^\s*[\d\+\-\*\/\(\)\s\.]+\s*=?\s*$/)) {
-            return handleMathExpression(message);
-        }
-        
-        // Handle date/time queries
-        if (message.match(/(what time|what date|today|tomorrow|yesterday)/i)) {
-            return handleDateTimeQuery(message);
-        }
-        
-        // Handle weather queries (mock response)
-        if (message.match(/(weather|temperature|forecast)/i)) {
-            return handleWeatherQuery(message);
-        }
-        
-        return null; // No special processing needed
-    }
-    
-    // Handle bot commands
-    function handleCommand(command) {
-        const cmd = command.toLowerCase().trim();
-        
-        switch (cmd) {
-            case '/help':
-                return `🤖 **Available Commands:**
-                
-• \`/help\` - Show this help message
-• \`/contact\` - Get Peter's contact information
-• \`/services\` - List available services
-• \`/clear\` - Clear chat history
-• \`/time\` - Show current time
-• \`/about\` - About Peter and his expertise
-• \`/quote\` - Get an inspirational quote
+console.log('%cFeatures: ✅ AI Integration ✅ Admin Panel ✅ Analytics ✅ Responsive Design', 
+    'color: #4CAF50; font-weight: bold;');
 
-You can also ask me anything about Peter's services, experience, or how he can help you! 😊`;
-                
-            case '/contact':
-                return `📞 **Contact Peter Directly:**
-                
-📧 **Email:** ${KNOWLEDGE_BASE.contact.email}
-📱 **WhatsApp:** ${KNOWLEDGE_BASE.contact.whatsapp}
-🌐 **Website:** ${KNOWLEDGE_BASE.contact.website}
-📍 **Location:** ${KNOWLEDGE_BASE.contact.location}
-
-**Best times to reach Peter:**
-${KNOWLEDGE_BASE.contact.availability}
-
-Feel free to reach out anytime! Peter typically responds within a few hours. 🚀`;
-                
-            case '/services':
-                return `🎯 **Peter's Services:**
-                
-${KNOWLEDGE_BASE.services.map(service => `• **${service.name}** - ${service.description}`).join('\n')}
-
-💡 Each service is tailored to your specific needs and goals. Contact Peter to discuss how he can help you achieve success!`;
-                
-            case '/clear':
-                setTimeout(() => {
-                    clearChatHistory();
-                }, 1000);
-                return "🧹 Chat history will be cleared in a moment...";
-                
-            case '/time':
-                const now = new Date();
-                return `🕐 **Current Time:** ${now.toLocaleString()}
-                
-📅 **Date:** ${now.toLocaleDateString('en-US', { 
-                    weekday: 'long', 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric' 
-                })}`;
-                
-            case '/about':
-                return `👨‍💼 **About Peter:**
-                
-${KNOWLEDGE_BASE.about}
-
-🏆 **Key Achievements:**
-• ${KNOWLEDGE_BASE.experience.years}+ years of professional experience
-• Helped 500+ businesses achieve their goals
-• Expert in multiple industries and technologies
-• Proven track record of delivering results
-
-💪 **What sets Peter apart:**
-• Personalized approach to every project
-• Deep understanding of business challenges
-• Innovative solutions that drive growth
-• Commitment to long-term partnerships`;
-                
-            case '/quote':
-                const quotes = [
-                    "Success is not final, failure is not fatal: it is the courage to continue that counts. - Winston Churchill",
-                    "The only way to do great work is to love what you do. - Steve Jobs",
-                    "Innovation distinguishes between a leader and a follower. - Steve Jobs",
-                    "Your limitation—it's only your imagination.",
-                    "Great things never come from comfort zones.",
-                    "Dream it. Wish it. Do it.",
-                    "Success doesn't just find you. You have to go out and get it.",
-                    "The harder you work for something, the greater you'll feel when you achieve it.",
-                    "Don't stop when you're tired. Stop when you're done.",
-                    "Wake up with determination. Go to bed with satisfaction."
-                ];
-                const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-                return `💭 **Inspirational Quote:**
-                
-"${randomQuote}"
-                
-Keep pushing forward! Peter is here to help you turn your dreams into reality. 🌟`;
-                
-            default:
-                return `❓ Unknown command: \`${command}\`
-                
-Type \`/help\` to see available commands, or just ask me anything about Peter's services! 😊`;
-        }
-    }
-    
-    // Handle mathematical expressions
-    function handleMathExpression(expression) {
-        try {
-            // Simple math evaluation (safe for basic operations)
-            const cleanExpr = expression.replace(/[^0-9+\-*/.() ]/g, '');
-            const result = Function('"use strict"; return (' + cleanExpr + ')')();
-            
-            if (isNaN(result)) {
-                throw new Error('Invalid calculation');
-            }
-            
-            return `🧮 **Calculation Result:**
-            
-\`${expression}\` = **${result}**
-
-Need help with more complex calculations or data analysis? Peter can assist with advanced mathematical modeling and business analytics! 📊`;
-        } catch (error) {
-            return `❌ I couldn't calculate that expression. Please check your math syntax.
-
-For complex calculations and data analysis, Peter offers professional consulting services! 📈`;
-        }
-    }
-    
-    // Handle date/time queries
-    function handleDateTimeQuery(message) {
-        const now = new Date();
-        const tomorrow = new Date(now);
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        const yesterday = new Date(now);
-        yesterday.setDate(yesterday.getDate() - 1);
-        
-        if (message.match(/time/i)) {
-            return `🕐 **Current Time:** ${now.toLocaleTimeString()}`;
-        } else if (message.match(/today/i)) {
-            return `📅 **Today is:** ${now.toLocaleDateString('en-US', { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-            })}`;
-        } else if (message.match(/tomorrow/i)) {
-            return `📅 **Tomorrow is:** ${tomorrow.toLocaleDateString('en-US', { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-            })}`;
-        } else if (message.match(/yesterday/i)) {
-            return `📅 **Yesterday was:** ${yesterday.toLocaleDateString('en-US', { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-            })}`;
-        }
-        
-        return `📅 **Current Date & Time:**
-        
-**Date:** ${now.toLocaleDateString('en-US', { 
-            weekday: 'long', 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
-        })}
-**Time:** ${now.toLocaleTimeString()}`;
-    }
-    
-    // Handle weather queries (mock response)
-    function handleWeatherQuery(message) {
-        return `🌤️ **Weather Information:**
-        
-I don't have access to real-time weather data, but I can connect you with Peter who can help you with:
-
-• **Business Climate Analysis** 📊
-• **Market Weather Reports** 📈
-• **Industry Trend Forecasting** 🔮
-• **Risk Assessment & Planning** ⚡
-
-For actual weather information, I recommend checking your local weather app or website.
-
-Contact Peter for business forecasting and strategic planning! 🎯`;
-    }
-    
-    // Clear chat history
-    function clearChatHistory() {
-        if (window.chatHistory) {
-            window.chatHistory.length = 0;
-            
-            if (window.currentSessionId) {
-                localStorage.removeItem(`peterbot_chat_${window.currentSessionId}`);
-            }
-            
-            const messagesContainer = document.querySelector('.messages-container');
-            if (messagesContainer) {
-                messagesContainer.innerHTML = '';
-            }
-            
-            // Add welcome message
-            setTimeout(() => {
-                if (window.addBotMessage) {
-                    window.addBotMessage(window.KNOWLEDGE_BASE.welcomeMessage);
-                }
-            }, 500);
-        }
-    }
-    
-    // Enhanced analytics tracking
-    function trackAdvancedAnalytics(eventType, data = {}) {
-        const analytics = JSON.parse(localStorage.getItem('peterbot_analytics') || '{}');
-        const today = new Date().toISOString().split('T')[0];
-        
-        // Initialize analytics structure
-        if (!analytics.events) analytics.events = {};
-        if (!analytics.daily) analytics.daily = {};
-        if (!analytics.sessions) analytics.sessions = {};
-        
-        // Track event
-        if (!analytics.events[eventType]) analytics.events[eventType] = 0;
-        analytics.events[eventType]++;
-        
-        // Track daily stats
-        if (!analytics.daily[today]) {
-            analytics.daily[today] = {
-                messages: 0,
-                sessions: 0,
-                users: 0,
-                events: {}
-            };
-        }
-        
-        if (!analytics.daily[today].events[eventType]) {
-            analytics.daily[today].events[eventType] = 0;
-        }
-        analytics.daily[today].events[eventType]++;
-        
-        // Track session data
-        if (window.currentSessionId) {
-            if (!analytics.sessions[window.currentSessionId]) {
-                analytics.sessions[window.currentSessionId] = {
-                    startTime: new Date().toISOString(),
-                    events: [],
-                    messageCount: 0
-                };
-            }
-            
-            analytics.sessions[window.currentSessionId].events.push({
-                type: eventType,
-                timestamp: new Date().toISOString(),
-                data: data
-            });
-            
-            if (eventType === 'message_sent' || eventType === 'message_received') {
-                analytics.sessions[window.currentSessionId].messageCount++;
-                analytics.daily[today].messages++;
-            }
-        }
-        
-        // Store updated analytics
-        localStorage.setItem('peterbot_analytics', JSON.stringify(analytics));
-    }
-    
-    // Export advanced functions to global scope
-    window.PeterBotAdvanced = {
-        processAdvancedMessage,
-        handleCommand,
-        clearChatHistory,
-        trackAdvancedAnalytics
-    };
-    
-    // Extend the main PeterBot object
-    if (window.PeterBot) {
-        Object.assign(window.PeterBot, {
-            processAdvanced: processAdvancedMessage,
-            runCommand: handleCommand,
-            clearHistory: clearChatHistory,
-            track: trackAdvancedAnalytics
-        });
-    }
-    
-})();
-
-// Performance monitoring and optimization
-(function() {
-    'use strict';
-    
-    // Performance metrics
-    const performanceMetrics = {
-        startTime: performance.now(),
-        loadTime: 0,
-        messageCount: 0,
-        averageResponseTime: 0,
-        totalResponseTime: 0
-    };
-    
-    // Monitor bot performance
-    function monitorPerformance() {
-        performanceMetrics.loadTime = performance.now() - performanceMetrics.startTime;
-        
-        // Log performance metrics
-        console.log('PeterBot Performance Metrics:', {
-            loadTime: `${performanceMetrics.loadTime.toFixed(2)}ms`,
-            messageCount: performanceMetrics.messageCount,
-            averageResponseTime: `${performanceMetrics.averageResponseTime.toFixed(2)}ms`
-        });
-        
-        // Store performance data
-        localStorage.setItem('peterbot_performance', JSON.stringify(performanceMetrics));
-    }
-    
-    // Optimize images and assets
-    function optimizeAssets() {
-        // Lazy load images
-        const images = document.querySelectorAll('.peterbot-container img');
-        images.forEach(img => {
-            if ('loading' in HTMLImageElement.prototype) {
-                img.loading = 'lazy';
-            }
-        });
-        
-        // Preload critical assets
-        const criticalAssets = [
-            window.BOT_CONFIG?.avatar || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiM0Qzc5RkYiLz4KPHN2ZyB4PSI4IiB5PSI4IiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPgo8cGF0aCBkPSJNMTIgMkM2LjQ4IDIgMiA2LjQ4IDIgMTJzNC40OCAxMCAxMCAxMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnptLTIgMTVsLTUtNSAxLjQxLTEuNDFMMTAgMTQuMTdsNy41OS03LjU5TDE5IDhsLTkgOXoiLz4KPC9zdmc+Cjwvc3ZnPgo='
-        ];
-        
-        criticalAssets.forEach(src => {
-            const link = document.createElement('link');
-            link.rel = 'preload';
-            link.as = 'image';
-            link.href = src;
-            document.head.appendChild(link);
-        });
-    }
-    
-    // Memory management
-    function manageMemory() {
-        // Clean up old chat sessions (keep only last 10)
-        const sessions = JSON.parse(localStorage.getItem('peterbot_sessions_index') || '[]');
-        if (sessions.length > 10) {
-            const sessionsToRemove = sessions.slice(0, sessions.length - 10);
-            sessionsToRemove.forEach(sessionId => {
-                localStorage.removeItem(`peterbot_chat_${sessionId}`);
-            });
-            
-            const updatedSessions = sessions.slice(-10);
-            localStorage.setItem('peterbot_sessions_index', JSON.stringify(updatedSessions));
-        }
-        
-        // Clean up old analytics data (keep only last 30 days)
-        const analytics = JSON.parse(localStorage.getItem('peterbot_analytics') || '{}');
-        if (analytics.daily) {
-            const thirtyDaysAgo = new Date();
-            thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-            
-            Object.keys(analytics.daily).forEach(date => {
-                if (new Date(date) < thirtyDaysAgo) {
-                    delete analytics.daily[date];
-                }
-            });
-            
-            localStorage.setItem('peterbot_analytics', JSON.stringify(analytics));
-        }
-    }
-    
-    // Error handling and recovery
-    function setupErrorHandling() {
-        window.addEventListener('error', function(event) {
-            console.error('PeterBot Error:', event.error);
-            
-            // Log error for debugging
-            const errorLog = JSON.parse(localStorage.getItem('peterbot_errors') || '[]');
-            errorLog.push({
-                message: event.error?.message || 'Unknown error',
-                stack: event.error?.stack || 'No stack trace',
-                timestamp: new Date().toISOString(),
-                url: event.filename,
-                line: event.lineno
-            });
-            
-            // Keep only last 50 errors
-            if (errorLog.length > 50) {
-                errorLog.splice(0, errorLog.length - 50);
-            }
-            
-            localStorage.setItem('peterbot_errors', JSON.stringify(errorLog));
-        });
-        
-        // Handle unhandled promise rejections
-        window.addEventListener('unhandledrejection', function(event) {
-            console.error('PeterBot Unhandled Promise Rejection:', event.reason);
-        });
-    }
-    
-    // Initialize performance monitoring
-    function initializePerformanceMonitoring() {
-        // Monitor when bot is fully loaded
-        if (document.readyState === 'complete') {
-            setTimeout(monitorPerformance, 100);
-        } else {
-            window.addEventListener('load', () => {
-                setTimeout(monitorPerformance, 100);
-            });
-        }
-        
-        // Optimize assets
-        optimizeAssets();
-        
-        // Setup memory management
-        setInterval(manageMemory, 5 * 60 * 1000); // Every 5 minutes
-        
-        // Setup error handling
-        setupErrorHandling();
-        
-        // Monitor performance periodically
-        setInterval(() => {
-            monitorPerformance();
-        }, 60 * 1000); // Every minute
-    }
-    
-    // Track message response time
-    function trackResponseTime(startTime) {
-        const responseTime = performance.now() - startTime;
-        performanceMetrics.messageCount++;
-        performanceMetrics.totalResponseTime += responseTime;
-        performanceMetrics.averageResponseTime = performanceMetrics.totalResponseTime / performanceMetrics.messageCount;
-        
-        return responseTime;
-    }
-    
-    // Export performance functions
-    window.PeterBotPerformance = {
-        monitor: monitorPerformance,
-        optimize: optimizeAssets,
-        trackResponse: trackResponseTime,
-        getMetrics: () => ({ ...performanceMetrics })
-    };
-    
-    // Initialize performance monitoring
-    initializePerformanceMonitoring();
-    
-})();
-
-// Final initialization and cleanup
-(function() {
-    'use strict';
-    
-    // Ensure bot is properly initialized
-    function ensureBotInitialization() {
-        let attempts = 0;
-        const maxAttempts = 10;
-        
-        const checkInitialization = () => {
-            attempts++;
-            
-            if (window.PeterBot && document.querySelector('.peterbot-container')) {
-                console.log('✅ PeterBot successfully initialized');
-                return;
-            }
-            
-            if (attempts < maxAttempts) {
-                setTimeout(checkInitialization, 500);
-            } else {
-                console.error('❌ PeterBot failed to initialize after', maxAttempts, 'attempts');
-                
-                // Attempt emergency initialization
-                try {
-                    if (window.initializePeterBot) {
-                        window.initializePeterBot();
-                    }
-                } catch (error) {
-                    console.error('Emergency initialization failed:', error);
-                }
-            }
-        };
-        
-        checkInitialization();
-    }
-    
-    // Cleanup function for page unload
-    function cleanup() {
-        // Save any pending data
-        if (window.saveChatHistory) {
-            window.saveChatHistory();
-        }
-        
-        // Track session end
-        if (window.PeterBotAdvanced?.trackAdvancedAnalytics) {
-            window.PeterBotAdvanced.trackAdvancedAnalytics('session_end');
-        }
-        
-        // Clear any intervals or timeouts
-        if (window.botIntervals) {
-            window.botIntervals.forEach(clearInterval);
-        }
-        
-        if (window.botTimeouts) {
-            window.botTimeouts.forEach(clearTimeout);
-        }
-    }
-    
-    // Setup cleanup handlers
-    window.addEventListener('beforeunload', cleanup);
-    window.addEventListener('pagehide', cleanup);
-    
-    // Ensure initialization
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', ensureBotInitialization);
-    } else {
-        ensureBotInitialization();
-    }
-    
-    // Global success message
-    console.log(`
-    🤖 PeterBot v${window.BOT_CONFIG?.version || '1.0.0'} Loaded Successfully!
-    ();
-
+console.log('%cDeveloped by Peter | Contact: petereluwade55@gmail.com', 
+    'color: #666; font-style: italic;');
 
